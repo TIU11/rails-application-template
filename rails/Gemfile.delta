@@ -1,0 +1,36 @@
+gem 'authlogic' # Authentication
+gem 'cancan' # Authorization
+gem 'friendly_id', '~>4.0'
+gem 'will_paginate'
+gem 'exception_notification'
+gem 'underscore-rails'
+gem 'active_model_serializers'
+
+# Loads environment variables from .env into ENV, automagically.
+gem 'dotenv-rails'
+
+group :development do
+  gem 'capistrano'
+  gem 'rvm-capistrano'
+
+  # Use 'thin' to avoid "Could not determine content-length of response body." warnings.
+  # See http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h
+  gem 'thin'
+
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'rails_best_practices'
+  gem 'pry-rails'
+end
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'compass-rails', '~> 1.0.3'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'therubyracer', :platforms => :ruby
+
+  gem 'less-rails' # For Twitter Bootstrap
+  gem 'twitter-bootstrap-rails'
+end

@@ -1,66 +1,15 @@
-#
-# Gemfile
-#
-gem 'authlogic'
-gem 'cancan'
-gem 'friendly_id'
-gem 'will_paginate'
-gem 'exception_notification'
-gem 'underscore-rails'
-gem 'active_model_serializers'
-gem 'dotenv-rails'
-
-gem_group :development do
-  gem 'capistrano'
-  gem 'rvm-capistrano'
-
-  # Use 'thin' to avoid "Could not determine content-length of response body." warnings.
-  # See http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h
-  gem 'thin'
-
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'rails_best_practices'
-  gem 'pry-rails'
-end
-
-gem_group :assets do
-  gem 'compass-rails', '~> 1.0.3'
-
-  gem 'therubyracer', :platforms => :ruby
-  gem 'less-rails' # For Twitter Bootstrap
-  gem 'twitter-bootstrap-rails'
-end
-
-#
-# Config Files
-#
-
 # Download template files
 git archive: "--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar --verbose master:rails | (tar xf -)"
-gsub_file 'lib/custom_public_exceptions.rb', "%@app_name.camelize%", @app_name.camelize
 
-#
-# Configure Environments
-#
-application <<-CONFIG
-    # Action Mailer
-    config.action_mailer.delivery_method = :sendmail
-    config.action_mailer.perform_deliveries = true
-    config.action_mailer.raise_delivery_errors = true
-    config.action_mailer.smtp_settings = {
-      :address => 'mr.tiu11.org',
-      :domain => 'tiu11.org'
-    }
-    config.action_mailer.default_url_options = {
-      :host => "localhost:3000"
-    }
-    config.action_mailer.asset_host = "http://localhost:3000/"
+gsub_file 'lib/custom_public_exceptions.rb', "%@app_name%", @app_name.underscore.camelize
 
-    # Exception Handler
-    require "custom_public_exceptions"
-    config.exceptions_app = CustomPublicExceptions.new Rails.public_path
-CONFIG
+insert_into_file 'config/application.rb', open('config/application.rb.delta').read, after: "config.assets.version = '1.0'"
+remove_file 'config/application.rb.delta'
+gsub_file 'config/application.rb', "# config.time_zone = 'Central Time (US & Canada)'", "config.time_zone = 'Eastern Time (US & Canada)'"
+gsub_file 'config/application.rb', "[:password]", "[:password, :password_confirmation]"
+
+insert_into_file 'Gemfile', open('Gemfile.delta').read, before: '# Gems used only for assets and not required'
+remove_file 'Gemfile.delta'
 
 copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/demo.rb"
 uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
