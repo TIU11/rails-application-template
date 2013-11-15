@@ -10,6 +10,8 @@ To see what the template does, you may wish to first generate a default app:
 
     rails new myApp
     cd myApp
+    capify .
+    rails g exception_notification:install
     git init
     git add .
     git commit -m "Initialized with `rails new`"
@@ -19,6 +21,7 @@ To see what the template does, you may wish to first generate a default app:
 # Post-setup
 
     rvm --ruby-version use 1.9.3@my_app # generates .ruby-version and .ruby-gemset
+    tidy up the Gemfile
 
 # Credits
 

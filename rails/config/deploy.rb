@@ -1,0 +1,46 @@
+# Multistage
+# Stage-specific settings found in config/deploy/<stage>.rb
+set :stages, %w(production demo)
+set :default_stage, "demo"
+require 'capistrano/ext/multistage'
+
+set :application, "set your application name here"
+set :repository,  "git@bitbucket.org:tiu/#{application}.git"
+set :deploy_to, "/export/home/tiu11.org/#{application}"
+set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
+set :branch, "master"
+set :deploy_via, :remote_cache # Only fetch changes since last
+
+# Bundler integration (bundle install)
+# http://gembundler.com/deploying.html
+require "bundler/capistrano"
+set :bundle_without, [:development, :test]
+
+# RVM integration
+# http://beginrescueend.com/integration/capistrano/
+set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")
+set :rvm_type, :system
+require "rvm/capistrano"
+
+# Dotenv integration
+# symlinks the .env located in /path/to/shared in the new release
+require "dotenv/capistrano"
+
+# If you are using Passenger mod_rails uncomment this:
+namespace :deploy do
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+
+  desc "Change group to www-data"
+  task :update_group, :roles => [ :app, :db, :web ] do
+    run "sudo chown -Rh `whoami`:www-data #{deploy_to}"
+    run "sudo chmod -R g+w #{deploy_to}"
+  end
+end
+
+before  'deploy:setup', 'rvm:install_ruby'
+after   "deploy:update_code", "deploy:migrate"
+after   "deploy:restart", "deploy:cleanup" # keep last 5 releases

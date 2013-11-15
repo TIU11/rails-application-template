@@ -34,3 +34,4 @@ group :assets do
   gem 'less-rails' # For Twitter Bootstrap
   gem 'twitter-bootstrap-rails'
 end
+
