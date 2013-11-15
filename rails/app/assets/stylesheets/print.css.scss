@@ -1,0 +1,27 @@
+@media print {
+
+  /* Hide Elements */
+  nav, .form-actions, .btn-group, #atlwdg-trigger {
+    display: none;
+  }
+
+  /* Remove Backgrounds and Box Shadows */
+  header, footer, body {
+    background: none;
+  }
+
+  /* Adjust Font Size */
+  body {
+    font-size: 12pt;
+    padding: 0;
+  }
+
+  /* Layout Alterations */
+
+
+  /* Show URLs */
+  footer p a:after {
+    content: " (" attr(href) ")";
+  }
+
+}

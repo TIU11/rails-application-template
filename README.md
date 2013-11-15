@@ -4,7 +4,7 @@ Bootstraps a Rails project, with customizations beyond a default `rails new myAp
 
 # Getting Started
 
-    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/template.rb
+    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb
 
 To see what the template does, you may wish to first generate a default app:
 
@@ -14,7 +14,7 @@ To see what the template does, you may wish to first generate a default app:
     git add .
     git commit -m "Initialized with `rails new`"
     cd ..
-    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/template.rb
+    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb
 
 # Post-setup
 

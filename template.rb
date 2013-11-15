@@ -26,6 +26,9 @@ end
 
 gem_group :assets do
   gem 'compass-rails', '~> 1.0.3'
+
+  gem 'therubyracer', :platforms => :ruby
+  gem 'less-rails' # For Twitter Bootstrap
   gem 'twitter-bootstrap-rails'
 end
 
@@ -33,14 +36,9 @@ end
 # Config Files
 #
 
-# directory 'rails', '.' # copy template files
-
-file '.env', <<-CONFIG
-# .env should NOT be checked in to source control
-SECRET_KEY=secret # replace with `rake secret`
-DATABASE_PASSWORD=secret
-GOOGLE_ANALYTICS=UA-12345678-9
-CONFIG
+# Download template files
+git archive: "--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar --verbose master:rails | (tar xf -)"
+gsub_file 'lib/custom_public_exceptions.rb', "%@app_name.camelize%", @app_name.camelize
 
 #
 # Configure Environments
@@ -58,6 +56,10 @@ application <<-CONFIG
       :host => "localhost:3000"
     }
     config.action_mailer.asset_host = "http://localhost:3000/"
+
+    # Exception Handler
+    require "custom_public_exceptions"
+    config.exceptions_app = CustomPublicExceptions.new Rails.public_path
 CONFIG
 
 copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/demo.rb"
@@ -74,5 +76,6 @@ remove_file 'app/assets/images/rails.png'
 generate 'exception_notification:install'
 generate 'cancan:ability'
 run "capify ."
+generate 'bootstrap:install less'
 
 say_status :end, "#{@app_name} Complete!"
