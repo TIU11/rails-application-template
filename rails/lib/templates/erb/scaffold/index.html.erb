@@ -1,0 +1,48 @@
+<h2>Listing <%= plural_table_name %></h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+  <% attributes.each do |attribute| -%>
+      <th><%= attribute.human_name %></th>
+  <% end -%>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%%= content_tag_for(:tr, @<%= plural_table_name %>) do |<%= singular_table_name %>| %>
+  <% attributes.each do |attribute| -%>
+      <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+  <% end -%>
+      <td>
+        <%% if can? :show, <%= singular_table_name %> %>
+          <%%= link_to <%= singular_table_name %>, {:class => "btn btn-mini"} do %>
+            <i class="icon-file"></i> Show
+          <%% end %>
+        <%% end %>
+
+        <%% if can? :edit, <%= singular_table_name %> %>
+          <%%= link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>), {:class => "btn btn-mini"} do %>
+            <i class="icon-pencil"></i> Edit
+          <%% end %>
+        <%% end %>
+
+        <%% if can? :delete, <%= singular_table_name %> %>
+          <%%= link_to <%= singular_table_name %>, {data: { :confirm => 'Are you sure?' }, method: :delete, :class => "btn btn-mini"} do %>
+            <i class="icon-remove"></i> Destroy
+          <%% end %>
+        <%% end %>
+      </td>
+    <%% end %>
+  </tbody>
+</table>
+
+
+<%% if can? :create, <%= human_name %> %>
+  <div class="form-actions">
+    <%%= link_to new_<%= singular_table_name %>_path, {:class => 'btn'} do %>
+      <i class="icon-plus"></i> New <%= human_name %>
+    <%% end %>
+  </div>
+<%% end %>
