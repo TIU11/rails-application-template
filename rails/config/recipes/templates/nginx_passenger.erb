@@ -1,0 +1,14 @@
+server {
+    listen         80;
+    server_name    <%= application %>.dev.tiu11.org;
+    root /export/home/tiu11.org/<%= application %>/current/public;
+    passenger_enabled on;
+    rails_env "dev";
+
+    # (Use in Production. Breaks assets in Development.)
+    #
+    # Far-future Expiration for static resources
+    # location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+    #       expires 1y;
+    # }
+}

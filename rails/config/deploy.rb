@@ -4,14 +4,15 @@ set :stages, %w(production demo dev)
 set :default_stage, "demo"
 require 'capistrano/ext/multistage'
 
-set :application, "set your application name here"
+set :top_level_domain, "tiu11.org"
 set :repository,  "git@bitbucket.org:tiu/#{application}.git"
-set :deploy_to, "/export/home/tiu11.org/#{application}"
+set :deploy_to, "/export/home/#{top_level_domain}/#{application}"
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 set :branch, "master"
 set :deploy_via, :remote_cache # Only fetch changes since last
 
 default_run_options[:pty] = true  # Must be set for the password prompt from git to work
+ssh_options[:forward_agent] = true
 
 # Bundler integration (bundle install)
 # http://gembundler.com/deploying.html
@@ -27,6 +28,10 @@ require "rvm/capistrano"
 # Dotenv integration
 # symlinks the .env located in /path/to/shared in the new release
 require "dotenv/capistrano"
+
+# Load recipies
+load "config/recipes/base"
+load "config/recipes/nginx"
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
