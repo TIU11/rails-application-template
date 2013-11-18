@@ -24,11 +24,43 @@ gsub_file 'config/initializers/exception_notification.rb', "APP SHORT NAME", @ap
 # Remove Junk
 #
 remove_file 'app/assets/images/rails.png'
+remove_file 'public/index.html'
 
 #
 # Generate and Setup
 #
 generate 'cancan:ability'
 generate 'bootstrap:install less'
+
+if yes?("Initialize the Bitbucket Git repository? (yN)")
+  require 'json'
+
+  # Create Bitbucket Repository
+  # @see https://confluence.atlassian.com/display/BITBUCKET/repository+Resource#repositoryResource-POSTanewrepository
+  data = {
+    scm: 'git',
+    is_private: true,
+    forking_policy: 'allow_forks',
+    name: app_name,
+    language: 'ruby'
+  }
+  repo_slug = @app_name.parameterize
+  owner = 'tiu'
+  credentials = ask("What are your TIU Bitbucket credentials? (username:password)").strip # TODO: can we drop this prompt?
+  # --user username:password
+  # --pubkey ~/.ssh/id_rsa.pub # TODO: can we make this work???
+  run "curl --request POST --user #{credentials} --header 'Content-Type: application/json' https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug} --data '#{data.to_json}'"
+
+  # Add code to the repository
+  git :init
+  git add: '--all .', commit: "-m 'Applied Rails Application Template"
+  git remote: "add origin ssh://git@bitbucket.org/#{owner}/#{@app_name.parameterize}.git"
+  git push: "-u origin --all"
+
+  if yes?("Deploy? (yN)")
+    run "cap deploy:setup" # TODO: nginx configuration
+    run "cap deploy"
+  end
+end
 
 say_status :end, "#{@app_name} Complete!"
