@@ -22,6 +22,8 @@ To see what the template does, you may wish to first generate a default app:
 
     rvm --ruby-version use 1.9.3@my_app # generates .ruby-version and .ruby-gemset
     tidy up the Gemfile
+    add dev, demo, production deployment keys to Bitbucket
+    update hostnames for dev, demo, production servers in config/deploy/<environment>.rb
 
 # Credits
 
