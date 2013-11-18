@@ -1,6 +1,6 @@
 # Multistage
 # Stage-specific settings found in config/deploy/<stage>.rb
-set :stages, %w(production demo)
+set :stages, %w(production demo dev)
 set :default_stage, "demo"
 require 'capistrano/ext/multistage'
 

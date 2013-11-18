@@ -13,6 +13,7 @@ gsub_file 'config/application.rb', "[:password]", "[:password, :password_confirm
 insert_into_file 'Gemfile', open('Gemfile.delta').read, before: '# Gems used only for assets and not required'
 remove_file 'Gemfile.delta'
 
+copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/dev.rb"
 copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/demo.rb"
 uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
 
@@ -53,13 +54,22 @@ if yes?("Initialize the Bitbucket Git repository? (yN)")
 
   # Add code to the repository
   git :init
-  git add: '--all .', commit: "-m 'Applied Rails Application Template"
+  git add: '--all .', commit: "-m 'Applied Rails Application Template'"
   git remote: "add origin ssh://git@bitbucket.org/#{owner}/#{@app_name.parameterize}.git"
   git push: "-u origin --all"
 
   if yes?("Deploy? (yN)")
-    run "cap deploy:setup" # TODO: nginx configuration
-    run "cap deploy"
+    # Add deploy keys to the repository
+    key = `ssh dev.tiu11.org "cat ~/.ssh/id_rsa.pub"`
+    label = key.split(' ')[2]
+    data = {
+      key: key,
+      label: label
+    }
+    run "curl --request POST --user #{credentials} --header 'Content-Type: application/json' https://bitbucket.org/api/1.0/repositories/#{owner}/#{repo_slug}/deploy-keys --data '#{data.to_json}'"
+
+    run "cap dev deploy:setup" # TODO: nginx configuration
+    run "cap dev deploy"
   end
 end
 

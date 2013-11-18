@@ -4,19 +4,25 @@ Bootstraps a Rails project, with customizations beyond a default `rails new myAp
 
 # Getting Started
 
+Choose your application name carefully, since a lot of work will be done using this name.
+
     rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb
 
 To see what the template does, you may wish to first generate a default app:
 
     rails new myApp
     cd myApp
-    capify .
-    rails g exception_notification:install
     git init
     git add .
     git commit -m "Initialized with `rails new`"
     cd ..
     rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb
+
+Assumes some things:
+
+* SSH keys are configured, so access to dev.tiu11.org doesn't prompt for a password
+* dev.tiu11.org has an SSH public key, and this is the desired Bitbucket deployment key
+* dev.tiu11.org has RVM (~> 1.20) installed
 
 # Post-setup
 
