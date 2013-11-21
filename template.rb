@@ -24,6 +24,11 @@ gsub_file 'config/initializers/exception_notification.rb', "APP SHORT NAME", @ap
 route "root to: 'exception#show'"
 route "match '/404' => 'exception#show'"
 
+# Process Templates
+template 'config/locales/en.yml'
+template 'config/initializers/exception_notification.rb'
+template '.ruby-gemset'
+
 #
 # Remove Junk
 #
@@ -33,6 +38,7 @@ remove_file 'public/index.html'
 #
 # Generate and Setup
 #
+run 'bundle install'
 generate 'bootstrap:install less'
 generate 'rspec:install'
 
