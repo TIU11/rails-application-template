@@ -1,0 +1,18 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+# #{I18n.t("app.title")}
+
+en:
+  app:
+    title: <%= Rails.application.class.parent_name.titleize %>
+    short_title: <%= Rails.application.class.parent_name.titleize.gsub(/[^A-Z]/, '') %>
+    messages:
+      welcome: Welcome to the <%= Rails.application.class.parent_name.titleize %>!
+      logout: You are now logged out
+      no_account: You cannot login with the provided credentials (%{email}). Contact your <%= Rails.application.class.parent_name.titleize %> administrator to obtain an account.
+      no_email: Your %{provider} identity doesn't provide your email, so we cannot find your account.
+  errors:
+    actions:
+      new: "create"
+      show: "view"
+      index: "list"

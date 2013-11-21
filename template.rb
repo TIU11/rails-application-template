@@ -21,6 +21,9 @@ gsub_file 'config/deploy.rb', "set your application name here", @app_name.parame
 
 gsub_file 'config/initializers/exception_notification.rb', "APP SHORT NAME", @app_name.titleize
 
+route "root to: 'exception#show'"
+route "match '/404' => 'exception#show'"
+
 #
 # Remove Junk
 #
@@ -30,8 +33,8 @@ remove_file 'public/index.html'
 #
 # Generate and Setup
 #
-generate 'cancan:ability'
 generate 'bootstrap:install less'
+generate 'rspec:install'
 
 if yes?("Initialize the Bitbucket Git repository? (yN)")
   require 'json'

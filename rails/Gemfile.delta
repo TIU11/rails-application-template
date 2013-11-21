@@ -1,13 +1,11 @@
 gem 'authlogic' # Authentication
 gem 'cancan' # Authorization
-gem 'friendly_id', '~>4.0'
+gem 'friendly_id', '~> 4.0'
 gem 'will_paginate'
-gem 'exception_notification'
-gem 'underscore-rails'
+gem 'underscore-rails'    # utility-belt library for JavaScript
+gem 'dotenv-rails'        # Loads environment variables from .env into ENV, automagically.
 gem 'active_model_serializers'
-
-# Loads environment variables from .env into ENV, automagically.
-gem 'dotenv-rails'
+gem 'exception_notification', '~> 4.0.1'
 
 group :development do
   gem 'capistrano'
@@ -35,3 +33,7 @@ group :assets do
   gem 'twitter-bootstrap-rails'
 end
 
+group :test, :development do
+  gem 'factory_girl_rails'
+  gem 'rspec-rails', '~> 2.0'
+end

@@ -1,4 +1,4 @@
-<h2>Listing <%= plural_table_name %></h2>
+<h2><%= plural_table_name %></h2>
 
 <table class="table table-striped">
   <thead>
@@ -15,25 +15,7 @@
   <% attributes.each do |attribute| -%>
       <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
   <% end -%>
-      <td>
-        <%% if can? :show, <%= singular_table_name %> %>
-          <%%= link_to <%= singular_table_name %>, {:class => "btn btn-mini"} do %>
-            <i class="icon-file"></i> Show
-          <%% end %>
-        <%% end %>
-
-        <%% if can? :edit, <%= singular_table_name %> %>
-          <%%= link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>), {:class => "btn btn-mini"} do %>
-            <i class="icon-pencil"></i> Edit
-          <%% end %>
-        <%% end %>
-
-        <%% if can? :delete, <%= singular_table_name %> %>
-          <%%= link_to <%= singular_table_name %>, {data: { :confirm => 'Are you sure?' }, method: :delete, :class => "btn btn-mini"} do %>
-            <i class="icon-remove"></i> Destroy
-          <%% end %>
-        <%% end %>
-      </td>
+      <td><%= render 'action_menu', <%= singular_table_name %>: <%= singular_table_name %> %></td>
     <%% end %>
   </tbody>
 </table>

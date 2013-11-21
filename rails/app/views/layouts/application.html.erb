@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html class="<%= @page_class %>">
+<head>
+  <!-- Release: <%= Rails.root.basename %> -->
+  <title>
+    <% if content_for?(:title) %>
+      <%= I18n.t('app.short_title') %> - <%= yield(:title) %>
+    <% else %>
+      <%= I18n.t('app.short_title') %> - <%= controller_name.titleize %>
+    <% end %>
+  </title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/ico" />
+</head>
+<body>
+  <div class="container">
+    <%= render 'shared/nav' %>
+
+    <div class="row">
+      <div class="span12">
+        <% if flash[:notice] %>
+          <p class="alert alert-info alert-block">
+            <%= raw(flash[:notice]) %>
+          </p>
+        <% end %>
+
+        <% if flash[:error] %>
+          <p class="alert alert-error alert-block">
+            <%= raw(flash[:error]) %>
+          </p>
+        <% end %>
+
+        <% if flash[:alert] %>
+          <p class="alert alert-error alert-block">
+            <%= raw(flash[:alert]) %>
+          </p>
+        <% end %>
+
+        <%= render 'shared/unsupported_browsers' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span12">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="span2">
+          <p class="text-center">
+            <%= image_tag 'tiulogo_titled.png' %>
+          </p>
+        </div>
+        <div class="span10">
+          <p>
+            Copyright &copy; <%= Date.today.year %> <a href="http://www.tiu11.org">Tuscarora Intermediate Unit 11</a><br>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
