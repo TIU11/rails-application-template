@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+
+    <table width="630" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF">
+      <tr>
+        <td width="20"><img style="display:block" alt="" width="20" height="1" border="0"></td>
+        <td width="590">
+          <%= yield %>
+        </td>
+        <td width="20"><img style="display:block" alt="" width="20" height="1" border="0"></td>
+      </tr>
+    </table>
+
+    <table width="630" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#FFFFFF">
+      <tr>
+        <td width="20" height="96"><img style="display:block" alt="" width="20" height="1" border="0"></td>
+        <td width="220">
+          <%= link_to image_tag("tiulogo_titled.png", :size => "220x53", :alt => "TIU Logo"), "http://tiu11.org" %>
+        </td>
+        <td>
+          Copyright &copy; <%= Date.today.year %> <a href="http://www.tiu11.org">Tuscarora Intermediate Unit 11</a>
+        </td>
+        <td width="20"><img style="display:block" alt="" width="20" height="1" border="0"></td>
+      </tr>
+    </table>
+
+  </body>
+</html>

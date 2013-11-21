@@ -1,0 +1,24 @@
+<h2>Change My Password</h2>
+
+<%= form_for @user, :url => password_reset_path, :method => :put do |f| %>
+
+  <%= render 'shared/error_messages', :target => @user %>
+
+  <div class="control-group">
+    <%= f.label :password, class: 'required control-label' %>
+    <div class="controls">
+      <%= f.password_field :password, :autocomplete => 'off' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :password_confirmation, class: 'required control-label' %>
+    <div class="controls">
+      <%= f.password_field :password_confirmation %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "Update my password and log me in", :class => "btn btn-primary"%>
+  </div>
+<% end %>

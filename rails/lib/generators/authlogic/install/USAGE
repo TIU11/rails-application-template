@@ -1,0 +1,20 @@
+Description:
+    Installs Authlogic and Cancan with default configurations.
+    Provide your own user fields, or just go with the boring defaults.
+    The "magic" Authlogic fields will be added for you.
+
+Example:
+    rails generate authlogic:install
+    rails generate authlogic:install email:string first_name:string last_name:string
+
+    This will create:
+        User scaffolding
+        User sessions
+        Password reset mechanism through email
+        UserMailer with a pretty layout
+        Login menu
+        etc. (review it all before checking it in)
+
+    You should then:
+        Review create_users migration before running `rake db:migrate`
+        Define authorization rules in ability.rb

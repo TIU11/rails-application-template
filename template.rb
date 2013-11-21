@@ -36,6 +36,10 @@ remove_file 'public/index.html'
 generate 'bootstrap:install less'
 generate 'rspec:install'
 
+if yes?("Create Users? (yN)")
+  generate 'authlogic:install'
+end
+
 if yes?("Initialize the Bitbucket Git repository? (yN)")
   require 'json'
 

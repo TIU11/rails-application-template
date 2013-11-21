@@ -1,0 +1,24 @@
+  acts_as_authentic  do |config|
+    config.perishable_token_valid_for 1.day # for password reset email
+    config.logged_in_timeout 1.hours
+  end
+
+  #
+  # Methods
+  #
+
+  def to_s
+    "#{email}"
+  end
+
+  private
+
+  # Assign user a default password
+  def ensure_generated_account_has_password
+    if self.password.nil? and self.new_record?
+      Rails.logger.debug "Generating random password for #{self.email}"
+      random_password = SecureRandom.urlsafe_base64(12)
+      self.password = random_password
+      self.password_confirmation = random_password
+    end
+  end
