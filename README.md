@@ -7,6 +7,10 @@ Bootstraps a Rails project, with customizations beyond a default `rails new myAp
 Choose your application name carefully, since a lot of work will be done using this name.
 
     rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb
+    cd myApp
+    rake db:migrate
+    rails server
+    open http://lvh.me:3000
 
 To see what the template does, you may wish to first generate a default app:
 
