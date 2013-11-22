@@ -4,12 +4,12 @@
 
 en:
   app:
-    title: <%= Rails.application.class.parent_name.titleize %>
-    short_title: <%= Rails.application.class.parent_name.titleize.gsub(/[^A-Z]/, '') %>
+    title: <%= app_name.titleize %>
+    short_title: <%= app_name.titleize.gsub(/[^A-Z]/, '') %>
     messages:
-      welcome: Welcome to the <%= Rails.application.class.parent_name.titleize %>!
+      welcome: Welcome to the <%= app_name.titleize %>!
       logout: You are now logged out
-      no_account: You cannot login with the provided credentials (%{email}). Contact your <%= Rails.application.class.parent_name.titleize %> administrator to obtain an account.
+      no_account: You cannot login with the provided credentials (%{email}). Contact your <%= app_name.titleize %> administrator to obtain an account.
       no_email: Your %{provider} identity doesn't provide your email, so we cannot find your account.
   errors:
     actions:

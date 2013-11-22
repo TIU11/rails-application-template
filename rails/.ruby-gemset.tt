@@ -1,1 +1,1 @@
-<%= Rails.application.class.parent_name.parameterize %>
+<%= app_name.parameterize %>

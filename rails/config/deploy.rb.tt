@@ -4,7 +4,7 @@ set :stages, %w(production demo dev)
 set :default_stage, "demo"
 require 'capistrano/ext/multistage'
 
-set :application, "set your application name here"
+set :application, "<%= app_name.parameterize %>"
 set :top_level_domain, "tiu11.org"
 set :repository,  "git@bitbucket.org:tiu/#{application}.git"
 set :deploy_to, "/export/home/#{top_level_domain}/#{application}"
