@@ -1,3 +1,6 @@
+<%
+  # @overrides https://github.com/rails/rails/blob/3-2-stable/railties/lib/rails/generators/erb/scaffold/templates/index.html.erb
+%>
 <h2><%= plural_table_name %></h2>
 
 <table class="table table-striped">
@@ -15,7 +18,7 @@
   <% attributes.each do |attribute| -%>
       <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
   <% end -%>
-      <td><%= render 'action_menu', <%= singular_table_name %>: <%= singular_table_name %> %></td>
+      <td><%%= render 'action_menu', <%= singular_table_name %>: <%= singular_table_name %> %></td>
     <%% end %>
   </tbody>
 </table>
