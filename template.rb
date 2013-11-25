@@ -43,6 +43,7 @@ remove_file 'public/index.html'
 
 #
 # Create gemset
+# @see https://rvm.io/workflow/scripting for explanation of `rvm do`
 #
 puts "Setting up RVM gemset and installing bundled gems (may take a while)".cyan.bold.bold
 current_ruby = `rvm current`.strip
