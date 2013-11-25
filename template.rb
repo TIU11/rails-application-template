@@ -42,7 +42,7 @@ remove_file 'app/assets/images/rails.png'
 remove_file 'public/index.html'
 
 #
-# Create gemset
+# Create and initialize gemset
 # @see https://rvm.io/workflow/scripting for explanation of `rvm do`
 #
 puts "Setting up RVM gemset and installing bundled gems (may take a while)".cyan.bold.bold
@@ -52,17 +52,18 @@ desired_ruby = current_ruby if desired_ruby.blank?
 gemset_name = app_name.titleize.parameterize
 run "rvm install #{desired_ruby}"
 run "rvm #{current_ruby} do rvm --ruby-version --create use #{desired_ruby}@#{gemset_name}"
-run "rvm #{desired_ruby}@#{gemset_name} do bundle install"
+@rvm = "rvm #{desired_ruby}@#{gemset_name}"
+run "#{@rvm} do bundle install"
+
+run "#{@rvm} do rails generate bootstrap:install less"
+run "#{@rvm} do rails generate rspec:install"
 
 #
 # Generate and Setup
 #
 
-generate 'bootstrap:install less'
-generate 'rspec:install'
-
 if yes?("Create Users? [yN]".cyan.bold)
-  generate 'authlogic:install'
+  run "#{@rvm} do rails generate authlogic:install"
 end
 
 if yes?("Initialize the Bitbucket Git repository? [yN]".cyan.bold)
