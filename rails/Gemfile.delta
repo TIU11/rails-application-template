@@ -1,9 +1,8 @@
 RAILS3-gem rails, '~> 3.2.16'-RAILS3
 RAILS4-gem rails, '~> 4.0.2'-RAILS4
 
-gem 'authlogic', '~> 3.1.0' # Authentication
+gem 'authlogic', '~> 3.1.2' # Authentication
 gem 'cancan', '~> 1.6.10'   # Authorization
-gem 'friendly_id', '~> 5.0.0'
 gem 'will_paginate', '~> 3.0'
 gem 'underscore-rails'      # utility-belt library for JavaScript
 gem 'dotenv-rails'          # Loads environment variables from .env into ENV, automagically.
@@ -38,7 +37,7 @@ RAILS3-
 # in production environments by default.
 group :assets do
 -RAILS3
-  gem 'compass-rails', '~> 1.0.3'
+  gem 'compass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
