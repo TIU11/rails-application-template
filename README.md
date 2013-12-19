@@ -14,6 +14,7 @@ Generate! Choose your application name carefully, since a lot of work will be do
 
     rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb
     cd myApp
+    bundle outdated              # See if the template has you stuck on some old, crusty code
     rake db:migrate
     rails server
     open http://lvh.me:3000
