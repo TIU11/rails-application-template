@@ -1,11 +1,23 @@
-gem 'authlogic' # Authentication
-gem 'cancan' # Authorization
-gem 'friendly_id', '~> 4.0'
-gem 'will_paginate'
-gem 'underscore-rails'    # utility-belt library for JavaScript
-gem 'dotenv-rails'        # Loads environment variables from .env into ENV, automagically.
-gem 'active_model_serializers'
+RAILS3-gem rails, '~> 3.2.16'-RAILS3
+RAILS4-gem rails, '~> 4.0.2'-RAILS4
+
+gem 'authlogic', '~> 3.1.0' # Authentication
+gem 'cancan', '~> 1.6.10'   # Authorization
+gem 'friendly_id', '~> 5.0.0'
+gem 'will_paginate', '~> 3.0'
+gem 'underscore-rails'      # utility-belt library for JavaScript
+gem 'dotenv-rails'          # Loads environment variables from .env into ENV, automagically.
 gem 'exception_notification', '~> 4.0.1'
+
+RAILS4-
+gem 'friendly_id', '~> 5.0.0'
+-RAILS4
+
+RAILS3-
+gem 'active_model_serializers'
+gem 'strong_parameters'
+gem 'friendly_id', '~> 4.0.0'
+-RAILS3
 
 group :development do
   gem 'capistrano'
@@ -21,9 +33,11 @@ group :development do
   gem 'pry-rails'
 end
 
+RAILS3-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+-RAILS3
   gem 'compass-rails', '~> 1.0.3'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -31,7 +45,9 @@ group :assets do
 
   gem 'less-rails' # For Twitter Bootstrap
   gem 'twitter-bootstrap-rails'
+RAILS3-
 end
+-RAILS3
 
 group :test, :development do
   gem 'factory_girl_rails'
