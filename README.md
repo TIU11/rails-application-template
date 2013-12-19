@@ -24,9 +24,10 @@ To see what the template does, you may wish to first generate a default app:
 
 Assumes some things:
 
-* rails 3.2.x is installed (on your localhost)
+* RVM ~> 1.20 and Rails ~> 3.2.x are installed
+    # see http://rvm.io/rvm/install
+    \curl -sSL https://get.rvm.io | bash -s stable --rails
 * XCode and command line tools (GCC needed to compile some gems)
-* RVM is installed (on localhost, dev, demo, production)
 * SSH keys are configured, so access to dev.tiu11.org doesn't prompt for a password
 * dev.tiu11.org has an SSH public key, and this is the desired Bitbucket deployment key
 * dev.tiu11.org has RVM (~> 1.20) installed
