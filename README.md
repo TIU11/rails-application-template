@@ -4,7 +4,14 @@ Bootstraps a Rails project, with customizations beyond a default `rails new myAp
 
 # Getting Started
 
-Choose your application name carefully, since a lot of work will be done using this name.
+First, update to the latest version of Rails (or you'll want to run `rake rails:update` when you do)
+
+    # 3.2.x latest
+    gem install rails -v "~> 3.2.0"
+    # or the latest, period.
+    gem install rails
+
+Generate! Choose your application name carefully, since a lot of work will be done using this name.
 
     rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb
     cd myApp
