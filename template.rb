@@ -8,8 +8,10 @@
 end
 
 require 'colored'
+require 'rails'
 
 RAILS4 = Rails.version > "4.0.0"
+say_status :rails_version, Rails.version
 
 # Download template files
 git archive: "--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar --verbose master:rails | (tar xf -)"
@@ -23,11 +25,11 @@ remove_file 'config/application.rb.delta'
 
 insert_into_file 'Gemfile', open('Gemfile.delta').read, before: '# Gems used only for assets and not required'
 if RAILS4 # delete Rails 3 sections
-  gsub_file 'Gemfile', /RAILS3-(?:.*)-RAILS3\n/, ''
-  gsub_file 'Gemfile', /-?RAILS4-?\n/, ''
+  gsub_file 'Gemfile', /RAILS3-(.*?)-RAILS3\n/m, ''
+  gsub_file 'Gemfile', /-?RAILS4-?\n?/, ''
 else # Delete Rails 4 sections
-  gsub_file 'Gemfile', /RAILS4-(?:.*)-RAILS4\n/, ''
-  gsub_file 'Gemfile', /-?RAILS3-?\n/, ''
+  gsub_file 'Gemfile', /RAILS4-(.*?)-RAILS4\n/m, ''
+  gsub_file 'Gemfile', /-?RAILS3-?\n?/, ''
 end
 remove_file 'Gemfile.delta'
 
