@@ -28,6 +28,7 @@ if RAILS4 # delete Rails 3 sections
   gsub_file 'Gemfile', /RAILS3-(.*?)-RAILS3\n/m, ''
   gsub_file 'Gemfile', /-?RAILS4-?\n?/, ''
   comment_lines 'Gemfile', "turbolinks"
+  comment_lines 'Gemfile', "jbuilder"
 else # Delete Rails 4 sections
   insert_into_file 'Gemfile', open('Gemfile.delta').read, before: '# Gems used only for assets and not required'
   gsub_file 'Gemfile', /RAILS4-(.*?)-RAILS4\n/m, ''

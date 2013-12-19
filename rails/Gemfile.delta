@@ -4,13 +4,13 @@ gem 'will_paginate', '~> 3.0'
 gem 'underscore-rails'      # utility-belt library for JavaScript
 gem 'dotenv-rails'          # Loads environment variables from .env into ENV, automagically.
 gem 'exception_notification', '~> 4.0.1'
+gem 'active_model_serializers'
 
 RAILS4-
 gem 'friendly_id', '~> 5.0.0'
 -RAILS4
 
 RAILS3-
-gem 'active_model_serializers'
 gem 'strong_parameters'
 gem 'friendly_id', '~> 4.0.0'
 -RAILS3
