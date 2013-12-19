@@ -20,7 +20,7 @@ gem 'friendly_id', '~> 4.0.0'
 -RAILS3
 
 group :development do
-  gem 'capistrano'
+  gem 'capistrano', '~> 2.15.5'
   gem 'rvm-capistrano'
 
   # Use 'thin' to avoid "Could not determine content-length of response body." warnings.
