@@ -1,6 +1,3 @@
-RAILS3-gem rails, '~> 3.2.16'-RAILS3
-RAILS4-gem rails, '~> 4.0.2'-RAILS4
-
 gem 'authlogic', '~> 3.1.2' # Authentication
 gem 'cancan', '~> 1.6.10'   # Authorization
 gem 'will_paginate', '~> 3.0'
@@ -52,3 +49,4 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 2.0'
 end
+

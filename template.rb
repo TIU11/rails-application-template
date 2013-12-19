@@ -23,11 +23,13 @@ gsub_file 'config/application.rb', "# config.time_zone = 'Central Time (US & Can
 gsub_file 'config/application.rb', "[:password]", "[:password, :password_confirmation]"
 remove_file 'config/application.rb.delta'
 
-insert_into_file 'Gemfile', open('Gemfile.delta').read, before: '# Gems used only for assets and not required'
 if RAILS4 # delete Rails 3 sections
+  insert_into_file 'Gemfile', open('Gemfile.delta').read, before: 'group :doc do'
   gsub_file 'Gemfile', /RAILS3-(.*?)-RAILS3\n/m, ''
   gsub_file 'Gemfile', /-?RAILS4-?\n?/, ''
+  comment_lines 'Gemfile', "turbolinks"
 else # Delete Rails 4 sections
+  insert_into_file 'Gemfile', open('Gemfile.delta').read, before: '# Gems used only for assets and not required'
   gsub_file 'Gemfile', /RAILS4-(.*?)-RAILS4\n/m, ''
   gsub_file 'Gemfile', /-?RAILS3-?\n?/, ''
 end

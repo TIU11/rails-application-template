@@ -6,10 +6,9 @@ Bootstraps a Rails project, with customizations beyond a default `rails new myAp
 
 First, update to the latest version of Rails (or you'll want to run `rake rails:update` when you do)
 
-    # 3.2.x latest
-    gem install rails -v "~> 3.2.0"
-    # or the latest, period.
-    gem install rails
+    gem install rails -v "~> 3.2.0" # 3.2.x latest
+    gem install rails               # or the latest, period.
+    gem upgrade bundler             # Rails 4.0.2 depends on bundler (< 2.0, >= 1.3.0)
 
 Generate! Choose your application name carefully, since a lot of work will be done using this name.
 
@@ -45,6 +44,11 @@ Assumes some things:
     tidy up the Gemfile
     add dev, demo, production deployment keys to Bitbucket
     update hostnames for dev, demo, production servers in config/deploy/<environment>.rb
+
+# Todo
+
+* Upgrade to [Capistrano 3](http://www.capistranorb.com/2013/06/01/release-announcement.html)
+* Updates for Rails 4.0
 
 # Credits
 
