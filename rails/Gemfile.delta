@@ -1,4 +1,4 @@
-gem 'authlogic', '~> 3.1.2' # Authentication
+gem 'authlogic', '~> 3.3.0' # Authentication
 gem 'cancan', '~> 1.6.10'   # Authorization
 gem 'will_paginate', '~> 3.0'
 gem 'underscore-rails'      # utility-belt library for JavaScript
