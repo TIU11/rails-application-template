@@ -1,6 +1,6 @@
-  # User Authentication
+# User Authentication
   resource :account, :controller => :users
   resource :user_session, :only => [:new, :create, :destroy]
-  match "/login" => "user_sessions#new", :as => :login
-  match "/logout" => "user_sessions#destroy", :as => :logout
+  get "/login" => "user_sessions#new", :as => :login
+  get "/logout" => "user_sessions#destroy", :as => :logout
   resources :password_resets, :only => [ :new, :create, :edit, :update ]

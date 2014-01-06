@@ -43,7 +43,7 @@ uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
 gsub_file "#{destination_root}/app/assets/javascripts/application.js", "//= require turbolinks", '' if RAILS4
 
 route "root to: 'exception#show'"
-route "match '/404' => 'exception#show'"
+get "match '/404' => 'exception#show'"
 
 # Process Templates
 template "#{destination_root}/config/locales/en.yml.tt"
