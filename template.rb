@@ -23,6 +23,7 @@ gsub_file 'config/application.rb', "# config.time_zone = 'Central Time (US & Can
 gsub_file 'config/application.rb', "[:password]", "[:password, :password_confirmation]"
 remove_file 'config/application.rb.delta'
 
+# Gemfile
 if RAILS4 # delete Rails 3 sections
   insert_into_file 'Gemfile', open('Gemfile.delta').read, before: 'group :doc do'
   gsub_file 'Gemfile', /RAILS3-(.*?)-RAILS3\n/m, ''
@@ -39,6 +40,7 @@ remove_file 'Gemfile.delta'
 copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/dev.rb"
 copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/demo.rb"
 uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
+gsub_file "#{destination_root}/app/assets/javascripts/application.js", "//= require turbolinks", '' if RAILS4
 
 route "root to: 'exception#show'"
 route "match '/404' => 'exception#show'"
