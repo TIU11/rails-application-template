@@ -18,7 +18,11 @@ git archive: "--remote=git@bitbucket.org:tiu/rails-application-template.git --fo
 
 # Configurations
 
-insert_into_file 'config/application.rb', open('config/application.rb.delta').read, after: "config.assets.version = '1.0'"
+if RAILS4
+  insert_into_file 'config/application.rb', open('config/application.rb.delta').read, before: "  end"
+else
+  insert_into_file 'config/application.rb', open('config/application.rb.delta').read, after: "config.assets.version = '1.0'"
+end
 gsub_file 'config/application.rb', "# config.time_zone = 'Central Time (US & Canada)'", "config.time_zone = 'Eastern Time (US & Canada)'"
 gsub_file 'config/application.rb', "[:password]", "[:password, :password_confirmation]"
 remove_file 'config/application.rb.delta'
