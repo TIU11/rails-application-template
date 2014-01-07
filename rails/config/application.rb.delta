@@ -1,5 +1,7 @@
 
 
+    config.i18n.enforce_available_locales = true
+
     # Action Mailer
     config.action_mailer.delivery_method = :sendmail
     config.action_mailer.perform_deliveries = true

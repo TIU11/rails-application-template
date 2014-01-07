@@ -14,11 +14,9 @@ class PasswordResetsController < ApplicationController
 
     if @password_reset.valid?
       @user = User.find_by_username_and_email(@password_reset.username, @password_reset.email)
-      if @user && @user.active?
+      if @user
         flash[:notice] = "Instructions to reset your password have been emailed to the registered email. " +
           "Please check your email."
-      elsif @user
-        @password_reset.errors[:base] = "Account is inactive and cannot be used for access."
       else
         @password_reset.errors[:base] = %{
           Unable to find an account matching the username and email you provided.
@@ -30,7 +28,11 @@ class PasswordResetsController < ApplicationController
       end
     end
 
-    if @user && @user.active?
+    if @user
+      if current_user == @user
+        current_user_session.destroy
+        flash[:alert] = I18n.t('app.messages.logout')
+      end
       @user.reset_perishable_token!
       UserMailer.password_reset(@user).deliver
       redirect_to root_url
