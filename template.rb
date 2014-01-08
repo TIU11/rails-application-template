@@ -16,8 +16,11 @@ say_status :rails_version, Rails.version
 # Download template files
 git archive: "--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar --verbose master:rails | (tar xf -)"
 
+#
 # Configurations
+#
 
+# config/application.rb
 if RAILS4
   insert_into_file 'config/application.rb', open('config/application.rb.delta').read, before: "  end"
 else
@@ -45,6 +48,8 @@ copy_file "#{destination_root}/config/environments/production.rb", "#{destinatio
 copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/demo.rb"
 uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
 gsub_file "#{destination_root}/app/assets/javascripts/application.js", "//= require turbolinks", '' if RAILS4
+
+gsub_file "#{destination_root}/config/initializers/secret_token.rb", /(secret_(key_base|token) = ).*/, "\1ENV['SECRET_TOKEN']"
 
 route "root to: 'exception#show'"
 route "get '/404' => 'exception#show'"

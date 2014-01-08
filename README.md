@@ -45,11 +45,24 @@ Assumes some things:
     tidy up the Gemfile
     add dev, demo, production deployment keys to Bitbucket
     update hostnames for dev, demo, production servers in config/deploy/<environment>.rb
+    update database.yml, including dev, demo, production to match the environments
+    update .env
+
+# Initial Deploy to Dev/Demo/Production Environment
+
+* `cap dev deploy:setup`
+* create .env in `{deploy_to}/shared/.env`
+* create database user for the application:
+    $ psql -d postgres
+    postgres=# CREATE ROLE app-name WITH login createdb password 'use a secure password';
+    postgres=# \q
+* `cap dev deploy`
 
 # Todo
 
 * Upgrade to [Capistrano 3](http://www.capistranorb.com/2013/06/01/release-announcement.html)
 * Updates for Rails 4.0
+* Automate setup/deploy to dev.tiu11.org
 
 # Credits
 
