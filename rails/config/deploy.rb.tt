@@ -20,19 +20,13 @@ ssh_options[:forward_agent] = true
 require "bundler/capistrano"
 set :bundle_without, [:development, :test]
 
-# RVM integration
-# http://beginrescueend.com/integration/capistrano/
-set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")
-set :rvm_type, :system
-require "rvm/capistrano"
-require "rvm/capistrano/gem_install_uninstall"
-
 # Dotenv integration
 # symlinks the .env located in /path/to/shared in the new release
 require "dotenv/capistrano"
 
 # Load recipies
 load "config/recipes/base"
+load "config/recipes/rvm"
 load "config/recipes/nginx"
 load "config/recipes/postgresql"
 
@@ -50,11 +44,6 @@ namespace :deploy do
     run "sudo chmod -R g+w #{deploy_to}"
   end
 end
-
-ENV['GEM'] = "bundler"
-before  'deploy:setup', 'rvm:install_rvm'
-before  'deploy:setup', 'rvm:install_ruby'
-before 'deploy:setup', 'rvm:install_gem'
 
 after   "deploy:update_code", "deploy:migrate"
 after   "deploy:restart", "deploy:cleanup" # keep last 5 releases
