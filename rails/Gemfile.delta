@@ -1,3 +1,4 @@
+gem 'pg'
 gem 'authlogic', '~> 3.3.0' # Authentication
 gem 'cancan', '~> 1.6.10'   # Authorization
 gem 'will_paginate', '~> 3.0'

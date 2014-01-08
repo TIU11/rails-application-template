@@ -1,7 +1,7 @@
 # Multistage
 # Stage-specific settings found in config/deploy/<stage>.rb
 set :stages, %w(production demo dev)
-set :default_stage, "demo"
+set :default_stage, "dev"
 require 'capistrano/ext/multistage'
 
 set :application, "<%= app_name.parameterize %>"
@@ -34,6 +34,7 @@ require "dotenv/capistrano"
 # Load recipies
 load "config/recipes/base"
 load "config/recipes/nginx"
+load "config/recipes/postgresql"
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do

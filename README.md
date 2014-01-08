@@ -52,10 +52,6 @@ Assumes some things:
 
 * `cap dev deploy:setup`
 * create .env in `{deploy_to}/shared/.env`
-* create database user for the application:
-    $ psql -d postgres
-    postgres=# CREATE ROLE app-name WITH login createdb password 'use a secure password';
-    postgres=# \q
 * `cap dev deploy`
 
 # Todo
