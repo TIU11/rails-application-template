@@ -1,10 +1,10 @@
 server {
     listen         80;
-    server_name    <%= application %>.dev.tiu11.org;
+    server_name    <%= application %>.<%= rails_env %>.tiu11.org;
     root /export/home/tiu11.org/<%= application %>/current/public;
     passenger_enabled on;
-    # passenger_ruby = /path/to/ruby; # from project root, run `passenger-config --ruby-command`
-    rails_env "dev";
+    passenger_ruby <%= passenger_ruby %>; # from project root, run `passenger-config --ruby-command`
+    rails_env "<%= rails_env %>";
 
     # (Use in Production. Breaks assets in Development.)
     #
