@@ -28,6 +28,7 @@ require "dotenv/capistrano"
 load "config/recipes/base"
 load "config/recipes/rvm"
 load "config/recipes/nginx"
+load "config/recipes/passenger"
 load "config/recipes/postgresql"
 
 # If you are using Passenger mod_rails uncomment this:
