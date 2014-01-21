@@ -18,3 +18,10 @@
     # Exception Handler
     require "custom_public_exceptions"
     config.exceptions_app = CustomPublicExceptions.new Rails.public_path
+
+    # Generators defaults
+    config.generators do |g|
+      # Hack to override Rails' Erb::Generators::ScaffoldGenerator
+      g.template_engine :all # Defaults to :erb
+      g.fallbacks[:all] = :erb
+    end

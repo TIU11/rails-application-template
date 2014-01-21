@@ -1,29 +1,24 @@
 <%
   # @overrides https://github.com/rails/rails/blob/3-2-stable/railties/lib/rails/generators/erb/scaffold/templates/index.html.erb
-%>
+-%>
 <h2><%= plural_table_name.titleize %></h2>
 
 <table class="table table-striped">
   <thead>
     <tr>
-  <% attributes.each do |attribute| -%>
+<% attributes.each do |attribute| -%>
       <th><%= attribute.human_name %></th>
-  <% end -%>
+<% end -%>
       <th></th>
     </tr>
   </thead>
 
   <tbody>
     <%%= content_tag_for(:tr, @<%= plural_table_name %>) do |<%= singular_table_name %>| %>
-  <% attributes.each do |attribute| -%>
+<% attributes.each do |attribute| -%>
       <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
-  <% end -%>
+<% end -%>
       <td><%%= render 'action_menu', <%= singular_table_name %>: <%= singular_table_name %> %></td>
-      <%
-        # TODO: should probably override Erb::Generators::ScaffoldGenerator.available_views to add this file
-        partial_filename = '_action_menu.html.erb'
-        template partial_filename, File.join("app/views", controller_file_path, partial_filename)
-      %>
     <%% end %>
   </tbody>
 </table>
