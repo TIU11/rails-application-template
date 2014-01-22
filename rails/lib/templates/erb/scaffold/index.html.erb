@@ -3,6 +3,10 @@
 -%>
 <h2><%= plural_table_name.titleize %></h2>
 
+<div>
+  <%%= pagination_entries_info @<%= plural_table_name %> -%>
+</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -23,6 +27,7 @@
   </tbody>
 </table>
 
+<%%= pagination_nav @<%= plural_table_name %> -%>
 
 <%% if can? :create, <%= human_name %> %>
   <div class="form-actions">
