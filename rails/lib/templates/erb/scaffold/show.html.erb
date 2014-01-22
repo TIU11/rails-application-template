@@ -1,12 +1,13 @@
 <h2><%%= @<%= singular_table_name %>.to_s %></h2>
 
+<dl class="dl-horizontal">
 <% attributes.each do |attribute| -%>
-<p>
-  <strong><%= attribute.human_name %>:</strong>
-  <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
-</p>
 
+    <dt><%= attribute.human_name %>:</dt>
+    <dd><%%= @<%= singular_table_name %>.<%= attribute.name %> || '&nbsp;' %></dd>
 <% end -%>
+
+</dl>
 
 <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), {:class => "btn"} if can? :edit, @<%= singular_table_name %> %>
 <%%= link_to 'Back', <%= index_helper %>_path, {:class => "btn"} %>
