@@ -24,4 +24,5 @@
       # Hack to override Rails' Erb::Generators::ScaffoldGenerator
       g.template_engine :all # Defaults to :erb
       g.fallbacks[:all] = :erb
+      g.fixture_replacement :factory_girl
     end
