@@ -1,14 +1,14 @@
 gem 'pg'
-gem 'authlogic', '~> 3.3.0' # Authentication
-gem 'cancan', '~> 1.6.10'   # Authorization
-gem 'will_paginate', '~> 3.0'
+gem 'authlogic', '~> 3.4.0' # Authentication
+gem 'cancancan', '~> 1.9.0'   # Authorization
+gem 'will_paginate', '~> 3.0.7'
 gem 'underscore-rails'      # utility-belt library for JavaScript
 gem 'dotenv-rails'          # Loads environment variables from .env into ENV, automagically.
 gem 'exception_notification', '~> 4.0.1'
 gem 'active_model_serializers'
 
 RAILS4-
-gem 'friendly_id', '~> 5.0.0'
+gem 'friendly_id', '~> 5.0.4'
 -RAILS4
 
 RAILS3-
@@ -40,8 +40,8 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
 
-  gem 'less-rails' # For Twitter Bootstrap
-  gem 'twitter-bootstrap-rails'
+  gem 'bootstrap-sass', '~> 3.2.0'
+  gem 'font-awesome-sass', '~> 4.1.0'
 RAILS3-
 end
 -RAILS3
@@ -49,5 +49,6 @@ end
 group :test, :development do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 2.0'
+  gem 'debugger'
+  gem 'faker'
 end
-
