@@ -53,4 +53,6 @@ namespace :deploy do
     end
   end
 
+  after :finishing, "deploy:sitemap:create"
+
 end
