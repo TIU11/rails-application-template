@@ -29,7 +29,7 @@ group :development do
   # See http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h
   gem 'thin'
 
-  gem 'better_errors'
+  gem 'better_errors',      '~> 1.1' # 2.0 drops ruby 1.9.3
   gem 'binding_of_caller'
   gem 'rails_best_practices'
   gem 'pry-rails'
