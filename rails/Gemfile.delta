@@ -1,3 +1,7 @@
+# REVIEW THESE ADDITIONS, THEN MERGE THEM WITH THE DEFAULTS ABOVE
+#
+# Rails Application Template modifications follow...
+
 gem 'pg'
 gem 'authlogic', '~> 3.4.0' # Authentication
 gem 'cancancan', '~> 1.9.0'   # Authorization

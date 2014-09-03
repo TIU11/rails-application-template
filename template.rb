@@ -32,7 +32,7 @@ remove_file 'config/application.rb.delta'
 
 # Gemfile
 if RAILS4 # delete Rails 3 sections
-  insert_into_file 'Gemfile', open('Gemfile.delta').read, before: 'group :doc do'
+  append_to_file 'Gemfile', open('Gemfile.delta').read
   gsub_file 'Gemfile', /RAILS3-(.*?)-RAILS3\n/m, ''
   gsub_file 'Gemfile', /-?RAILS4-?\n?/, ''
   comment_lines 'Gemfile', "turbolinks"
@@ -49,7 +49,9 @@ copy_file "#{destination_root}/config/environments/production.rb", "#{destinatio
 uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
 gsub_file "#{destination_root}/app/assets/javascripts/application.js", "//= require turbolinks", '' if RAILS4
 
-gsub_file "#{destination_root}/config/initializers/secret_token.rb", /(secret_(key_base|token) = ).*/, "\1ENV['SECRET_TOKEN']"
+if File.file? "#{destination_root}/config/initializers/secret_token.rb" # Rails 3.2, 4.0
+  gsub_file "#{destination_root}/config/initializers/secret_token.rb", /(secret_(key_base|token) = ).*/, "\1ENV['SECRET_TOKEN']"
+end
 
 route "root to: 'exception#show'"
 route "get '/404' => 'exception#show'"
