@@ -4,8 +4,11 @@ gem 'cancancan', '~> 1.9.0'   # Authorization
 gem 'will_paginate', '~> 3.0.7'
 gem 'underscore-rails'      # utility-belt library for JavaScript
 gem 'dotenv-rails'          # Loads environment variables from .env into ENV, automagically.
+gem 'dotenv-deployment'
 gem 'exception_notification', '~> 4.0.1'
 gem 'active_model_serializers'
+gem 'sitemap_generator'
+gem 'whenever', require: false
 
 RAILS4-
 gem 'friendly_id', '~> 5.0.4'
@@ -17,8 +20,10 @@ gem 'friendly_id', '~> 4.0.0'
 -RAILS3
 
 group :development do
-  gem 'capistrano', '~> 2.15.5'
-  gem 'rvm-capistrano'
+  gem 'capistrano',         '~> 3.2', require: false
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rvm',     '~> 0.1', require: false
 
   # Use 'thin' to avoid "Could not determine content-length of response body." warnings.
   # See http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h
