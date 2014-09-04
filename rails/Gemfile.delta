@@ -4,6 +4,7 @@
 
 gem 'pg'
 gem 'authlogic', '~> 3.4.0' # Authentication
+gem 'scrypt'
 gem 'cancancan', '~> 1.9.0'   # Authorization
 gem 'will_paginate', '~> 3.0.7'
 gem 'underscore-rails'      # utility-belt library for JavaScript
