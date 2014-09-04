@@ -53,6 +53,10 @@ if File.file? "#{destination_root}/config/initializers/secret_token.rb" # Rails 
   gsub_file "#{destination_root}/config/initializers/secret_token.rb", /(secret_(key_base|token) = ).*/, "\1ENV['SECRET_TOKEN']"
 end
 
+insert_into_file "#{destination_root}/app/assets/javascripts/application.js",
+                 "//= require bootstrap-sprockets\n",
+                 before: '//= require jquery'
+
 route "root to: 'exception#show'"
 route "get '/404' => 'exception#show'"
 
@@ -72,7 +76,7 @@ remove_file 'public/index.html'
 # Create and initialize gemset
 # @see https://rvm.io/workflow/scripting for explanation of `rvm do`
 #
-puts "Setting up RVM gemset and installing bundled gems (may take a while)".cyan.bold.bold
+puts "Setting up RVM gemset".cyan.bold.bold
 current_ruby = `rvm current`.strip
 desired_ruby = ask("Which RVM Ruby would you like to use? [#{current_ruby}]".cyan.bold)
 desired_ruby = current_ruby if desired_ruby.blank?
@@ -80,9 +84,10 @@ gemset_name = app_name.titleize.parameterize
 run "rvm install #{desired_ruby}"
 run "rvm #{current_ruby} do rvm --ruby-version --create use #{desired_ruby}@#{gemset_name}"
 @rvm = "rvm #{desired_ruby}@#{gemset_name}"
+
+puts "Installing bundled gems (may take a while)".cyan.bold.bold
 run "#{@rvm} do bundle install"
 
-run "#{@rvm} do rails generate bootstrap:install less"
 run "#{@rvm} do rails generate rspec:install"
 
 #
