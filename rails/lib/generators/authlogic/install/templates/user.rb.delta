@@ -23,3 +23,5 @@
       self.password_confirmation = random_password
     end
   end
+
+  before_validation :ensure_generated_account_has_password
