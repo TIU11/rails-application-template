@@ -4,12 +4,6 @@ class Authlogic::InstallGenerator < Rails::Generators::Base
 
   # Every method that is declared below will be automatically executed when the generator is run
 
-  def create_sessions
-    generate 'session_migration --no-stylesheets --no-javascripts --no-helper'
-    uncomment_lines 'config/initializers/session_store.rb', ":active_record_store"
-    comment_lines 'config/initializers/session_store.rb', ":cookie_store"
-  end
-
   def create_users
     generate "scaffold user #{ attributes.join(' ') } --no-stylesheets --no-javascripts --no-helper"
     insert_into_file 'app/models/user.rb', open_template('user.rb.delta').read, before: "end\n"
