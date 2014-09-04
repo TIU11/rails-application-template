@@ -2,30 +2,32 @@
 
 <p>
   Complete the form below and instructions to reset your password will be emailed to you. If you need help,
-  <%= link_to "mailto:ocs-odponlinehelp@odpconsulting.net?subject=Help with a Password Reset&body=%3CTell us what the trouble is and how to contact you%3E Name: %3Cname%3E Telephone: %3Cphone%3E", target: "_blank" do %>
+  <%= link_to "mailto:not-defined@tiu11.org?subject=Help with a Password Reset&body=%3CTell us what the trouble is and how to contact you%3E Name: %3Cname%3E Telephone: %3Cphone%3E", target: "_blank" do %>
     let us know <i class="icon-envelope"></i>
   <% end %>.
 </p>
 
-<%= form_for @password_reset, html: {class: "form-horizontal"} do |f| %>
+<%= form_for @password_reset, html: {class: "form-horizontal", role: 'form'} do |f| %>
 
   <%= render 'shared/error_messages', :target => @password_reset %>
 
-  <div class="control-group">
-    <label class="required control-label">Username:</label>
-    <div class="controls">
-      <%= f.text_field :username, autocomplete: 'off' %>
+  <div class="form-group">
+    <label class="required col-sm-2 control-label">Username:</label>
+    <div class="col-sm-3">
+      <%= f.text_field :username, autocomplete: 'off', class: 'form-control' %>
     </div>
   </div>
 
-  <div class="control-group">
-    <label class="required control-label">Registered Email:</label>
-    <div class="controls">
-      <%= f.text_field :email, autocomplete: 'off' %>
+  <div class="form-group">
+    <label class="required col-sm-2 control-label">Registered Email:</label>
+    <div class="col-sm-3">
+      <%= f.text_field :email, autocomplete: 'off', class: 'form-control' %>
     </div>
   </div>
 
-  <div class="form-actions">
-    <%= submit_tag "Reset my password", :class => "btn btn-primary"%>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= submit_tag "Reset my password", :class => "btn btn-primary"%>
+    </div>
   </div>
 <% end %>

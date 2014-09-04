@@ -22,19 +22,19 @@
     <div class="row">
       <div class="col-md-12">
         <% if flash[:notice] %>
-          <p class="alert alert-info alert-block">
+          <p class="alert alert-info" role="alert">
             <%= raw(flash[:notice]) %>
           </p>
         <% end %>
 
         <% if flash[:error] %>
-          <p class="alert alert-error alert-block">
+          <p class="alert alert-danger" role="alert">
             <%= raw(flash[:error]) %>
           </p>
         <% end %>
 
         <% if flash[:alert] %>
-          <p class="alert alert-error alert-block">
+          <p class="alert alert-danger" role="alert">
             <%= raw(flash[:alert]) %>
           </p>
         <% end %>

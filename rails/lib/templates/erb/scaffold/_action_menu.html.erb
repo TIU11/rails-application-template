@@ -4,30 +4,30 @@
     dropdown_class ||= 'btn-mini'
 %>
   <div class="btn-group pull-right">
-    <a class="btn dropdown-toggle <%%= dropdown_class %>" data-toggle="dropdown" href="#">
-      <i class="icon-th-list" title="Menu"></i>
+    <a class="btn btn-default dropdown-toggle <%%= dropdown_class %>" data-toggle="dropdown" href="#">
+      <%= icon 'list' %>
       <span class="caret"></span>
     </a>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" role="menu">
       <!-- dropdown menu links -->
       <li>
         <%% if can? :show, <%= singular_table_name %> %>
           <%%= link_to <%= singular_table_name %>_path(<%= singular_table_name %>) do %>
-            <i class="icon-file"></i> Show
+            <%= icon 'file' %> Show
           <%% end %>
         <%% end %>
       </li>
       <%% if can? :edit, <%= singular_table_name %> %>
         <li>
           <%%= link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>) do %>
-            <i class="icon-pencil"></i> Edit
+            <%= icon 'pencil' %> Edit
           <%% end %>
         </li>
       <%% end %>
       <%% if can? :delete, <%= singular_table_name %> %>
         <li>
           <%%= link_to <%= singular_table_name %>, {data: { :confirm => 'Are you sure?' }, method: :delete} do %>
-            <i class="icon-remove"></i> Destroy
+            <%= icon 'times' %> Destroy
           <%% end %>
         </li>
       <%% end %>

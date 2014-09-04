@@ -2,7 +2,7 @@
 
   <% inline = local_assigns.has_key? :inline %>
 
-  <div class="error_explanation alert alert-error alert-block <%= 'inline' if inline %>">
+  <div class="error_explanation alert alert-danger <%= 'inline' if inline %>">
     <% unless inline %>
     <strong><%= pluralize(target.errors.count, "error") %> prohibited this <%= target.class.name.titleize.downcase %> from being saved:</strong>
     <% end %>

@@ -4,7 +4,7 @@
 <% attributes.each do |attribute| -%>
 
     <dt><%= attribute.human_name %>:</dt>
-    <dd class="clearfix"><%%= @<%= singular_table_name %>.<%= attribute.name %> %></dd>
+    <dd><%%= @<%= singular_table_name %>.<%= attribute.name %> %></dd>
 <% end -%>
 
 </dl>
