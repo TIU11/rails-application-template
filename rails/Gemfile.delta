@@ -44,6 +44,7 @@ RAILS3-
 # in production environments by default.
 group :assets do
 -RAILS3
+  gem 'compass', '~> 0.12' # TODO: remove when compass 1.0 dependencies don't conflict with sass-rails
   gem 'compass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
