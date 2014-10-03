@@ -48,14 +48,13 @@ copy_file "#{destination_root}/config/environments/production.rb", "#{destinatio
 copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/demo.rb"
 uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
 gsub_file "#{destination_root}/app/assets/javascripts/application.js", "//= require turbolinks", '' if RAILS4
+insert_into_file "#{destination_root}/app/assets/javascripts/application.js",
+                 "//= require bootstrap-sprockets\n",
+                 after: "//= require jquery\n"
 
 if File.file? "#{destination_root}/config/initializers/secret_token.rb" # Rails 3.2, 4.0
   gsub_file "#{destination_root}/config/initializers/secret_token.rb", /(secret_(key_base|token) = ).*/, "\1ENV['SECRET_TOKEN']"
 end
-
-insert_into_file "#{destination_root}/app/assets/javascripts/application.js",
-                 "//= require bootstrap-sprockets\n",
-                 before: '//= require jquery'
 
 route "root to: 'exception#show'"
 route "get '/404' => 'exception#show'"
@@ -96,6 +95,7 @@ run "#{@rvm} do rails generate rspec:install"
 
 if yes?("Create Users? [yN]".cyan.bold)
   run "#{@rvm} do rails generate authlogic:install"
+  run "rake db:migrate"
 end
 
 if yes?("Initialize the Bitbucket Git repository? [yN]".cyan.bold)
@@ -113,9 +113,13 @@ if yes?("Initialize the Bitbucket Git repository? [yN]".cyan.bold)
   repo_slug = @app_name.titleize.parameterize
   owner = 'tiu'
   credentials = ask("What are your TIU Bitbucket credentials? (username:password)".cyan.bold).strip # TODO: can we drop this prompt?
-  # --user username:password
+  # --user 'username:password'
   # --pubkey ~/.ssh/id_rsa.pub # TODO: can we make this work???
-  run "curl --request POST --user #{credentials} --header 'Content-Type: application/json' https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug} --data '#{data.to_json}'"
+  # TODO: what if this fails? can we re-try?
+  run "curl --request POST --user '#{credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug} --data '#{data.to_json}'"
+
+  # Open in SourceTree (assumes command line is already installed)
+  `stree`
 
   # Add code to the repository
   git :init
@@ -131,7 +135,7 @@ if yes?("Initialize the Bitbucket Git repository? [yN]".cyan.bold)
       key: key,
       label: label
     }
-    run "curl --request POST --user #{credentials} --header 'Content-Type: application/json' https://bitbucket.org/api/1.0/repositories/#{owner}/#{repo_slug}/deploy-keys --data '#{data.to_json}'"
+    run "curl --request POST --user '#{credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/1.0/repositories/#{owner}/#{repo_slug}/deploy-keys --data '#{data.to_json}'"
 
     run "cap dev deploy:setup" # TODO: nginx configuration
     run "cap dev deploy"
