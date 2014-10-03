@@ -9,5 +9,7 @@
 
 </dl>
 
-<%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), {:class => "btn"} if can? :edit, @<%= singular_table_name %> %>
-<%%= link_to 'Back', <%= index_helper %>_path, {:class => "btn"} %>
+<div class="form-group">
+  <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), {class: "btn btn-default"} if can? :edit, @<%= singular_table_name %> %>
+  <%%= link_to 'Back', <%= index_helper %>_path, {class: "btn btn-default"} %>
+</div>
