@@ -42,6 +42,7 @@ namespace :deploy do
     end
   end
 
+  before :restart, :update_group
   after :publishing, :restart
 
   after :restart, :clear_cache do
