@@ -10,7 +10,6 @@ end
 require 'colored'
 require 'rails'
 
-RAILS4 = Rails.version > "4.0.0"
 say_status :rails_version, Rails.version
 
 # Download template files
@@ -21,38 +20,26 @@ git archive: "--remote=git@bitbucket.org:tiu/rails-application-template.git --fo
 #
 
 # config/application.rb
-if RAILS4
-  insert_into_file 'config/application.rb', open('config/application.rb.delta').read, before: "  end"
-else
-  insert_into_file 'config/application.rb', open('config/application.rb.delta').read, after: "config.assets.version = '1.0'"
-end
+insert_into_file 'config/application.rb', open('config/application.rb.delta').read, before: "  end"
 gsub_file 'config/application.rb', "# config.time_zone = 'Central Time (US & Canada)'", "config.time_zone = 'Eastern Time (US & Canada)'"
 gsub_file 'config/application.rb', "[:password]", "[:password, :password_confirmation]"
 remove_file 'config/application.rb.delta'
 
 # Gemfile
-if RAILS4 # delete Rails 3 sections
-  append_to_file 'Gemfile', open('Gemfile.delta').read
-  gsub_file 'Gemfile', /RAILS3-(.*?)-RAILS3\n/m, ''
-  gsub_file 'Gemfile', /-?RAILS4-?\n?/, ''
-  comment_lines 'Gemfile', "turbolinks"
-  comment_lines 'Gemfile', "jbuilder"
-else # Delete Rails 4 sections
-  insert_into_file 'Gemfile', open('Gemfile.delta').read, before: '# Gems used only for assets and not required'
-  gsub_file 'Gemfile', /RAILS4-(.*?)-RAILS4\n/m, ''
-  gsub_file 'Gemfile', /-?RAILS3-?\n?/, ''
-end
+append_to_file 'Gemfile', open('Gemfile.delta').read
+comment_lines 'Gemfile', "turbolinks"
+comment_lines 'Gemfile', "jbuilder"
 remove_file 'Gemfile.delta'
 
 copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/dev.rb"
 copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/demo.rb"
 uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
-gsub_file "#{destination_root}/app/assets/javascripts/application.js", "//= require turbolinks", '' if RAILS4
+gsub_file "#{destination_root}/app/assets/javascripts/application.js", "//= require turbolinks", ''
 insert_into_file "#{destination_root}/app/assets/javascripts/application.js",
                  "//= require bootstrap-sprockets\n",
                  after: "//= require jquery\n"
 
-if File.file? "#{destination_root}/config/initializers/secret_token.rb" # Rails 3.2, 4.0
+if File.file? "#{destination_root}/config/initializers/secret_token.rb" # Rails 3.2, 4.0 (< 4.1)
   gsub_file "#{destination_root}/config/initializers/secret_token.rb", /(secret_(key_base|token) = ).*/, "\1ENV['SECRET_TOKEN']"
 end
 

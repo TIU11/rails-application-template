@@ -2,27 +2,32 @@
 #
 # Rails Application Template modifications follow...
 
-gem 'pg'
-gem 'authlogic', '~> 3.4.0' # Authentication
-gem 'scrypt'
-gem 'cancancan', '~> 1.9.0'   # Authorization
-gem 'will_paginate', '~> 3.0.7'
-gem 'underscore-rails'      # utility-belt library for JavaScript
 gem 'dotenv-rails'          # Loads environment variables from .env into ENV, automagically.
 gem 'dotenv-deployment'
+
+gem 'pg'
+gem 'authlogic', '~> 3.4.0'   # Authentication
+gem 'scrypt'                  # required by authlogic when using scrypt
+gem 'cancancan', '~> 1.9.0'   # Authorization
+gem 'will_paginate', '~> 3.0.7'
+gem 'underscore-rails'        # utility-belt library for JavaScript
 gem 'exception_notification', '~> 4.0.1'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.8.2' # building JSON responses. Wait for 0.10 (https://github.com/rails-api/active_model_serializers#maintenance-please-read)
 gem 'sitemap_generator'
 gem 'whenever', require: false
-
-RAILS4-
 gem 'friendly_id', '~> 5.0.4'
--RAILS4
 
-RAILS3-
-gem 'strong_parameters'
-gem 'friendly_id', '~> 4.0.0'
--RAILS3
+# Style
+
+gem 'compass', '~> 0.12' # TODO: remove when compass 1.0 dependencies don't conflict with sass-rails
+gem 'compass-rails'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'font-awesome-sass', '~> 4.2.0'
+
+# Javascript
+
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'therubyracer', :platforms => :ruby
 
 group :development do
   gem 'capistrano',         '~> 3.2', require: false
@@ -39,23 +44,6 @@ group :development do
   gem 'rails_best_practices'
   gem 'pry-rails'
 end
-
-RAILS3-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
--RAILS3
-  gem 'compass', '~> 0.12' # TODO: remove when compass 1.0 dependencies don't conflict with sass-rails
-  gem 'compass-rails'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
-
-  gem 'bootstrap-sass', '~> 3.2.0'
-  gem 'font-awesome-sass', '~> 4.2.0'
-RAILS3-
-end
--RAILS3
 
 group :test, :development do
   gem 'factory_girl_rails'
