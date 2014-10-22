@@ -2,13 +2,8 @@
 <html class="<%= @page_class %>">
 <head>
   <!-- Release: <%= Rails.root.basename %> -->
-  <title>
-    <% if content_for?(:title) %>
-      <%= I18n.t('app.short_title') %> - <%= yield(:title) %>
-    <% else %>
-      <%= I18n.t('app.short_title') %> - <%= controller_name.titleize %>
-    <% end %>
-  </title>
+  <title><%= title %></title>
+  <meta name="description" content="<%= meta_description %>" />
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -53,13 +48,13 @@
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col-md-2">
-          <p class="text-center">
-            <%= image_tag 'tiulogo_titled.png' %>
+        <div class="col-sm-4 hidden-xs">
+          <p>
+            <%= image_tag 'tiulogo_titled.png', id: 'footer-logo' %>
           </p>
         </div>
-        <div class="col-md-10">
-          <p>
+        <div class="col-sm-8">
+          <p class="text-muted">
             Copyright &copy; <%= Date.today.year %> <a href="http://www.tiu11.org">Tuscarora Intermediate Unit 11</a><br>
           </p>
         </div>
