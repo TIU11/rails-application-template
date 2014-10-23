@@ -4,8 +4,8 @@ class CustomPublicExceptions < ActionDispatch::PublicExceptions
     begin
       @exception   = env['action_dispatch.exception']
       @status_code = ActionDispatch::ExceptionWrapper.new(env, @exception).status_code
-      <%= app_name.underscore.camelize %>::Application.routes.recognize_path("/#{@status_code}")
-      <%= app_name.underscore.camelize %>::Application.routes.call env # Look for a route to a custom error handler
+      Rails.application.routes.recognize_path("/#{@status_code}")
+      Rails.application.routes.call env # Look for a route to a custom error handler
     rescue ActionController::RoutingError => e
       Rails.logger.debug "No route for #{@status_code}. Falling back to defaults."
       super env
