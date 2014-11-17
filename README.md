@@ -33,7 +33,7 @@ This template assumes some things:
 
 Generate! Choose your application name carefully, since a lot of work will be done using this name.
 
-    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb
+    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks
     cd myApp
     bundle outdated              # See if the template has you stuck on some old, crusty code
     rake db:migrate
@@ -42,7 +42,7 @@ Generate! Choose your application name carefully, since a lot of work will be do
 
 To see what the template does, you may wish to first generate a default app:
 
-    rails new myApp
+    rails new myApp --database=postgresql
     cd myApp
     git init
     git add .

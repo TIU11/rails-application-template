@@ -37,6 +37,10 @@ class ApplicationController < ActionController::Base
     session[:return_to] = request.url
   end
 
+  def clear_location
+    session[:return_to] = nil
+  end
+
   def redirect_back_or_default_to(default)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
@@ -53,10 +57,16 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def su_user
+    return @su_user if defined?(@su_user)
+    @su_user = User.find(session[:su_user]) if session[:su_user]
+  end
+  helper_method :su_user
+
   def require_user
     unless current_user
       store_location
-      flash[:notice] = "You must be logged in to access this page"
+      flash[:warning] = t('app.messages.require_user')
       redirect_to login_url
       return false
     end
@@ -64,7 +74,7 @@ class ApplicationController < ActionController::Base
 
   def require_no_user
     if current_user
-      flash[:notice] = "You must be logged out to access this page"
+      flash[:warning] = t('app.messages.require_no_user')
       redirect_back_or_default_to root_url
       return false
     end

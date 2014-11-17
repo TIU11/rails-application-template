@@ -32,6 +32,8 @@ en:
       logout: You are now logged out
       no_account: You cannot login with the provided credentials (%{email}). Contact your <%= app_name.titleize %> administrator to obtain an account.
       no_email: Your %{provider} identity doesn't provide your email, so we cannot find your account.
+      require_user: You must be logged in to access this page.
+      require_no_user: You must be logged out to access this page.
   activerecord:
     attributes:
     errors:

@@ -16,21 +16,28 @@
 
     <div class="row">
       <div class="col-md-12">
+
+        <% if flash[:success] %>
+          <p class="alert alert-success" role="alert">
+            <%= raw(flash[:success]) %>
+          </p>
+        <% end %>
+
         <% if flash[:notice] %>
           <p class="alert alert-info" role="alert">
             <%= raw(flash[:notice]) %>
           </p>
         <% end %>
 
-        <% if flash[:error] %>
-          <p class="alert alert-danger" role="alert">
-            <%= raw(flash[:error]) %>
+        <% if flash[:warning] %>
+          <p class="alert alert-warning alert-block">
+            <%= raw(flash[:warning]) %>
           </p>
         <% end %>
 
-        <% if flash[:alert] %>
-          <p class="alert alert-danger" role="alert">
-            <%= raw(flash[:alert]) %>
+        <% if flash[:error] %>
+          <p class="alert alert-danger alert-block">
+            <%= raw(flash[:error]) %>
           </p>
         <% end %>
 
