@@ -3,6 +3,7 @@ server {
     server_name    <%= application %>.<%= rails_env %>.<%= fetch(:top_level_domain) %>;
     root /export/home/<%= fetch(:top_level_domain) %>/<%= application %>/current/public;
     passenger_enabled on;
+    passenger_min_instances 1;
     passenger_ruby <%= passenger_ruby %>; # from project root, run `passenger-config --ruby-command`
     rails_env "<%= rails_env %>";
 
@@ -15,3 +16,5 @@ server {
       break;
     }
 }
+
+# passenger_pre_start http://<%= application %>.<%= rails_env %>.<%= fetch(:top_level_domain) %>;
