@@ -8,20 +8,20 @@ gem 'dotenv-deployment'
 gem 'pg'
 gem 'authlogic', '~> 3.4.0'   # Authentication
 gem 'scrypt'                  # required by authlogic when using scrypt
-gem 'cancancan', '~> 1.9.0'   # Authorization
+gem 'cancancan', '~> 1.10.0'  # Authorization
 gem 'will_paginate', '~> 3.0.7'
 gem 'underscore-rails'        # utility-belt library for JavaScript
 gem 'exception_notification', '~> 4.0.1'
-gem 'active_model_serializers', '~> 0.8.2' # building JSON responses. Wait for 0.10 (https://github.com/rails-api/active_model_serializers#maintenance-please-read)
+gem 'active_model_serializers', '~> 0.8.3' # building JSON responses. Wait for 0.10 (https://github.com/rails-api/active_model_serializers#maintenance-please-read)
 gem 'sitemap_generator'
 gem 'whenever', require: false
-gem 'friendly_id', '~> 5.0.4'
+gem 'friendly_id', '~> 5.1.0'
 
 # Style
 
-gem 'compass', '~> 0.12' # TODO: remove when compass 1.0 dependencies don't conflict with sass-rails
+gem 'compass'
 gem 'compass-rails'
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-sass', '~> 3.3.0'
 gem 'font-awesome-sass', '~> 4.2.0'
 
 # Javascript

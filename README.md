@@ -6,7 +6,7 @@ Bootstraps a Rails project, with customizations beyond a default `rails new myAp
 
 First, update to the latest version of Rails (or you'll want to run `rake rails:update` when you do)
 
-    gem install rails -v "~> 4.1.0" # 4.1.x latest
+    gem install rails -v "~> 4.1.9" # 4.1.x latest
     gem install rails               # or the latest, period.
     gem install bundler             # Rails 4.0.2 depends on bundler (< 2.0, >= 1.3.0)
                                     # We've noticed bundler 1.7 is much faster than 1.3
