@@ -2,10 +2,9 @@
 #
 # Rails Application Template modifications follow...
 
-gem 'dotenv-rails'          # Loads environment variables from .env into ENV, automagically.
+gem 'dotenv-rails'            # Loads environment variables from .env into ENV, automagically.
 gem 'dotenv-deployment'
 
-gem 'pg'
 gem 'authlogic', '~> 3.4.0'   # Authentication
 gem 'scrypt'                  # required by authlogic when using scrypt
 gem 'cancancan', '~> 1.10.0'  # Authorization
@@ -17,12 +16,12 @@ gem 'sitemap_generator'
 gem 'whenever', require: false
 gem 'friendly_id', '~> 5.1.0'
 
-# Style
+# Styling
 
 gem 'compass'
 gem 'compass-rails'
-gem 'bootstrap-sass', '~> 3.3.0'
 gem 'font-awesome-sass', '~> 4.2.0'
+gem 'bootstrap-sass', '~> 3.3.0'
 
 # Javascript
 
@@ -30,7 +29,7 @@ gem 'font-awesome-sass', '~> 4.2.0'
 gem 'therubyracer', :platforms => :ruby
 
 group :development do
-  gem 'capistrano',         '~> 3.2', require: false
+  gem 'capistrano',         '~> 3.3', require: false
   gem 'capistrano-rails',   '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rvm',     '~> 0.1', require: false
