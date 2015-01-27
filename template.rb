@@ -47,10 +47,12 @@ route "root to: 'exception#show'"
 route "get '/404' => 'exception#show'"
 
 # Process Templates
-template "#{destination_root}/config/locales/en.yml.tt"
-template "#{destination_root}/config/initializers/exception_notification.rb.tt"
-template "#{destination_root}/lib/custom_public_exceptions.rb.tt"
-template "#{destination_root}/config/deploy.rb.tt"
+template    "#{destination_root}/config/locales/en.yml.tt"
+remove_file "#{destination_root}/config/locales/en.yml.tt"
+template    "#{destination_root}/config/initializers/exception_notification.rb.tt"
+remove_file "#{destination_root}/config/initializers/exception_notification.rb.tt"
+template    "#{destination_root}/config/deploy.rb.tt"
+remove_file "#{destination_root}/config/deploy.rb.tt"
 
 #
 # Remove Junk
