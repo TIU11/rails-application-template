@@ -29,10 +29,10 @@
 
 <%%= pagination_nav @<%= plural_table_name %> -%>
 
-<%% if can? :create, <%= human_name %> %>
+<%% if can? :create, <%= class_name %> %>
   <div class="form-group">
     <%%= link_to new_<%= singular_table_name %>_path, {class: 'btn btn-primary'} do %>
-      <%%= icon 'plus' %> New <%= human_name %>
+      <%%= icon 'plus' %> New <%= class_name %>
     <%% end %>
   </div>
 <%% end %>
