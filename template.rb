@@ -53,6 +53,8 @@ template    "#{destination_root}/config/initializers/exception_notification.rb.t
 remove_file "#{destination_root}/config/initializers/exception_notification.rb.tt"
 template    "#{destination_root}/config/deploy.rb.tt"
 remove_file "#{destination_root}/config/deploy.rb.tt"
+template    "#{destination_root}/config/sitemap.rb.tt"
+remove_file "#{destination_root}/config/sitemap.rb.tt"
 
 #
 # Remove Junk
