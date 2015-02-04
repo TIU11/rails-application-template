@@ -18,10 +18,10 @@ gem 'friendly_id', '~> 5.1.0'
 
 # Styling
 
-gem 'compass'
 gem 'compass-rails'
-gem 'font-awesome-sass', '~> 4.2.0'
+gem 'font-awesome-sass', '~> 4.3.0'
 gem 'bootstrap-sass', '~> 3.3.0'
+gem 'bootstrap-datepicker-rails'
 
 # Javascript
 

@@ -5,30 +5,24 @@
 %>
   <div class="btn-group pull-right">
     <a class="btn btn-default dropdown-toggle <%%= dropdown_class %>" data-toggle="dropdown" href="#">
-      <%= icon 'list' %>
+      <%%= icon 'list' %>
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu">
       <!-- dropdown menu links -->
-      <li>
-        <%% if can? :show, <%= singular_table_name %> %>
-          <%%= link_to <%= singular_table_name %>_path(<%= singular_table_name %>) do %>
-            <%= icon 'file' %> Show
-          <%% end %>
-        <%% end %>
-      </li>
+      <%% if can? :show, <%= singular_table_name %> %>
+        <li>
+          <%%= link_to icon('file', 'Show'), <%= singular_table_name %>_path(<%= singular_table_name %>) %>
+        </li>
+      <%% end %>
       <%% if can? :edit, <%= singular_table_name %> %>
         <li>
-          <%%= link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>) do %>
-            <%= icon 'pencil' %> Edit
-          <%% end %>
+          <%%= link_to icon('pencil', 'Edit'), edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %>
         </li>
       <%% end %>
       <%% if can? :delete, <%= singular_table_name %> %>
         <li>
-          <%%= link_to <%= singular_table_name %>, {data: { :confirm => 'Are you sure?' }, method: :delete} do %>
-            <%= icon 'times' %> Destroy
-          <%% end %>
+          <%%= link_to icon('times', 'Destroy'), <%= singular_table_name %>, {data: { :confirm => 'Are you sure?' }, method: :delete} %>
         </li>
       <%% end %>
     </ul>

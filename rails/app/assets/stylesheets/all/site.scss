@@ -25,3 +25,58 @@ footer {
     margin-top: 20px; /* TODO: not great at phone sizes */
   }
 }
+
+/* Forms
+------------------------------------*/
+form label.required,
+form .required {
+  &:after {
+    content: " *";
+    color: red;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.5);
+    font-weight: normal;
+  }
+}
+
+form label.control-label {
+  font-weight: bold;
+}
+
+/* Expandable Lists
+------------------------------------*/
+.list-expandable {
+  /* hide toggle */
+  .list-item-toggle {
+    display: none;
+    cursor: pointer;
+  }
+
+  /* for long lists, hide extra elements and show the toggle */
+  li:nth-child(n+6) {
+    display: none;
+    &.list-item-toggle {
+      display: block;
+    }
+  }
+  tr:nth-child(n+6) {
+    display: none;
+    &.list-item-toggle {
+      display: table-row;
+    }
+  }
+}
+.list-expandable.in {
+  /* expand to full list */
+  li:nth-child(n+6) {
+    display: block;
+    &.list-item-toggle {
+      display: none;
+    }
+  }
+  tr:nth-child(n+6) {
+    display: table-row;
+    &.list-item-toggle {
+      display: none;
+    }
+  }
+}

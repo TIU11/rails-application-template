@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
       action = I18n.translate "errors.actions.#{exception.action}", default: exception.action.to_s
 
       # Explain to users why they were denied access.
-      roles = current_user.agency_roles.present? && current_user.agency_roles.to_sentence || 'regular user'
+      roles = current_user.roles.try(:to_sentence) || 'regular user'
       if exception.subject.is_a? Class
         flash[:error] = "As a #{roles}, you are not authorized to #{action.titleize.downcase} #{exception.subject.name.pluralize.titleize}."
       else

@@ -31,8 +31,6 @@
 
 <%% if can? :create, <%= class_name %> %>
   <div class="form-group">
-    <%%= link_to new_<%= singular_table_name %>_path, {class: 'btn btn-primary'} do %>
-      <%%= icon 'plus' %> New <%= class_name %>
-    <%% end %>
+    <%%= link_to icon('plus', 'New <%= class_name %>'), new_<%= singular_table_name %>_path, {class: 'btn btn-primary'} %>
   </div>
 <%% end %>
