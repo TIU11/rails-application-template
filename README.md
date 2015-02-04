@@ -8,26 +8,26 @@ This template assumes some things:
 
 * RVM is installed and up-to-date (1.26.x)
 
-    # See http://rvm.io/rvm/install
-    \curl -sSL https://get.rvm.io | bash -s stable --rails
+        # See http://rvm.io/rvm/install
+        \curl -sSL https://get.rvm.io | bash -s stable --rails
 
-    # Upgrade with
-    rvm get stable && rvm reload
+        # Upgrade with
+        rvm get stable && rvm reload
 
 * Ruby 2.1.x is installed (at this writing, a safer-for-production 2.2.1 has not been released)
 
-    rvm install 2.1
+        rvm install 2.1
 
 * Rails 4.1.x is installed (at this writing, not all gems are compatible with 4.2.x)
 
-    gem install rails -v "~> 4.1.9" # 4.1.x latest
-    gem install rails               # or the latest, period.
+        gem install rails -v "~> 4.1.9" # 4.1.x latest
+        gem install rails               # or the latest, period.
 
 * Bundler and RubyGems are up-to-date (optional)
 
-    gem install bundler             # Rails 4.0.2 depends on bundler (< 2.0, >= 1.3.0)
-                                    # We've noticed bundler 1.7 is much faster than 1.3
-    gem update --system             # Per https://rubygems.org/pages/download
+        gem install bundler             # Rails 4.0.2 depends on bundler (< 2.0, >= 1.3.0)
+                                        # We've noticed bundler 1.7 is much faster than 1.3
+        gem update --system             # Per https://rubygems.org/pages/download
 
 * XCode and command line tools (GCC needed to compile some gems)
 
