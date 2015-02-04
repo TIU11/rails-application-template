@@ -4,30 +4,40 @@ Bootstraps a Rails project, with customizations beyond a default `rails new myAp
 
 # Prerequisites
 
-First, update to the latest version of Rails (or you'll want to run `rake rails:update` when you do)
+This template assumes some things:
+
+* RVM is installed and up-to-date (1.26.x)
+
+    # See http://rvm.io/rvm/install
+    \curl -sSL https://get.rvm.io | bash -s stable --rails
+
+    # Upgrade with
+    rvm get stable && rvm reload
+
+* Ruby 2.1.x is installed (at this writing, a safer-for-production 2.2.1 has not been released)
+
+    rvm install 2.1
+
+* Rails 4.1.x is installed (at this writing, not all gems are compatible with 4.2.x)
 
     gem install rails -v "~> 4.1.9" # 4.1.x latest
     gem install rails               # or the latest, period.
+
+* Bundler and RubyGems are up-to-date (optional)
+
     gem install bundler             # Rails 4.0.2 depends on bundler (< 2.0, >= 1.3.0)
                                     # We've noticed bundler 1.7 is much faster than 1.3
+    gem update --system             # Per https://rubygems.org/pages/download
 
-This template assumes some things:
-
-* RVM ~> 1.20 is installed
-
-        # See http://rvm.io/rvm/install
-        \curl -sSL https://get.rvm.io | bash -s stable --rails
-
-        # Upgrade with
-        rvm get stable && rvm reload
 * XCode and command line tools (GCC needed to compile some gems)
 
-        > rvm requirements
-        Checking requirements for osx.
-        Requirements installation successful.
+    > rvm requirements
+    Checking requirements for osx.
+    Requirements installation successful.
+
 * SSH keys are configured so access to dev.tiu11.org doesn't prompt for a password
 * dev.tiu11.org has an SSH public key, and this is the desired Bitbucket deployment key
-* dev.tiu11.org also has RVM (~> 1.20) installed
+* dev.tiu11.org also has RVM (~> 1.26) installed
 
 # Getting Started
 
