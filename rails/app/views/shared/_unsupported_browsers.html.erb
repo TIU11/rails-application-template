@@ -1,10 +1,29 @@
 <!--[if lt IE 9]>
-<div class="alert alert-warning alert-block">
+<div class="alert alert-warning">
   <button type="button" class="close" data-dismiss="alert">×</button>
-  <strong>You are using an outdated browser</strong><br>
+  <h4>Please update your browser</h4>
   Users with legacy browsers may find that some features do not function.
-  We recommend upgrading to a recent browser such as <%= link_to "Google Chrome", "http://www.google.com/chrome" %>,
-  <%= link_to "Mozilla Firefox", "http://www.firefox.com" %>, or perhaps the very newest version of Microsoft Internet Explorer.
-  This will give you a faster, safer browsing experience on the web.
+  We recommend downloading a recent browser for a faster, safer browsing experience on the web.
+
+  <ul class="list-inline text-center">
+    <li class="text-center">
+      <%= link_to 'http://www.google.com/chrome', target: '_blank', class: 'alert-link' do %>
+        <div><%= image_tag 'chrome_64x64.png' %></div>
+        Google Chrome
+      <% end %>
+    </li>
+    <li class="text-center">
+      <%= link_to 'http://www.firefox.com', target: '_blank', class: 'alert-link' do %>
+        <div><%= image_tag 'firefox_64x64.png' %></div>
+        Mozilla Firefox
+      <% end %>
+    </li>
+    <li class="text-center">
+      <%= link_to 'http://windows.microsoft.com/en-us/internet-explorer/download-ie', target: '_blank', class: 'alert-link' do %>
+        <div><%= image_tag 'internet-explorer_64x64.png' %></div>
+        Internet Explorer 9+
+      <% end %>
+    </li>
+  </ul>
 </div>
 <![endif]-->
