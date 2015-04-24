@@ -1,9 +1,9 @@
-# Check prerequisite gems
+puts "Verify prerequisite gems used within this template"
 %w{colored}.each do |gemname|
   if Gem::Specification.find_all_by_name(gemname).empty?
     run "gem install #{gemname}"
     Gem.refresh
-    Gem.activate(gemname)
+    Gem.try_activate(gemname)
   end
 end
 
@@ -12,7 +12,7 @@ require 'rails'
 
 say_status :rails_version, Rails.version
 
-# Download template files
+puts "Download template files from Bitbucket".cyan
 git archive: "--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar --verbose master:rails | (tar xf -)"
 
 #
@@ -46,7 +46,7 @@ end
 route "root to: 'exception#show'"
 route "get '/404' => 'exception#show'"
 
-# Process Templates
+puts "Process Templates".cyan
 template    "#{destination_root}/config/locales/en.yml.tt"
 remove_file "#{destination_root}/config/locales/en.yml.tt"
 template    "#{destination_root}/config/initializers/exception_notification.rb.tt"
@@ -56,9 +56,7 @@ remove_file "#{destination_root}/config/deploy.rb.tt"
 template    "#{destination_root}/config/sitemap.rb.tt"
 remove_file "#{destination_root}/config/sitemap.rb.tt"
 
-#
-# Remove Junk
-#
+puts "Remove Junk".cyan
 remove_file 'app/assets/images/rails.png'
 remove_file 'public/index.html'
 
@@ -66,30 +64,42 @@ remove_file 'public/index.html'
 # Create and initialize gemset
 # @see https://rvm.io/workflow/scripting for explanation of `rvm do`
 #
-puts "Setting up RVM gemset".cyan.bold.bold
-current_ruby = `rvm current`.strip
-desired_ruby = ask("Which RVM Ruby would you like to use? [#{current_ruby}]".cyan.bold)
-desired_ruby = current_ruby if desired_ruby.blank?
+puts "Setting up RVM gemset".cyan
+default_ruby = `rvm strings 2`.strip # default to latest 2.x ruby version (e.g. '2.2.2', '2.3.0')
+desired_ruby = ask("Which Ruby would you like to use? [#{default_ruby}]".cyan)
+desired_ruby = default_ruby if desired_ruby.blank?
+if `rvm list strings`.include? desired_ruby
+  puts "#{desired_ruby} already installed"
+else
+  run "rvm install #{desired_ruby}"
+end
 gemset_name = app_name.titleize.parameterize
-run "rvm install #{desired_ruby}"
-run "rvm #{current_ruby} do rvm --ruby-version --create use #{desired_ruby}@#{gemset_name}"
-@rvm = "rvm #{desired_ruby}@#{gemset_name}"
+run "rvm #{default_ruby} do rvm --ruby-version --create use #{desired_ruby}@#{gemset_name}"
+@rvm = "rvm #{desired_ruby}@#{gemset_name}" # run subsequent commands within this gemset via `run "#{@rvm} do command"`
 
-puts "Installing bundled gems (may take a while)".cyan.bold.bold
-run "#{@rvm} do bundle install"
+puts "Installing bundled gems (may take several minutes)".cyan
+run "#{@rvm} do bundle install" # Rails won't bundle into our gemset, so we'll take care of it
 
-run "#{@rvm} do rails generate rspec:install"
+# Even if we didn't get `--skip-bundle`, let's force skipping of the built-in `bundle install`
+# See http://stackoverflow.com/questions/11302742/how-to-make-a-rails-template-forcefully-not-run-bundle-install-after-rails-new-i
+def run_bundle
+  puts "We handled `bundle install` within the template, so skipping the built-in one here".cyan
+end
 
 #
 # Generate and Setup
 #
 
-if yes?("Create Users? [yN]".cyan.bold)
+puts "Run generators".cyan
+
+run "#{@rvm} do rails generate rspec:install"
+
+if yes?("Create Users? [yN]".cyan)
   run "#{@rvm} do rails generate authlogic:install"
   run "rake db:migrate"
 end
 
-if yes?("Initialize the Bitbucket Git repository? [yN]".cyan.bold)
+if yes?("Initialize the Bitbucket Git repository? [yN]".cyan)
   require 'json'
 
   # Create Bitbucket Repository
@@ -103,7 +113,7 @@ if yes?("Initialize the Bitbucket Git repository? [yN]".cyan.bold)
   }
   repo_slug = @app_name.titleize.parameterize
   owner = 'tiu'
-  credentials = ask("What are your TIU Bitbucket credentials? (username:password)".cyan.bold).strip # TODO: can we drop this prompt?
+  credentials = ask("What are your TIU Bitbucket credentials? (username:password)".cyan).strip # TODO: can we drop this prompt?
   # --user 'username:password'
   # --pubkey ~/.ssh/id_rsa.pub # TODO: can we make this work???
   # TODO: what if this fails? can we re-try?
@@ -118,7 +128,7 @@ if yes?("Initialize the Bitbucket Git repository? [yN]".cyan.bold)
   git remote: "add origin ssh://git@bitbucket.org/#{owner}/#{@app_name.titleize.parameterize}.git"
   git push: "-u origin --all"
 
-  if yes?("Deploy? [yN]".cyan.bold)
+  if yes?("Deploy? [yN]".cyan)
     # Add deploy keys to the repository
     key = `ssh dev.tiu11.org "cat ~/.ssh/id_rsa.pub"`
     label = key.split(' ')[2]
@@ -128,8 +138,10 @@ if yes?("Initialize the Bitbucket Git repository? [yN]".cyan.bold)
     }
     run "curl --request POST --user '#{credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/1.0/repositories/#{owner}/#{repo_slug}/deploy-keys --data '#{data.to_json}'"
 
-    run "cap dev deploy:setup" # TODO: nginx configuration
+    run "cap dev deploy:setup"
     run "cap dev deploy"
+    # TODO: cap dev nginx:setup
+    # TODO: cap dev postgres:setup
   end
 end
 

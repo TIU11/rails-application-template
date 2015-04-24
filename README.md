@@ -14,13 +14,13 @@ This template assumes some things:
         # Upgrade with
         rvm get stable && rvm reload
 
-* Ruby 2.1.x is installed (at this writing, a safer-for-production 2.2.1 has not been released)
+* Ruby 2.2.x is installed
 
-        rvm install 2.1
+        rvm install 2.2
 
-* Rails 4.1.x is installed (at this writing, not all gems are compatible with 4.2.x)
+* Rails 4.2.x is installed
 
-        gem install rails -v "~> 4.1.9" # 4.1.x latest
+        gem install rails -v "~> 4.2.1" # 4.2.x latest
         gem install rails               # or the latest, period.
 
 * Bundler and RubyGems are up-to-date (optional)
@@ -43,7 +43,7 @@ This template assumes some things:
 
 Generate! Choose your application name carefully, since a lot of work will be done using this name.
 
-    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks
+    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks --skip-bundle
     cd myApp
     bundle outdated              # See if the template has you stuck on some old, crusty code
     rake db:migrate
@@ -71,15 +71,21 @@ To see what the template does, you may wish to first generate a default app:
 
 # Initial Deploy to Dev/Demo/Production Environment
 
-* `cap dev deploy:setup`
-* create .env in `{deploy_to}/shared/.env` with the correct passwords, etc.
-* `cap dev deploy`
+* `cap dev deploy` # with each run, the error message point to the following manual steps
+* create .env in `{deploy_to}/shared/.env` with the correct passwords, etc. for that environment
+* create rvm gemset using the suggested command
+* create database user and database matching `database.yml`. Copy the commands from `postgresql.rake`
+* `cap dev deploy` until it completes successfully
 
 # Todo
 
-* Upgrade to [Capistrano 3](http://www.capistranorb.com/2013/06/01/release-announcement.html)
-* Updates for Rails 4.0
-* Automate setup/deploy to dev.tiu11.org
+* Automate more stuff with [Capistrano 3](http://www.capistranorb.com/2013/06/01/release-announcement.html)
+* Automate more of the setup/deploy to dev.tiu11.org
+ - initialize .env
+ - create database user, database
+ - create nginx config
+* Don't install gems in current gemset, just in the RVM one created for the project
+* Consider adding some of these: https://intercityup.com/blog/useful-capistrano-plugins.html?utm_source=rubyweekly&utm_medium=email
 
 # Credits
 
@@ -87,5 +93,5 @@ Developed by Anson Hoyt at [Tuscarora Intermediate Unit 11](http://www.tiu11.org
 
 # License
 
-Copyright (c) 2014 [Tuscarora Intermediate Unit 11](http://www.tiu11.org).
+Copyright (c) 2015 [Tuscarora Intermediate Unit 11](http://www.tiu11.org).
 See LICENSE for details.
