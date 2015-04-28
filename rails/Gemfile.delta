@@ -2,16 +2,15 @@
 #
 # Rails Application Template modifications follow...
 
-gem 'dotenv-rails'            # Loads environment variables from .env into ENV, automagically.
+gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
 
-gem 'authlogic', '~> 3.4.0'   # Authentication
-gem 'scrypt'                  # required by authlogic when using scrypt
-gem 'cancancan', '~> 1.10'    # Authorization
+gem 'authlogic', '~> 3.4.0'     # Authentication
+gem 'scrypt'                    # required by authlogic when using scrypt
+gem 'cancancan', '~> 1.10'      # Authorization
 gem 'will_paginate', '~> 3.0.7'
-gem 'underscore-rails'        # utility-belt library for JavaScript
 gem 'exception_notification', '~> 4.1.0'
 gem 'active_model_serializers', '~> 0.8.3' # building JSON responses. Wait for 0.10 (https://github.com/rails-api/active_model_serializers#maintenance-please-read)
-gem 'sitemap_generator'       # Generation setup in config/sitemap.rb
+gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
 gem 'whenever', require: false
 gem 'friendly_id', '~> 5.1.0'
 
@@ -24,17 +23,20 @@ gem 'bootstrap-datepicker-rails'
 
 # Javascript
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', :platforms => :ruby
+gem 'therubyracer',  platforms: :ruby # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'coffee-rails', '~> 4.1.0' # Use CoffeeScript for .js.coffee assets and views
+gem 'jquery-rails'             # Use jquery as the JavaScript library
+gem 'underscore-rails'         # utility-belt library for JavaScript
 
 group :development do
   gem 'capistrano',         '~> 3.4', require: false
   gem 'capistrano-rails',   '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rvm',     '~> 0.1', require: false
+  gem 'capistrano-passenger'
 
   # Use 'thin' to avoid "Could not determine content-length of response body." warnings.
-  # See http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h
+  # @see http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h
   gem 'thin'
 
   gem 'better_errors'

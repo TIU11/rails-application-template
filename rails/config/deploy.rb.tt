@@ -1,5 +1,5 @@
-# config valid only for Capistrano 3.1
-lock '3.3.5'
+# config valid only for current version of Capistrano
+lock '3.4.0'
 
 set :application, "<%= app_name.parameterize %>"
 set :top_level_domain, "tiu11.org"
@@ -11,8 +11,11 @@ set :user, "#{`whoami`.strip}"
 
 set :deploy_to, "/export/home/#{fetch(:top_level_domain)}/#{fetch(:application)}"
 
-# Default value for :format is :pretty
-# set :format, :pretty
+# RVM: Capistrano deploys with server's default ruby, but we want to match the local environment
+set :rvm_ruby_version, ENV['GEM_HOME'].gsub(/.*\//,"") # match local ruby environment
+
+# Passenger
+set :passenger_restart_with_sudo, true # assumes suders allows the deploy user to restart w/o a password
 
 # Default value for :log_level is :debug
 # set :log_level, :debug
@@ -30,20 +33,9 @@ set :linked_files, %w{.env}
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
-# Default value for keep_releases is 5
-# set :keep_releases, 5
-
 namespace :deploy do
 
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute :touch, release_path.join('tmp/restart.txt')
-    end
-  end
-
   before :restart, :update_group
-  after :publishing, :restart
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
