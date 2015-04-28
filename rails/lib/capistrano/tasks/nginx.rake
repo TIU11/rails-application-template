@@ -14,8 +14,6 @@ namespace :nginx do
     after "nginx:setup", "nginx:restart"
   end
 
-  # after "deploy:setup", "nginx:setup"
-
   %w[start stop restart].each do |command|
     desc "#{command} nginx"
     task command do

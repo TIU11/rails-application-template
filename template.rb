@@ -77,71 +77,87 @@ gemset_name = app_name.titleize.parameterize
 run "rvm #{default_ruby} do rvm --ruby-version --create use #{desired_ruby}@#{gemset_name}"
 @rvm = "rvm #{desired_ruby}@#{gemset_name}" # run subsequent commands within this gemset via `run "#{@rvm} do command"`
 
-puts "Installing bundled gems (may take several minutes)".cyan
-run "#{@rvm} do bundle install" # Rails won't bundle into our gemset, so we'll take care of it
-
-# Even if we didn't get `--skip-bundle`, let's force skipping of the built-in `bundle install`
+# Override since Rails won't install into our project's RVM gemset
+# See http://apidock.com/rails/v4.2.1/Rails/Generators/AppBase/run_bundle
 # See http://stackoverflow.com/questions/11302742/how-to-make-a-rails-template-forcefully-not-run-bundle-install-after-rails-new-i
 def run_bundle
-  puts "We handled `bundle install` within the template, so skipping the built-in one here".cyan
+  return unless bundle_install? # respect --skip-bundle
+  puts "Installing bundled gems (may take several minutes)".cyan
+  say_status :run, "#{@rvm} do bundle install"
+
+  require 'bundler'
+  Bundler.with_clean_env do
+    run "#{@rvm} do bundle install"
+  end
+end
+
+# Override since Rails won't run this within the project's RVM gemset
+# See http://apidock.com/rails/Rails/Generators/AppBase/generate_spring_binstubs
+def generate_spring_binstubs
+  if bundle_install? && spring_install?
+    say_status :run, "#{@rvm} do bundle exec spring binstub --all"
+    run "#{@rvm} do bundle exec spring binstub --all"
+  end
 end
 
 #
 # Generate and Setup
 #
 
-puts "Run generators".cyan
+after_bundle do
+  puts "Run generators".cyan
 
-run "#{@rvm} do rails generate rspec:install"
+  run "#{@rvm} do rails generate rspec:install"
 
-if yes?("Create Users? [yN]".cyan)
-  run "#{@rvm} do rails generate authlogic:install"
-  run "rake db:migrate"
-end
+  if yes?("Create Users? [yN]".cyan)
+    run "#{@rvm} do rails generate authlogic:install"
+    rake "db:migrate"
+  end
 
-if yes?("Initialize the Bitbucket Git repository? [yN]".cyan)
-  require 'json'
+  if yes?("Initialize the Bitbucket Git repository? [yN]".cyan)
+    require 'json'
 
-  # Create Bitbucket Repository
-  # @see https://confluence.atlassian.com/display/BITBUCKET/repository+Resource#repositoryResource-POSTanewrepository
-  data = {
-    scm: 'git',
-    is_private: true,
-    forking_policy: 'allow_forks',
-    name: app_name.titleize,
-    language: 'ruby'
-  }
-  repo_slug = @app_name.titleize.parameterize
-  owner = 'tiu'
-  credentials = ask("What are your TIU Bitbucket credentials? (username:password)".cyan).strip # TODO: can we drop this prompt?
-  # --user 'username:password'
-  # --pubkey ~/.ssh/id_rsa.pub # TODO: can we make this work???
-  # TODO: what if this fails? can we re-try?
-  run "curl --request POST --user '#{credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug} --data '#{data.to_json}'"
-
-  # Open in SourceTree (assumes command line is already installed)
-  `stree`
-
-  # Add code to the repository
-  git :init
-  git add: '--all .', commit: "-m 'Applied Rails Application Template'"
-  git remote: "add origin ssh://git@bitbucket.org/#{owner}/#{@app_name.titleize.parameterize}.git"
-  git push: "-u origin --all"
-
-  if yes?("Deploy? [yN]".cyan)
-    # Add deploy keys to the repository
-    key = `ssh dev.tiu11.org "cat ~/.ssh/id_rsa.pub"`
-    label = key.split(' ')[2]
+    # Create Bitbucket Repository
+    # @see https://confluence.atlassian.com/display/BITBUCKET/repository+Resource#repositoryResource-POSTanewrepository
     data = {
-      key: key,
-      label: label
+      scm: 'git',
+      is_private: true,
+      forking_policy: 'allow_forks',
+      name: app_name.titleize,
+      language: 'ruby'
     }
-    run "curl --request POST --user '#{credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/1.0/repositories/#{owner}/#{repo_slug}/deploy-keys --data '#{data.to_json}'"
+    repo_slug = @app_name.titleize.parameterize
+    owner = 'tiu'
+    credentials = ask("What are your TIU Bitbucket credentials? (username:password)".cyan).strip # TODO: can we drop this prompt?
+    # --user 'username:password'
+    # --pubkey ~/.ssh/id_rsa.pub # TODO: can we make this work???
+    # TODO: what if this fails? can we re-try?
+    run "curl --request POST --user '#{credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug} --data '#{data.to_json}'"
 
-    run "cap dev deploy:setup"
-    run "cap dev deploy"
-    # TODO: cap dev nginx:setup
-    # TODO: cap dev postgres:setup
+    # Open in SourceTree (assumes command line is already installed)
+    `stree`
+
+    # Add code to the repository
+    git :init
+    git add: '--all .', commit: "-m 'Applied Rails Application Template'"
+    git remote: "add origin ssh://git@bitbucket.org/#{owner}/#{@app_name.titleize.parameterize}.git"
+    git push: "-u origin --all"
+
+    if yes?("Deploy? [yN]".cyan)
+      # Add deploy keys to Bitbucket repository
+      # @see https://confluence.atlassian.com/display/BITBUCKET/deploy-keys+Resource#deploy-keysResource-POSTanewkey
+      key = `ssh dev.tiu11.org "cat ~/.ssh/id_rsa.pub"`
+      label = key.split(' ')[2]
+      data = {
+        key: key,
+        label: label
+      }
+      run "curl --request POST --user '#{credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/1.0/repositories/#{owner}/#{repo_slug}/deploy-keys --data '#{data.to_json}'"
+
+      run "cap dev deploy"
+      # TODO: cap dev nginx:setup
+      # TODO: cap dev postgres:setup
+    end
   end
 end
 
