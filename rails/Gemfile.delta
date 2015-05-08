@@ -23,7 +23,7 @@ gem 'bootstrap-datepicker-rails'
 
 # Javascript
 
-gem 'therubyracer',  platforms: :ruby # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'therubyracer',  platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'coffee-rails', '~> 4.1.0' # Use CoffeeScript for .js.coffee assets and views
 gem 'jquery-rails'             # Use jquery as the JavaScript library
 gem 'underscore-rails'         # utility-belt library for JavaScript
