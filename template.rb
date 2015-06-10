@@ -114,11 +114,16 @@ end
 after_bundle do
   puts "Run generators".cyan
 
+  # Keep the rspec generator from hanging.
+  # @see (http://www.sitepoint.com/rails-application-templates-real-world/)
+  run "#{@rvm} do spring stop"
+
   run "#{@rvm} do rails generate rspec:install"
 
   if yes?("Create Users? [yN]".cyan)
     run "#{@rvm} do rails generate authlogic:install"
-    rake "db:migrate"
+    run "#{@rvm} do rake db:create"
+    run "#{@rvm} do rake db:migrate"
   end
 
   if yes?("Initialize the Bitbucket Git repository? [yN]".cyan)
