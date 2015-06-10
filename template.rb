@@ -36,7 +36,7 @@ copy_file "#{destination_root}/config/environments/production.rb", "#{destinatio
 uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
 gsub_file "#{destination_root}/app/assets/javascripts/application.js", "//= require turbolinks", ''
 insert_into_file "#{destination_root}/app/assets/javascripts/application.js",
-                 "//= require bootstrap-sprockets\n",
+                 "//= require underscore\n//= require bootstrap-sprockets\n//= require bootstrap-datepicker\n",
                  after: "//= require jquery\n"
 
 if File.file? "#{destination_root}/config/initializers/secret_token.rb" # Rails 3.2, 4.0 (< 4.1)
@@ -81,6 +81,10 @@ run "rvm #{default_ruby} do rvm --ruby-version --create use #{desired_ruby}@#{ge
 # See http://apidock.com/rails/v4.2.1/Rails/Generators/AppBase/run_bundle
 # See http://stackoverflow.com/questions/11302742/how-to-make-a-rails-template-forcefully-not-run-bundle-install-after-rails-new-i
 def run_bundle
+  puts "Updating to the latest Rubygems".cyan
+  puts "Currently using Rubygems #{`#{@rvm} do gem -v`}"
+  run "#{@rvm} do rvm rubygems latest"
+
   return unless bundle_install? # respect --skip-bundle
   puts "Installing bundled gems (may take several minutes)".cyan
   say_status :run, "#{@rvm} do bundle install"

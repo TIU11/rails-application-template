@@ -17,7 +17,7 @@ class <%= class_name %> < <%= parent_class_name.classify %>
   # Scopes
   #
 
-  # scope :sorted, ->{ order('name ASC') }
+  # scope :sorted, ->{ order(:name) }
 
   #
   # Callbacks
@@ -28,7 +28,7 @@ class <%= class_name %> < <%= parent_class_name.classify %>
   #
 
   # validates :name,
-  #           :presence => true
+  #           presence: true
 
   #
   # Class Methods

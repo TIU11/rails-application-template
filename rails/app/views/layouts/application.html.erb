@@ -30,13 +30,13 @@
         <% end %>
 
         <% if flash[:warning] %>
-          <p class="alert alert-warning alert-block">
+          <p class="alert alert-warning" role="alert">
             <%= raw(flash[:warning]) %>
           </p>
         <% end %>
 
         <% if flash[:error] %>
-          <p class="alert alert-danger alert-block">
+          <p class="alert alert-danger" role="alert">
             <%= raw(flash[:error]) %>
           </p>
         <% end %>

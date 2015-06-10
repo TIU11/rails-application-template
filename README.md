@@ -20,8 +20,9 @@ This template assumes some things:
 
 * Rails 4.2.x is installed
 
-        gem install rails -v "~> 4.2.1" # 4.2.x latest
-        gem install rails               # or the latest, period.
+        rvm use 2.2
+        gem install rails               # install latest version of rails
+        gem install rails -v "~> 4.2.1" # you may install an older version, but the template is more likely to not work.
 
 * Bundler and RubyGems are up-to-date (optional)
 
@@ -43,6 +44,7 @@ This template assumes some things:
 
 Generate! Choose your application name carefully, since a lot of work will be done using this name.
 
+    cd ~/code                    # Wherever you put your projects
     rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks
     cd myApp
     bundle outdated              # See if the template has you stuck on some old, crusty code
