@@ -142,7 +142,15 @@ after_bundle do
     run "curl --request POST --user '#{credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug} --data '#{data.to_json}'"
 
     # Open in SourceTree (assumes command line is already installed)
-    `stree`
+    # Not cross-platform compatible.
+    # @see (http://stackoverflow.com/questions/2108727/which-in-ruby-checking-if-program-exists-in-path-from-ruby)
+    # @see (http://stackoverflow.com/questions/19663202/how-do-you-open-sourcetree-from-the-command-line)
+    if `which stree`
+      `stree`
+    else
+      puts "Go install the SourceTree Command Line Tools. Simply launch SourceTree, open the SourceTree menu, and select \"Install Command Line Tools\".".yellow
+      `open -a SourceTree #{destination_root}`
+    end
 
     # Add code to the repository
     git :init
