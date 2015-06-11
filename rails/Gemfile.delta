@@ -20,7 +20,7 @@ gem 'friendly_id', '~> 5.1.0'
 # Styling
 
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
-gem 'compass-rails'
+# gem 'compass-rails' # remove since its unused and holds back sprockets
 gem 'font-awesome-sass', '~> 4.3.0'
 gem 'bootstrap-sass', '~> 3.3.0'
 gem 'bootstrap-datepicker-rails'
