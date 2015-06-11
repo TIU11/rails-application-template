@@ -68,26 +68,27 @@ To see what the template does, you may wish to first generate a default app:
 * tidy up the Gemfile
 * add dev, demo, production deployment keys to Bitbucket
 * check environment configs
-** update hostnames for dev, demo, production servers in config/deploy/<environment>.rb
-** make sure environments defined in secrets.yml, database.yml, config/environments/<environment>.rb
+* update hostnames for dev, demo, production servers in `config/deploy/<environment>.rb`
+* make sure all of your environments are defined in `secrets.yml`, `database.yml`, `config/environments/<environment>.rb`
 * update local `.env` and only check it in if you use example/development settings that won't reveal demo/production settings!
+* update `default_host` in `sitemap.rb` with your production url
 
 # Initial Deploy to Dev/Demo/Production Environment
 
+* Review your Capistrano configuration in `deploy.rb`.
 * `cap dev deploy` # with each run, the error message point to the following manual steps
 * create .env in `{deploy_to}/shared/.env` with the correct passwords, etc. for that environment
 * create rvm gemset using the suggested command
-* create database user and database matching `database.yml`. Copy the commands from `postgresql.rake`
+* create database user and database matching `database.yml`. Copy the commands from `postgresql.rake` (which can't do it for you yet)
 * `cap dev deploy` until it completes successfully
 
 # Todo
 
-* Automate more stuff with [Capistrano 3](http://www.capistranorb.com/2013/06/01/release-announcement.html)
-* Automate more of the setup/deploy to dev.tiu11.org
- - initialize .env
- - create database user, database
- - create nginx config
-* Don't install gems in current gemset, just in the RVM one created for the project
+* Add the `demo` environment to secrets.yml and database.yml
+* Automate more of the setup/deploy to dev.tiu11.org with [Capistrano 3](http://www.capistranorb.com/2013/06/01/release-announcement.html)
+  - initialize .env
+  - create database user, database
+  - create nginx config
 * Consider adding some of these: https://intercityup.com/blog/useful-capistrano-plugins.html?utm_source=rubyweekly&utm_medium=email
 
 # Credits
