@@ -86,7 +86,7 @@ def run_bundle
   run "#{@rvm} do rvm rubygems latest"
 
   puts "Updating to the latest Bundler".cyan
-  run "#{@rvm} do gem install bundler"
+  rvm "#{desired_ruby}@global do gem install bundler"
 
   return unless bundle_install? # respect --skip-bundle
   puts "Installing bundled gems (may take several minutes)".cyan

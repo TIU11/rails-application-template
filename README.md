@@ -26,9 +26,9 @@ This template assumes some things:
 
 * Bundler and RubyGems are up-to-date (optional)
 
-        gem install bundler             # Rails 4.0.2 depends on bundler (< 2.0, >= 1.3.0)
-                                        # We've noticed bundler 1.7 is much faster than 1.3
-        gem update --system             # Per https://rubygems.org/pages/download
+        rvm @global do gem install bundler  # Rails 4.0.2 depends on bundler (< 2.0, >= 1.3.0)
+                                            # We've noticed bundler 1.7 is much faster than 1.3
+        gem update --system                 # Per https://rubygems.org/pages/download
 
 * XCode and command line tools (GCC needed to compile some gems)
 
@@ -46,7 +46,7 @@ Generate! Choose your application name carefully, since a lot of work will be do
 
     cd ~/code                    # Wherever you put your projects
     rvm use 2.2
-    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks
+    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks --no-scaffold-stylesheet
     cd myApp
     bundle outdated              # See if the template has you stuck on some old, crusty code
     rake db:migrate

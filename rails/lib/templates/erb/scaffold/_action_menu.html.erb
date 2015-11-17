@@ -1,7 +1,7 @@
 <%%
   # Does <%= singular_table_name %> have *any* abilities from the menu?
   if [:edit, :show, :delete].index{|ability| can? ability, <%= singular_table_name %>}
-    dropdown_class ||= 'btn-mini'
+    dropdown_class ||= 'btn-xs'
 %>
   <div class="btn-group pull-right">
     <a class="btn btn-default dropdown-toggle <%%= dropdown_class %>" data-toggle="dropdown" href="#">
