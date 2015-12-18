@@ -78,15 +78,14 @@ To see what the template does, you may wish to first generate a default app:
 * Review your Capistrano configuration in `deploy.rb`.
 * `cap dev deploy` # with each run, the error message point to the following manual steps
 * `cap dev rvm:create_gemset`
-* create database user and database matching `database.yml`. Copy the commands from `postgresql.rake` (which can't do it for you yet)
+* `cap dev postgresql:create_database`
 * `cap dev deploy` until it completes successfully
 
 # Todo
 
 * Add the `demo` environment to secrets.yml and database.yml
 * Automate more of the setup/deploy to dev.tiu11.org with [Capistrano 3](http://www.capistranorb.com/2013/06/01/release-announcement.html)
-  - create database user, database
-  - create nginx config
+  - create `deploy:setup` for initial setup (see "Initial Deploy" instructions) and run it automatically
 * Consider adding some of these: https://intercityup.com/blog/useful-capistrano-plugins.html?utm_source=rubyweekly&utm_medium=email
 
 # Credits
