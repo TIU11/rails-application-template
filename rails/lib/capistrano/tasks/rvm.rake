@@ -1,6 +1,6 @@
 namespace :rvm do
 
-  desc "Bypass rvm:check when user directly invokes any rvm namespace tasks, except rvm:check itself."
+  # Bypass rvm:check when user directly invokes any rvm namespace tasks, except rvm:check itself.
   task :bypass_check do |task, args|
     tasks_in_namespace = Rake.application.tasks.select{|t| t.scope == task.scope}.map(&:name)
     trigger_tasks = tasks_in_namespace - ['rvm:check']
@@ -14,7 +14,7 @@ namespace :rvm do
   end
   before :hook, :bypass_check
 
-  desc "Create rvm gemset"
+  desc "Install project's ruby with rvm"
   task :install_ruby do
     on roles(:web) do
       ruby_version = fetch(:rvm_ruby_version).split('@').first
@@ -29,7 +29,7 @@ namespace :rvm do
     end
   end
 
-  desc "Create rvm gemset"
+  desc "Create project's gemset with rvm"
   task :create_gemset => :install_ruby do
     on roles(:web) do
       ruby_version, gemset = fetch(:rvm_ruby_version).split('@')

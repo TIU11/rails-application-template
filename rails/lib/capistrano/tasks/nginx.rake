@@ -1,17 +1,35 @@
+require 'colorize'
+
 # See https://github.com/railscasts/373-zero-downtime-deployment/blob/master/blog-after/config/recipes/nginx.rb
 
 namespace :nginx do
+
   desc "Setup nginx configuration for this application"
   task :setup do
     on roles(:web) do
-      set :passenger_ruby, capture("/usr/bin/passenger-config --ruby-command | grep Nginx")[/passenger_ruby (.*)/, 1].strip
-      template "nginx_passenger.erb", "/tmp/nginx_conf"
-      execute :sudo, :mv, "/tmp/nginx_conf /etc/nginx/sites-available/#{application}.#{top_level_domain}"
-      execute :sudo, :ln, "-fs /etc/nginx/sites-available/#{application}.#{top_level_domain} /etc/nginx/sites-enabled/#{application}.#{top_level_domain}"
-      execute :sudo, :rm, "-f /etc/nginx/sites-enabled/default"
+      fqdn = "#{fetch(:application)}-#{fetch(:rails_env)}.#{fetch(:top_level_domain)}"
+      config_path = "/etc/nginx/sites-available/#{fqdn}"
+
+      if test "[ -f #{config_path} ]"
+        info "Nginx configuration exists. To regenerate, simply delete #{config_path}"
+      else
+        rvm_prefix = "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do"
+        passenger_ruby = capture("#{rvm_prefix} /usr/bin/passenger-config --ruby-command | grep Nginx")[/passenger_ruby (.*)/, 1].strip
+
+        template_path = 'lib/capistrano/templates/nginx_passenger.erb'
+        content = StringIO.new(ERB.new(File.read(template_path)).result(binding)) # process ERB template
+        upload! content, "#{shared_path}/#{fqdn}"
+
+        execute :sudo, :mv, "#{shared_path}/#{fqdn} #{config_path}"
+        info "Uploaded #{config_path} created from #{template_path}".cyan
+
+        execute :sudo, :ln, "-fs /etc/nginx/sites-available/#{fqdn} /etc/nginx/sites-enabled/#{fqdn}"
+        execute :sudo, :nginx, '-s reload'
+        info "Enabled nginx config. If DNS is configured, try browsing http://#{fqdn}".cyan
+      end
     end
 
-    after "nginx:setup", "nginx:restart"
+    # after "nginx:setup", "nginx:restart"
   end
 
   %w[start stop restart].each do |command|
@@ -22,4 +40,5 @@ namespace :nginx do
       end
     end
   end
+
 end
