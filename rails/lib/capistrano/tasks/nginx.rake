@@ -17,22 +17,22 @@ namespace :nginx do
         passenger_ruby = capture("#{rvm_prefix} /usr/bin/passenger-config --ruby-command | grep Nginx")[/passenger_ruby (.*)/, 1].strip
 
         template_path = 'lib/capistrano/templates/nginx_passenger.erb'
-        content = StringIO.new(ERB.new(File.read(template_path)).result(binding)) # process ERB template
+        content = StringIO.new(ERB.new(File.read(template_path), nil, '>').result(binding)) # process ERB template
         upload! content, "#{shared_path}/#{fqdn}"
 
         execute :sudo, :mv, "#{shared_path}/#{fqdn} #{config_path}"
-        info "Uploaded #{config_path} created from #{template_path}".cyan
+        info "Uploaded #{config_path} created from #{template_path}".cyan.bold
 
         execute :sudo, :ln, "-fs /etc/nginx/sites-available/#{fqdn} /etc/nginx/sites-enabled/#{fqdn}"
-        execute :sudo, :nginx, '-s reload'
-        info "Enabled nginx config. If DNS is configured, try browsing http://#{fqdn}".cyan
+        invoke 'nginx:reload'
+        info "Enabled nginx config. If DNS is configured, try browsing http://#{fqdn}".cyan.bold
       end
     end
 
-    # after "nginx:setup", "nginx:restart"
+    after 'nginx:setup', 'nginx:restart'
   end
 
-  %w[start stop restart].each do |command|
+  %w[start stop restart reload].each do |command|
     desc "#{command} nginx"
     task command do
       on roles(:web) do

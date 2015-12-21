@@ -17,12 +17,13 @@ This template assumes some things:
 * Ruby 2.2.x is installed
 
         rvm install 2.2
+        rvm install 2.2 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X
 
 * Rails 4.2.x is installed
 
         rvm use 2.2
         gem install rails               # install latest version of rails
-        gem install rails -v "~> 4.2.1" # you may install an older version, but the template is more likely to not work.
+        gem install rails -v "~> 4.2.5" # you may install an older version, but the template is more likely to not work.
 
 * Bundler and RubyGems are up-to-date (optional)
 

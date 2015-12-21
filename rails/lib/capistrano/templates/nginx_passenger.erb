@@ -1,9 +1,27 @@
+<%
+  # A single HTTP/HTTPS server
+  # @see (http://nginx.org/en/docs/http/configuring_https_servers.html#single_http_https_server)
+  #
+  # For servers with no HTTP, consider a redirect:
+  # server {
+  #     listen         80;
+  #     server_name    example.tiu11.org;
+  #     rewrite        ^ https://$server_name$request_uri? permanent;
+  # }
+
+  # Configuring Passenger + nginx
+  # @see (https://www.phusionpassenger.com/library/config/nginx/)
+%>
 server {
     listen         80;
+    listen         443 ssl;
     server_name    <%= fqdn %>;
     root <%= release_path %>/public;
+
+    # Phusion Passenger
+    # @see (https://www.phusionpassenger.com/library/config/nginx/)
     passenger_enabled on;
-    passenger_min_instances 1;
+    # passenger_min_instances 1;
     passenger_ruby <%= passenger_ruby %>; # from project root, run `passenger-config --ruby-command`
     rails_env "<%= fetch(:rails_env) %>";
 
@@ -15,6 +33,10 @@ server {
       add_header ETag "";
       break;
     }
+
+    # SSL
+    ssl_certificate      /etc/ssl/certs/<%= fetch(:top_level_domain) %>.godaddy.crt;
+    ssl_certificate_key  /etc/ssl/private/<%= fetch(:top_level_domain) %>.godaddy.key;
 }
 
-# passenger_pre_start http://<%= fqdn %>;
+passenger_pre_start http://<%= fqdn %>;

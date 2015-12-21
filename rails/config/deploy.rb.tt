@@ -11,6 +11,11 @@ set :user, "#{`whoami`.strip}"
 
 set :deploy_to, "/export/home/#{fetch(:top_level_domain)}/#{fetch(:application)}"
 
+# Path that works with multi-user deploys.
+# Avoids `/tmp/<application>/git-ssh.sh: Permission denied` when another user attempts to deploy.
+# @see (https://github.com/capistrano/capistrano/issues/687#issuecomment-35419084)
+set :tmp_dir, "#{shared_path}/#{fetch(:user)}/tmp"
+
 # RVM: Capistrano deploys with server's default ruby, but we want to match the local environment
 set :rvm_ruby_version, ENV['GEM_HOME'].gsub(/.*\//,"") # match local ruby environment
 

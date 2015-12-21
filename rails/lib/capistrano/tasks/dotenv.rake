@@ -1,7 +1,7 @@
 namespace :deploy do
   namespace :check do
 
-    desc "Initialize missing .env from .env.sample"
+    desc "Check .env exists or initialize from .env.sample"
     task :initialize_dotenv do
       on roles(:web) do
         env_is_missing = !test("[ -f #{shared_path}/.env ]")
@@ -12,6 +12,7 @@ namespace :deploy do
         end
       end
     end
+
     before :linked_files, :initialize_dotenv
 
   end

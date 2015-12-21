@@ -14,7 +14,7 @@ require 'dotenv'
 namespace :postgresql do
 
   desc "Create a database for this application."
-  task :create_database => :create_db_user do
+  task :create_database => :initialize_params do
     on roles(:db) do
       if test :sudo, %Q{-u postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='#{fetch(:pg_database)}';" | grep -q 1}
         info "#{fetch(:pg_database)} already exists"
@@ -39,6 +39,11 @@ namespace :postgresql do
         exit 1
       end
     end
+  end
+
+  task :setup do
+    invoke 'postgresql:create_db_user'
+    invoke 'postgresql:create_database'
   end
 
   task :initialize_params do
