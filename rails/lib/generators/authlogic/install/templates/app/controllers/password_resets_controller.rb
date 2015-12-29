@@ -1,10 +1,9 @@
 class PasswordResetsController < ApplicationController
-  before_filter :load_user_using_perishable_token, :only => [:edit, :update]
+  before_filter :set_user, only: [:edit, :update]
   skip_authorization_check
 
   def new
     @password_reset = PasswordReset.new(
-      username: (current_user && current_user.username),
       email: (current_user && current_user.email)
     )
   end
@@ -13,18 +12,11 @@ class PasswordResetsController < ApplicationController
     @password_reset = PasswordReset.new(params[:password_reset])
 
     if @password_reset.valid?
-      @user = User.find_by_username_and_email(@password_reset.username, @password_reset.email)
+      @user = User.find_by(email: @password_reset.email)
       if @user
-        flash[:notice] = "Instructions to reset your password have been emailed to the registered email. " +
-          "Please check your email."
+        flash[:notice] = t('app.messages.password_reset.sent_email')
       else
-        @password_reset.errors[:base] = %{
-          Unable to find an account matching the username and email you provided.
-          Try checking your spelling, or
-          <a href="mailto:ocs-odponlinehelp@odpconsulting.net?subject=Request Help Resetting Password&body=
-          I'm having trouble updating my password because I don't know the registered username and/or email. <add details>
-          ">contact the help desk</a> to look up your account.
-        }.html_safe
+        @password_reset.errors[:base] << t('app.messages.password_reset.account_not_found_html', email: User.admin.email).html_safe
       end
     end
 
@@ -64,7 +56,7 @@ class PasswordResetsController < ApplicationController
 
     if @user.errors.empty?
       @user.update_attribute :password, @user.password
-      flash[:notice] = "Password successfully updated"
+      flash[:notice] = t('app.messages.password_reset.updated')
       redirect_to user_path(@user)
     else
       render :edit
@@ -73,12 +65,12 @@ class PasswordResetsController < ApplicationController
 
   private
 
-  def load_user_using_perishable_token
+  def set_user
     @user = User.find_using_perishable_token(params[:id])
     unless @user
-      flash[:error] = ("We're sorry, but this is not an active reset link. " +
-      "You can " +
-      "<a href=\"#{new_password_reset_path}\">generate a new one</a>.").html_safe
+      flash[:error] = t('app.messages.password_reset.inactive_link_html',
+                        new_password_reset_path: new_password_reset_path.html_safe)
+      flash[:html_safe] = true # don't escape HTML when rendering flash messages
       redirect_to root_url
     end
   end

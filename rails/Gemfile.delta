@@ -16,6 +16,7 @@ gem 'active_model_serializers', '~> 0.8.3' # building JSON responses. Wait for 0
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
 gem 'whenever', require: false
 gem 'friendly_id', '~> 5.1.0'
+gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
 
 # Styling
 

@@ -2,6 +2,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   check_authorization # https://github.com/ryanb/cancan/wiki/Ensure-Authorization
 
+  # Allow HTML is flash messages when flash[:html_safe] is set. Simply setting html_safe on the message won't work since JSON serialized cookies only store simple strings, not `ActiveSupport::SafeBuffer` instances. See (http://stackoverflow.com/questions/26538891/flash-message-with-html-safe-from-the-controller-in-rails-4-safe-version)
+  before_action -> {
+    if flash[:html_safe] # don't escape HTML when rendering flash messages
+      [:success, :notice, :warning, :error].each do |f|
+        flash.now[f] = flash[f].html_safe if flash[f]
+      end
+    end
+  }
+
   # Handles authorization errors. Notifies user why it occurred and redirects to root_url.
   rescue_from CanCan::AccessDenied do |exception|
     Rails.logger.warn "Access denied to '#{exception.action}' a '#{exception.subject}' was denied to #{current_user}."
