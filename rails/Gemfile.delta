@@ -2,14 +2,14 @@
 #
 # Rails Application Template modifications follow...
 
-# gem 'rails', '~> 4.2.1'
+# gem 'rails', '~> 4.2.5'
 
 # gem 'pg'                        # Use postgresql as the database for Active Record
 gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
 
 gem 'authlogic', '~> 3.4.0'     # Authentication
 gem 'scrypt'                    # required by authlogic when using scrypt
-gem 'cancancan', '~> 1.10'      # Authorization
+gem 'cancancan', '~> 1.13'      # Authorization
 gem 'will_paginate', '~> 3.0.7'
 gem 'exception_notification', '~> 4.1.0'
 gem 'active_model_serializers', '~> 0.8.3' # building JSON responses. Wait for 0.10 (https://github.com/rails-api/active_model_serializers#maintenance-please-read)
@@ -22,7 +22,7 @@ gem 'virtus'                    # Define typed attributes (e.g. for Value Object
 
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 # gem 'compass-rails' # remove since its unused and holds back sprockets
-gem 'font-awesome-sass', '~> 4.3.0'
+gem 'font-awesome-sass', '~> 4.4.0'
 gem 'bootstrap-sass', '~> 3.3.0'
 gem 'bootstrap-datepicker-rails'
 
@@ -52,7 +52,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'web-console', '~> 2.0' # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 3.0' # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'byebug'                # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
