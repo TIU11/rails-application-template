@@ -17,7 +17,7 @@ namespace :postgresql do
   task :create_database => :initialize_params do
     on roles(:db) do
       if test :sudo, %Q{-u postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='#{fetch(:pg_database)}';" | grep -q 1}
-        info "#{fetch(:pg_database)} already exists"
+        info "#{fetch(:pg_database)} database already exists"
       elsif execute :sudo, %Q{-u postgres psql -c "CREATE DATABASE \\"#{fetch(:pg_database)}\\" OWNER \\"#{fetch(:pg_user)}\\";"}
         info "Created #{fetch(:pg_database)}"
       else

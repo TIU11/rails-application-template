@@ -1,6 +1,8 @@
 namespace :deploy do
-  # Initial server setup. Requires sudo access.
-  # TODO: use daemons that can handle this without root-level permissions
+  # TODO:
+  # * Requires sudo access. Use daemons that can handle this without root-level permissions
+  # * invoke 'rvm:create_gemset', which currently needs to be invoked separately as a top-level task
+  desc 'First-deploy server setup'
   task :setup do
     invoke 'deploy:check'
     invoke 'postgresql:setup'

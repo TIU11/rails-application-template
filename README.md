@@ -77,9 +77,9 @@ To see what the template does, you may wish to first generate a default app:
 # Initial Deploy to Dev/Demo/Production Environment
 
 * Review your Capistrano configuration in `deploy.rb`.
-* `cap dev deploy` # with each run, the error message point to the following manual steps
-* `cap dev rvm:create_gemset`
-* `cap dev postgresql:create_database`
+* `cap dev deploy:setup`
+* `cap dev rvm:create_gemset` (separate from `deploy:setup`...for now)
+* `cap dev deploy` # with each run, an error will point out something that you need to address (e.g. a manual step, a missing dependency for a gem with native extensions, etc)
 * `cap dev deploy` until it completes successfully
 
 # Todo

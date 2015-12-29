@@ -28,8 +28,6 @@ namespace :nginx do
         info "Enabled nginx config. If DNS is configured, try browsing http://#{fqdn}".cyan.bold
       end
     end
-
-    after 'nginx:setup', 'nginx:restart'
   end
 
   %w[start stop restart reload].each do |command|
