@@ -89,4 +89,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Sets the filename header using a consistent name:
+  #   `controller_path` + `action_name` + Time.now + request.format
+  #   => "Reports Outreach Events Index 2015-10-20-1117am.xls"
+  #
+  # Provide a name or individual parts for custom behavior. For example, override the :index action with a more helpful :action_part.
+  def set_filename(name = nil, action_part: nil, with_namespace: true)
+    if name.nil?
+      controller_part = with_namespace ? controller_path : controller_name
+      controller_part = controller_part.parameterize.titleize # reports/outreach_events => 'Reports Outreach Events'
+      action_part ||= action_name.titleize                    # index => 'Index'
+      timestamp_part = Time.now.strftime('%F-%I%M%P')         # '2015-10-20-1117am'
+      name = [controller_part, action_part, timestamp_part].reject(&:blank?).join(' ')
+    end
+
+    format_part = request.format.symbol                       # => 'xls'
+
+    filename = "#{name}.#{format_part}"
+    headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
+  end
+
 end

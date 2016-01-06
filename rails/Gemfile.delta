@@ -10,7 +10,7 @@ gem 'dotenv-rails'              # Loads environment variables from .env into ENV
 gem 'authlogic', '~> 3.4.0'     # Authentication
 gem 'scrypt'                    # required by authlogic when using scrypt
 gem 'cancancan', '~> 1.13'      # Authorization
-gem 'will_paginate', '~> 3.0.7'
+gem 'will_paginate', '~> 3.1.0'
 gem 'exception_notification', '~> 4.1.0'
 gem 'active_model_serializers', '~> 0.8.3' # building JSON responses. Wait for 0.10 (https://github.com/rails-api/active_model_serializers#maintenance-please-read)
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
@@ -21,8 +21,7 @@ gem 'virtus'                    # Define typed attributes (e.g. for Value Object
 # Styling
 
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
-# gem 'compass-rails' # remove since its unused and holds back sprockets
-gem 'font-awesome-sass', '~> 4.4.0'
+gem 'font-awesome-sass', '~> 4.5.0'
 gem 'bootstrap-sass', '~> 3.3.0'
 gem 'bootstrap-datepicker-rails'
 

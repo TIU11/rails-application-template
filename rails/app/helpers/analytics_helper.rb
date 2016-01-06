@@ -2,9 +2,9 @@ module AnalyticsHelper
 
   # Generates Google Analytics url
   #
-  # Usage: analytics_url :utmac => 'UA-12345678-9',
-  #       :utm_campaign => 'technical_contact_reservation_notification',
-  #       :utm_source => "org:" + @users.first.organization.abbreviation
+  # Usage: analytics_url utmac: 'UA-00000000-0',
+  #       utm_campaign: 'technical_contact_reservation_notification',
+  #       utm_source:   'org:' + @users.first.organization.abbreviation
   #
   # Options:
   #   utmac         Account String. Appears on all requests.
@@ -22,10 +22,10 @@ module AnalyticsHelper
     if(options[:utmac])
       # Setup default options
       @options = options.merge({
-        :utmn => Random.rand(1000000000..9999999999),
-        :utmwv => '5.3.0d',
-        :utm_medium => 'email',
-        :utmp => '/default-analytics-page',
+        utmn:       Random.rand(1000000000..9999999999),
+        utmwv:      '5.3.0d',
+        utm_medium: 'email',
+        utmp:       '/default-analytics-page',
       })
       @options[:utmr] = (request.url if request) || '-'
       @options[:utmp] = options[:utm_campaign] if options[:utm_campaign]

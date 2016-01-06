@@ -1,16 +1,4 @@
-/*
- * Important! Do *not* use Sprockets "require" syntax.
- * Use @import to include other stylesheets and Compass mixins.
- *
- * For more information read:
- * * http://blog.55minutes.com/2012/01/getting-compass-to-work-with-rails-31-and-32/
- * * https://github.com/twbs/bootstrap-sass#a-ruby-on-rails
- * * https://github.com/Compass/compass-rails
- */
-
-/*@import "compass"; */
-/*@import "bootstrap-compass";*/
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "font-awesome-sprockets";
-@import "font-awesome";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'font-awesome-sprockets';
+@import 'font-awesome';

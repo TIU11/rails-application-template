@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :monday, :at => '5:00 am' do
+every :monday, at: '5:00 am' do
   rake "-s sitemap:refresh"
 end

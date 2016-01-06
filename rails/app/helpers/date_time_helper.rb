@@ -4,7 +4,6 @@ module DateTimeHelper
   # - today: "11:32"
   # - this year: "25 Jan"
   # - older: "Dec 2011"
-  # Usage: <%= readable_updated_at(updated_at) %>
   def readable_date(date)
     return if date.nil?
     if date > Date.today
