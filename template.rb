@@ -22,11 +22,6 @@ append_to_file '.gitignore', %{
 .env
 }
 
-# Gemfile
-append_to_file 'Gemfile', open('Gemfile.delta').read
-comment_lines 'Gemfile', "jbuilder"
-remove_file 'Gemfile.delta'
-
 #
 # Configurations
 #

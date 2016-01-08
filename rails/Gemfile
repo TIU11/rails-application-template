@@ -1,11 +1,12 @@
-# REVIEW THESE ADDITIONS, THEN MERGE THEM WITH THE RAILS DEFAULTS ABOVE
-#
-# Rails Application Template modifications follow...
+# REVIEW THIS GENERATED GEMFILE, THEN DELETE THIS COMMENT.
+# When applying to an existing project, you must restore any project gems we blew away!
+
+source 'https://rubygems.org'
 
 gem 'rails', '~> 4.2.5'
 
 gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
-gem 'pg'                        # Use postgresql as the database for Active Record
+gem 'pg', '~> 0.18'             # Use postgresql as the database for Active Record
 
 gem 'authlogic', '~> 3.4.0'     # Authentication
 gem 'scrypt'                    # required by authlogic when using scrypt
