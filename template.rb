@@ -166,7 +166,7 @@ after_bundle do
   run "#{@rvm_do} rails generate rspec:install"
 
   if yes?("Create Users? [yN]".cyan)
-    run "#{@rvm_do} rails generate authlogic:install"
+    run "#{@rvm_do} rails generate authlogic:install --force"
   end
 
   run "#{@rvm_do} rake db:create"
@@ -221,9 +221,9 @@ after_bundle do
   end
 
   if yes?("Deploy? [yN]".cyan)
-    run "cap dev deploy:setup"
-    run "cap dev rvm:create_gemset"
-    run "cap dev deploy"
+    run "#{@rvm_do} cap dev deploy:setup"
+    run "#{@rvm_do} cap dev rvm:create_gemset"
+    run "#{@rvm_do} cap dev deploy"
   end
 end
 

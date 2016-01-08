@@ -13,15 +13,18 @@
 
   <div class="form-group">
     <%= f.label :username, class: 'required col-sm-2 control-label' %>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
       <%= f.text_field :username, autocomplete: 'off', class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :email, 'Registered Email', class: 'required col-sm-2 control-label' %>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
       <%= f.text_field :email, autocomplete: 'off', class: 'form-control' %>
+      <p class="help-block">
+        For your security, we will only email a password reset to the registered account.
+      </p>
     </div>
   </div>
 
