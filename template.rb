@@ -33,9 +33,13 @@ remove_file 'Gemfile.delta'
 
 # config/application.rb
 insert_into_file 'config/application.rb', open('config/application.rb.delta').read, before: "  end"
-gsub_file 'config/application.rb', "# config.time_zone = 'Central Time (US & Canada)'", "config.time_zone = 'Eastern Time (US & Canada)'"
-gsub_file 'config/application.rb', "[:password]", "[:password, :password_confirmation]"
+gsub_file 'config/application.rb',
+          "# config.time_zone = 'Central Time (US & Canada)'", "config.time_zone = 'Eastern Time (US & Canada)'"
 remove_file 'config/application.rb.delta'
+
+# config/initializers/filter_parameter_logging.rb
+gsub_file 'config/initializers/filter_parameter_logging.rb',
+          '[:password]', '[:password, :password_confirmation]'
 
 # config/environments/*
 
@@ -73,12 +77,6 @@ demo:
   password: <%= ENV['DATABASE_PASSWORD'] %>
 
 }, before: /(#.*\n)+production:\n/ # before production config and comments
-
-# config/initializers/secret_token.rb
-# `secret_token = '19c986d0a8d'` => `secret_token = ENV['SECRET_TOKEN']`
-if File.file? "#{destination_root}/config/initializers/secret_token.rb" # Rails 3.2, 4.0 (< 4.1)
-  gsub_file "#{destination_root}/config/initializers/secret_token.rb", /(secret_(key_base|token) = )'[\w]+'/, "\1ENV['SECRET_TOKEN']"
-end
 
 #
 # Asset Pipeline
@@ -118,16 +116,16 @@ remove_file 'public/index.html'
 #
 puts "Setting up RVM gemset".cyan
 default_ruby = `rvm strings 2`.strip # default to latest 2.x ruby version (e.g. '2.2.2', '2.3.0')
-desired_ruby = ask("Which Ruby would you like to use? [#{default_ruby}]".cyan)
-desired_ruby = default_ruby if desired_ruby.blank?
-if `rvm list strings`.include? desired_ruby
-  puts "#{desired_ruby} already installed"
+@desired_ruby = ask("Which Ruby would you like to use? [#{default_ruby}]".cyan)
+@desired_ruby = default_ruby if @desired_ruby.blank?
+if `rvm list strings`.include? @desired_ruby
+  puts "#{@desired_ruby} already installed"
 else
-  run "rvm install #{desired_ruby}"
+  run "rvm install #{@desired_ruby}"
 end
 gemset_name = app_name.titleize.parameterize
-run "rvm #{default_ruby} do rvm --ruby-version --create use #{desired_ruby}@#{gemset_name}"
-@rvm = "rvm #{desired_ruby}@#{gemset_name}" # run subsequent commands within this gemset via `run "#{@rvm} do command"`
+run "rvm #{default_ruby} do rvm --ruby-version --create use #{@desired_ruby}@#{gemset_name}"
+@rvm = "rvm #{@desired_ruby}@#{gemset_name}" # run subsequent commands within this gemset via `run "#{@rvm} do command"`
 
 # Override since Rails won't install into our project's RVM gemset
 # See http://apidock.com/rails/v4.2.1/Rails/Generators/AppBase/run_bundle
@@ -138,9 +136,9 @@ def run_bundle
   run "#{@rvm} do rvm rubygems latest"
 
   puts "Updating to the latest Bundler".cyan
-  rvm "#{desired_ruby}@global do gem install bundler"
+  run "rvm #{@desired_ruby}@global do gem install bundler"
 
-  return unless bundle_install? # respect --skip-bundle
+  return unless bundle_install? # respect `--skip-bundle` flag
   puts "Installing bundled gems (may take several minutes)".cyan
   say_status :run, "#{@rvm} do bundle install"
 

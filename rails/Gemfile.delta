@@ -2,10 +2,10 @@
 #
 # Rails Application Template modifications follow...
 
-# gem 'rails', '~> 4.2.5'
+gem 'rails', '~> 4.2.5'
 
-# gem 'pg'                        # Use postgresql as the database for Active Record
 gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
+gem 'pg'                        # Use postgresql as the database for Active Record
 
 gem 'authlogic', '~> 3.4.0'     # Authentication
 gem 'scrypt'                    # required by authlogic when using scrypt
@@ -34,7 +34,22 @@ gem 'coffee-rails', '~> 4.1.0'  # Use CoffeeScript for .coffee assets and views
 gem 'jquery-rails'              # Use jquery as the JavaScript library
 gem 'underscore-rails'          # utility-belt library for JavaScript
 
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+
+  gem 'factory_girl_rails'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'faker'
+end
+
 group :development do
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 3.0'
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+
   gem 'capistrano',         '~> 3.4', require: false
   gem 'capistrano-rails',   '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
@@ -49,18 +64,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'rails_best_practices'
   gem 'pry-rails'
-end
-
-group :test, :development do
-  gem 'web-console', '~> 3.0' # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'byebug'                # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-
-  gem 'factory_girl_rails'
-  gem 'rspec-rails', '~> 3.0'
-  gem 'faker'
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc # bundle exec rake doc:rails generates the API under doc/api.
