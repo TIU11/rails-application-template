@@ -15,6 +15,18 @@ say_status :rails_version, Rails.version
 puts "Download template files from Bitbucket".cyan
 git archive: "--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar --verbose master:rails | (tar xf -)"
 
+
+# .gitignore
+append_to_file '.gitignore', %{
+.byebug_history
+.env
+}
+
+# Gemfile
+append_to_file 'Gemfile', open('Gemfile.delta').read
+comment_lines 'Gemfile', "jbuilder"
+remove_file 'Gemfile.delta'
+
 #
 # Configurations
 #
@@ -25,24 +37,61 @@ gsub_file 'config/application.rb', "# config.time_zone = 'Central Time (US & Can
 gsub_file 'config/application.rb', "[:password]", "[:password, :password_confirmation]"
 remove_file 'config/application.rb.delta'
 
-# Gemfile
-append_to_file 'Gemfile', open('Gemfile.delta').read
-comment_lines 'Gemfile', "turbolinks"
-comment_lines 'Gemfile', "jbuilder"
-remove_file 'Gemfile.delta'
+# config/environments/*
 
-copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/dev.rb"
-copy_file "#{destination_root}/config/environments/production.rb", "#{destination_root}/config/environments/demo.rb"
+insert_into_file 'config/environments/development.rb',
+    "  config.action_controller.action_on_unpermitted_parameters = :raise\n",
+    before: /^end/
+gsub_file 'config/environments/development.rb', 'config.assets.debug = true', 'config.assets.debug = false'
+
 uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
-gsub_file "#{destination_root}/app/assets/javascripts/application.js", "//= require turbolinks", ''
+
+# Initialize "dev" and "demo" environments
+copy_file "#{destination_root}/config/environments/production.rb",
+          "#{destination_root}/config/environments/dev.rb"
+copy_file "#{destination_root}/config/environments/production.rb",
+          "#{destination_root}/config/environments/demo.rb"
+insert_into_file 'config/secrets.yml', %{
+dev:
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+
+demo:
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+
+}, before: /(#.*\n)+production:\n/ # before production config and comments
+insert_into_file 'config/database.yml', %{
+dev:
+  <<: *default
+  database: #{@app_name}_development
+  username: #{@app_name}
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+
+demo:
+  <<: *default
+  database: #{@app_name}_demo
+  username: #{@app_name}
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+
+}, before: /(#.*\n)+production:\n/ # before production config and comments
+
+# config/initializers/secret_token.rb
+# `secret_token = '19c986d0a8d'` => `secret_token = ENV['SECRET_TOKEN']`
+if File.file? "#{destination_root}/config/initializers/secret_token.rb" # Rails 3.2, 4.0 (< 4.1)
+  gsub_file "#{destination_root}/config/initializers/secret_token.rb", /(secret_(key_base|token) = )'[\w]+'/, "\1ENV['SECRET_TOKEN']"
+end
+
+#
+# Asset Pipeline
+#
+
 insert_into_file "#{destination_root}/app/assets/javascripts/application.js",
                  "//= require underscore\n//= require bootstrap-sprockets\n//= require bootstrap-datepicker\n",
                  after: "//= require jquery\n"
+insert_into_file 'app/assets/stylesheets/application.css',
+                 " *= require bootstrap-datepicker3\n",
+                 after: " *= require_self\n"
 
-if File.file? "#{destination_root}/config/initializers/secret_token.rb" # Rails 3.2, 4.0 (< 4.1)
-  gsub_file "#{destination_root}/config/initializers/secret_token.rb", /(secret_(key_base|token) = ).*/, "\1ENV['SECRET_TOKEN']"
-end
-
+# Routes
 route "root to: 'exception#show'"
 route "get '/404' => 'exception#show'"
 
@@ -56,12 +105,15 @@ remove_file "#{destination_root}/config/deploy.rb.tt"
 template    "#{destination_root}/config/sitemap.rb.tt"
 remove_file "#{destination_root}/config/sitemap.rb.tt"
 
-puts "Remove Junk".cyan
+puts "Remove Junk/Unwanted Files".cyan
+# Replaced by secrets.yml (http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#config-secrets-yml)
+remove_file 'config/initializers/secret_token.rb' #
+# Unused files from Rails default template
 remove_file 'app/assets/images/rails.png'
 remove_file 'public/index.html'
 
 #
-# Create and initialize gemset
+# Create and initialize RVM gemset
 # @see https://rvm.io/workflow/scripting for explanation of `rvm do`
 #
 puts "Setting up RVM gemset".cyan

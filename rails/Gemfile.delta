@@ -15,6 +15,7 @@ gem 'exception_notification', '~> 4.1.0'
 gem 'active_model_serializers', '~> 0.8.3' # building JSON responses. Wait for 0.10 (https://github.com/rails-api/active_model_serializers#maintenance-please-read)
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
 gem 'whenever', require: false
+gem 'colorize'                  # Colored console output
 gem 'friendly_id', '~> 5.1.0'
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
 

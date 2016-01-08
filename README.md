@@ -72,7 +72,7 @@ To see what the template does, you may wish to first generate a default app:
 * update hostnames for dev, demo, production servers in `config/deploy/<environment>.rb`
 * make sure all of your environments are defined in `secrets.yml`, `database.yml`, `config/environments/<environment>.rb`
 * update local `.env` (but don't check it in!)
-* update `default_host` in `sitemap.rb` with your production url
+* update `default_host` in `config/sitemap.rb` with your production url
 
 # Initial Deploy to Dev/Demo/Production Environment
 
@@ -84,7 +84,6 @@ To see what the template does, you may wish to first generate a default app:
 
 # Todo
 
-* Add the `demo` environment to secrets.yml and database.yml
 * Automate more of the setup/deploy to dev.tiu11.org with [Capistrano 3](http://www.capistranorb.com/2013/06/01/release-announcement.html)
   - create `deploy:setup` for initial setup (see "Initial Deploy" instructions) and run it automatically
 * Consider adding some of these: https://intercityup.com/blog/useful-capistrano-plugins.html?utm_source=rubyweekly&utm_medium=email
