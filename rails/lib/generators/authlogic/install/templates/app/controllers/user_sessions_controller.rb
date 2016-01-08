@@ -4,6 +4,7 @@ class UserSessionsController < ApplicationController
   before_action :require_user, except: [:new, :create]
 
   def new
+    @user_session = UserSession.new
   end
 
   def create
@@ -52,4 +53,33 @@ class UserSessionsController < ApplicationController
     redirect_back_or_default_to root_url
   end
 
+  # Returns seconds until session timeout
+  def seconds_remaining
+    render plain: (_timeout - Time.now)
+  end
+
+  # Returns timeout in ISO 8601 date format, which is compatible with JavaScript's `Date.parse(string)` method.
+  def timeout
+    render plain: _timeout.iso8601
+  end
+
+  # A "keep-alive" request to keep the current user session from timing out.
+  def continue
+    render plain: _timeout.iso8601
+  end
+
+  # Tell Authlogic not to update last_request_at for :seconds_remaining requests
+  def last_request_update_allowed?
+    not action_name.in? ['seconds_remaining', 'timeout']
+  end
+
+  private
+
+    def _timeout
+      if current_user
+        current_user.last_request_at + User.logged_in_timeout.seconds
+      else
+        15.minutes.ago # a past time, as the session has expired
+      end
+    end
 end

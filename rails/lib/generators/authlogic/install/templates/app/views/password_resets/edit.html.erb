@@ -1,13 +1,13 @@
 <h2>Change My Password</h2>
 
-<%= form_for @user, url: password_reset_path, html: {class: "form-horizontal"}, :method => :put do |f| %>
+<%= form_for @user, url: password_reset_path, html: {class: 'form-horizontal'}, method: :put do |f| %>
 
-  <%= render 'shared/error_messages', :target => @user %>
+  <%= render 'shared/error_messages', target: @user %>
 
   <div class="form-group">
     <%= f.label :password, class: 'required col-sm-2 control-label' %>
     <div class="col-sm-2">
-      <%= f.password_field :password, :autocomplete => 'off', class: 'form-control' %>
+      <%= f.password_field :password, autocomplete: 'off', class: 'form-control' %>
     </div>
   </div>
 
@@ -20,7 +20,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Update my password and log me in", :class => "btn btn-primary"%>
+      <%= f.submit "Update my password and log me in", class: 'btn btn-primary' %>
     </div>
   </div>
 <% end %>

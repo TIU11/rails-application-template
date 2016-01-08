@@ -1,25 +1,25 @@
-<h2>Forgot Password</h2>
+<h2>Request a Password Reset</h2>
 
 <p>
   Complete the form below and instructions to reset your password will be emailed to you. If you need help,
   <%= link_to "mailto:not-defined@tiu11.org?subject=Help with a Password Reset&body=%3CTell us what the trouble is and how to contact you%3E Name: %3Cname%3E Telephone: %3Cphone%3E", target: "_blank" do %>
-    let us know <i class="icon-envelope"></i>
+    let us know <%= icon 'envelope' %>
   <% end %>.
 </p>
 
-<%= form_for @password_reset, html: {class: "form-horizontal", role: 'form'} do |f| %>
+<%= form_for @password_reset, html: {class: 'form-horizontal', role: 'form'} do |f| %>
 
-  <%= render 'shared/error_messages', :target => @password_reset %>
+  <%= render 'shared/error_messages', target: @password_reset %>
 
   <div class="form-group">
-    <label class="required col-sm-2 control-label">Username:</label>
+    <%= f.label :username, class: 'required col-sm-2 control-label' %>
     <div class="col-sm-3">
       <%= f.text_field :username, autocomplete: 'off', class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
-    <label class="required col-sm-2 control-label">Registered Email:</label>
+    <%= f.label :email, 'Registered Email', class: 'required col-sm-2 control-label' %>
     <div class="col-sm-3">
       <%= f.text_field :email, autocomplete: 'off', class: 'form-control' %>
     </div>
@@ -27,7 +27,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= submit_tag "Reset my password", :class => "btn btn-primary"%>
+      <%= submit_tag 'Email my password reset', class: 'btn btn-primary'%>
     </div>
   </div>
 <% end %>
