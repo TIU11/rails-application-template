@@ -73,7 +73,7 @@ To see what the template does, you may wish to first generate a default app:
     * `config/secrets.yml`
     * `config/database.yml`
     * `config/deploy/<environment>.rb` (update hostnames)
-* update local `.env` (but don't check it in!)
+* update `.env` (but don't check it in!) and `.env.sample` (and *do* check it in)
 * update `default_host` in `config/sitemap.rb` with your production url
 
 # Initial Deploy to Dev/Demo/Production Environment
@@ -86,7 +86,12 @@ To see what the template does, you may wish to first generate a default app:
 
 # Todo
 
-* run `deploy:setup` for initial setup automatically when deploying for the first time?
+* automate initial deploy
+    * refactor `rvm:create_gemset` so it doesn't need to be invoked separately
+    * run `deploy:setup` for initial setup automatically when deploying for the first time?
+* improve Bitbucket repository stuff
+    * initialize Bitbucket smarter and w/o prompts (are better APIs exposed since we wrote?)
+    * setup deploy keys independently, perhaps as a rake task, so it works for checking on existing repos
 * Consider adding some of these: https://intercityup.com/blog/useful-capistrano-plugins.html?utm_source=rubyweekly&utm_medium=email
 
 # Credits
