@@ -66,7 +66,7 @@ To see what the template does, you may wish to first generate a default app:
 
 # Post-setup
 
-* tidy up the Gemfile (merge top defaults with bottom template)
+* review the Gemfile (replace gems you may have added)
 * add dev, demo, production deployment keys to Bitbucket
 * review the environment configs: `development`, `dev`, `demo`, `production` (`dev` and `demo` are copies of production)
     * `config/environments/<environment>.rb`

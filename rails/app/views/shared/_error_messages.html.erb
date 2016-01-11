@@ -1,16 +1,13 @@
 <% if target.errors.any? %>
 
-  <% inline = local_assigns.has_key? :inline %>
-
-  <div class="error_explanation alert alert-danger <%= 'inline' if inline %>">
-    <% unless inline %>
-    <strong><%= pluralize(target.errors.count, "error") %> prohibited this <%= target.class.name.titleize.downcase %> from being saved:</strong>
-    <% end %>
-
+  <div class="error_explanation alert alert-danger">
+    <p class="lead">
+      <%= pluralize(target.errors.count, "error") %> prohibited this <%= target.class.name.titleize.downcase %> from being saved:
+    </p>
     <ul>
-    <% target.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
+      <% target.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
     </ul>
   </div>
 
