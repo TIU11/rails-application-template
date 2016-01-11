@@ -43,26 +43,28 @@ This template assumes some things:
 
 # Getting Started
 
-Generate! Choose your application name carefully, since a lot of work will be done using this name.
+Choose your application name carefully, since a lot of work will be done using this name (e.g. repo name, folder name, urls, server configuration, etc.).
+
+To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
     rvm use 2.3
-    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks --no-scaffold-stylesheet
-    cd myApp
-    bundle outdated              # See if the template has you stuck on some old, crusty code
-    rake db:migrate
-    rails server
-    open http://lvh.me:3000
-
-To see what the template does, you may wish to first generate a default app:
-
-    rails new myApp --database=postgresql
+    rails new myApp --database=postgresql --skip-turbolinks --no-scaffold-stylesheet
     cd myApp
     git init
     git add .
     git commit -m "Initialized with `rails new`"
-    cd ..
+
+Finally, apply this template:
+
+    cd ~/code                    # Wherever you put your projects
     rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks --no-scaffold-stylesheet --force
+
+That's it, take her for a spin:
+
+    cd myApp
+    rails server                 # Start the server
+    open http://lvh.me:3000      # Launch in your browser
 
 # Post-setup
 
