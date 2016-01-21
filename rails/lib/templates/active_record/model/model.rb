@@ -1,6 +1,6 @@
 <% module_namespacing do -%>
 class <%= class_name %> < <%= parent_class_name.classify %>
-  # extend FriendlyId
+  # include FriendlyId
   # friendly_id :name, use: :slugged
 
   #

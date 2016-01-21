@@ -18,6 +18,7 @@ gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
 gem 'whenever', require: false
 gem 'colorize'                  # Colored console output
 gem 'friendly_id', '~> 5.1.0'
+gem 'paper_trail', '~> 4.0.0'   # Track model revisions
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
 
 # Styling

@@ -1,15 +1,62 @@
-
   acts_as_authentic  do |config|
     config.perishable_token_valid_for 1.day # for password reset email
     config.logged_in_timeout 1.hours
   end
 
+  has_paper_trail(
+    ignore: [
+      :updated_at,
+    ],
+    skip: [
+      :perishable_token,
+      :last_request_at,
+      :current_login_at,
+      :last_login_at,
+      :current_login_ip,
+      :last_login_ip
+    ]
+  )
+
+  #
+  # Scopes
+  #
+
+  scope :sorted, ->{ order(:first_name, :last_name) }
+
+  #
+  # Callbacks
+  #
+
+  before_validation :ensure_new_account_has_password
+
+  #
+  # Validations
+  #
+
+  validates :first_name, :last_name,
+            presence: true
+  validates :email,
+            email: true, uniqueness: {case_sensitive: false}
+
   #
   # Methods
   #
 
+  # Combined first and last name
+  def name
+    [first_name, last_name].compact.join(' ')
+  end
+
+  def first_initial
+    first_name && first_name.first
+  end
+
+  def full_email
+    %Q{"#{name}" <#{email}>} if email.present?
+  end
+
   def to_s
-    "#{email}"
+    name || email
   end
 
   private

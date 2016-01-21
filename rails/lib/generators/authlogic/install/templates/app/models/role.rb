@@ -1,0 +1,42 @@
+class Role
+  include ActiveModel::Model
+  include Virtus.model
+
+  attribute :name, String
+
+  ROLES = [
+    { name: 'Administrator' },
+    { name: 'System Administrator' }
+  ]
+
+  #
+  # Class Methods
+  #
+
+  def self.all
+    @roles ||= ROLES.map {|role_attributes| Role.new role_attributes}
+  end
+
+
+  # Find canonical name for stuff like: "The Admin", :the_admin, "the_admin".
+  # Returns nil if no corresponding role is found.
+  def self.canonical_name(role)
+    normalized_role = role.to_s.parameterize('_')
+    all.find { |r|
+      r.name.parameterize('_') == normalized_role
+    }.try(:name)
+  end
+
+  #
+  # Methods
+  #
+
+  def to_sym
+    name.parameterize('_').to_sym
+  end
+
+  def to_s
+    name
+  end
+
+end
