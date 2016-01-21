@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-  check_authorization # https://github.com/ryanb/cancan/wiki/Ensure-Authorization
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
+
+  # Ensure authorization is everywhere (https://github.com/ryanb/cancan/wiki/Ensure-Authorization)
+  check_authorization
 
   # Allow HTML is flash messages when flash[:html_safe] is set. Simply setting html_safe on the message won't work since JSON serialized cookies only store simple strings, not `ActiveSupport::SafeBuffer` instances. See (http://stackoverflow.com/questions/26538891/flash-message-with-html-safe-from-the-controller-in-rails-4-safe-version)
   before_action -> {
