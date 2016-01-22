@@ -1,11 +1,13 @@
 # User Authentication
   resources :users
-  resource :account, :controller => :users
+  resource :account, controller: :users
   resource :user_session, only: [:new, :create, :destroy] do
     get :seconds_remaining, :timeout, :continue, :su, :unsu
   end
-  get "/login" => "user_sessions#new", as: :login
-  get "/logout" => "user_sessions#destroy", as: :logout
+  get '/login', to: 'user_sessions#new', as: :login
+  get '/logout', to: 'user_sessions#destroy', as: :logout
+  get 'su/:id', to: 'user_sessions#su', as: :su
+  get 'unsu', to: 'user_sessions#unsu', as: :unsu
   resources :password_resets, :only => [ :new, :create, :edit, :update ]
 
   # Semi-static Pages

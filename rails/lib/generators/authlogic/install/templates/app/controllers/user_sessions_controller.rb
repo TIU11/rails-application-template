@@ -29,8 +29,9 @@ class UserSessionsController < ApplicationController
   # Switch User
   def su
     authorize! :su, UserSession
-    @user = User.find params[:id]
+    @user = User.friendly.find params[:id]
     session[:su_user] = current_user.id # remember who we were
+    store_location request.referer # remember where we were
 
     current_user_session.destroy
     UserSession.create!(@user)
@@ -46,6 +47,7 @@ class UserSessionsController < ApplicationController
       UserSession.create! previous_user
       session.delete :su_user
       flash[:notice] = "You have exited your switch user session, and resumed as #{previous_user}"
+      store_location request.referer # remember where we were
     else
       flash[:error] = "Sorry, we couldn't find your original user."
     end

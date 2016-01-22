@@ -46,8 +46,9 @@ class ApplicationController < ActionController::Base
   #
   private
 
-  def store_location
-    session[:return_to] = request.url
+  def store_location(url = nil)
+    url ||= request.url if request.get?
+    session[:return_to] = url
   end
 
   def clear_location

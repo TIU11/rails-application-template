@@ -1,3 +1,6 @@
+  include FriendlyId
+  friendly_id :username_candidates, use: :slugged, slug_column: :username
+
   acts_as_authentic  do |config|
     config.perishable_token_valid_for 1.day # for password reset email
     config.logged_in_timeout 1.hours
@@ -71,4 +74,10 @@
     end
   end
 
-  before_validation :ensure_generated_account_has_password
+  def username_candidates
+    [
+      [first_initial, last_name].join,
+      [first_name, last_name].join,
+      :email
+    ]
+  end
