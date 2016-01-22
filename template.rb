@@ -1,5 +1,5 @@
 puts "Verify prerequisite gems used within this template"
-%w{byebug colored}.each do |gemname|
+%w{byebug colorize}.each do |gemname|
   if Gem::Specification.find_all_by_name(gemname).empty?
     run "gem install #{gemname}"
     Gem.refresh
@@ -8,7 +8,7 @@ puts "Verify prerequisite gems used within this template"
 end
 
 require 'byebug'
-require 'colored'
+require 'colorize'
 require 'rails'
 
 say_status :rails_version, Rails.version
