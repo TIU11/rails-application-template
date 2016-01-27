@@ -47,7 +47,6 @@ namespace :postgresql do
   end
 
   task :initialize_params do
-    require 'byebug'
     on roles(:db) do
       remote_env = Dotenv::Parser.call(capture("cat #{shared_path}/.env"))
       ENV['DATABASE_PASSWORD'] = remote_env['DATABASE_PASSWORD']

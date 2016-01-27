@@ -32,7 +32,7 @@ namespace :db do
   end
 
   desc "Load database from a previously stored snapshot, 'rake db:restore[filename.sql]'"
-  task :restore, [:filename] => ['db:load_configuration', 'db:snapshot', 'db:drop', 'db:create', :environment] do |t, args|
+  task :restore, [:filename] => ['db:load_configuration', 'db:snapshot', 'db:drop', 'db:create', :environment] do |task, args|
     dir = ENV["DIR"] || "db/snapshots"
     filename = args[:filename]
 
