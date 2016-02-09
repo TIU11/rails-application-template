@@ -59,8 +59,8 @@ class Bitbucket
     def self.set_remote_info
       remotes = `git remote -v`
       match = /origin\s+(\w+:\/\/)?\w+@bitbucket.org[\/:](\w+)\/([\w-]+).git/.match remotes
-      @@owner = match[2]
-      @@repo_slug = match[3]
-      return owner, repo_slug
+      @@owner = match && match[2]
+      @@repo_slug = match && match[3]
+      return @@owner, @@repo_slug
     end
 end

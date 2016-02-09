@@ -39,7 +39,7 @@ gsub_file 'config/initializers/filter_parameter_logging.rb',
 # config/environments/*
 
 insert_into_file 'config/environments/development.rb',
-    "  config.action_controller.action_on_unpermitted_parameters = :raise\n",
+    "\n  config.action_controller.action_on_unpermitted_parameters = :raise\n",
     before: /^end/
 gsub_file 'config/environments/development.rb', 'config.assets.debug = true', 'config.assets.debug = false'
 
@@ -170,60 +170,20 @@ after_bundle do
     run "#{@rvm_do} rails generate authlogic:install --force"
   end
 
-  run "#{@rvm_do} rake db:create"
-  run "#{@rvm_do} rake db:migrate"
-
-  if yes?("Initialize the Bitbucket Git repository? [yN]".cyan)
-    require 'json'
-
-    # Create Bitbucket Repository
-    # @see https://confluence.atlassian.com/display/BITBUCKET/repository+Resource#repositoryResource-POSTanewrepository
-    data = {
-      scm: 'git',
-      is_private: true,
-      forking_policy: 'allow_forks',
-      name: app_name.titleize,
-      language: 'ruby'
-    }
-    repo_slug = @app_name.titleize.parameterize
-    owner = 'tiu'
-    credentials = ask("What are your TIU Bitbucket credentials? (username:password)".cyan).strip # TODO: can we drop this prompt?
-    # --user 'username:password'
-    # --pubkey ~/.ssh/id_rsa.pub # TODO: can we make this work???
-    # TODO: what if this fails? can we re-try?
-    run "curl --request POST --user '#{credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug} --data '#{data.to_json}'"
-
-    # Open in SourceTree (assumes command line is already installed)
-    # Not cross-platform compatible.
-    # @see (http://stackoverflow.com/questions/2108727/which-in-ruby-checking-if-program-exists-in-path-from-ruby)
-    # @see (http://stackoverflow.com/questions/19663202/how-do-you-open-sourcetree-from-the-command-line)
-    if `which stree`
-      `stree`
-    else
-      puts "Go install the SourceTree Command Line Tools. Simply launch SourceTree, open the SourceTree menu, and select \"Install Command Line Tools\".".yellow
-      `open -a SourceTree #{destination_root}`
-    end
-
-    # Add code to the repository
-    git :init
+  # Add code to the repository
+  puts "Please review the generated application now...".yellow
+  if yes?("Are you ready to commit? [yN]".cyan)
     git add: '--all .', commit: "-m 'Applied Rails Application Template'"
-    git remote: "add origin ssh://git@bitbucket.org/#{owner}/#{@app_name.titleize.parameterize}.git"
-    git push: "-u origin --all"
-
-    # Add deploy keys to Bitbucket repository
-    # @see https://confluence.atlassian.com/display/BITBUCKET/deploy-keys+Resource#deploy-keysResource-POSTanewkey
-    key = `ssh dev.tiu11.org "cat ~/.ssh/id_rsa.pub"`
-    label = key.split(' ')[2]
-    data = {
-      key: key,
-      label: label
-    }
-    run "curl --request POST --user '#{credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/1.0/repositories/#{owner}/#{repo_slug}/deploy-keys --data '#{data.to_json}'"
   end
 
+  run "#{@rvm_do} rake db:create"
+  run "#{@rvm_do} rake db:migrate"
+  run "#{@rvm_do} rake bitbucket:setup"
+  run "#{@rvm_do} rake bitbucket:launch_sourcetree"
+
   if yes?("Deploy? [yN]".cyan)
-    run "#{@rvm_do} cap dev deploy:setup"
     run "#{@rvm_do} cap dev rvm:create_gemset"
+    run "#{@rvm_do} cap dev deploy:setup"
     run "#{@rvm_do} cap dev deploy"
   end
 end

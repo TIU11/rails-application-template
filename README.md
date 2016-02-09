@@ -1,6 +1,6 @@
 # Overview
 
-Bootstraps a Rails project, with customizations beyond a default `rails new myApp`.
+Bootstraps a Rails project, with customizations beyond a default `rails new my-app`.
 
 # Prerequisites
 
@@ -49,8 +49,8 @@ To see what the template does, we like to first generate a default rails app and
 
     cd ~/code                    # Wherever you put your projects
     rvm use 2.3
-    rails new myApp --database=postgresql --skip-turbolinks --no-scaffold-stylesheet
-    cd myApp
+    rails new my-app --database=postgresql --skip-turbolinks --no-scaffold-stylesheet
+    cd my-app
     git init
     git add .
     git commit -m "Initialized with `rails new`"
@@ -58,11 +58,11 @@ To see what the template does, we like to first generate a default rails app and
 Finally, apply this template:
 
     cd ~/code                    # Wherever you put your projects
-    rails new myApp -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks --no-scaffold-stylesheet --force
+    rails new my-app -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks --no-scaffold-stylesheet --force
 
 That's it, take her for a spin:
 
-    cd myApp
+    cd my-app
     rails server                 # Start the server
     open http://lvh.me:3000      # Launch in your browser
 
