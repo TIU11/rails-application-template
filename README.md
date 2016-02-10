@@ -88,6 +88,7 @@ That's it, take her for a spin:
 
 # Todo
 
+* define TLD and FQDN centrally, then use it everywhere
 * automate initial deploy
     * refactor `rvm:create_gemset` so it doesn't need to be invoked separately
     * run `deploy:setup` for initial setup automatically when deploying for the first time?

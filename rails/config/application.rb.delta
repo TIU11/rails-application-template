@@ -1,5 +1,4 @@
 
-
     config.i18n.enforce_available_locales = true
 
     # Action Mailer
@@ -10,10 +9,6 @@
       address: 'mr.tiu11.org',
       domain: 'tiu11.org'
     }
-    config.action_mailer.default_url_options = {
-      host: 'localhost:3000'
-    }
-    config.action_mailer.asset_host = "http://localhost:3000/"
 
     # Exception Handler
     require "custom_public_exceptions"
@@ -24,5 +19,6 @@
       # Hack to override Rails' Erb::Generators::ScaffoldGenerator
       g.template_engine :all # Defaults to :erb
       g.fallbacks[:all] = :erb
+
       g.fixture_replacement :factory_girl
     end

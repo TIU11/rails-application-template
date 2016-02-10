@@ -38,12 +38,23 @@ gsub_file 'config/initializers/filter_parameter_logging.rb',
 
 # config/environments/*
 
-insert_into_file 'config/environments/development.rb',
-    "\n  config.action_controller.action_on_unpermitted_parameters = :raise\n",
-    before: /^end/
+insert_into_file 'config/environments/development.rb', <<-CONFIG, before: /^end/
+
+  config.action_controller.action_on_unpermitted_parameters = :raise
+
+  # Action Mailer
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.asset_host = "http://localhost:3000" # for image URLs in HTML email
+CONFIG
 gsub_file 'config/environments/development.rb', 'config.assets.debug = true', 'config.assets.debug = false'
 
 uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
+insert_into_file 'config/environments/production.rb', <<-CONFIG, before: /^end/
+
+  # Action Mailer
+  config.action_mailer.default_url_options = { host: '#{app_name.titleize.parameterize}.tiu11.org' }
+  config.action_mailer.asset_host = "http://#{app_name.titleize.parameterize}.tiu11.org" # for image URLs in HTML email
+CONFIG
 
 # Initialize "dev" and "demo" environments
 copy_file "#{destination_root}/config/environments/production.rb",
@@ -77,9 +88,12 @@ demo:
 # Asset Pipeline
 #
 
-insert_into_file "#{destination_root}/app/assets/javascripts/application.js",
-                 "//= require underscore\n//= require bootstrap-sprockets\n//= require bootstrap-datepicker\n",
-                 after: "//= require jquery\n"
+insert_into_file "#{destination_root}/app/assets/javascripts/application.js", <<-JS, after: "//= require jquery_ujs\n"
+//= require underscore
+//= require bootstrap-sprockets
+//= require bootstrap-datepicker
+JS
+
 insert_into_file 'app/assets/stylesheets/application.css',
                  " *= require bootstrap-datepicker3\n",
                  after: " *= require_self\n"
@@ -171,7 +185,7 @@ after_bundle do
   end
 
   # Add code to the repository
-  puts "Please review the generated application now...".yellow
+  puts "\nNow is a good time to review the generated application, and make manual changes described in the README before continuing".yellow
   if yes?("Are you ready to commit? [yN]".cyan)
     git add: '--all .', commit: "-m 'Applied Rails Application Template'"
   end
