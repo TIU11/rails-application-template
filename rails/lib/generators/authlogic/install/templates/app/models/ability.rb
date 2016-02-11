@@ -13,9 +13,7 @@ class Ability
     @user ? user_rules : public_rules
   end
 
-  #
-  # Login-based rules
-  #
+  # Rules for logged-in users
   def user_rules
     public_rules # inherits public rules
 
@@ -23,10 +21,12 @@ class Ability
     can [:read, :update], User, id: @user.id
 
     # Apply rules for each role
-    # For example:
-    # => admin_rules if @user.is? :admin
+    administrator_rules if @user.is? :administrator
+    # reviewer_rules if @user.is? :reviewer
+    # foo_rules if @user.is? :foo
   end
 
+  # Rules for public, un-authenticated users
   def public_rules
     can :read, :all
   end
@@ -35,7 +35,7 @@ class Ability
   # Role-based rules
   #
 
-  def admin_rules
+  def administrator_rules
     can :manage, :all
   end
 

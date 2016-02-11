@@ -1,9 +1,13 @@
+class User < ActiveRecord::Base
   include FriendlyId
   friendly_id :username_candidates, use: :slugged, slug_column: :username
+
+  alias_attribute :roles, :direct_roles
 
   acts_as_authentic  do |config|
     config.perishable_token_valid_for 1.day # for password reset email
     config.logged_in_timeout 1.hours
+    config.validate_email_field true
   end
 
   has_paper_trail(
@@ -39,13 +43,21 @@
   validates :first_name, :last_name,
             presence: true
   validates :email,
-            email: true, uniqueness: {case_sensitive: false}
+            uniqueness: {case_sensitive: false}
 
   #
   # Methods
   #
 
-  # Combined first and last name
+  # Examples:
+  # - is? :program_administrator, "Building Coach", :admin
+  # => true if user has any of these roles
+  def is?(*role)
+    role.any? {|r|
+      Role.canonical_name(r).in? roles
+    }
+  end
+
   def name
     [first_name, last_name].compact.join(' ')
   end
@@ -65,7 +77,7 @@
   private
 
   # Assign user a default password
-  def ensure_generated_account_has_password
+  def ensure_new_account_has_password
     if self.password.nil? and self.new_record?
       Rails.logger.debug "Generating random password for #{self.email}"
       random_password = SecureRandom.urlsafe_base64(12)
@@ -81,3 +93,4 @@
       :email
     ]
   end
+end
