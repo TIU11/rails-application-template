@@ -195,6 +195,7 @@ after_bundle do
   run "#{@rvm_do} rake bitbucket:setup"
   run "#{@rvm_do} rake bitbucket:launch_sourcetree"
 
+  puts "\nNow is a good time to run the generated application, and fix anything wonky before deploying".yellow
   if yes?("Deploy? [yN]".cyan)
     run "#{@rvm_do} cap dev rvm:create_gemset"
     run "#{@rvm_do} cap dev deploy:setup"
