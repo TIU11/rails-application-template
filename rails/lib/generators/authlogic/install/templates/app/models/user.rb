@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
   #
 
   scope :sorted, ->{ order(:first_name, :last_name) }
+  scope :administrators, -> { has_role(:administrator) }
+  scope :administrator, -> { administrators.first }
 
   #
   # Callbacks

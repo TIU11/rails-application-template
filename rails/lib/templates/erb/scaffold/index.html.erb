@@ -1,10 +1,17 @@
 <%
   # @overrides https://github.com/rails/rails/blob/3-2-stable/railties/lib/rails/generators/erb/scaffold/templates/index.html.erb
 -%>
+<div class="form-group pull-right">
+  <%%= link_to icon('plus', 'New <%= singular_table_name.titleize %>'), new_<%= singular_table_name %>_path, {class: 'btn btn-primary'} if can? :create, <%= singular_table_name.titleize %> %>
+</div>
+
 <h2><%= plural_table_name.titleize %></h2>
 
-<div>
+<div class="text-right">
   <%%= pagination_entries_info @<%= plural_table_name %> -%>
+  <div class="hidden-print">
+    <%%= link_to icon('download', 'Excel Download'), <%= plural_table_name %>_path(format: 'xls') %>
+  </div>
 </div>
 
 <table class="table table-striped">
@@ -28,9 +35,3 @@
 </table>
 
 <%%= pagination_nav @<%= plural_table_name %> -%>
-
-<%% if can? :create, <%= class_name %> %>
-  <div class="form-group">
-    <%%= link_to icon('plus', 'New <%= class_name %>'), new_<%= singular_table_name %>_path, {class: 'btn btn-primary'} %>
-  </div>
-<%% end %>

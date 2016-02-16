@@ -1,0 +1,26 @@
+<table>
+  <thead>
+    <tr>
+<% attributes.each do |attribute| -%>
+      <th><%= attribute.human_name %></th>
+<% end -%>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%%= content_tag_for(:tr, @<%= plural_table_name %>) do |<%= singular_table_name %>| %>
+<% attributes.each do |attribute| -%>
+      <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+<% end -%>
+    <%% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <th>Obtained from</th><td><%%= request.original_url %></td>
+    </tr>
+    <tr>
+      <th>Generated on</th><td><%%= Time.now.to_s(:long) %></td>
+    </tr>
+  </tfoot>
+</table>

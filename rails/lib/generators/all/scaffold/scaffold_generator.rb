@@ -1,4 +1,5 @@
-# Overrides https://github.com/rails/rails/blob/4-0-stable/railties/lib/rails/generators/erb/scaffold/scaffold_generator.rb
+# Overrides https://github.com/rails/rails/blob/master/railties/lib/rails/generators/erb/scaffold/scaffold_generator.rb
+#
 # See
 # * http://stackoverflow.com/questions/4696954/how-to-have-the-scaffold-to-generate-another-partial-view-template-file
 # * http://stackoverflow.com/questions/16320882/rails-generate-both-html-and-js-views-with-scaffold
@@ -14,7 +15,13 @@ module All # :nodoc:
     protected
 
       def available_views
-        %w(index edit show new _form _action_menu)
+        %w(index index.xls edit show new _form _action_menu)
+      end
+
+      # Overrides https://github.com/rails/rails/blob/master/railties/lib/rails/generators/erb.rb
+      def filename_with_extensions(name, format = self.format)
+        file_format = name[/\.xls/] ? nil : format # format on view name overrides default
+        [name, file_format, handler].compact.join(".")
       end
     end
   end
