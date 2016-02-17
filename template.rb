@@ -187,7 +187,9 @@ after_bundle do
   # Add code to the repository
   puts "\nNow is a good time to review the generated application, and make manual changes described in the README before continuing".yellow
   if yes?("Are you ready to commit? [yN]".cyan)
-    git add: '--all .', commit: "-m 'Applied Rails Application Template'"
+    git :init
+    git add: '--all .'
+    git commit: "-m 'Applied Rails Application Template'"
   end
 
   run "#{@rvm_do} rake db:create"
