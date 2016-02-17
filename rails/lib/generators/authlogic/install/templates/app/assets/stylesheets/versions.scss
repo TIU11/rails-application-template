@@ -1,0 +1,15 @@
+$red: #f2dede;
+$green: #dff0d8;
+$blue: #d9edf7;
+
+#history .changes,
+.version {
+  .before {
+    background-color: $red;
+    text-decoration: line-through;
+  }
+
+  .after {
+    background-color: $green;
+  }
+}

@@ -1,3 +1,5 @@
+<%%= render 'action_menu', <%= singular_table_name %>: @<%= singular_table_name %> %>
+
 <h2><%%= @<%= singular_table_name %>.to_s %></h2>
 
 <dl class="dl-horizontal">
@@ -10,6 +12,5 @@
 </dl>
 
 <div class="form-group">
-  <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), {class: "btn btn-default"} if can? :edit, @<%= singular_table_name %> %>
   <%%= link_to 'Back', <%= index_helper %>_path, {class: "btn btn-default"} %>
 </div>

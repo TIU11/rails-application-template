@@ -29,7 +29,7 @@
 <% attributes.each do |attribute| -%>
       <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
 <% end -%>
-      <td><%%= render 'action_menu', <%= singular_table_name %>: <%= singular_table_name %> %></td>
+      <td><%%= render 'action_menu', <%= singular_table_name %>: <%= singular_table_name %>, size: 'btn-xs' %></td>
     <%% end %>
   </tbody>
 </table>

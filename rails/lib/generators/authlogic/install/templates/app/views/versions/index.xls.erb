@@ -1,0 +1,32 @@
+<table>
+  <thead>
+    <tr>
+      <th>Change Type</th>
+      <th>Item Type</th>
+      <th>Item</th>
+      <th>Who</th>
+      <th>When</th>
+      <th>Change</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= content_tag_for(:tr, @versions) do |version| %>
+      <td><%= version.event %></td>
+      <td><%= version.item_type %></td>
+      <td><%= link_to version.reify.to_s, polymorphic_path(version.reify) if version.reify %></td>
+      <td><%= version.who %></td>
+      <td><%= version.created_at %></td>
+      <td><%= version.changeset %></td>
+  <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <th>Obtained from</th><td><%= request.original_url %></td>
+    </tr>
+    <tr>
+      <th>Generated on</th><td><%= Time.now.to_s(:long) %></td>
+    </tr>
+  </tfoot>
+</table>

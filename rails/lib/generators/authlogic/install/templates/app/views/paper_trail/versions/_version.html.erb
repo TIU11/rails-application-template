@@ -1,0 +1,23 @@
+<dl class="dl-horizontal">
+  <dt>Who</dt>
+  <dd><%= version.who %></dd>
+
+  <dt>What</dt>
+  <dd>
+    <%= "#{version.event.titleize} #{version.item_type}" %>
+    <span><%= link_to version.reify.to_s, polymorphic_path(version.reify) if version.reify %></span>
+  </dd>
+
+  <dt>When</dt>
+  <dd><%= readable_date(version.created_at, zone: true) %></dd>
+
+  <dt>Change</dt>
+  <% version.changeset.each do |prop, change| %>
+    <dd class="version">
+      <strong><%= "#{prop} " %></strong>
+      <tt class="before"><%= change[0] %></tt>
+      <tt class="after"><%= change[1] %></tt>
+    </dd>
+  <% end %>
+
+</dl>

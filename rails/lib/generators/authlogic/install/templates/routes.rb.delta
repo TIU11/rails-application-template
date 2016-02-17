@@ -1,5 +1,11 @@
-# User Authentication
-  resources :users
+# Versions
+  resources :versions, only: :index
+  post 'versions/:id/revert', to: 'versions#revert', as: "revert_version"
+
+  # User Authentication
+  resources :users, shallow: true do
+    resources :versions, only: [:index]
+  end
   resource :account, controller: :users
   resource :user_session, only: [:new, :create, :destroy] do
     get :seconds_remaining, :timeout, :continue, :su, :unsu

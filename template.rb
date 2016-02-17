@@ -180,7 +180,7 @@ after_bundle do
   run "#{@rvm_do} rails generate rspec:install"
 
   if yes?("Create Users? [yN]".cyan)
-    run "#{@rvm_do} rails generate paper_trail:install"
+    run "#{@rvm_do} rails generate paper_trail:install --with-changes"
     run "#{@rvm_do} rails generate authlogic:install --force"
   end
 
