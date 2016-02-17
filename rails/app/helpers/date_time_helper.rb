@@ -1,18 +1,22 @@
 module DateTimeHelper
 
   # Display brief date with full date available as a tooltip.
-  # - today: "11:32"
+  # - today: "11:32pm"
   # - this year: "25 Jan"
   # - older: "Dec 2011"
-  def readable_date(date)
+  # Usage: <%= readable_updated_at(updated_at, zone: true) %>
+  def readable_date(date, zone: false)
     return if date.nil?
+
     if date > Date.today
-      "<span title=\"#{date.to_formatted_s(:long)}\">#{date.to_s(:time)}</span>".html_safe
+      format = zone ? :time_with_zone : :time
     elsif date > Date.today.at_beginning_of_year
-      "<span title=\"#{date.to_formatted_s(:long)}\">#{date.to_s(:day_and_month)}</span>".html_safe
+      format = :day_and_month
     else
-      "<span title=\"#{date.to_formatted_s(:long)}\">#{date.to_s(:month_and_year)}</span>".html_safe
+      format = :month_and_year
     end
+
+    content_tag :span, date.to_s(format), title: date.to_s(:long), data: { toggle: 'tooltip' }
   end
 
   # Cases:
@@ -60,6 +64,16 @@ module DateTimeHelper
     else
       "#{seconds} seconds"
     end
+  end
+
+  def duration_span(duration_in_seconds, title_units = :seconds)
+    title_duration = convert_seconds(duration_in_seconds, title_units)
+    title = "#{title_duration} #{title_units}"
+    content_tag :span, duration_text(duration_in_seconds), title: title, class: 'has-tooltip'
+  end
+
+  def convert_seconds(duration_in_seconds, to = :minutes)
+    duration_in_seconds / {seconds: 1, minutes: 60, hours: 3600, days: 86400, weeks: 604800}[to]
   end
 
 end
