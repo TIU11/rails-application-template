@@ -29,6 +29,9 @@ class User < ActiveRecord::Base
   #
 
   scope :sorted, ->{ order(:first_name, :last_name) }
+  scope :has_role, ->(role) { # returns users with direct roles (doesn't include team-assignment-derived roles)
+    where('? = any(users.direct_roles)', Role.canonical_name(role))
+  }
   scope :administrators, -> { has_role(:administrator) }
   scope :administrator, -> { administrators.first }
 
@@ -36,6 +39,7 @@ class User < ActiveRecord::Base
   # Callbacks
   #
 
+  before_validation :clean_roles
   before_validation :ensure_new_account_has_password
 
   #
@@ -46,6 +50,7 @@ class User < ActiveRecord::Base
             presence: true
   validates :email,
             uniqueness: {case_sensitive: false}
+  validate :role_must_be_in_list
 
   #
   # Methods
@@ -95,4 +100,16 @@ class User < ActiveRecord::Base
       :email
     ]
   end
+
+  def clean_roles
+    roles.reject!(&:blank?)
+  end
+
+  def role_must_be_in_list
+    invalid_roles = roles - Role.all.map(&:name)
+    invalid_roles.each do |role|
+      errors.add(:roles, "'#{role}' is not a recognized role")
+    end
+  end
+
 end
