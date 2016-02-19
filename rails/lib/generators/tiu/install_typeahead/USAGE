@@ -1,0 +1,10 @@
+Description:
+    Installs Twitter Typeahead gem and our helpers.
+
+Example:
+    rails generate tiu:install_typeahead
+
+    This will create:
+        app/assets/javascripts/twitter_typeahead.js
+        app/helpers/autocomplete_helper.rb
+        vendor/assets/stylesheets/typeahead.css
