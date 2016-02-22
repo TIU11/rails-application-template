@@ -94,9 +94,10 @@ insert_into_file "#{destination_root}/app/assets/javascripts/application.js", <<
 //= require bootstrap-datepicker
 JS
 
-insert_into_file 'app/assets/stylesheets/application.css',
-                 " *= require bootstrap-datepicker3\n",
-                 after: " *= require_self\n"
+insert_into_file 'app/assets/stylesheets/application.css', <<-STYLE, before: " *= require_tree .\n"
+*= require bootstrap_and_overrides
+*= require bootstrap-datepicker3
+STYLE
 
 # Routes
 route "root to: 'exception#show'"

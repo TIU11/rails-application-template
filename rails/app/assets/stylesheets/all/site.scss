@@ -1,3 +1,5 @@
+$grey-background: #f5f5f5;
+
 //
 // Sticky Footer
 //
@@ -12,7 +14,7 @@ body {
 }
 
 footer {
-  background-color: #f5f5f5;
+  background-color: $grey-background;
   bottom: 0;
   height: 60px;
   position: absolute;
@@ -46,52 +48,4 @@ form .required {
 
 form label.control-label {
   font-weight: bold;
-}
-
-//
-// Expandable Lists
-//
-
-.list-expandable {
-  // hide toggle
-  .list-item-toggle {
-    cursor: pointer;
-    display: none;
-  }
-
-  // for long lists, hide extra elements and show the toggle
-  li:nth-child(n+6) {
-    display: none;
-
-    &.list-item-toggle {
-      display: block;
-    }
-  }
-
-  tr:nth-child(n+6) {
-    display: none;
-
-    &.list-item-toggle {
-      display: table-row;
-    }
-  }
-}
-
-.list-expandable.in {
-  // expand to full list
-  li:nth-child(n+6) {
-    display: block;
-
-    &.list-item-toggle {
-      display: none;
-    }
-  }
-
-  tr:nth-child(n+6) {
-    display: table-row;
-
-    &.list-item-toggle {
-      display: none;
-    }
-  }
 }

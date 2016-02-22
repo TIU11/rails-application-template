@@ -1,0 +1,47 @@
+//
+// Expandable Lists
+//
+
+.list-expandable {
+  // hide toggle
+  .list-item-toggle {
+    cursor: pointer;
+    display: none;
+  }
+
+  // for long lists, hide extra elements and show the toggle
+  li:nth-child(n+6) {
+    display: none;
+
+    &.list-item-toggle {
+      display: block;
+    }
+  }
+
+  tr:nth-child(n+6) {
+    display: none;
+
+    &.list-item-toggle {
+      display: table-row;
+    }
+  }
+}
+
+.list-expandable.in {
+  // expand to full list
+  li:nth-child(n+6) {
+    display: block;
+
+    &.list-item-toggle {
+      display: none;
+    }
+  }
+
+  tr:nth-child(n+6) {
+    display: table-row;
+
+    &.list-item-toggle {
+      display: none;
+    }
+  }
+}
