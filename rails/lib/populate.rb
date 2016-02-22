@@ -34,7 +34,7 @@
       attributes = populate_associations klass, attributes, by: :name
 
       begin
-        object = klass.find_or_initialize_by attributes.slice(by)
+        object = klass.find_or_initialize_by attributes.slice(*by)
         action = object.new_record? ? 'create' : 'update'
         object.update attributes
         changes = object.previous_changes
