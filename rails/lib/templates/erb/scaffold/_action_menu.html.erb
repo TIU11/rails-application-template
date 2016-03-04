@@ -4,15 +4,14 @@
     size ||= nil # default size
 %>
   <div class="btn-group pull-right">
-    <a class="btn btn-default dropdown-toggle <%%= size %>" data-toggle="dropdown" href="#">
-      <%%= icon 'list' %>
-      <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu" role="menu">
+    <button type="button" class="btn btn-default dropdown-toggle <%%= size %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <%%= icon 'list' %> <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
       <!-- dropdown menu links -->
-      <%% if can? :show, <%= singular_table_name %> %>
+      <%% if action_name != 'show' && can?(:show, <%= singular_table_name %>) %>
         <li>
-          <%%= link_to icon('file', 'Show'), <%= singular_table_name %>_path(<%= singular_table_name %>) %>
+          <%%= link_to icon('file', 'View'), <%= singular_table_name %>_path(<%= singular_table_name %>) %>
         </li>
       <%% end %>
       <%% if can? :edit, <%= singular_table_name %> %>
