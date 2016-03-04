@@ -6,6 +6,7 @@ namespace :deploy do
   desc 'First-deploy server setup'
   task :setup do
     invoke 'deploy:check'
+    invoke 'ubuntu:setup'
     invoke 'postgresql:setup'
     invoke 'nginx:setup'
   end
