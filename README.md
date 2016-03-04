@@ -81,8 +81,8 @@ That's it, take her for a spin:
 # Initial Deploy to Dev/Demo/Production Environment
 
 * Review your Capistrano configuration in `deploy.rb`.
-* `cap dev deploy:setup`
 * `cap dev rvm:create_gemset` (separate from `deploy:setup`...for now)
+* `cap dev deploy:setup`
 * `cap dev deploy` # with each run, an error will point out something that you need to address (e.g. a manual step, a missing dependency for a gem with native extensions, etc)
 * `cap dev deploy` until it completes successfully
 
