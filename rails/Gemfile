@@ -65,7 +65,7 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_caller'
-  # gem 'rails_best_practices' # TODO: removed while conflicts with colorize gem. Fixed in PR#256 but unreleased as of 1.15.7.
+  gem 'rails_best_practices'
   gem 'pry-rails'
 end
 
