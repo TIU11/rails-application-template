@@ -14,7 +14,7 @@
   get '/logout', to: 'user_sessions#destroy', as: :logout
   get 'su/:id', to: 'user_sessions#su', as: :su
   get 'unsu', to: 'user_sessions#unsu', as: :unsu
-  resources :password_resets, :only => [ :new, :create, :edit, :update ]
+  resources :password_resets, only: [ :new, :create, :edit, :update ]
 
   # Semi-static Pages
   # get 'status', to: 'pages#status'
