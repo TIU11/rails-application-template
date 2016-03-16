@@ -2,9 +2,9 @@
 
 <p>
   Complete the form below and instructions to reset your password will be emailed to you. If you need help,
-  <%= link_to "mailto:not-defined@tiu11.org?subject=Help with a Password Reset&body=%3CTell us what the trouble is and how to contact you%3E Name: %3Cname%3E Telephone: %3Cphone%3E", target: "_blank" do %>
-    let us know <%= icon 'envelope' %>
-  <% end %>.
+  <%= link_to icon('send-o', 'let us know'),
+      "mailto:help@tiu11.org?subject=Help with a Password Reset&body=(Tell us what the trouble is and how to contact you)",
+      target: '_blank' %>.
 </p>
 
 <%= form_for @password_reset, html: {class: 'form-horizontal', role: 'form'} do |f| %>
@@ -30,7 +30,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= submit_tag 'Email my password reset', class: 'btn btn-primary'%>
+      <%= f.submit 'Email my password reset', class: 'btn btn-primary' %>
     </div>
   </div>
 <% end %>

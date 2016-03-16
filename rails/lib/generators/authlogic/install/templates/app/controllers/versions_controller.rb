@@ -14,7 +14,9 @@ class VersionsController < ApplicationController
       format.json {
         render json: @versions
       }
-      format.xls # index.xls.erb
+      format.xls { # index.xls.erb
+        set_filename
+      }
     end
   end
 

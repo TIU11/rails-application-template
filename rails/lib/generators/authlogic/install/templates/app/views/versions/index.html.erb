@@ -7,7 +7,7 @@
   <%= pagination_entries_info @versions -%>
   <div class="hidden-print">
     <%= link_to icon('download', 'Excel Download'),
-                polymorphic_path([@user, 'versions'], format: 'xls') %>
+                polymorphic_path([@parent, 'versions'], format: 'xls') %>
   </div>
 </div>
 

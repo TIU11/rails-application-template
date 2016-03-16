@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_filter :set_paper_trail_whodunnit
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -6,7 +8,7 @@ class ApplicationController < ActionController::Base
   # Ensure authorization is everywhere (https://github.com/ryanb/cancan/wiki/Ensure-Authorization)
   check_authorization
 
-  # Allow HTML is flash messages when flash[:html_safe] is set. Simply setting html_safe on the message won't work since JSON serialized cookies only store simple strings, not `ActiveSupport::SafeBuffer` instances. See (http://stackoverflow.com/questions/26538891/flash-message-with-html-safe-from-the-controller-in-rails-4-safe-version)
+  # Allow HTML in flash messages when flash[:html_safe] is set. Simply setting html_safe on the message won't work since JSON serialized cookies only store simple strings, not `ActiveSupport::SafeBuffer` instances. See (http://stackoverflow.com/questions/26538891/flash-message-with-html-safe-from-the-controller-in-rails-4-safe-version)
   before_action -> {
     if flash[:html_safe] # don't escape HTML when rendering flash messages
       [:success, :notice, :warning, :error].each do |f|
