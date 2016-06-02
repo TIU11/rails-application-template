@@ -1,7 +1,7 @@
 class UserSessionsController < ApplicationController
-  skip_authorization_check only: [:new, :create, :destroy, :unsu]
+  skip_authorization_check only: [:new, :create, :destroy, :unsu, :seconds_remaining, :timeout, :continue]
   before_action :require_no_user, only: [:new, :create]
-  before_action :require_user, except: [:new, :create]
+  before_action :require_user, except: [:new, :create, :seconds_remaining, :timeout, :continue, :destroy]
 
   def new
     @user_session = UserSession.new
@@ -9,6 +9,7 @@ class UserSessionsController < ApplicationController
 
   def create
     @user_session = UserSession.new(params[:user_session])
+    session.delete :su_user
 
     if @user_session.save
       flash[:notice] = I18n.t('app.messages.welcome')
@@ -19,11 +20,16 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    current_user_session.destroy
-    flash[:notice] = I18n.t('app.messages.logout')
+    current_user_session.destroy if current_user_session
+    if (_timeout < Time.now) # logout due to timeout
+      flash[:notice] = I18n.t('app.messages.timeout')
+    else # manual logout
+      flash[:notice] = I18n.t('app.messages.logout')
+    end
+
     clear_location # avoid trouble if user logs back in after downloading Excel, etc
     session.delete :su_user # clear saved user
-    redirect_to login_url
+    redirect_to login_url(params.slice(:redirect_uri))
   end
 
   # Switch User
@@ -46,8 +52,8 @@ class UserSessionsController < ApplicationController
       previous_user = User.find session[:su_user]
       UserSession.create! previous_user
       session.delete :su_user
-      flash[:notice] = "You have exited your switch user session, and resumed as #{previous_user}"
       store_location request.referer # remember where we were
+      flash[:notice] = "You have exited your switch user session, and resumed as #{previous_user}"
     else
       flash[:error] = "Sorry, we couldn't find your original user."
     end
@@ -81,7 +87,7 @@ class UserSessionsController < ApplicationController
       if current_user
         current_user.last_request_at + User.logged_in_timeout.seconds
       else
-        15.minutes.ago # a past time, as the session has expired
+        15.minutes.ago # an arbitrary, clearly-past time, as the session has expired
       end
     end
 end

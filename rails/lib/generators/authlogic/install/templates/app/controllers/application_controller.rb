@@ -48,9 +48,11 @@ class ApplicationController < ActionController::Base
   #
   private
 
-  def store_location(url = nil)
-    url ||= request.url if request.get?
-    session[:return_to] = url
+  def store_location(path = nil)
+    path ||= request.fullpath if request.get?
+    return unless path.present?
+
+    session[:return_to] = path
   end
 
   def clear_location
@@ -58,7 +60,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_back_or_default_to(default)
-    redirect_to(session[:return_to] || default)
+    redirect_to params[:redirect_uri] || session[:return_to] || default
     session[:return_to] = nil
   end
 
@@ -81,9 +83,8 @@ class ApplicationController < ActionController::Base
 
   def require_user
     unless current_user
-      store_location
       flash[:warning] = t('app.messages.require_user')
-      redirect_to login_url
+      redirect_to login_url(redirect_uri: request.path)
       return false
     end
   end
