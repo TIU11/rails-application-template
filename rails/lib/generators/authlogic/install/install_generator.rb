@@ -14,6 +14,7 @@ class Authlogic::InstallGenerator < Rails::Generators::Base
   def copy_templates
     directory 'app'
     directory 'spec'
+    directory 'config'
     route open_template('routes.rb.delta').read
     insert_into_file Dir['db/migrate/*_create_users.rb'].first,
                      open_template('create_users.rb.delta').read,

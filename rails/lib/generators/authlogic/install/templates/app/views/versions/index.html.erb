@@ -1,21 +1,21 @@
 <h1>
   Revision History
+  <%= content_tag :small, "for #{@user}" if @user %>
   <%= content_tag :small, "for #{@parent.class.name}, #{@parent}" if @parent %>
 </h1>
 
 <div class="text-right">
-  <%= pagination_entries_info @versions -%>
+  <%= pagination_entries_info @versions %>
+
   <div class="hidden-print">
-    <%= link_to icon('download', 'Excel Download'),
-                polymorphic_path([@parent, 'versions'], format: 'xls') %>
+    <%= link_to icon('download', 'Excel Download'), url_for(format: 'xls') %>
   </div>
 </div>
 
+<ul class="list-group versions-container">
+  <%= render @versions %>
+</ul>
 
-<%= render @versions %>
+<%= content_tag :p, 'No matching versions', class: 'lead' if @versions.blank? %>
 
-<%= will_paginate @versions %>
-
-<p class="alert alert-info">
-  <%= icon 'lightbulb-o', nil, class: 'fa-lg' %> Changes to times, like <code>updated_at</code>, are shown in UTC, instead of the default <%= Time.now.zone %>.
-</p>
+<%= pagination_nav @versions %>

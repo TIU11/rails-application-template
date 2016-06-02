@@ -1,23 +1,38 @@
-<dl class="dl-horizontal">
-  <dt>Who</dt>
-  <dd><%= version.who %></dd>
+<div class="version list-group-item" id="<%= version.cache_key.dasherize.parameterize %>">
 
-  <dt>What</dt>
-  <dd>
-    <%= "#{version.event.titleize} #{version.item_type}" %>
-    <span><%= link_to version.reify.to_s, polymorphic_path(version.reify) if version.reify %></span>
-  </dd>
+  <div class="version-timestamp">
+    <%= version.created_at.strftime('%A, %B %e, %Y %l:%M%P %Z') %>
+  </div>
 
-  <dt>When</dt>
-  <dd><%= readable_date(version.created_at, zone: true) %></dd>
+  <div class="version-author">
+    <span class="text-muted caption">Author: </span>
+    <% if version.who.is_a? User %>
+      <%= link_to version.who, version.who %>
+    <% else %>
+      <tt><%= version.who %></tt>
+    <% end %>
+  </div>
 
-  <dt>Change</dt>
-  <% version.changeset.each do |prop, change| %>
-    <dd class="version">
-      <strong><%= "#{prop} " %></strong>
-      <tt class="before"><%= change[0] %></tt>
-      <tt class="after"><%= change[1] %></tt>
-    </dd>
-  <% end %>
+  <p class="version-event">
+    <%= t("papertrail.events.#{version.event}", default: version.event).titleize %>
+    <%= version.item_class.model_name.human %>
+    <% if version.object_instance.present? %>
+     &mdash;
+    <% end %>
+    <% if version.has_route? %>
+      <%= link_to(version.object_instance, polymorphic_path(version.object_instance)) %>
+    <% else %>
+      <%= version.object_instance %>
+    <% end %>
+  </p>
 
-</dl>
+  <dl class="dl-horizontal version-changes">
+    <% version.enhanced_changeset.each do |prop, change| %>
+      <dt><%= "#{prop} " %></dt>
+      <dd>
+        <tt class="before"><%= change[0] %></tt>
+        <tt class="after"><%= change[1] %></tt>
+      </dd>
+    <% end %>
+  </dl>
+</div>
