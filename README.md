@@ -6,7 +6,7 @@ Bootstraps a Rails project, with customizations beyond a default `rails new my-a
 
 This template assumes some things:
 
-* RVM is installed and up-to-date (1.26.x)
+* RVM is installed and up-to-date (1.27.x)
 
         # See http://rvm.io/rvm/install
         \curl -sSL https://get.rvm.io | bash -s stable --rails
@@ -39,7 +39,7 @@ This template assumes some things:
 
 * SSH keys are configured so access to dev.tiu11.org doesn't prompt for a password
 * dev.tiu11.org has an SSH public key, and this is the desired Bitbucket deployment key
-* dev.tiu11.org also has RVM (~> 1.26) installed
+* dev.tiu11.org also has RVM (~> 1.27) installed
 
 # Getting Started
 
