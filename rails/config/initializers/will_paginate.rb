@@ -1,5 +1,11 @@
+# Allow pagination of static arrays (but still just try to use ActiveRecord::Relation)
+# See https://github.com/mislav/will_paginate/blob/master/lib/will_paginate/array.rb
+
+require 'will_paginate/array'
+
 # This extension code was written by Isaac Bowen, originally found
-# at http://isaacbowen.com/blog/using-will_paginate-action_view-and-bootstrap/
+# at (http://isaacbowen.com/blog/using-will_paginate-action_view-and-bootstrap/)
+# now see (https://gist.github.com/henrik/1214011)
 
 require 'will_paginate/view_helpers/action_view'
 
@@ -17,7 +23,7 @@ module WillPaginate
       protected
 
       def html_container(html)
-        tag :div, tag(:ul, html, :class => "pagination"), container_attributes
+        tag :ul, html, container_attributes
       end
 
       def page_number(page)
