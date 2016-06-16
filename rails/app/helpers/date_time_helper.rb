@@ -69,7 +69,7 @@ module DateTimeHelper
   def duration_span(duration_in_seconds, title_units = :seconds)
     title_duration = convert_seconds(duration_in_seconds, title_units)
     title = "#{title_duration} #{title_units}"
-    content_tag :span, duration_text(duration_in_seconds), title: title, class: 'has-tooltip'
+    content_tag :span, duration_text(duration_in_seconds), title: title, data: {toggle: 'tooltip'}
   end
 
   def convert_seconds(duration_in_seconds, to = :minutes)
