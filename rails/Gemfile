@@ -58,6 +58,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rvm',     '~> 0.1', require: false
   gem 'capistrano-passenger'
+  gem 'capistrano-maintenance', '~> 1.0', require:false
 
   # Use 'thin' to avoid "Could not determine content-length of response body." warnings.
   # @see (http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h)
