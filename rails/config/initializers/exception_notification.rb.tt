@@ -1,7 +1,5 @@
 require 'exception_notification/rails'
 
-
-
 ExceptionNotification.configure do |config|
   # Ignore additional exception types.
   # ActiveRecord::RecordNotFound, AbstractController::ActionNotFound and ActionController::RoutingError are already added.
@@ -20,6 +18,17 @@ ExceptionNotification.configure do |config|
     :email_prefix         => "[ERROR] [<%= I18n.t('app.short_title') %>] ",
     :sender_address       => %{"TIU Exception Notifier" <notifier@tiu11.org>},
     :exception_recipients => %w{exceptions@tiu11.org}
+  }
+
+  # Slack notifier sends notifications to your Slack channel. Requires 'slack-notifier' gem.
+  config.add_notifier :slack, {
+    :webhook_url => ENV['SLACK_WEBHOOK'],
+    :channel => "#alerts",
+    :additional_parameters => {
+      :icon_emoji => ":interrobang:",
+      :mrkdwn => true,
+      :username => 'Rails Exception Notifier'
+    },
   }
 
 end
