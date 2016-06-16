@@ -6,18 +6,17 @@
 # * test coverage
 # * speedup bulk imports
 #   @see (http://weblog.jamisbuck.org/2015/10/10/bulk-inserts-in-activerecord.html)
-
-# module TIU
+#
   class Populate
     require 'colorize'
-
-    @@cache = {}.with_indifferent_access
-    @@errors = {}.with_indifferent_access
 
     # Creates an object from the attributes provided, or updates an existing object.
     #
     # A :belongs_to association can be included by passing an attribute named after the
     # association and the value equivalent to the association's 'name' attribute.
+    #
+    # Options:
+    # * cache_adds: cache new records so they can be referenced later. If they aren't referenced, will consume RAM without any performance benefit.
     #
     # Example:
     #   attrs = {email: 'jdoe@example.com', first_name: 'John', last_name: 'Doe'}
@@ -25,7 +24,9 @@
     #   => Created User    1: John Doe
     #   => Unable to update User 'John Doe' because:
     #      {:email=>["is not an email"]}
-    def self.update_or_create(klass, attributes, by: :name, verbose: false)
+    def self.update_or_create(klass, attributes, by: :name, verbose: false, cache_adds: false, cache: true)
+      Cache.enable(cache)
+
       # make sure we have a class
       klass = (klass.is_a? Class) ? klass : klass.constantize
 
@@ -36,7 +37,9 @@
       begin
         object = klass.find_or_initialize_by attributes.slice(*by)
         action = object.new_record? ? 'create' : 'update'
-        object.update attributes
+        if object.update(attributes) && action == 'create'
+          Cache.add(object) if cache_adds
+        end
         changes = object.previous_changes
       rescue ActiveRecord::RecordNotSaved => e
         puts "#{self}.#{__callee__}: failed to assign attributes because:".red
@@ -61,7 +64,7 @@
         puts "\tErrors: #{object.errors.messages}".yellow
         puts "\tAttributes with errors: #{attributes_with_errors(object)}".yellow
         puts "\tAttributes: #{object.attributes}"
-        log_error klass, object.errors.full_messages
+        Errors.log klass, object.errors.full_messages
       end
 
       return object
@@ -123,12 +126,12 @@
     def self.populate_has_one_association(name, association_klass, attributes, by: :name)
       # ex. populate_associations(User, {county: 'Huntingdon - Mifflin - Juniata'})
       if attributes[name].is_a? String
-        attributes[name] = cached_find_by association_klass, name: attributes[name]
+        attributes[name] = find_by association_klass, name: attributes[name]
       end
 
       # ex. populate_associations(User, {phone: {number: '5551231234', extension: 1234}})
       if attributes[name].is_a? Hash
-        attributes[name] = cached_find_by association_klass, attributes[name]
+        attributes[name] = find_by association_klass, attributes[name]
 
         # # recurse for nested associations
         # puts "association_klass: #{association_klass}, attributes[#{name}]: #{attributes[name]}"
@@ -139,12 +142,12 @@
     def self.populate_belongs_to_association(name, association_klass, attributes, by: :name)
       # ex. populate_associations(User, {county: 'Huntingdon - Mifflin - Juniata'})
       if attributes[name].is_a? String
-        attributes[name] = cached_find_by association_klass, name: attributes[name]
+        attributes[name] = find_by association_klass, name: attributes[name]
       end
 
       # ex. populate_associations(User, {county: {slug: 'huntingdon-mifflin-juniata'}})
       if attributes[name].is_a? Hash
-        attributes[name] = cached_find_by association_klass, attributes[name]
+        attributes[name] = find_by association_klass, attributes[name]
       end
     end
 
@@ -153,9 +156,9 @@
       if attributes[name].is_a? Array
         attributes[name] = attributes[name].collect { |attr|
           if attr.is_a? String
-            next cached_find_by association_klass, name: attr
+            next find_by association_klass, name: attr
           elsif attr.is_a? Hash
-            object = cached_find_by association_klass, attr
+            object = find_by association_klass, attr
             puts "#{self}.#{__callee__}: unable to find :#{name} by Hash #{attr}".red unless object
             next object
           else
@@ -171,9 +174,9 @@
       if attributes[name].is_a? Array
         attributes[name] = attributes[name].collect { |attr|
           if attr.is_a? String
-            next cached_find_by association_klass, name: attr
+            next find_by association_klass, name: attr
           elsif attr.is_a? Hash
-            next cached_find_by association_klass, attr
+            next find_by association_klass, attr
           else
             next attr
           end
@@ -184,42 +187,22 @@
     end
 
     # @usage find_by User, name: 'john'
-    def self.find_by(klass, opt = {})
-      object = klass.find_by opt
-      puts "\t#{klass} with #{opt.inspect} doesn't exist" unless object
+    def self.find_by(klass, attributes)
+      if Cache.enabled
+        object = Cache.find_by(klass, attributes)
+      else
+        object = klass.find_by attributes
+      end
 
-      return object
-    end
-
-    def self.cached_find_by(klass, opt = {})
-      # load objects from cache
-      objects = @@cache[klass.to_s] || (@@cache[klass.to_s] = klass.all)
-
-      # find object that matches all parameters
-      object = objects.find {|o|
-        opt.keys.all? {|k|
-          o.send(k) == opt[k]
-        }
-      }
       unless object
-        puts "\t#{klass} with #{opt.inspect} doesn't exist"
-        log_error(klass, opt)
+        puts "\t#{klass} with #{attributes.inspect} doesn't exist"
+        Errors.log(klass, attributes)
       end
 
       return object
     end
 
-    def self.errors
-      @@errors
-    end
-
     private
-
-    def self.log_error(klass, opt)
-      @@errors[klass.to_s] ||= {}
-      @@errors[klass.to_s][opt.inspect] ||= 0
-      @@errors[klass.to_s][opt.inspect] += 1
-    end
 
     # return Hash of attribute values found in errors.keys, including nested attributes.
     def self.attributes_with_errors(model)
@@ -232,5 +215,57 @@
       return attributes
     end
 
+    class Errors
+      @@errors = {}.with_indifferent_access
+
+      class << self
+        def errors
+          @@errors
+        end
+
+        # count occurences of opt for klass
+        def log(klass, opt)
+          @@errors[klass.to_s] ||= {}
+          @@errors[klass.to_s][opt.inspect] ||= 0
+          @@errors[klass.to_s][opt.inspect] += 1
+        end
+      end
+    end
+
+    class Cache
+      @@cache = {}.with_indifferent_access
+      @@enabled = true
+
+      class << self
+        def load(klass)
+          @@cache[klass.to_s] ||= klass.all
+        end
+
+        def add(object)
+          load(object.class) << object
+        end
+
+        # Find first object that matches all parameters
+        def find_by(klass, attributes)
+          load(klass).find { |object|
+            attributes.keys.all? {|key|
+              object.send(key) == attributes[key]
+            }
+          }
+        end
+
+        def clear!(klass)
+          @@cache[klass.to_s] = nil
+        end
+
+        def enable(toggle = true)
+          @@enabled = toggle
+        end
+
+        def enabled
+          @@enabled
+        end
+      end
+    end
+
   end
-# end
