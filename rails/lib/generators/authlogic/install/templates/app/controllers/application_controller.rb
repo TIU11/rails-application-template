@@ -75,6 +75,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  # Provides session to use when defining Abilities. Override's Cancancan default.
+  def current_ability
+    @current_ability ||= Ability.new(current_user, session)
+  end
+
   def su_user
     return @su_user if defined?(@su_user)
     @su_user = User.find(session[:su_user]) if session[:su_user]

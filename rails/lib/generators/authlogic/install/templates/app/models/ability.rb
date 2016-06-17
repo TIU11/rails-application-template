@@ -7,7 +7,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user, session=nil)
+  def initialize(user, session = nil)
     @user = user
     @session = session
     @user ? user_rules : public_rules
