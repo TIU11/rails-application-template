@@ -5,6 +5,7 @@ class UserSessionsController < ApplicationController
 
   def new
     @user_session = UserSession.new
+    session.delete :su_user
   end
 
   def create
