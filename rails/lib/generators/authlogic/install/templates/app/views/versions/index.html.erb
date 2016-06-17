@@ -4,6 +4,8 @@
   <%= content_tag :small, "for #{@parent.class.name}, #{@parent}" if @parent %>
 </h1>
 
+<%= render 'search_form' %>
+
 <div class="text-right">
   <%= pagination_entries_info @versions %>
 

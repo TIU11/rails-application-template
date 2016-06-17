@@ -6,6 +6,9 @@ class VersionsController < ApplicationController
 
   # GET /versions
   def index
+    @search = VersionSearchForm.new(params[:q])
+    @versions = @search.apply(versions: @versions) if @search.valid?
+
     # TODO: exception when linking to a deleted model
     respond_to do |format|
       format.html { # index.html.erb
