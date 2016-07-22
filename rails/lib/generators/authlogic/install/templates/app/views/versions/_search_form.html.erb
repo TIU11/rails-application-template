@@ -1,0 +1,12 @@
+<%= form_for(@search, url: versions_path, as: :q, method: :get, html: {class: "form-inline"}) do |f| %>
+
+  <%= render 'shared/error_messages', target: @search %>
+
+  <%= f.collection_select :author_id, User.sorted, :id, :to_s, {include_blank: '(any author)'},
+      {class: 'form-control', title: 'Author', data: {toggle: 'tooltip'}, onchange: 'this.form.submit();'} %>
+  <%= datepicker_tag f, :from, placeholder: 'From', data: { date_end_date: '0d', date_start_date: @search.min_date } %>
+  &mdash;
+  <%= datepicker_tag f, :to, placeholder: 'To', data: { date_end_date: '0d', date_start_date: @search.min_date } %>
+
+  <%= f.submit 'Search', class: 'btn btn-primary' %>
+<% end %>

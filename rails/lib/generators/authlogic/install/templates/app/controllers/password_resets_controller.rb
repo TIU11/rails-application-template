@@ -27,7 +27,7 @@ class PasswordResetsController < ApplicationController
       end
       @user.reset_perishable_token!
       UserMailer.password_reset(@user).deliver
-      redirect_to root_url
+      redirect_to '/login'
     else
       render :new
     end
@@ -71,7 +71,7 @@ class PasswordResetsController < ApplicationController
       flash[:error] = t('app.messages.password_reset.inactive_link_html',
                         new_password_reset_path: new_password_reset_path.html_safe)
       flash[:html_safe] = true # don't escape HTML when rendering flash messages
-      redirect_to root_url
+      redirect_to '/login'
     end
   end
 end
