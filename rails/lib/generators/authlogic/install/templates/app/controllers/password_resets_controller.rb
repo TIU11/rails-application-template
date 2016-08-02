@@ -16,7 +16,8 @@ class PasswordResetsController < ApplicationController
       if @user
         flash[:notice] = t('app.messages.password_reset.sent_email')
       else
-        @password_reset.errors[:base] << t('app.messages.password_reset.account_not_found_html', email: User.administrator.email).html_safe
+        support_email = User.administrators.first.full_email rescue 'help@tiu11.org'
+        @password_reset.errors[:base] << t('app.messages.password_reset.account_not_found_html', email: support_email).html_safe
       end
     end
 

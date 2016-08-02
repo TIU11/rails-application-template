@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
     where('? = any(users.direct_roles)', Role.canonical_name(role))
   }
   scope :administrators, -> { has_role(:administrator) }
-  scope :administrator, -> { administrators.first }
 
   #
   # Callbacks
