@@ -12,7 +12,7 @@ class PasswordResetsController < ApplicationController
     @password_reset = PasswordReset.new(params[:password_reset])
 
     if @password_reset.valid?
-      @user = User.find_by(email: @password_reset.email)
+      @user = User.where('email ILIKE ?', @password_reset.email).first
       if @user
         flash[:notice] = t('app.messages.password_reset.sent_email')
       else
