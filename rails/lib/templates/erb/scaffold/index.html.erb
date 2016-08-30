@@ -12,7 +12,7 @@
 <div class="text-right">
   <%%= pagination_entries_info @<%= plural_table_name %> %>
   <div class="hidden-print">
-    <%%= link_to icon('download', 'Excel Download'), <%= plural_table_name %>_path(format: 'xls') %>
+    <%%= link_to icon('download', 'Excel Download'), url_for(format: 'xls') %>
   </div>
 </div>
 

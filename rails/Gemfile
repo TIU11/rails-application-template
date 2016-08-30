@@ -8,7 +8,7 @@ gem 'rails', '~> 4.2.7'
 gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
 gem 'pg', '~> 0.18'             # Use postgresql as the database for Active Record
 
-gem 'authlogic', '~> 3.4.0'     # Authentication
+gem 'authlogic', '~> 3.5.0'     # Authentication
 gem 'scrypt'                    # required by authlogic when using scrypt
 gem 'cancancan', '~> 1.15'      # Authorization
 gem 'will_paginate', '~> 3.1.0'
@@ -54,7 +54,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  gem 'capistrano',         '~> 3.5', require: false
+  gem 'capistrano',         '~> 3.6', require: false
   gem 'capistrano-rails',   '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rvm',     '~> 0.1', require: false
