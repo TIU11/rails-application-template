@@ -3,7 +3,9 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.7'
+gem 'rails', '~> 5.0.0'
+# TODO: replace use of content_tag_for, then remove this gem
+gem 'record_tag_helper', '~> 1.0' #content_tag_for deprecated in Rails 5
 
 gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
 gem 'pg', '~> 0.18'             # Use postgresql as the database for Active Record
