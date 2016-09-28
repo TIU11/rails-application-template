@@ -1,4 +1,6 @@
-# TODO: Consider improving with http://my.rails-royce.org/2010/07/21/email-validation-in-ruby-on-rails-without-regexp/
+# TODO: Consider improving with:
+# * http://my.rails-royce.org/2010/07/21/email-validation-in-ruby-on-rails-without-regexp/
+# * https://hackernoon.com/the-100-correct-way-to-validate-email-addresses-7c4818f24643#.cst8tslbp
 class EmailValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
