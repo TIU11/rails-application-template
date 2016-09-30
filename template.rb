@@ -82,12 +82,6 @@ demo:
 # Asset Pipeline
 #
 
-insert_into_file "#{destination_root}/app/assets/javascripts/application.js", <<-JS, after: "//= require jquery_ujs\n"
-//= require underscore
-//= require bootstrap-sprockets
-//= require bootstrap-datepicker
-JS
-
 insert_into_file 'app/assets/stylesheets/application.css', <<-STYLE, before: " *= require_tree .\n"
  *= require bootstrap_and_overrides
  *= require bootstrap-datepicker3

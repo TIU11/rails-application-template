@@ -18,7 +18,7 @@ class Authlogic::InstallGenerator < Rails::Generators::Base
     directory 'vendor'
     route open_template('routes.rb.delta').read
     insert_into_file "#{destination_root}/app/assets/javascripts/application.js",
-                     "  //= require sprintf\n",
+                     "//= require sprintf\n",
                      after: "//= require bootstrap-datepicker\n"
     insert_into_file Dir['db/migrate/*_create_users.rb'].first,
                      open_template('create_users.rb.delta').read,
