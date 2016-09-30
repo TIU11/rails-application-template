@@ -7,8 +7,8 @@ namespace :app do
       puts ".env already exists".cyan
       next
     elsif File.file?('.env.sample')
-      erb = ERB.new(File.read('.env.sample'))
       File.open('.env', 'w') do |f|
+        erb = ERB.new(File.read('.env.sample'), nil, '>')
         f.write erb.result # process template as ERB
       end
       puts ".env created from .env.sample".cyan

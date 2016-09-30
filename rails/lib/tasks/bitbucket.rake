@@ -21,7 +21,7 @@ namespace :bitbucket do
     abort 'goodbye' unless Bitbucket.username
 
     # Create the Bitbucket repository
-    `curl --request POST --user '#{Bitbucket.credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug} --data '#{data.to_json}'`
+    `curl --request POST --user '#{Bitbucket.credentials}' --header 'Content-Type: application/json' --data '#{data.to_json}' https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug}`
 
     # Set the remote and push
     `git remote add origin git@bitbucket.org:#{owner}/#{repo_slug}.git`
@@ -43,7 +43,7 @@ namespace :bitbucket do
       label = key.split(' ')[2]
       data = { key: key, label: label }
       puts "Uploading to bitbucket"
-      `curl --request POST --user '#{Bitbucket.credentials}' --header 'Content-Type: application/json' https://bitbucket.org/api/1.0/repositories/#{Bitbucket.owner}/#{Bitbucket.repo_slug}/deploy-keys --data '#{data.to_json}'`
+      `curl --request POST --user '#{Bitbucket.credentials}' --header 'Content-Type: application/json' --data '#{data.to_json}' https://bitbucket.org/api/1.0/repositories/#{Bitbucket.owner}/#{Bitbucket.repo_slug}/deploy-keys`
     end
   end
 

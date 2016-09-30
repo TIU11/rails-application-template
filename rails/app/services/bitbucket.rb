@@ -39,6 +39,8 @@ class Bitbucket
       return username
     end
 
+    # TODO: looks like prompting for a password can be replaced with newer options
+    # @see (https://developer.atlassian.com/bitbucket/api/2/reference/meta/authentication)
     def self.get_password
       begin
         puts "What is your Bitbucket password?".cyan

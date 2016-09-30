@@ -60,6 +60,8 @@ Finally, apply this template:
     cd ~/code                    # Wherever you put your projects
     rails new my-app -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks --no-scaffold-stylesheet --force
 
+Look over what the template added to the default app. You might spot something that could be improved in the template.
+
 That's it, take her for a spin:
 
     cd my-app
