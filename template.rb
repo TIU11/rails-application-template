@@ -181,6 +181,7 @@ after_bundle do
     git commit: "-m 'Applied Rails Application Template'"
   end
 
+  run "#{@rvm_do} rake app:create_dotenv"
   run "#{@rvm_do} rake db:create"
   run "#{@rvm_do} rake db:migrate"
   run "#{@rvm_do} rake bitbucket:setup"

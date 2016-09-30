@@ -5,7 +5,7 @@ namespace :deploy do
     task :initialize_dotenv do
       on roles(:web) do
         env_is_missing = !test("[ -f #{shared_path}/.env ]")
-        if env_is_missing and File.exist?('.env.sample')
+        if env_is_missing and File.file?('.env.sample')
           content = StringIO.new(ERB.new(File.read('.env.sample')).result) # process template as ERB
           upload! content, "#{shared_path}/.env"
           info "Uploaded .env created from .env.sample"
