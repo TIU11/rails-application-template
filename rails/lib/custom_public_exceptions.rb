@@ -9,7 +9,7 @@ class CustomPublicExceptions < ActionDispatch::PublicExceptions
     rescue ActionController::RoutingError => e
       Rails.logger.debug "No route for #{@status_code}. Falling back to defaults."
       super env
-    rescue Exception => e
+    rescue RuntimeError => e
       # TODO: invoke ExceptionNotifier
       Rails.logger.fatal "Exception during custom error handling, '#{e}'. Falling back to defaults."
       Rails.logger.fatal "#{e.class} (#{e.message})\n  " +

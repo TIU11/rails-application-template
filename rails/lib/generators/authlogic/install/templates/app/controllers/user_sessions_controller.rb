@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user_session = UserSession.new(params[:user_session])
+    @user_session = UserSession.new(user_session_params)
     session.delete :su_user
 
     if @user_session.save
@@ -30,7 +30,7 @@ class UserSessionsController < ApplicationController
 
     clear_location # avoid trouble if user logs back in after downloading Excel, etc
     session.delete :su_user # clear saved user
-    redirect_to login_url(params.slice(:redirect_uri))
+    redirect_to login_url(params.permit!.slice(:redirect_uri)) # TODO: sanitize instead of permit!
   end
 
   # Switch User
@@ -83,6 +83,10 @@ class UserSessionsController < ApplicationController
   end
 
   private
+
+    def user_session_params
+      params.require(:user_session).permit(:username, :password)
+    end
 
     def _timeout
       if current_user

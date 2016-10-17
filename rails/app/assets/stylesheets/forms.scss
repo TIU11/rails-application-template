@@ -1,0 +1,15 @@
+//== Forms
+
+form label.required,
+form .required {
+  &::after {
+    color: red;
+    content: ' *';
+    font-weight: normal;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .5);
+  }
+}
+
+form label.control-label {
+  font-weight: bold;
+}

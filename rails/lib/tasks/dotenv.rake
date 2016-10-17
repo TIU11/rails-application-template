@@ -5,7 +5,6 @@ namespace :app do
   task :create_dotenv do
     if File.file?('.env')
       puts ".env already exists".cyan
-      next
     elsif File.file?('.env.sample')
       File.open('.env', 'w') do |f|
         erb = ERB.new(File.read('.env.sample'), nil, '>')

@@ -22,8 +22,6 @@ git archive: "--remote=git@bitbucket.org:tiu/rails-application-template.git --fo
 
 # config/application.rb
 insert_into_file 'config/application.rb', open('config/application.rb.delta').read, before: "  end"
-gsub_file 'config/application.rb',
-          "# config.time_zone = 'Central Time (US & Canada)'", "config.time_zone = 'Eastern Time (US & Canada)'"
 remove_file 'config/application.rb.delta'
 
 # config/initializers/filter_parameter_logging.rb

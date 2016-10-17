@@ -1,9 +1,7 @@
 $grey-background: #f5f5f5;
 $footer-height: 60px;
 
-//
-// Sticky Footer
-//
+//== Sticky Footer
 
 html {
   min-height: 100%;
@@ -31,22 +29,4 @@ footer {
   .text-muted {
     margin-top: 20px; // TODO: not great at phone sizes
   }
-}
-
-//
-// Forms
-//
-
-form label.required,
-form .required {
-  &::after {
-    color: red;
-    content: ' *';
-    font-weight: normal;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, .5);
-  }
-}
-
-form label.control-label {
-  font-weight: bold;
 }
