@@ -3,17 +3,20 @@ class CustomPublicExceptions < ActionDispatch::PublicExceptions
   def call(env)
     begin
       @exception   = env['action_dispatch.exception']
-      @status_code = ActionDispatch::ExceptionWrapper.new(env, @exception).status_code
+      @status_code = ActionDispatch::ExceptionWrapper.new(Rails.backtrace_cleaner, @exception).status_code
       Rails.application.routes.recognize_path("/#{@status_code}")
       Rails.application.routes.call env # Look for a route to a custom error handler
     rescue ActionController::RoutingError => e
-      Rails.logger.debug "No route for #{@status_code}. Falling back to defaults."
+      Rails.logger.debug "No route for #{@status_code}. Falling back to default exception handling."
       super env
     rescue RuntimeError => e
       # TODO: invoke ExceptionNotifier
-      Rails.logger.fatal "Exception during custom error handling, '#{e}'. Falling back to defaults."
-      Rails.logger.fatal "#{e.class} (#{e.message})\n  " +
-          e.backtrace.join("\n  ")
+      Rails.logger.fatal <<~MESSAGE
+        Exception during custom error handling, '#{e}'. Falling back to defaults.
+        #{e.class}: "#{e.message}"
+          #{e.backtrace.join("\n  ")}
+      MESSAGE
+
       super env
     end
   end

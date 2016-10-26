@@ -86,8 +86,8 @@ insert_into_file 'app/assets/stylesheets/application.css', <<-STYLE, before: " *
 STYLE
 
 # Routes
-route "root to: 'exception#show'"
-route "get '/404' => 'exception#show'"
+route "root to: 'exception#not_found'"
+route "get '/404' => 'exception#not_found'"
 
 puts "Process Templates".cyan
 template    "#{destination_root}/config/locales/en.yml.tt"

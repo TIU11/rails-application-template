@@ -1,0 +1,13 @@
+<% @page_class = 'internal-server-error' %>
+<% content_for :title, t('.title') %>
+
+<div class="lead">
+
+  <%= icon 'frown-o', nil, class: 'fa-4x pull-right' %>
+
+  <h1><%= t('.header') %></h1>
+  <p>
+    <%= t('.message') %>
+  </p>
+
+</div>
