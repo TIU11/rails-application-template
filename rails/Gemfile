@@ -29,7 +29,7 @@ gem 'virtus'                    # Define typed attributes (e.g. for Value Object
 # Styling
 
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
-gem 'font-awesome-sass', '~> 4.6.0'
+gem 'font-awesome-sass', '~> 4.7.0'
 gem 'bootstrap-sass', '~> 3.3.0'
 gem 'bootstrap-datepicker-rails'
 
