@@ -12,9 +12,9 @@ module SeoHelper
     if title                    # set the title
       content_for :title, title
     elsif content_for?(:title)  # render view-provided page title
-      "#{I18n.t('app.title')} - #{content_for(:title)}"
+      "#{content_for(:title)} - #{I18n.t('app.title')}"
     else                        # render default page title
-      "#{I18n.t('app.title')} - #{controller_name.titleize}"
+      "#{controller_name.titleize} - #{I18n.t('app.title')}"
     end
   end
 
