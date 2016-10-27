@@ -1,8 +1,5 @@
-class UserMailer < ActionMailer::Base
+class UserMailer < ApplicationMailer
   add_template_helper(AnalyticsHelper)
-  default from: "<%= Rails.application.class.parent_name.parameterize %>@tiu11.org",
-          reply_to: "<%= Rails.application.class.parent_name.parameterize %>@tiu11.org"
-  layout 'mailer'
 
   def password_reset(user)
     Rails.logger.info("Sending password reset email to #{user}")

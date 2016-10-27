@@ -16,7 +16,7 @@ class PasswordResetsController < ApplicationController
       if @user
         flash[:notice] = t('app.messages.password_reset.sent_email')
       else
-        support_email = User.administrators.first.full_email rescue 'help@tiu11.org'
+        support_email = User.administrators.first.full_email rescue I18n.t('app.support_email')
         @password_reset.errors[:base] << t('app.messages.password_reset.account_not_found_html', email: support_email).html_safe
       end
     end
@@ -27,7 +27,7 @@ class PasswordResetsController < ApplicationController
         flash[:alert] = I18n.t('app.messages.logout')
       end
       @user.reset_perishable_token!
-      UserMailer.password_reset(@user).deliver
+      UserMailer.password_reset(@user).deliver_now
       redirect_to '/login'
     else
       render :new
