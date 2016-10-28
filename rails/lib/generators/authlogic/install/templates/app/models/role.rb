@@ -21,9 +21,9 @@ class Role
   # Find canonical name for stuff like: "The Admin", :the_admin, "the_admin".
   # Returns nil if no corresponding role is found.
   def self.canonical_name(role)
-    normalized_role = role.to_s.parameterize('_')
+    normalized_role = role.to_s.parameterize(separator: '_')
     all.find { |r|
-      r.name.parameterize('_') == normalized_role
+      r.name.parameterize(separator: '_') == normalized_role
     }.try(:name)
   end
 
@@ -32,7 +32,7 @@ class Role
   #
 
   def to_sym
-    name.parameterize('_').to_sym
+    name.parameterize(separator: '_').to_sym
   end
 
   def to_s
