@@ -19,6 +19,8 @@ $blue: #d9edf7;
 
   .version-changes {
     margin-bottom: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 
     .before {
       background-color: $red;
