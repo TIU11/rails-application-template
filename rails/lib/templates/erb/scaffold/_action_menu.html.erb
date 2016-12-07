@@ -3,27 +3,36 @@
   if [:edit, :show, :delete].index{|ability| can? ability, <%= singular_table_name %>}
     size ||= nil # default size
 %>
-  <div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle <%%= size %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <%%= icon 'list' %> <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-      <!-- dropdown menu links -->
-      <%% if action_name != 'show' && can?(:show, <%= singular_table_name %>) %>
-        <li>
-          <%%= link_to icon('file', 'View'), <%= singular_table_name %>_path(<%= singular_table_name %>) %>
-        </li>
-      <%% end %>
-      <%% if can? :edit, <%= singular_table_name %> %>
-        <li>
-          <%%= link_to icon('pencil', 'Edit'), edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %>
-        </li>
-      <%% end %>
-      <%% if can? :delete, <%= singular_table_name %> %>
-        <li>
-          <%%= link_to icon('times', 'Destroy'), <%= singular_table_name %>, {data: { :confirm => 'Are you sure?' }, method: :delete} %>
-        </li>
-      <%% end %>
-    </ul>
+  <div class="btn-group pull-right action-menu" role="group">
+    <!-- top-level menu links -->
+    <%% if action_name != 'show' && can?(:show, <%= singular_table_name %>) %>
+      <%%= link_to 'View', <%= singular_table_name %>_path(<%= singular_table_name %>), class: "btn btn-default #{size}" %>
+    <%% end %>
+
+    <!-- dropdown menu -->
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-default dropdown-toggle <%%= size %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%%= icon 'caret-down' %>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+        <!-- dropdown menu links -->
+        <%% if action_name != 'show' && can?(:show, <%= singular_table_name %>) %>
+          <li>
+            <%%= link_to icon('file', 'View'), <%= singular_table_name %>_path(<%= singular_table_name %>) %>
+          </li>
+        <%% end %>
+        <%% if can? :edit, <%= singular_table_name %> %>
+          <li>
+            <%%= link_to icon('pencil', 'Edit'), edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %>
+          </li>
+        <%% end %>
+        <%% if can? :delete, <%= singular_table_name %> %>
+          <li>
+            <%%= link_to icon('trash', 'Destroy'), <%= singular_table_name %>, {data: { :confirm => 'Are you sure?' }, method: :delete} %>
+          </li>
+        <%% end %>
+      </ul>
+    </div>
   </div>
+
 <%% end %>
