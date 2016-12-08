@@ -28,7 +28,7 @@
         <%% end %>
         <%% if can? :delete, <%= singular_table_name %> %>
           <li>
-            <%%= link_to icon('trash', 'Destroy'), <%= singular_table_name %>, {data: { :confirm => 'Are you sure?' }, method: :delete} %>
+            <%%= link_to icon('trash', 'Delete'), <%= singular_table_name %>, {data: { :confirm => 'Are you sure?' }, method: :delete} %>
           </li>
         <%% end %>
       </ul>
