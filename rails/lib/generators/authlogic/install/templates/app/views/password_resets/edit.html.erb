@@ -2,7 +2,7 @@
 
 <%= form_for @user, url: password_reset_path, html: {class: 'form-horizontal'}, method: :put do |f| %>
 
-  <%= render 'shared/error_messages', target: @user %>
+  <%= render 'error_messages', target: @user %>
 
   <div class="form-group">
     <%= f.label :password, class: 'required col-sm-2 control-label' %>

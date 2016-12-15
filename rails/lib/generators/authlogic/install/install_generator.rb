@@ -24,7 +24,7 @@ class Authlogic::InstallGenerator < Rails::Generators::Base
                      open_template('create_users.rb.delta').read,
                      before: "\n      t.timestamps null: false"
     insert_into_file 'app/views/shared/_nav.html.erb',
-                     "        <%= render 'shared/login_menu' %>\n",
+                     "        <%= render 'login_menu' %>\n",
                      before: '      </div><!--/.nav-collapse -->'
   end
 

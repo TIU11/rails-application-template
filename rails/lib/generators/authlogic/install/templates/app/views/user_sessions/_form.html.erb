@@ -1,6 +1,6 @@
 <%= form_for (@user_session ||= UserSession.new), url: user_session_path, html: {class: "form-horizontal"} do |f| %>
 
-  <%= render 'shared/error_messages', target: @user_session %>
+  <%= render 'error_messages', target: @user_session %>
 
   <div class="form-group">
     <%= f.label :username, class: 'required col-sm-2 control-label' %>

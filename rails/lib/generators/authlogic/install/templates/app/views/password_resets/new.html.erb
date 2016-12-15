@@ -9,7 +9,7 @@
 
 <%= form_for @password_reset, html: {class: 'form-horizontal', role: 'form'} do |f| %>
 
-  <%= render 'shared/error_messages', target: @password_reset %>
+  <%= render 'error_messages', target: @password_reset %>
 
   <div class="form-group">
     <%= f.label :username, class: 'required col-sm-2 control-label' %>
