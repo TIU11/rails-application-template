@@ -19,11 +19,11 @@ This template assumes some things:
         rvm install 2.3
         rvm install 2.3 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X
 
-* Rails 4.2.x is installed
+* Rails 5.0.x is installed
 
         rvm use 2.3
         gem install rails               # install latest version of rails
-        gem install rails -v "~> 4.2.5" # you may install an older version, but the template is more likely to not work.
+        gem install rails -v "~> 4.2.5" # you may install an older version, but the template is very likely to not work.
 
 * Bundler and RubyGems are up-to-date (optional)
 
@@ -71,7 +71,7 @@ That's it, take her for a spin:
 # Post-setup
 
 * review the Gemfile (replace gems you may have added)
-* add dev, demo, production deployment keys to Bitbucket
+* add ~dev, demo~, production deployment keys to Bitbucket
 * review the environment configs: `development`, `dev`, `demo`, `production` (`dev` and `demo` are copies of production)
     * `config/environments/<environment>.rb`
     * `config/secrets.yml`
@@ -97,7 +97,11 @@ That's it, take her for a spin:
 * improve Bitbucket repository stuff
     * initialize Bitbucket smarter and w/o prompts (are better APIs exposed since we wrote?)
     * setup deploy keys independently, perhaps as a rake task, so it works for checking on existing repos
-* Consider adding some of these: https://intercityup.com/blog/useful-capistrano-plugins.html?utm_source=rubyweekly&utm_medium=email
+* Scaffold the controller a bit more fully (e.g. define formats with [responders](https://github.com/plataformatec/responders), especially for .xls with set_filename)
+* Consider Custom Form Builder to "Bootstrappify" error state, required fields, labelled fields, etc.
+* Consider adding some of these:
+    * (https://intercityup.com/blog/useful-capistrano-plugins.html?utm_source=rubyweekly&utm_medium=email)
+    * (http://blog.rubyroidlabs.com/2016/02/capistrano-tools/)
 
 # Credits
 
