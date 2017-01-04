@@ -3,7 +3,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.0.1'
 # TODO: replace use of content_tag_for, then remove this gem
 # (https://github.com/rails/rails/issues/18337) discussion of why to remove from rails
 # (https://github.com/rails/rails/pull/18411) does the work of moving from rails to gem
@@ -54,7 +54,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
-  gem 'listen', '~> 3.0.5'
+  gem 'listen', '~> 3.1'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
