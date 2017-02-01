@@ -1,4 +1,4 @@
-class PaperTrail::Version < ActiveRecord::Base
+class PaperTrail::Version < ApplicationRecord
   include PaperTrail::VersionConcern # what is this for?
 
   scope :sorted, -> { reorder(created_at: :desc) }

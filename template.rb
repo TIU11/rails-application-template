@@ -82,7 +82,6 @@ demo:
 
 insert_into_file 'app/assets/stylesheets/application.css', <<-STYLE, before: " *= require_tree .\n"
  *= require bootstrap_and_overrides
- *= require bootstrap-datepicker3
 STYLE
 
 # Routes

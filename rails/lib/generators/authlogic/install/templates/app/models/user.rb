@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include FriendlyId
   friendly_id :username_candidates, use: :slugged, slug_column: :username
 
