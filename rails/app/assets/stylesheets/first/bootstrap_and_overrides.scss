@@ -1,3 +1,18 @@
+// When customizing, you may want to reference Bootstrap SASS variable defaults:
+// (https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss)
+// For more, open Bootstrap gem source code in your favorite editor:
+//    atom `bundle show bootstrap-sass`
+
+//== Colors
+
+$brand-primary: $tiu-brand;
+
+//== Typography
+
+$font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+//== Load Frameworks
+
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 @import 'bootstrap-datepicker3';

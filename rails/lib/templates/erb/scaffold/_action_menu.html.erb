@@ -10,10 +10,11 @@
     <%% end %>
 
     <!-- dropdown menu -->
-    <div class="btn-group pull-right">
+    <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle <%%= size %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%%= icon 'caret-down' %>
       </button>
+
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <!-- dropdown menu links -->
         <%% if action_name != 'show' && can?(:show, <%= singular_table_name %>) %>
