@@ -14,7 +14,7 @@ gem 'pg', '~> 0.19'             # Use postgresql as the database for Active Reco
 
 gem 'authlogic', '~> 3.5.0'     # Authentication
 gem 'scrypt'                    # required by authlogic when using scrypt
-gem 'cancancan', '~> 1.15'      # Authorization
+gem 'cancancan', '~> 1.16'      # Authorization
 gem 'will_paginate', '~> 3.1.0'
 gem 'exception_notification', '~> 4.2.0'
 gem 'slack-notifier'            # Send exception notifications to Slack

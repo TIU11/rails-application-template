@@ -11,7 +11,14 @@ namespace :ubuntu do
         'postgresql-client' # db:snapshot task uses `pg_dump`
       ],
       json: 'libgmp-dev',
-      charlock_holmes: 'libicu-dev'
+      charlock_holmes: 'libicu-dev',
+      paperclip: [
+        'imagemagick',
+        # If you are dealing with pdf uploads:
+        'ghostscript',
+        'libgs-dev'
+      ],
+      carrierwave: 'imagemagick'
     }
 
     # build list of package dependencies

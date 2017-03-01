@@ -28,6 +28,8 @@ en:
     title: <%= app_name.titleize %>
     short_title: <%= app_name.titleize.gsub(/[^A-Z]/, '') %>
     support_email: help@tiu11.org
+    support_url: http://help.tiu11.org
+    sending_email: no-reply@tiu11.org
     messages:
       welcome: Welcome to the <%= app_name.titleize %>!
       logout: You are now logged out

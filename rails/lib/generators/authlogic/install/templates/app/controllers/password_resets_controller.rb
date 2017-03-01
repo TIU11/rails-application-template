@@ -1,5 +1,5 @@
 class PasswordResetsController < ApplicationController
-  before_filter :set_user, only: [:edit, :update]
+  before_action :set_user, only: [:edit, :update]
   skip_authorization_check
 
   def new
@@ -9,7 +9,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    @password_reset = PasswordReset.new(params[:password_reset])
+    @password_reset = PasswordReset.new(password_reset_params)
 
     if @password_reset.valid?
       @user = User.where('email ILIKE ?', @password_reset.email).first
@@ -28,7 +28,7 @@ class PasswordResetsController < ApplicationController
       end
       @user.reset_perishable_token!
       UserMailer.password_reset(@user).deliver_now
-      redirect_to '/login'
+      redirect_to login_path
     else
       render :new
     end
@@ -38,8 +38,8 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    @user.password = params[:user][:password]
-    @user.password_confirmation = params[:user][:password_confirmation]
+    @user.password = user_params[:password]
+    @user.password_confirmation = user_params[:password_confirmation]
 
     @user.valid?
 
@@ -66,13 +66,22 @@ class PasswordResetsController < ApplicationController
 
   private
 
+  # Only allow a trusted parameter "white list" through.
+  def password_reset_params
+    params.require(:password_reset).permit(:username, :email)
+  end
+
+  def user_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
+
   def set_user
     @user = User.find_using_perishable_token(params[:id])
     unless @user
       flash[:error] = t('app.messages.password_reset.inactive_link_html',
                         new_password_reset_path: new_password_reset_path.html_safe)
       flash[:html_safe] = true # don't escape HTML when rendering flash messages
-      redirect_to '/login'
+      redirect_to login_path
     end
   end
 end
