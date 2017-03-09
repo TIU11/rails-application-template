@@ -9,7 +9,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    @password_reset = PasswordReset.new(password_reset_params)
+    @password_reset = PasswordReset.new(password_reset_params.to_h)
 
     if @password_reset.valid?
       @user = User.where('email ILIKE ?', @password_reset.email).first
