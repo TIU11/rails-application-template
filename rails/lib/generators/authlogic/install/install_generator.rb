@@ -23,7 +23,7 @@ class Authlogic::InstallGenerator < Rails::Generators::Base
     insert_into_file Dir['db/migrate/*_create_users.rb'].first,
                      open_template('create_users.rb.delta').read,
                      before: "\n      t.timestamps null: false"
-    insert_into_file 'app/views/shared/_nav.html.erb',
+    insert_into_file 'app/views/application/_nav.html.erb',
                      "        <%= render 'login_menu' %>\n",
                      before: '      </div><!--/.nav-collapse -->'
   end
