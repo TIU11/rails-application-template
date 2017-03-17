@@ -7,7 +7,7 @@ class CustomPublicExceptions < ActionDispatch::PublicExceptions
       Rails.application.routes.recognize_path("/#{@status_code}")
       Rails.application.routes.call env # Look for a route to a custom error handler
     rescue ActionController::RoutingError => e
-      Rails.logger.debug "No route for #{@status_code}. Falling back to default exception handling."
+      Rails.logger.debug {"No route for #{@status_code}. Falling back to default exception handling."}
       super env
     rescue RuntimeError => e
       # TODO: invoke ExceptionNotifier

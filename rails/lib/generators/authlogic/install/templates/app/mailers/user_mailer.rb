@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
           reply_to: I18n.t('app.support_email')
 
   def password_reset(user)
-    Rails.logger.info("Sending password reset email to #{user}")
+    Rails.logger.info {"Sending password reset email to #{user}"}
 
     @user = user
     @new_password_reset_url = new_password_reset_url(

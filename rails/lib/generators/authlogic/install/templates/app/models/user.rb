@@ -85,7 +85,7 @@ class User < ApplicationRecord
   # Assign user a default password
   def ensure_new_account_has_password
     if self.password.nil? and self.new_record?
-      Rails.logger.debug "Generating random password for #{self.email}"
+      Rails.logger.debug {"Generating random password for #{self.email}"}
       random_password = SecureRandom.urlsafe_base64(12)
       self.password = random_password
       self.password_confirmation = random_password

@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   # Handles authorization errors. Notifies user why it occurred and redirects to root_url.
   rescue_from CanCan::AccessDenied do |exception|
-    Rails.logger.warn "Access denied to '#{exception.action}' a '#{exception.subject}' was denied to #{current_user}."
+    Rails.logger.warn {"Access denied to '#{exception.action}' a '#{exception.subject}' was denied to #{current_user}."}
 
     # Notify users with detailed explanation
     if current_user
