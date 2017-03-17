@@ -15,14 +15,14 @@ gem 'pg', '~> 0.19'             # Use postgresql as the database for Active Reco
 gem 'authlogic', '~> 3.5.0'     # Authentication
 gem 'scrypt'                    # required by authlogic when using scrypt
 gem 'cancancan', '~> 1.16'      # Authorization
-gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate', '~> 3.1.0' # Pagination
 gem 'exception_notification', '~> 4.2.0'
 gem 'slack-notifier'            # Send exception notifications to Slack
 gem 'active_model_serializers', '~> 0.10.0' # building JSON responses
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
-gem 'whenever', require: false
+gem 'whenever', require: false  # Schedule cron jobs
 gem 'colorize'                  # Colored console output
-gem 'friendly_id', '~> 5.2.0'   # Pretty URLs
+gem 'friendly_id', '~> 5.2.0'   # Nice URLs
 gem 'paper_trail', '~> 6.0.2'   # Track model revisions
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
 
