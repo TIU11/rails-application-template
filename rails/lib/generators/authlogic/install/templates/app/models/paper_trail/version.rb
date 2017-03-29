@@ -78,9 +78,24 @@ class PaperTrail::Version < ApplicationRecord
 
   # based on notes from (http://coryforsyth.com/2013/06/02/programmatically-list-routespaths-from-inside-your-rails-app/)
   def has_route?
+    routes.present?
+  end
+
+  def object_path
+    route = routes.first # TODO: ignoring that we might have multiple routes to pick from
+    params =  { only_path: true }
+              .merge(route.defaults) # ex. {:controller=>"users", :action=>"show"}
+              .merge(object_instance.slice(*route.required_parts).symbolize_keys)
+    Rails.application.routes.url_for(params)
+  end
+
+  # All :show routes on the object's controller
+  def routes
     all_routes = Rails.application.routes.routes
     controller_name = object_instance.class.name.underscore.pluralize
-    all_routes.map{|route| route.defaults}.include?({controller: controller_name, action: 'show'})
+    all_routes.select{ |route|
+      route.defaults == {controller: controller_name, action: 'show'}
+    }
   end
 
   private

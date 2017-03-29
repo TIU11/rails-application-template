@@ -20,7 +20,7 @@
      &mdash;
     <% end %>
     <% if version.has_route? %>
-      <%= link_to(version.object_instance, polymorphic_path(version.object_instance)) %>
+      <%= link_to(version.object_instance, version.object_path) %>
     <% else %>
       <%= version.object_instance %>
     <% end %>
