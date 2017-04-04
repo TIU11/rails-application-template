@@ -55,6 +55,12 @@ class ApplicationController < ActionController::Base
     session[:return_to] = path
   end
 
+  # Typically called to store location before showing a form to support 'Cancel' button:
+  #   `before_action :store_referrer, only: [:index, :new, :edit]`
+  def store_referrer
+    store_location request.referer # remember where we were
+  end
+
   def clear_location
     session[:return_to] = nil
   end
@@ -86,6 +92,8 @@ class ApplicationController < ActionController::Base
   end
   helper_method :su_user
 
+  # Restricts action to authenticated sessions. Helpfully remembers target url
+  # while a user logs in.
   def require_user
     unless current_user
       flash[:warning] = t('app.messages.require_user')
