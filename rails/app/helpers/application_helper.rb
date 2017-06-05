@@ -4,7 +4,11 @@ module ApplicationHelper
   # When previous page is this page or this isn't a GET request, then link to
   # stored session[:return_to].
   #
-  # To set session[:return_to], you will usually add `store_location request.referer` to the edit action.
+  # To set session[:return_to], simply setup the before_action:
+  #
+  #   `before_action :store_referrer, only: [:new, :edit]`
+  #
+  # or add `store_location request.referer` to the edit and new actions.
   def link_back(name, html_options = {})
     get_new_page = request.get? and (request.url != request.referer)
     url = get_new_page ? :back : session[:return_to]
