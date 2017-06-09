@@ -6,7 +6,7 @@ Bootstraps a Rails project, with customizations beyond a default `rails new my-a
 
 This template assumes some things:
 
-* RVM is installed and up-to-date (1.28.x)
+* RVM is installed and up-to-date (1.29.x)
 
         # See http://rvm.io/rvm/install
         \curl -sSL https://get.rvm.io | bash -s stable --rails
@@ -14,20 +14,20 @@ This template assumes some things:
         # Upgrade with
         rvm get stable && rvm reload
 
-* Ruby 2.3.x is installed
+* Ruby 2.4.x is installed
 
-        rvm install 2.3
-        rvm install 2.3 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X
+        rvm install 2.4
+        rvm install 2.4 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X
 
-* Rails 5.0.x is installed
+* Rails 5.1.x is installed
 
-        rvm use 2.3
+        rvm use 2.4.1
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work.
 
 * Bundler and RubyGems are up-to-date (optional)
 
-        rvm @global do gem install bundler  # Rails 5.0 depends on bundler (< 2.0, >= 1.3.0)
+        rvm @global do gem install bundler  # Rails 5.x depends on bundler (< 2.0, >= 1.3.0)
                                             # We've noticed bundler 1.7+ is much faster than 1.3
         gem update --system                 # Per https://rubygems.org/pages/download
 
@@ -39,7 +39,7 @@ This template assumes some things:
 
 * SSH keys are configured so access to dev.tiu11.org doesn't prompt for a password
 * dev.tiu11.org has an SSH public key, and this is the desired Bitbucket deployment key
-* dev.tiu11.org also has RVM (~> 1.28) installed
+* dev.tiu11.org also has RVM (~> 1.29) installed
 
 # Getting Started
 
@@ -48,7 +48,7 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 2.3.3
+    rvm use 2.4.1
     rails new my-app --database=postgresql --skip-turbolinks --no-scaffold-stylesheet
     cd my-app
     git init
@@ -102,6 +102,7 @@ That's it, take her for a spin:
 * Consider adding some of these:
     * (https://intercityup.com/blog/useful-capistrano-plugins.html?utm_source=rubyweekly&utm_medium=email)
     * (http://blog.rubyroidlabs.com/2016/02/capistrano-tools/)
+* consider mentioning .railsrc, like (http://pixelatedworks.com/articles/configuring_new_rails_projects_with_railsrc_and_templates/?utm_source=rubyweekly&utm_medium=email)
 
 # Credits
 
@@ -109,5 +110,5 @@ Developed by Anson Hoyt at [Tuscarora Intermediate Unit 11](http://www.tiu11.org
 
 # License
 
-Copyright (c) 2016 [Tuscarora Intermediate Unit 11](http://www.tiu11.org).
+Copyright (c) 2013-2017 [Tuscarora Intermediate Unit 11](http://www.tiu11.org).
 See LICENSE for details.

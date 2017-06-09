@@ -18,7 +18,11 @@ namespace :ubuntu do
         'ghostscript',
         'libgs-dev'
       ],
-      carrierwave: 'imagemagick'
+      carrierwave: 'imagemagick',
+      tiny_tds: [
+        'build-essential',
+        'libc6-dev'
+      ]
     }
 
     # build list of package dependencies
