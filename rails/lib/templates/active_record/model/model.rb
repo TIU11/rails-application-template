@@ -1,11 +1,18 @@
 <% module_namespacing do -%>
 class <%= class_name %> < <%= parent_class_name.classify %>
+<% if defined?(FriendlyId) -%>
   # include FriendlyId
   # friendly_id :name, use: :slugged
 
+<% end -%>
+<% if defined?(PaperTrail) -%>
+  # has_paper_trail
+
+<% end -%>
   #
   # Associations
   #
+
 <% attributes.select(&:reference?).each do |attribute| -%>
   belongs_to :<%= attribute.name %><%= ', polymorphic: true' if attribute.polymorphic? %>
 <% end -%>
