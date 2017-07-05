@@ -76,14 +76,6 @@ demo:
 
 }, before: /(#.*\n)+production:\n/ # before production config and comments
 
-#
-# Asset Pipeline
-#
-
-insert_into_file 'app/assets/stylesheets/application.css', <<-STYLE, before: " *= require_tree .\n"
- *= require bootstrap_and_overrides
-STYLE
-
 # Routes
 route "root to: 'exception#not_found'"
 route "get '/404' => 'exception#not_found'"

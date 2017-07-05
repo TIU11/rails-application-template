@@ -1,8 +1,12 @@
 # Generators defaults
+# @see (http://guides.rubyonrails.org/generators.html#customizing-your-workflow)
 Rails.application.config.generators do |g|
   # Hack to override Rails' Erb::Generators::ScaffoldGenerator
   g.template_engine :all # Defaults to :erb
   g.fallbacks[:all] = :erb
+
+  # Don't generate default scaffolds.scss
+  g.scaffold_stylesheet false
 
   #
   # Tests
