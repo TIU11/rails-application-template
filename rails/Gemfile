@@ -9,11 +9,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.1.0'
-# TODO: replace use of content_tag_for, then remove this gem
-# (https://github.com/rails/rails/issues/18337) discussion of why to remove from rails
-# (https://github.com/rails/rails/pull/18411) does the work of moving from rails to gem
-gem 'record_tag_helper', '~> 1.0' #content_tag_for deprecated in Rails 5
+gem 'rails', '~> 5.1.2'
 
 gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
 gem 'pg', '~> 0.19'             # Use postgresql as the database for Active Record
