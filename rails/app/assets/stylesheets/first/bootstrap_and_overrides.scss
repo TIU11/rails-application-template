@@ -9,9 +9,13 @@
 
 $brand-primary: $tiu-brand;
 
+$navbar-default-link-color: #727272; // darkened from #777 for WCAG AA
+$gray-light:                #727272; // darkened from #777 for WCAG AA
+
 //== Typography
 
 $font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-size-base:          16px;
 
 //== Load Frameworks
 
