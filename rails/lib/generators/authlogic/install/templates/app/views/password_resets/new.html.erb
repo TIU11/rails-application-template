@@ -4,7 +4,7 @@
   Complete the form below and instructions to reset your password will be emailed to you. If you need help,
   <%= link_to icon('send-o', 'let us know'),
       "mailto:#{t('app.support_email')}?subject=Help with a Password Reset&body=(Tell us what the trouble is and how to contact you)",
-      target: '_blank' %>.
+      target: '_blank', rel: 'noopener' %>.
 </p>
 
 <%= form_for @password_reset, html: {class: 'form-horizontal', role: 'form'} do |f| %>
