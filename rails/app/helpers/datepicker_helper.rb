@@ -9,10 +9,20 @@ module DatepickerHelper
   #
   # TODO: datepicker doesn't activate when clicking the input-group-addon. Their docs out-of-date on this.
   def datepicker_tag(form, name, options = {})
+    # Ensure date format consistent in text field and javascript configuration.
+    # The defaults, as configured in Date::DATE_FORMATS[:default], might not match.
+    value = form.object[name]
+    if value.respond_to? :strftime
+      value = value.strftime("%m-%d-%Y")
+    end
+
     options = {
+      value: value,
       data: {
         behavior: 'datepicker',
-        date_format: 'yyyy-mm-dd'
+        date_format: 'yyyy-mm-dd',
+        date_autoclose: true,
+        date_today_highlight: true
       },
       autocomplete: 'off',
       class: 'form-control'

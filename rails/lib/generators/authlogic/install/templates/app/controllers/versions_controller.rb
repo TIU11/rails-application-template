@@ -6,7 +6,7 @@ class VersionsController < ApplicationController
 
   # GET /versions
   def index
-    @search = VersionSearchForm.new(params[:q])
+    @search = VersionSearchForm.new(version_search_form_params)
     @versions = @search.apply(versions: @versions) if @search.valid?
 
     # TODO: exception when linking to a deleted model
@@ -42,6 +42,10 @@ class VersionsController < ApplicationController
   end
 
   private
+
+  def version_search_form_params
+    params[:q]&.permit(:author_id, :from, :to)
+  end
 
   def redo_link
     link_name = params[:redo] == "true" ? "undo" : "redo"
