@@ -43,24 +43,9 @@ en:
         sent_email: Instructions to reset your password have been emailed to the registered email. Please check your email.
         account_not_found_html: Unable to find an account matching the email you provided. Try checking your spelling, or <a href="mailto:%{email}?subject=Request Help Resetting Password&body=I'm having trouble updating my password because I don't know the registered email. (add details)">contact staff support</a> to look up your account.
         inactive_link_html: We're sorry, but this is not an active reset link. You can <a href="%{new_password_reset_path}">generate a new one</a>.
-  activerecord:
-    attributes:
-    errors:
-      models:
+
   errors:
     actions:
       new: "create"
       show: "view"
       index: "list"
-
-  # View Translations
-  # @see http://guides.rubyonrails.org/i18n.html#lazy-lookup
-  exception:
-    internal_server_error:
-      title: Internal Server Error
-      header: We're sorry, but something went wrong
-      message: We track these errors automatically, but if the problem persists feel free to contact us.
-    not_found:
-      title: Page Not Found
-      header: The page you were looking for isn't found here.
-      message: You may have mistyped the address or the page may have moved.

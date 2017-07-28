@@ -1,0 +1,18 @@
+# Model Translations
+# See (http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models)
+# See (https://github.com/svenfuchs/rails-i18n/tree/master/rails/locale)
+en:
+  activerecord:
+
+    # attributes:
+
+    # errors:
+    #   models:
+
+    models:
+      user:
+        one: User
+        other: Users
+      version:
+        one: Version
+        other: Versions

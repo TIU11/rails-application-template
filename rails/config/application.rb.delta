@@ -6,3 +6,7 @@
     # Exception Handler
     require "custom_public_exceptions"
     config.exceptions_app = CustomPublicExceptions.new Rails.public_path
+
+    # Where the I18n library should search for translation files
+    # Loads locales in nested subfolders, not just in the default directory
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]

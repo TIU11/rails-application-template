@@ -1,0 +1,11 @@
+# Component Translations
+# Typically referenced from a view helper for that component.
+en:
+
+  # See (https://github.com/mislav/will_paginate/wiki/I18n)
+  will_paginate:
+    previous_label: "&#8592; Previous"
+    next_label: "Next &#8594;"
+    page_gap: "&hellip;"
+    page_entries_info:
+      multi_page_html: "%{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b> in total"

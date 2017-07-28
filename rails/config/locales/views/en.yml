@@ -1,0 +1,12 @@
+# View Translations
+# See (http://guides.rubyonrails.org/i18n.html#lazy-lookup)
+en:
+  exception:
+    internal_server_error:
+      title: Internal Server Error
+      header: We're sorry, but something went wrong
+      message: We track these errors automatically, but if the problem persists feel free to contact us.
+    not_found:
+      title: Page Not Found
+      header: The page you were looking for isn't found here.
+      message: You may have mistyped the address or the page may have moved.
