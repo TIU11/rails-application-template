@@ -16,3 +16,25 @@ en:
       version:
         one: Version
         other: Versions
+
+  errors:
+    actions:
+      index: list
+      new: create
+      show: view
+
+  date:
+    formats:
+      default: "%m/%d/%Y"
+      long: "%B %d, %Y"
+      short: "%b %d"
+    order:
+    - :month
+    - :day
+    - :year
+
+  time:
+    formats:
+      default: "%a, %d %b %Y %I:%M:%S %p %Z"
+      long: "%B %d, %Y %I:%M %p"
+      short: "%d %b %I:%M %p"

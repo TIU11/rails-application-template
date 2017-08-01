@@ -22,6 +22,14 @@ class VersionSearchForm
     super
   end
 
+  def from=(value)
+    super coerce_date(value)
+  end
+
+  def to=(value)
+    super coerce_date(value)
+  end
+
   def author
     @author ||= User.friendly.find(author_id) if author_id.present?
   end
@@ -46,8 +54,13 @@ class VersionSearchForm
 
     def valid_dates
       if from.present? && to.present? && from > to
-        errors[:from] = "cannot be after To"
+        errors.add(:from, "cannot be after To")
       end
+    end
+
+    def coerce_date(value)
+      return if value.empty?
+      Date.strptime(value, I18n.translate("date.formats.default")) rescue nil
     end
 
 end
