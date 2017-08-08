@@ -38,7 +38,7 @@ class VersionsController < ApplicationController
     else
       @version.item.destroy
     end
-    redirect_to :back, :notice => "Undid #{@version.event}. #{redo_link}"
+    redirect_back fallback_location: versions_url, :notice => "Undid #{@version.event}. #{redo_link}"
   end
 
   private
