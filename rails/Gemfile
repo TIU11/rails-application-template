@@ -89,6 +89,7 @@ group :development do
   gem 'derailed_benchmarks'     # Tools for benchmarking ruby apps
   gem 'stackprof'               # Ruby call-stack profiler
   gem 'rails_best_practices'    # Code metric tool for quality checks
+  gem 'rubocop', '~> 0.49.1', require: false # Static code analyzer. Enforces the Ruby Style Guide
   gem 'pry-rails'
 end
 
