@@ -23,3 +23,6 @@ db/snapshots
 
 # Ignore environment file
 .env
+
+/public/packs
+/node_modules

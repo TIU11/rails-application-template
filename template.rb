@@ -63,17 +63,19 @@ demo:
 
 ), before: /(#.*\n)+\s*production:\n/ # before production config and comments
 insert_into_file 'config/database.yml', %(
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+), after: /^default: &default\n(  \w+:.*\n)+/ # at end of 'default' block
+insert_into_file 'config/database.yml', %(
 dev:
   <<: *default
   database: #{@app_name}_development
   username: #{@app_name}
-  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 demo:
   <<: *default
   database: #{@app_name}_demo
   username: #{@app_name}
-  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 ), before: /(#.*\n)+\s*production:\n/ # before production config and comments
 

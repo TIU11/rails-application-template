@@ -16,7 +16,7 @@ Rails.application.configure do
     domain: 'tiu11.org',
     authentication: :plain,
     enable_starttls_auto: true,
-    user_name: ENV['GMAIL_USER'], # ex. 'user@gmail.com'
-    password: ENV['GMAIL_PASSWORD']
+    user_name: ENV['SMTP_USER'], # ex. 'user@gmail.com'
+    password: ENV['SMTP_PASSWORD']
   }
 end

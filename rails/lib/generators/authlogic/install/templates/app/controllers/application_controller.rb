@@ -110,25 +110,37 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Sets the filename header using a consistent name:
+  # Sets the filename header using the name from action_filename.
+  #
+  # Provide a name or individual parts for custom behavior. For example, override the :index action with a more helpful :action_part.
+  def set_filename(name = nil, action_part: nil, with_namespace: true)
+    action_filename(name, action_part: action_part, with_namespace: with_namespace)
+    headers["Content-Disposition"] = "attachment; filename=\"#{@action_filename}\""
+  end
+
+  # Calculate appropriate filename for the current action:
   #   `controller_path` + `action_name` + Time.now + request.format
   #   => "Reports Outreach Events Index 2015-10-20-1117am.xls"
   #
   # Provide a name or individual parts for custom behavior. For example, override the :index action with a more helpful :action_part.
-  def set_filename(name = nil, action_part: nil, with_namespace: true)
-    if name.nil?
-      controller_part = with_namespace ? controller_path : controller_name
-      controller_part = controller_part.parameterize.titleize # reports/outreach_events => 'Reports Outreach Events'
-      action_part ||= action_name.titleize                    # index => 'Index'
-      timestamp_part = Time.now.strftime('%F-%I%M%P')         # '2015-10-20-1117am'
-      name = [controller_part, action_part, timestamp_part].reject(&:blank?).join(' ')
+  def action_filename(name = nil, action_part: nil, with_namespace: true, format: request.format.symbol)
+    # return and save for use in the view. memoized.
+    @action_filename ||= begin
+      # Calculate name unless one is provided
+      if name.nil?
+        controller_part = with_namespace ? controller_path : controller_name
+        controller_part = controller_part.parameterize.titleize # reports/outreach_events => 'Reports Outreach Events'
+        action_part ||= action_name.titleize                    # index => 'Index'
+        timestamp_part = Time.now.strftime('%F-%I%M%P')         # '2015-10-20-1117am'
+        name = [controller_part, action_part, timestamp_part].reject(&:blank?).join(' ')
+      end
+
+      format_part = format
+
+      "#{name}.#{format_part}"
     end
-
-    format_part = request.format.symbol                       # => 'xls'
-
-    filename = "#{name}.#{format_part}"
-    headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
   end
+  helper_method :action_filename
 
   def environment_info
     @environment_info ||= GetEnvironmentInfo.call
