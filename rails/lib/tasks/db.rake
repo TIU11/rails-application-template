@@ -19,20 +19,20 @@ namespace :db do
 
     Dir.mkdir(dir) unless Dir.exist? dir
 
-    options = ARGV.drop_while{|i| i != '--'}.drop(1).join(' ')
+    options = ARGV.drop_while { |i| i != '--' }.drop(1).join(' ')
     puts "Passing extra arguments to pg_dump: #{options}".cyan if options
 
-    sh %{
+    sh %(
       pg_dump
         --host=#{ENV['PGHOST']}
         --username=#{ENV['username']}
         #{options}
         "#{ENV['PGDATABASE']}" > #{path}
-    }.gsub(/\s+/, " ")
+    ).gsub(/\s+/, " ")
   end
 
   desc "Load database from a previously stored snapshot, 'rake db:restore[filename.sql]'"
-  task :restore, [:filename] => ['db:load_configuration', 'db:snapshot', 'db:drop', 'db:create', :environment] do |task, args|
+  task :restore, [:filename] => ['db:load_configuration', 'db:snapshot', 'db:drop', 'db:create', :environment] do |_task, args|
     dir = ENV["DIR"] || "db/snapshots"
     filename = args[:filename]
 
@@ -41,12 +41,12 @@ namespace :db do
     if filename
       path = File.expand_path(filename, dir)
 
-      sh %{
+      sh %(
         psql
           --host=#{ENV['PGHOST']}
           --username=#{ENV['username']}
           #{ENV['PGDATABASE']} < #{path}
-      }.gsub(/\s+/, " ")
+      ).gsub(/\s+/, " ")
 
     else
       $stderr.puts "No snapshot name provided. Nothing to do.\n"
@@ -59,12 +59,12 @@ namespace :db do
   # Rails will probably complain, but reloading the page re-establishes the connection
   desc "Terminate all active connections to the database! Tread carefully."
   task :kill_connections => ['db:load_configuration', :environment] do
-    command = %{
+    command = %(
       ps xa \
         | grep "postgres:\\s#{ENV['username']} #{ENV['PGDATABASE']}" \
         | awk '{print $1}' \
         | sudo xargs kill
-    }.strip
+    ).strip
     puts command
     `#{command}`
 

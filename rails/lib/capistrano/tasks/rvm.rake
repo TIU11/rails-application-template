@@ -1,8 +1,8 @@
 namespace :rvm do
 
   # Bypass rvm:check when user directly invokes any rvm namespace tasks, except rvm:check itself.
-  task :bypass_check do |task, args|
-    tasks_in_namespace = Rake.application.tasks.select{|t| t.scope == task.scope}.map(&:name)
+  task :bypass_check do |task, _args|
+    tasks_in_namespace = Rake.application.tasks.select { |t| t.scope == task.scope }.map(&:name)
     trigger_tasks = tasks_in_namespace - ['rvm:check']
 
     if (trigger_tasks & Rake.application.top_level_tasks).any? # user invoked a task that triggers the bypass

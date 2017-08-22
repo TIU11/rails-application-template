@@ -21,7 +21,7 @@ module LoggingUtility
       Rails.logger.error <<~MESSAGE.strip
         #{message}
         #{exception.class} - #{exception.message}:
-          #{backtrace&.join("#{$/}  ")}
+          #{backtrace&.join("#{$INPUT_RECORD_SEPARATOR}  ")}
       MESSAGE
     end
 

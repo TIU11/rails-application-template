@@ -7,16 +7,18 @@
 # * speedup bulk imports
 #   @see (http://weblog.jamisbuck.org/2015/10/10/bulk-inserts-in-activerecord.html)
 #
-  class Populate
-    require 'colorize'
+class Populate
+  require 'colorize'
 
+  class << self
     # Creates an object from the attributes provided, or updates an existing object.
     #
     # A :belongs_to association can be included by passing an attribute named after the
     # association and the value equivalent to the association's 'name' attribute.
     #
     # Options:
-    # * cache_adds: cache new records so they can be referenced later. If they aren't referenced, will consume RAM without any performance benefit.
+    # * cache_adds: cache new records so they can be referenced later. If they
+    #   aren't referenced, will consume RAM without any performance benefit.
     #
     # Example:
     #   attrs = {email: 'jdoe@example.com', first_name: 'John', last_name: 'Doe'}
@@ -28,7 +30,7 @@
       Cache.enable(cache)
 
       # make sure we have a class
-      klass = (klass.is_a? Class) ? klass : klass.constantize
+      klass = klass.is_a?(Class) ? klass : klass.constantize
 
       # replace any association :name values with the object
       # TODO: make recursive, as this can only go 1-level deep
@@ -67,7 +69,7 @@
         Errors.log klass, object.errors.full_messages
       end
 
-      return object
+      object
     end
 
     # Look in attributes for associations, look them up by name, and replace with the found object.
@@ -85,7 +87,7 @@
     #
     # Populate.update_or_create User, {name: "John Doe", group: Groups.first}
     # => associates John with the first group
-    def self.populate_associations(klass, attributes, by: :name)
+    def populate_associations(klass, attributes, by: :name)
       associations_found = [] # debug: keep track of associations
       klass.reflect_on_all_associations.each do |reflection|
         # Drill down on :through associations
@@ -96,9 +98,9 @@
         name = reflection.name
 
         association_klass = (
-          # Typically reflection.class_name, otherwise the :source option provides.
-          # TODO handle options[:class_name]
-          reflection.options[:source] || reflection.class_name
+        # Typically reflection.class_name, otherwise the :source option provides.
+        # TODO handle options[:class_name]
+        reflection.options[:source] || reflection.class_name
         ).to_s.classify.constantize
 
         next if attributes[name].blank?
@@ -118,12 +120,15 @@
       end
 
       # Debugging info
-      # puts "#{self}: attributes for #{klass} associations, #{associations_found}:\n#{attributes.slice(*associations_found)}".cyan
+      # puts <<~MESSAGE.cyan
+      #   #{self}: attributes for #{klass} associations, #{associations_found}:
+      #   #{attributes.slice(*associations_found)}
+      # MESSAGE
 
-      return attributes
+      attributes
     end
 
-    def self.populate_has_one_association(name, association_klass, attributes, by: :name)
+    def populate_has_one_association(name, association_klass, attributes, by: :name)
       # ex. populate_associations(User, {county: 'Huntingdon - Mifflin - Juniata'})
       if attributes[name].is_a? String
         attributes[name] = find_by association_klass, name: attributes[name]
@@ -139,7 +144,7 @@
       end
     end
 
-    def self.populate_belongs_to_association(name, association_klass, attributes, by: :name)
+    def populate_belongs_to_association(name, association_klass, attributes, by: :name)
       # ex. populate_associations(User, {county: 'Huntingdon - Mifflin - Juniata'})
       if attributes[name].is_a? String
         attributes[name] = find_by association_klass, name: attributes[name]
@@ -151,121 +156,122 @@
       end
     end
 
-    def self.populate_has_many_association(name, association_klass, attributes, by: :name)
+    def populate_has_many_association(name, association_klass, attributes, by: :name)
       # puts "#{self}.#{__callee__}(#{name}, #{association_klass}, #{attributes}, by: :#{by})"
       if attributes[name].is_a? Array
-        attributes[name] = attributes[name].collect { |attr|
-          if attr.is_a? String
+        attributes[name] = attributes[name].collect do |attr|
+          case attr
+          when String
             next find_by association_klass, name: attr
-          elsif attr.is_a? Hash
+          when Hash
             object = find_by association_klass, attr
             puts "#{self}.#{__callee__}: unable to find :#{name} by Hash #{attr}".red unless object
             next object
           else
             next attr
           end
-        }.compact
+        end.compact
       elsif attributes[name].present?
         puts "\tExpected '#{name}' to be an Array, but found a #{attributes[name].class}"
       end
     end
 
-    def self.populate_has_and_belongs_to_many_association(name, association_klass, attributes, by: :name)
+    def populate_has_and_belongs_to_many_association(name, association_klass, attributes, by: :name)
       if attributes[name].is_a? Array
-        attributes[name] = attributes[name].collect { |attr|
-          if attr.is_a? String
+        attributes[name] = attributes[name].collect do |attr|
+          case attr
+          when String
             next find_by association_klass, name: attr
-          elsif attr.is_a? Hash
+          when Hash
             next find_by association_klass, attr
           else
             next attr
           end
-        }.compact
+        end.compact
       elsif attributes[name].present?
         puts "\tExpected '#{name}' to be an Array, but found a #{attributes[name].class}"
       end
     end
 
     # @usage find_by User, name: 'john'
-    def self.find_by(klass, attributes)
-      if Cache.enabled
-        object = Cache.find_by(klass, attributes)
-      else
-        object = klass.find_by attributes
-      end
+    def find_by(klass, attributes)
+      object = if Cache.enabled
+                 Cache.find_by(klass, attributes)
+               else
+                 klass.find_by attributes
+               end
 
       unless object
         puts "\t#{klass} with #{attributes.inspect} doesn't exist"
         Errors.log(klass, attributes)
       end
 
-      return object
+      object
     end
 
     private
 
     # return Hash of attribute values found in errors.keys, including nested attributes.
-    def self.attributes_with_errors(model)
+    def attributes_with_errors(model)
       attributes = {}
       model.errors.keys.each do |key|
         # use `reduce` to drill down to the (potentially nested) attribute values
-        value = key.to_s.split('.').reduce(model){|o, attribute| o.send(attribute)}
+        value = key.to_s.split('.').reduce(model) { |o, attribute| o.send(attribute) }
         attributes[key] = value
       end
-      return attributes
+      attributes
     end
-
-    class Errors
-      @@errors = {}.with_indifferent_access
-
-      class << self
-        def errors
-          @@errors
-        end
-
-        # count occurences of opt for klass
-        def log(klass, opt)
-          @@errors[klass.to_s] ||= {}
-          @@errors[klass.to_s][opt.inspect] ||= 0
-          @@errors[klass.to_s][opt.inspect] += 1
-        end
-      end
-    end
-
-    class Cache
-      @@cache = {}.with_indifferent_access
-      @@enabled = true
-
-      class << self
-        def load(klass)
-          @@cache[klass.to_s] ||= klass.all
-        end
-
-        def add(object)
-          load(object.class) << object
-        end
-
-        # Find first object that matches all parameters
-        def find_by(klass, attributes)
-          load(klass).find { |object|
-            attributes.keys.all? {|key|
-              object.send(key) == attributes[key]
-            }
-          }
-        end
-
-        def clear!(klass)
-          @@cache[klass.to_s] = nil
-        end
-
-        def enable(toggle = true)
-          @@enabled = toggle
-        end
-
-        def enabled
-          @@enabled
-        end
-      end
-    end
-
   end
+
+  class Errors
+    @@errors = {}.with_indifferent_access
+
+    class << self
+      def errors
+        @@errors
+      end
+
+      # count occurences of opt for klass
+      def log(klass, opt)
+        @@errors[klass.to_s] ||= {}
+        @@errors[klass.to_s][opt.inspect] ||= 0
+        @@errors[klass.to_s][opt.inspect] += 1
+      end
+    end
+  end
+
+  class Cache
+    @@cache = {}.with_indifferent_access
+    @@enabled = true
+
+    class << self
+      def load(klass)
+        @@cache[klass.to_s] ||= klass.all
+      end
+
+      def add(object)
+        load(object.class) << object
+      end
+
+      # Find first object that matches all parameters
+      def find_by(klass, attributes)
+        load(klass).find do |object|
+          attributes.keys.all? { |key| object.send(key) == attributes[key] }
+        end
+      end
+
+      def clear!(klass)
+        @@cache[klass.to_s] = nil
+      end
+
+      def enable(toggle = true)
+        @@enabled = toggle
+      end
+
+      def enabled
+        @@enabled
+      end
+    end
+  end
+
+end

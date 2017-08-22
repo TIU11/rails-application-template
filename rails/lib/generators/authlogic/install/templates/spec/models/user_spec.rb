@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
   it "should have a name and email" do
     expect(user.name).to eq('George Burdell')
     expect(user.first_initial).to eq('G')
-    expect(user.full_email).to eq(%{"George Burdell" <g.p.burdell@example.com>})
+    expect(user.full_email).to eq(%("George Burdell" <g.p.burdell@example.com>))
   end
 
   it "should get a username and password before validation" do

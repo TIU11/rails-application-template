@@ -30,7 +30,7 @@ namespace :ubuntu do
     required_packages = []
 
     known_gem_dependencies.each do |gemname, package_names|
-      if application_gems =~ /\* #{gemname} /
+      if application_gems.match?(/\* #{gemname} /)
         required_packages.push(*package_names) # add package(s) to install
       end
     end
@@ -40,10 +40,10 @@ namespace :ubuntu do
       info "Ensuring these required package dependencies are installed: #{required_packages.join(', ')}"
       required_packages.each do |package|
         # check if already installed
-        if test %{dpkg-query -W --showformat='${Status}\n' #{package} | grep -q 'install ok installed'}
+        if test %(dpkg-query -W --showformat='${Status}\n' #{package} | grep -q 'install ok installed')
           info "#{package} already installed"
         # attempt to install
-        elsif test :sudo, %{apt-get --yes install #{package}}
+        elsif test :sudo, %(apt-get --yes install #{package})
           info "#{package} has been installed"
         else
           error "There was a problem installing #{package}"

@@ -12,10 +12,10 @@ module All # :nodoc:
       puts "Source: #{__FILE__}\n"
       source_root File.join(Rails.root, 'lib', 'templates', 'erb', 'scaffold')
 
-    protected
+      protected
 
       def available_views
-        %w(index index.xls edit show new _form _action_menu)
+        %w[index index.xls edit show new _form _action_menu]
       end
 
       # Overrides https://github.com/rails/rails/blob/master/railties/lib/rails/generators/erb.rb

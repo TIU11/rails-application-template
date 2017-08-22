@@ -2,33 +2,34 @@ require 'exception_notification/rails'
 
 ExceptionNotification.configure do |config|
   # Ignore additional exception types.
-  # ActiveRecord::RecordNotFound, AbstractController::ActionNotFound and ActionController::RoutingError are already added.
+  # ActiveRecord::RecordNotFound, AbstractController::ActionNotFound and ActionController::RoutingError
+  # are already added.
   # config.ignored_exceptions += %w{ActionView::TemplateError CustomError}
 
   # Adds a condition to decide when an exception must be ignored or not.
   # The ignore_if method can be invoked multiple times to add extra conditions.
-  config.ignore_if do |exception, options|
-    not Rails.env.production?
+  config.ignore_if do |_exception, _options|
+    !Rails.env.production?
   end
 
   # Notifiers =================================================================
 
   # Email notifier sends notifications by email.
   config.add_notifier :email, {
-    :email_prefix         => "[ERROR] [<%= I18n.t('app.short_title') %>] ",
-    :sender_address       => %{"TIU Exception Notifier" <notifier@tiu11.org>},
-    :exception_recipients => %w{exceptions@tiu11.org}
+    email_prefix:         "[ERROR] [<%= I18n.t('app.short_title') %>] ",
+    sender_address:       %("TIU Exception Notifier" <notifier@tiu11.org>),
+    exception_recipients: %w[exceptions@tiu11.org]
   }
 
   # Slack notifier sends notifications to your Slack channel. Requires 'slack-notifier' gem.
   config.add_notifier :slack, {
-    :webhook_url => ENV['SLACK_WEBHOOK'],
-    :channel => "#alerts",
-    :additional_parameters => {
-      :icon_emoji => ":interrobang:",
-      :mrkdwn => true,
-      :username => 'Rails Exception Notifier'
-    },
+    webhook_url: ENV['SLACK_WEBHOOK'],
+    channel: "#alerts",
+    additional_parameters: {
+      icon_emoji: ":interrobang:",
+      mrkdwn: true,
+      username: 'Rails Exception Notifier'
+    }
   }
 
   # HipChat notifier sends notifications to your HipChat room. Requires 'hipchat' gem.

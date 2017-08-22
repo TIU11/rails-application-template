@@ -3,8 +3,10 @@ require 'colorize'
 module Helpers
   module TaskHelper
     class << self
+
       # Shows task name, memory consumption, benchmarks duration, and wraps block in a transaction.
-      def wrap_task(task, &block)
+      # Yields to the block to execute the provided task.
+      def wrap_task(task)
         # Disables validations wired to if: :validation_pruned?
         # TODO: move to run once at beginning. Is there a before hook?
         ENV['PRUNE_VALIDATIONS'] = 'true'
@@ -13,7 +15,7 @@ module Helpers
 
         times = Benchmark.measure do
           ActiveRecord::Base.transaction do
-            block.call
+            yield
           end
         end
 
@@ -24,7 +26,7 @@ module Helpers
 
       # real memory in 1024 byte increments (aka KB)
       def memory_usage
-        `ps -o rss -p #{$$}`.strip.split.last.to_i
+        `ps -o rss -p #{$PID}`.strip.split.last.to_i
       end
     end
   end

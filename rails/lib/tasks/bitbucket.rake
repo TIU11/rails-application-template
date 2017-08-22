@@ -4,7 +4,7 @@ namespace :bitbucket do
 
   # Create Bitbucket Repository
   # @see (https://confluence.atlassian.com/bitbucket/repository-resource-423626331.html#repositoryResource-POSTanewrepository)
-  task create: :environment do |task, args|
+  task create: :environment do |_task, _args|
     app_name = Rails.application.class.parent_name.titleize
     data = {
       scm: 'git',
@@ -34,7 +34,7 @@ namespace :bitbucket do
 
   # Add deploy keys to Bitbucket repository for the following hosts: dev, demo
   # @see (https://confluence.atlassian.com/bitbucket/deploy-keys-resource-296095243.html#deploy-keysResource-POSTanewkey)
-  task add_deploy_keys: :environment do |task, args|
+  task add_deploy_keys: :environment do |_task, _args|
     hosts = ['dev.tiu11.org', 'demo.tiu11.org']
 
     hosts.each do |host|
@@ -51,20 +51,21 @@ namespace :bitbucket do
   # Not cross-platform compatible.
   # @see (http://stackoverflow.com/questions/2108727/which-in-ruby-checking-if-program-exists-in-path-from-ruby)
   # @see (http://stackoverflow.com/questions/19663202/how-do-you-open-sourcetree-from-the-command-line)
-  task :launch_sourcetree do |task, args|
+  task :launch_sourcetree do |_task, _args|
     if `which stree`
       `stree`
     else
-      puts "Go install the SourceTree Command Line Tools. Simply launch SourceTree, open the SourceTree menu, and select \"Install Command Line Tools\".".yellow
+      puts "Go install the SourceTree Command Line Tools. Simply launch SourceTree, "\
+           "open the SourceTree menu, and select \"Install Command Line Tools\".".yellow
       `open -a SourceTree #{Rake.application.original_dir}`
     end
   end
 
   desc 'Initialize repository and set remote origin'
-  task setup: :environment do |task, args|
+  task setup: :environment do |_task, _args|
     puts `git init`
 
-    if (Bitbucket.repo_slug)
+    if Bitbucket.repo_slug
       puts "Project already has a Bitbucket repository as remote origin...skipping creation".green
     else
       puts "No Bitbucket repository set as remote origin"

@@ -13,9 +13,9 @@ module Helpers
         if lines.empty?
           ApplicationController.helpers.content_tag wrapper_tag, nil
         else
-          lines.map! { |line|
+          lines.map! do |line|
             ApplicationController.helpers.content_tag(wrapper_tag, ApplicationController.helpers.raw(line))
-          }.join("\n")
+          end.join("\n")
         end
       end
 

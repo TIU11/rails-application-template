@@ -16,9 +16,9 @@ namespace :postgresql do
   desc "Create a database for this application."
   task :create_database => :initialize_params do
     on roles(:db) do
-      if test :sudo, %Q{-u postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='#{fetch(:pg_database)}';" | grep -q 1}
+      if test :sudo, %(-u postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='#{fetch(:pg_database)}';" | grep -q 1)
         info "#{fetch(:pg_database)} database already exists"
-      elsif execute :sudo, %Q{-u postgres psql -c "CREATE DATABASE \\"#{fetch(:pg_database)}\\" OWNER \\"#{fetch(:pg_user)}\\";"}
+      elsif execute :sudo, %(-u postgres psql -c "CREATE DATABASE \\"#{fetch(:pg_database)}\\" OWNER \\"#{fetch(:pg_user)}\\";")
         info "Created #{fetch(:pg_database)}"
       else
         error "Failed to create #{fetch(:pg_database)} database"
@@ -30,9 +30,9 @@ namespace :postgresql do
   desc "Create database user"
   task :create_db_user => :initialize_params do
     on roles(:db) do
-      if test :sudo, %Q{-u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='#{fetch(:pg_user)}';" | grep -q 1}
+      if test :sudo, %(-u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='#{fetch(:pg_user)}';" | grep -q 1)
         info "#{fetch(:pg_user)} already exists"
-      elsif execute :sudo, %Q{-u postgres psql -c "CREATE USER \\"#{fetch(:pg_user)}\\" WITH PASSWORD '#{fetch(:pg_password)}';"}
+      elsif execute :sudo, %(-u postgres psql -c "CREATE USER \\"#{fetch(:pg_user)}\\" WITH PASSWORD '#{fetch(:pg_password)}';")
         info "Created #{fetch(:pg_user)}"
       else
         error "Failed to create database user '#{fetch(:pg_user)}'"
@@ -51,7 +51,7 @@ namespace :postgresql do
       remote_env = Dotenv::Parser.call(capture("cat #{shared_path}/.env"))
       ENV['DATABASE_PASSWORD'] = remote_env['DATABASE_PASSWORD']
 
-      config = YAML.load(ERB.new(File.read('config/database.yml')).result)[fetch(:rails_env).to_s]
+      config = YAML.safe_load(ERB.new(File.read('config/database.yml')).result)[fetch(:rails_env).to_s]
 
       set :pg_host, config['host'] || 'localhost'
       set :pg_user, config['username']
