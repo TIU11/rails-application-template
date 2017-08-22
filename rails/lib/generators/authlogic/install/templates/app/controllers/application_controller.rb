@@ -130,4 +130,9 @@ class ApplicationController < ActionController::Base
     headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
   end
 
+  def environment_info
+    @environment_info ||= GetEnvironmentInfo.call
+  end
+  helper_method :environment_info
+
 end
