@@ -84,8 +84,8 @@ group :development do
   # @see (http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h)
   gem 'thin'
 
-  gem 'better_errors' # TODO: 2.1.1 uses deprecated :original_exception. Update when fix released.
-  gem 'binding_of_caller'
+  gem 'better_errors', '~> 2.3' # Improved version of the Rails error page
+  gem 'binding_of_caller'       # ^ Enables better_errors' advanced features
   gem 'derailed_benchmarks'     # Tools for benchmarking ruby apps
   gem 'stackprof'               # Ruby call-stack profiler
   gem 'rails_best_practices'    # Code metric tool for quality checks
