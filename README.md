@@ -71,6 +71,7 @@ That's it, take her for a spin:
 # Post-setup
 
 * review the Gemfile (replace gems you may have added)
+* run `rails app:create_dotenv`
 * add ~dev, demo~, production deployment keys to Bitbucket
 * review the environment configs: `development`, `dev`, `demo`, `production` (`dev` and `demo` are copies of production)
     * `config/environments/<environment>.rb`
@@ -87,6 +88,7 @@ That's it, take her for a spin:
 * `cap dev deploy:setup`
 * `cap dev deploy` # with each run, an error will point out something that you need to address (e.g. a manual step, a missing dependency for a gem with native extensions, etc)
 * `cap dev deploy` until it completes successfully
+* `cap production rake[db:seed]`
 
 # Todo
 
