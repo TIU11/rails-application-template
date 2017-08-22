@@ -49,19 +49,20 @@ insert_into_file 'config/environments/production.rb', <<-CONFIG, before: /^end/
 CONFIG
 
 # Initialize "dev" and "demo" environments
+
 copy_file "#{destination_root}/config/environments/production.rb",
           "#{destination_root}/config/environments/dev.rb"
 copy_file "#{destination_root}/config/environments/production.rb",
           "#{destination_root}/config/environments/demo.rb"
-insert_into_file 'config/secrets.yml', %{
+insert_into_file 'config/secrets.yml', %(
 dev:
   secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
 
 demo:
   secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
 
-}, before: /(#.*\n)+production:\n/ # before production config and comments
-insert_into_file 'config/database.yml', %{
+), before: /(#.*\n)+\s*production:\n/ # before production config and comments
+insert_into_file 'config/database.yml', %(
 dev:
   <<: *default
   database: #{@app_name}_development
@@ -74,7 +75,7 @@ demo:
   username: #{@app_name}
   password: <%= ENV['DATABASE_PASSWORD'] %>
 
-}, before: /(#.*\n)+production:\n/ # before production config and comments
+), before: /(#.*\n)+\s*production:\n/ # before production config and comments
 
 # Routes
 route "root to: 'exception#not_found'"
