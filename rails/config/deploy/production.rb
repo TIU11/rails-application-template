@@ -6,6 +6,10 @@ server 'production.tiu11.org', user: fetch(:user), roles: %w[web app db], ssh_op
   auth_methods: %w[publickey]
 }
 
+# Parallelize the installation of gems.
+# Choose a number less or equal than the number of cores your server.
+set :bundle_jobs, 4
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
