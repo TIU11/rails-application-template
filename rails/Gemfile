@@ -1,4 +1,4 @@
-# REVIEW THIS GENERATED GEMFILE, THEN DELETE THIS COMMENT.
+# TODO: REVIEW THIS GENERATED GEMFILE, THEN DELETE THIS COMMENT.
 # When applying to an existing project, you must restore any project gems we blew away!
 
 source 'https://rubygems.org'
@@ -15,43 +15,45 @@ gem 'dotenv-rails'              # Loads environment variables from .env into ENV
 gem 'pg', '~> 0.19'             # Use postgresql as the database for Active Record
 
 gem 'authlogic', '~> 3.6.0'     # Authentication
-gem 'scrypt'                    # required by authlogic when using scrypt
 gem 'cancancan', '~> 2.0'       # Authorization
-gem 'will_paginate', '~> 3.1.0' # Pagination
+gem 'scrypt'                    # required by authlogic when using scrypt
+
 gem 'active_model_serializers', '~> 0.10.0' # building JSON responses
+gem 'addressable'               # more conformant replacement for (obsolete) Ruby URI
 gem 'colorize'                  # Colored console output
 gem 'friendly_id', '~> 5.2.0'   # Nice URLs
 gem 'paper_trail', '~> 7.0.0'   # Track model revisions
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
-gem 'addressable'               # more conformant replacement for (obsolete) Ruby URI
+gem 'will_paginate', '~> 3.1.0' # Pagination
 
 # Application Management
 
+gem 'bootsnap'                  # Optimize application boot time
 gem 'exception_notification', '~> 4.2.0'
-gem 'slack-notifier'            # Send exception notifications to Slack
 gem 'rack-timeout'              # Abort requests that are taking too long
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
+gem 'slack-notifier'            # Send exception notifications to Slack
 gem 'whenever', require: false  # Schedule cron jobs
-gem 'bootsnap'                  # Optimize application boot time
 
 # Styling
 
 # Workaround for font-awesome explicitly requiring 'sass-rails'
 # See (https://github.com/FortAwesome/font-awesome-sass/issues/112)
 gem 'sass-rails', '~> 5.0', require: false
-
 gem 'sassc-rails', '~> 1.3.0'   # Use SCSS for stylesheets. Compiles with libsass for speed.
-gem 'font-awesome-sass', '~> 4.7.0'
-gem 'bootstrap-sass', '~> 3.3.0'
-gem 'bootstrap-datepicker-rails'
+
 gem 'autoprefixer-rails'        # CSS vendor prefixer
+gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-sass', '~> 3.3.0'
+gem 'font-awesome-sass', '~> 4.7.0'
 
 # Javascript
 
 gem 'mini_racer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'uglifier', '>= 1.3.0'      # Use Uglifier as compressor for JavaScript assets
+
 gem 'coffee-rails', '~> 4.2'    # Use CoffeeScript for .coffee assets and views
 gem 'jquery-rails'              # Use jquery as the JavaScript library
+gem 'uglifier', '>= 1.3.0'      # Use Uglifier as compressor for JavaScript assets
 gem 'underscore-rails'          # utility-belt library for JavaScript
 
 group :development, :test do
@@ -62,23 +64,25 @@ group :development, :test do
   gem 'selenium-webdriver'
 
   gem 'factory_girl_rails'
-  gem 'rspec-rails', '~> 3.0'
   gem 'faker'
+  gem 'rspec-rails', '~> 3.0'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+
   gem 'listen', '>= 3.0.5', '< 3.2'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'capistrano',         '~> 3.7', require: false
+  gem 'capistrano-maintenance', '~> 1.0', require: false
+  gem 'capistrano-passenger'
   gem 'capistrano-rails',   '~> 1.2', require: false
   gem 'capistrano-rvm',     '~> 0.1', require: false
-  gem 'capistrano-passenger'
-  gem 'capistrano-maintenance', '~> 1.0', require:false
 
   # Use 'thin' to avoid "Could not determine content-length of response body." warnings.
   # @see (http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h)
@@ -86,11 +90,13 @@ group :development do
 
   gem 'better_errors', '~> 2.3' # Improved version of the Rails error page
   gem 'binding_of_caller'       # ^ Enables better_errors' advanced features
+  gem 'pry-rails'
+
   gem 'derailed_benchmarks'     # Tools for benchmarking ruby apps
   gem 'stackprof'               # Ruby call-stack profiler
+
   gem 'rails_best_practices'    # Code metric tool for quality checks
   gem 'rubocop', '~> 0.49.1', require: false # Static code analyzer. Enforces the Ruby Style Guide
-  gem 'pry-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

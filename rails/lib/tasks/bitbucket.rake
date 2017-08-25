@@ -21,7 +21,9 @@ namespace :bitbucket do
     abort 'goodbye' unless Bitbucket.username
 
     # Create the Bitbucket repository
-    `curl --request POST --user '#{Bitbucket.credentials}' --header 'Content-Type: application/json' --data '#{data.to_json}' https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug}`
+    `curl --request POST --user '#{Bitbucket.credentials}' \
+          --header 'Content-Type: application/json' --data '#{data.to_json}' \
+          https://bitbucket.org/api/2.0/repositories/#{owner}/#{repo_slug}`
 
     # Set the remote and push
     `git remote add origin git@bitbucket.org:#{owner}/#{repo_slug}.git`
@@ -43,7 +45,11 @@ namespace :bitbucket do
       label = key.split(' ')[2]
       data = { key: key, label: label }
       puts "Uploading to bitbucket"
-      `curl --request POST --user '#{Bitbucket.credentials}' --header 'Content-Type: application/json' --data '#{data.to_json}' https://bitbucket.org/api/1.0/repositories/#{Bitbucket.owner}/#{Bitbucket.repo_slug}/deploy-keys`
+      `curl --request POST \
+            --user '#{Bitbucket.credentials}' \
+            --header 'Content-Type: application/json' \
+            --data '#{data.to_json}' \
+            https://bitbucket.org/api/1.0/repositories/#{Bitbucket.owner}/#{Bitbucket.repo_slug}/deploy-keys`
     end
   end
 
@@ -52,7 +58,7 @@ namespace :bitbucket do
   # @see (http://stackoverflow.com/questions/2108727/which-in-ruby-checking-if-program-exists-in-path-from-ruby)
   # @see (http://stackoverflow.com/questions/19663202/how-do-you-open-sourcetree-from-the-command-line)
   task :launch_sourcetree do |_task, _args|
-    if `which stree`
+    if `which stree`.present?
       `stree`
     else
       puts "Go install the SourceTree Command Line Tools. Simply launch SourceTree, "\

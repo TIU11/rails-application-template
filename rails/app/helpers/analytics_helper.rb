@@ -18,50 +18,48 @@ module AnalyticsHelper
   #
   # Option Documentation:
   #   https://developers.google.com/analytics/resources/articles/gaTrackingTroubleshooting#gifParameters
-  def analytics_url options={}
-    if(options[:utmac])
-      # Setup default options
-      @options = options.merge({
-        utmn:       Random.rand(1000000000..9999999999),
-        utmwv:      '5.3.0d',
-        utm_medium: 'email',
-        utmp:       '/default-analytics-page',
-      })
-      @options[:utmr] = (request.url if request) || '-'
-      @options[:utmp] = options[:utm_campaign] if options[:utm_campaign]
-      @options[:utmcc] = generate_cookie(@options)
+  def analytics_url(options = {})
+    return unless options[:utmac]
+    # Setup default options
+    @options = options.merge(utmn:       Random.rand(1_000_000_000..9_999_999_999),
+                             utmwv:      '5.3.0d',
+                             utm_medium: 'email',
+                             utmp:       '/default-analytics-page')
+    @options[:utmr] = request&.url || '-'
+    @options[:utmp] = options[:utm_campaign] if options[:utm_campaign]
+    @options[:utmcc] = generate_cookie(@options)
 
-      # Override defaults with provided options
-      @options.merge!(options)
+    # Override defaults with provided options
+    @options.merge!(options)
 
-      # Build URL
-      'http://www.google-analytics.com/__utm.gif?' + @options.to_query
-    end
+    # Build URL
+    'http://www.google-analytics.com/__utm.gif?' + @options.to_query
   end
 
   # Generate Google Analytics tracking image.
-  def analytics_image_tag options={}
-    "<img src=\"#{ analytics_url(options) }\" width=\"1\" height=\"1\" />".html_safe
+  def analytics_image_tag(options = {})
+    "<img src=\"#{analytics_url(options)}\" width=\"1\" height=\"1\" />".html_safe
   end
 
   private
 
   # Generate Google Analytics utmcc cookie
   # For structure, see http://blog.vkistudios.com/index.cfm/2010/8/31/GA-Basics-The-Structure-of-Cookie-Values
-  def generate_cookie options={}
-    cookie_num = Random.rand(10000000..99999999) # random cookie number
-    random_num = Random.rand(1000000000..2147483647) # number under 2147483647
+  def generate_cookie(options = {})
+    cookie_num = Random.rand(10_000_000..99_999_999) # random cookie number
+    random_num = Random.rand(1_000_000_000..2_147_483_647) # number under 2147483647
     today = Time.now.strftime('%s')
     session_num = 2
     campaign_num = 2
     utmccn = options[:utm_campaign] || '(direct)' # campaign
     utmcmd = options[:utm_medium] || '(none)' # medium
 
-    subcookies = []
-    subcookies.push "__utma=#{cookie_num}.#{random_num}.#{today}.#{today}.#{today}.2"
-    subcookies.push "__utmb=#{cookie_num}"
-    subcookies.push "__utmc=#{cookie_num}"
-    subcookies.push "__utmz=#{cookie_num}.#{today}.#{session_num}.#{campaign_num}.utmccn=#{utmccn}|utmcsr=(direct)|utmcmd=#{utmcmd}"
+    subcookies = [
+      "__utma=#{cookie_num}.#{random_num}.#{today}.#{today}.#{today}.2",
+      "__utmb=#{cookie_num}",
+      "__utmc=#{cookie_num}",
+      "__utmz=#{cookie_num}.#{today}.#{session_num}.#{campaign_num}.utmccn=#{utmccn}|utmcsr=(direct)|utmcmd=#{utmcmd}"
+    ]
     subcookies.join ";+"
   end
 

@@ -20,8 +20,8 @@ module Tiu
       JS
 
       insert_into_file "app/assets/stylesheets/application.css",
-          " *= require typeahead\n",
-          after: "*= require bootstrap-datepicker3\n"
+                       " *= require typeahead\n",
+                       after: "*= require bootstrap-datepicker3\n"
     end
 
   end

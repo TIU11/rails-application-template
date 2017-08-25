@@ -32,10 +32,25 @@ module DatepickerHelper
     }.deep_merge(options)
 
     content_tag :div, class: 'input-group date' do
-      concat(form.text_field name, options)
-      concat(content_tag :span, icon('calendar'), class: 'input-group-addon')
+      concat form.text_field(name, options)
+      concat content_tag(:span, icon('calendar'), class: 'input-group-addon')
     end
   end
+
+  # Maps each Ruby format to its corresponding Datepicker format
+  # Structure: 'ruby' => 'datepicker'
+  RUBY_TO_CHART_FORMAT_MAP = {
+    '%m'  => 'mm',   # month of the year, zero-padded (01)
+    '%-m' => 'm',    # month of the year, no-padded   (1)
+    '%d'  => 'dd',   # day of the month, zero-padded  (01)
+    '%-d' => 'd',    # day of the month, no-padded    (1)
+    '%y'  => 'yy',   # year                           (17)
+    '%Y'  => 'yyyy', # year with century              (2017)
+    '%A'  => 'DD',   # full weekday name              (Monday)
+    '%a'  => 'D',    # abbreviated weekday name       (Mon)
+    '%b'  => 'M',    # abbreviated month name         (Jan)
+    '%B'  => 'MM',   # full month name                (January)
+  }.freeze
 
   # Get datepicker-expected format string for named format. Converts the corresponding I18n date format string.
   # If translation is missing, uses the constant Date::DATE_FORMATS.
@@ -48,21 +63,10 @@ module DatepickerHelper
   # * `I18n.l`    uses date.formats.default
   # * `Date.to_s` uses Date::DATE_FORMATS[:default]
   def datepicker_format(format: :default)
-    ruby_format = I18n.translate("date.formats.#{format.to_s}",
-                                  default: Date::DATE_FORMATS[format.to_sym]) # fallback to Date constants
+    ruby_format = I18n.translate("date.formats.#{format}",
+                                 default: Date::DATE_FORMATS[format.to_sym]) # fallback to Date constants
 
-    ruby_format.gsub(/%-?[mdyYaAbB]/,
-      '%m'  => 'mm',   # month of the year, zero-padded (01)
-      '%-m' => 'm',    # month of the year, no-padded   (1)
-      '%d'  => 'dd',   # day of the month, zero-padded  (01)
-      '%-d' => 'd',    # day of the month, no-padded    (1)
-      '%y'  => 'yy',   # year                           (17)
-      '%Y'  => 'yyyy', # year with century              (2017)
-      '%A'  => 'DD',   # full weekday name              (Monday)
-      '%a'  => 'D',    # abbreviated weekday name       (Mon)
-      '%b'  => 'M',    # abbreviated month name         (Jan)
-      '%B'  => 'MM',   # full month name                (January)
-    )
+    ruby_format.gsub(/%-?[mdyYaAbB]/, RUBY_TO_CHART_FORMAT_MAP)
   end
 
 end

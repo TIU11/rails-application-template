@@ -8,13 +8,13 @@ module DateTimeHelper
   def readable_date(date, zone: false)
     return if date.nil?
 
-    if date > Date.today
-      format = zone ? :time_with_zone : :time
-    elsif date > Date.today.at_beginning_of_year
-      format = :day_and_month
-    else
-      format = :month_and_year
-    end
+    format = if date > Date.today
+               zone ? :time_with_zone : :time
+             elsif date > Date.today.at_beginning_of_year
+               :day_and_month
+             else
+               :month_and_year
+             end
 
     content_tag :span, date.to_s(format), title: date.to_s(:long), data: { toggle: 'tooltip' }
   end
@@ -47,7 +47,7 @@ module DateTimeHelper
     elsif days > 1
       "#{days} days"
     elsif days > 0
-      tenths = (seconds % 86400 / 8640)
+      tenths = (seconds % 86_400 / 8640)
       "#{days}.#{tenths} days"
     elsif hours > 1
       "#{hours} hours"
@@ -69,11 +69,11 @@ module DateTimeHelper
   def duration_span(duration_in_seconds, title_units = :seconds)
     title_duration = convert_seconds(duration_in_seconds, title_units)
     title = "#{title_duration} #{title_units}"
-    content_tag :span, duration_text(duration_in_seconds), title: title, data: {toggle: 'tooltip'}
+    content_tag :span, duration_text(duration_in_seconds), title: title, data: { toggle: 'tooltip' }
   end
 
   def convert_seconds(duration_in_seconds, to = :minutes)
-    duration_in_seconds / {seconds: 1, minutes: 60, hours: 3600, days: 86400, weeks: 604800}[to]
+    duration_in_seconds / { seconds: 1, minutes: 60, hours: 3600, days: 86_400, weeks: 604_800 }[to]
   end
 
 end

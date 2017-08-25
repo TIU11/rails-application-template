@@ -5,9 +5,12 @@ module Angularjs
     # Every method that is declared below will be automatically executed when the generator is run
 
     def install
-      insert_into_file 'app/assets/javascripts/application.js', "//= require angular/index\n", after: "//= require jquery_ujs\n"
+      insert_into_file 'app/assets/javascripts/application.js',
+                       "//= require angular/index\n",
+                       after: "//= require jquery_ujs\n"
       gem 'angularjs-rails'
-      get "https://raw.github.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-0.9.0.js", "vendor/assets/javascripts/ui-bootstrap-tpls-0.9.0.js"
+      get "https://raw.github.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-0.9.0.js",
+          "vendor/assets/javascripts/ui-bootstrap-tpls-0.9.0.js"
     end
 
     def copy_templates

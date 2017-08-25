@@ -6,8 +6,7 @@
 #
 class LocalizedDate < ActiveRecord::Type::Date
 
-  # TODO:
-  # * configurable format instead of just :default
+  # TODO: configurable format instead of just :default
   FORMAT = :default
 
   private
@@ -15,7 +14,7 @@ class LocalizedDate < ActiveRecord::Type::Date
     def cast_value(value)
       if value.is_a?(::String)
         return if value.empty?
-        format = I18n.translate("date.formats.#{FORMAT.to_s}")
+        format = I18n.translate("date.formats.#{FORMAT}")
         Date.strptime(value, format) rescue nil
       elsif value.respond_to?(:to_date)
         value.to_date

@@ -2,10 +2,9 @@
 # Returns Info class, a singleton for performance.
 class GetEnvironmentInfo
 
-  DEPLOY_REVISION_PATH = 'REVISION'
+  DEPLOY_REVISION_PATH = 'REVISION'.freeze
 
-  def initialize
-  end
+  def initialize; end
 
   def self.call(*args)
     new.call(*args)
@@ -14,8 +13,6 @@ class GetEnvironmentInfo
   def call
     @@info ||= Info.new # return Info singleton, memoized in a class variable
   end
-
-  private
 
   class Info
     # Rails environment name
@@ -26,7 +23,7 @@ class GetEnvironmentInfo
     # Git revision. For Capistrano deploys
     def revision
       @revision ||= begin
-        if File.exists?(DEPLOY_REVISION_PATH)
+        if File.exist?(DEPLOY_REVISION_PATH)
           File.read(DEPLOY_REVISION_PATH).strip
         elsif git_repository?
           `git rev-parse HEAD`.strip
@@ -36,7 +33,7 @@ class GetEnvironmentInfo
 
     # True if application is in a git repository. False otherwise.
     def git_repository?
-      @git ||= `git rev-parse --is-inside-work-tree 2> /dev/null`.strip === 'true'
+      @git ||= `git rev-parse --is-inside-work-tree 2> /dev/null`.strip == 'true'
     end
 
     # Get Time of current Capistrano release from application path, nil if not a timestamp.

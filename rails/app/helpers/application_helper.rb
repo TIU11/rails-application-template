@@ -10,7 +10,7 @@ module ApplicationHelper
   #
   # or add `store_location request.referer` to the edit and new actions.
   def link_back(name, html_options = {})
-    get_new_page = request.get? and (request.url != request.referer)
+    (get_new_page = request.get?) && (request.url != request.referer)
     url = get_new_page ? :back : session[:return_to]
     link_to name, url, html_options
   end
@@ -29,6 +29,6 @@ module ApplicationHelper
       render(partial, f: builder)
     end
 
-    link_to(name, '#0', class: css_class, data: {id: id, fields: fields_html.gsub("\n", "")})
+    link_to(name, '#0', class: css_class, data: { id: id, fields: fields_html.delete("\n") })
   end
 end

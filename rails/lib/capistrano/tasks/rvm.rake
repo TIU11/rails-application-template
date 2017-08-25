@@ -30,7 +30,7 @@ namespace :rvm do
   end
 
   desc "Create project's gemset with rvm"
-  task :create_gemset => :install_ruby do
+  task create_gemset: :install_ruby do
     on roles(:web) do
       ruby_version, gemset = fetch(:rvm_ruby_version).split('@')
       execute :rvm, "#{ruby_version} do rvm gemset create #{gemset}"

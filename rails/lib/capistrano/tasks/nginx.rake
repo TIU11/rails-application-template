@@ -13,8 +13,9 @@ namespace :nginx do
       if test "[ -f #{config_path} ]"
         info "Nginx configuration exists. To regenerate, simply delete #{config_path}"
       else
-        rvm_prefix = "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do"
-        passenger_ruby = capture("#{rvm_prefix} /usr/bin/passenger-config --ruby-command | grep Nginx")[/passenger_ruby (.*)/, 1].strip
+        passenger_ruby = capture(:rvm, "#{fetch(:rvm_ruby_version)} do",
+                                 '/usr/bin/passenger-config --ruby-command',
+                                 "| grep -o 'passenger_ruby.*'").strip
 
         template_path = 'lib/capistrano/templates/nginx_passenger.erb'
         content = StringIO.new(ERB.new(File.read(template_path), nil, '>').result(binding)) # process ERB template

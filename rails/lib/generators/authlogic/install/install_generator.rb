@@ -17,6 +17,9 @@ module Authlogic
       directory 'spec'
       directory 'config'
       directory 'vendor'
+    end
+
+    def update_files
       route open_template('routes.rb.delta').read
       insert_into_file "#{destination_root}/app/assets/javascripts/application.js",
                        "//= require sprintf\n",

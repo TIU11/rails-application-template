@@ -1,10 +1,9 @@
-puts "Verifying prerequisite gems used within this template"
-%w{byebug colorize}.each do |gemname|
-  if Gem::Specification.find_all_by_name(gemname).empty?
-    run "gem install #{gemname}"
-    Gem.refresh
-    Gem.try_activate(gemname)
-  end
+puts 'Verifying prerequisite gems used within this template'
+%w[byebug colorize].each do |gemname|
+  next if Gem::Specification.find_all_by_name(gemname).present?
+  run "gem install #{gemname}"
+  Gem.refresh
+  Gem.try_activate(gemname)
 end
 
 require 'byebug'
@@ -13,15 +12,15 @@ require 'rails'
 
 say_status :rails_version, Rails.version
 
-puts "Download template files from Bitbucket".cyan
-git archive: "--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar --verbose master:rails | (tar xf -)"
+puts 'Download template files from Bitbucket'.cyan
+git archive: '--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar -v master:rails | (tar xf -)'
 
 #
 # Configurations
 #
 
 # config/application.rb
-insert_into_file 'config/application.rb', open('config/application.rb.delta').read, before: "  end"
+insert_into_file 'config/application.rb', open('config/application.rb.delta').read, before: '  end'
 remove_file 'config/application.rb.delta'
 
 # config/initializers/filter_parameter_logging.rb
@@ -37,10 +36,13 @@ insert_into_file 'config/environments/development.rb', <<-CONFIG, before: /^end/
   # Action Mailer
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.asset_host = "http://localhost:3000" # for image URLs in HTML email
+
+  # Limit log size, rotating at 5 MB
+  config.logger = Logger.new(config.paths['log'].first, 1, 5.megabytes)
 CONFIG
 gsub_file 'config/environments/development.rb', 'config.assets.debug = true', 'config.assets.debug = false'
 
-uncomment_lines "config/environments/production.rb", "config.force_ssl = true"
+uncomment_lines 'config/environments/production.rb', 'config.force_ssl = true'
 insert_into_file 'config/environments/production.rb', <<-CONFIG, before: /^end/
 
   # Action Mailer
@@ -83,7 +85,7 @@ demo:
 route "root to: 'exception#not_found'"
 route "get '/404' => 'exception#not_found'"
 
-puts "Process Templates".cyan
+puts 'Process Templates'.cyan
 template    "#{destination_root}/config/locales/en.yml.tt"
 remove_file "#{destination_root}/config/locales/en.yml.tt"
 template    "#{destination_root}/config/initializers/exception_notification.rb.tt"
@@ -93,7 +95,7 @@ remove_file "#{destination_root}/config/deploy.rb.tt"
 template    "#{destination_root}/config/sitemap.rb.tt"
 remove_file "#{destination_root}/config/sitemap.rb.tt"
 
-puts "Remove Junk/Unwanted Files".cyan
+puts 'Remove Junk/Unwanted Files'.cyan
 # Replaced by secrets.yml (http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#config-secrets-yml)
 remove_file 'config/initializers/secret_token.rb' #
 # Unused files from Rails default template
@@ -104,7 +106,7 @@ remove_file 'public/index.html'
 # Create and initialize RVM gemset
 # @see https://rvm.io/workflow/scripting for explanation of `rvm do`
 #
-puts "Setting up RVM gemset".cyan
+puts 'Setting up RVM gemset'.cyan
 default_ruby = `rvm strings 2`.strip # default to latest 2.x ruby version (e.g. '2.2.2', '2.3.0')
 @desired_ruby = ask("Which Ruby would you like to use? [#{default_ruby}]".cyan)
 @desired_ruby = default_ruby if @desired_ruby.blank?
@@ -121,15 +123,15 @@ run "rvm #{default_ruby} do rvm --ruby-version --create use #{@desired_ruby}@#{g
 # See http://apidock.com/rails/v4.2.1/Rails/Generators/AppBase/run_bundle
 # See http://stackoverflow.com/questions/11302742/how-to-make-a-rails-template-forcefully-not-run-bundle-install-after-rails-new-i
 def run_bundle
-  puts "Updating to the latest Rubygems".cyan
+  puts 'Updating to the latest Rubygems'.cyan
   puts "Currently using Rubygems #{`#{@rvm_do} gem -v`}"
   run "#{@rvm_do} rvm rubygems latest"
 
-  puts "Updating to the latest Bundler".cyan
+  puts 'Updating to the latest Bundler'.cyan
   run "rvm #{@desired_ruby}@global do gem install bundler"
 
   return unless bundle_install? # respect `--skip-bundle` flag
-  puts "Installing bundled gems (may take several minutes)".cyan
+  puts 'Installing bundled gems (may take several minutes)'.cyan
   say_status :run, "#{@rvm_do} bundle install"
 
   require 'bundler'
@@ -141,10 +143,9 @@ end
 # Override since Rails won't run this within the project's RVM gemset
 # See http://apidock.com/rails/Rails/Generators/AppBase/generate_spring_binstubs
 def generate_spring_binstubs
-  if bundle_install? && spring_install?
-    say_status :run, "#{@rvm_do} bundle exec spring binstub --all"
-    run "#{@rvm_do} bundle exec spring binstub --all"
-  end
+  return unless bundle_install? && spring_install? # respect `--skip-bundle`, `--skip-spring` flags
+  say_status :run, "#{@rvm_do} bundle exec spring binstub --all"
+  run "#{@rvm_do} bundle exec spring binstub --all"
 end
 
 #
@@ -152,7 +153,7 @@ end
 #
 
 after_bundle do
-  puts "Run generators".cyan
+  puts 'Run generators'.cyan
 
   # Keep the rspec generator from hanging.
   # @see (http://www.sitepoint.com/rails-application-templates-real-world/)
@@ -160,14 +161,15 @@ after_bundle do
   # Install rspec
   run "#{@rvm_do} rails generate rspec:install"
 
-  if yes?("Create Users? [yN]".cyan)
+  if yes?('Create Users? [yN]'.cyan)
     run "#{@rvm_do} rails generate paper_trail:install --with-changes"
     run "#{@rvm_do} rails generate authlogic:install --force"
   end
 
   # Add code to the repository
-  puts "\nNow is a good time to review the generated application, and make manual changes described in the README before continuing".yellow
-  if yes?("Are you ready to commit? [yN]".cyan)
+  puts "\nNow is a good time to review the generated application,"\
+       "and make manual changes described in the README before continuing".yellow
+  if yes?('Are you ready to commit? [yN]'.cyan)
     git :init
     git add: '--all .'
     git commit: "-m 'Applied Rails Application Template'"
@@ -180,7 +182,7 @@ after_bundle do
   run "#{@rvm_do} rake bitbucket:launch_sourcetree"
 
   puts "\nNow is a good time to run the generated application, and fix anything wonky before deploying".yellow
-  if yes?("Deploy? [yN]".cyan)
+  if yes?('Deploy? [yN]'.cyan)
     run "#{@rvm_do} cap dev rvm:create_gemset"
     run "#{@rvm_do} cap dev deploy:setup"
     run "#{@rvm_do} cap dev deploy"

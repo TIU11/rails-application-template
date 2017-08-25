@@ -19,7 +19,7 @@ class ExceptionController < ApplicationController
     respond_to do |format|
       format.html { render :not_found, status: @status_code, layout: !request.xhr? }
       format.xml  { render xml: details, root: "error", status: @status_code }
-      format.json { render json: {error: details}, status: @status_code }
+      format.json { render json: { error: details }, status: @status_code }
       format.all  { render plain: text_details, status: @status_code }
     end
   end
@@ -28,7 +28,7 @@ class ExceptionController < ApplicationController
     respond_to do |format|
       format.html { render :internal_server_error, status: @status_code, layout: !request.xhr? }
       format.xml  { render xml: details, root: "error", status: @status_code }
-      format.json { render json: {error: details}, status: @status_code }
+      format.json { render json: { error: details }, status: @status_code }
       format.all  { render plain: text_details, status: @status_code }
     end
   end
@@ -37,7 +37,7 @@ class ExceptionController < ApplicationController
 
   def details
     @rescue_response = ActionDispatch::ExceptionWrapper.rescue_responses[@exception.class.name]
-    @details ||= I18n.with_options( scope: [:exception, @rescue_response] ) do |i18n|
+    @details ||= I18n.with_options(scope: [:exception, @rescue_response]) do |i18n|
       {
         name: @rescue_response,
         code: @status_code,
@@ -53,7 +53,7 @@ class ExceptionController < ApplicationController
     details.slice(:title, :header, :message).values.join("\n")
   end
 
-  private
+    private
 
     # Use callbacks to share common setup or constraints between actions.
     def set_exception
