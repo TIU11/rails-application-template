@@ -16,6 +16,8 @@ AllCops:
 Documentation:
   Enabled: false
 
+#################### Metrics ###########################
+
 # Allow lines up to 120 characters
 Metrics/LineLength:
   Max: 120
@@ -24,6 +26,8 @@ Metrics/LineLength:
 # TODO: can we allow large namespaces, but not the others?
 Metrics/BlockLength:
   Enabled: false
+
+#################### Style ###########################
 
 # TODO: Re-enable and address these before Ruby 3.0
 Style/FrozenStringLiteralComment:
@@ -35,6 +39,8 @@ Style/StringLiterals:
 # Prefer array literals of symbols over %i(), which requires memorizing "%i"
 Style/SymbolArray:
   EnforcedStyle: brackets
+
+#################### Layout ###########################
 
 # Allow empty lines around classes
 Layout/EmptyLinesAroundClassBody:

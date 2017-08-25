@@ -22,7 +22,7 @@ server {
     # @see (https://www.phusionpassenger.com/library/config/nginx/)
     passenger_enabled on;
     # passenger_min_instances 1;
-    passenger_ruby <%= passenger_ruby %>; # from project root, run `passenger-config --ruby-command`
+    <%= passenger_ruby %>; # from project root, run `passenger-config --ruby-command`
     rails_env "<%= fetch(:rails_env) %>";
 
     location ~ ^/assets/ {

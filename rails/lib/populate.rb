@@ -224,29 +224,29 @@ class Populate
   end
 
   class Errors
-    @@errors = {}.with_indifferent_access
+    @errors = {}.with_indifferent_access
 
     class << self
-      def errors
-        @@errors
-      end
+      attr_reader :errors
 
       # count occurences of opt for klass
       def log(klass, opt)
-        @@errors[klass.to_s] ||= {}
-        @@errors[klass.to_s][opt.inspect] ||= 0
-        @@errors[klass.to_s][opt.inspect] += 1
+        @errors[klass.to_s] ||= {}
+        @errors[klass.to_s][opt.inspect] ||= 0
+        @errors[klass.to_s][opt.inspect] += 1
       end
     end
   end
 
   class Cache
-    @@cache = {}.with_indifferent_access
-    @@enabled = true
+    @cache = {}.with_indifferent_access
+    @enabled = true
+
+    attr_reader :enabled
 
     class << self
       def load(klass)
-        @@cache[klass.to_s] ||= klass.all
+        @cache[klass.to_s] ||= klass.all
       end
 
       def add(object)
@@ -261,15 +261,11 @@ class Populate
       end
 
       def clear!(klass)
-        @@cache[klass.to_s] = nil
+        @cache[klass.to_s] = nil
       end
 
       def enable(toggle = true)
-        @@enabled = toggle
-      end
-
-      def enabled
-        @@enabled
+        @enabled = toggle
       end
     end
   end
