@@ -7,11 +7,11 @@ class Bitbucket
 
   class << self
     def username
-      @username ||= get_username
+      @username ||= fetch_username
     end
 
     def password
-      @password ||= get_password
+      @password ||= fetch_password
     end
 
     def credentials
@@ -19,16 +19,16 @@ class Bitbucket
     end
 
     def owner
-      @owner ||= set_remote_info[0]
+      @owner ||= fetch_remote_info[0]
     end
 
     def repo_slug
-      @repo_slug ||= set_remote_info[1]
+      @repo_slug ||= fetch_remote_info[1]
     end
 
     private
 
-      def get_username
+      def fetch_username
         # Test git connection and get username
         puts test_result = `ssh -T git@bitbucket.org`
         username = test_result[/logged in as (\w+)./, 1]
@@ -44,16 +44,14 @@ class Bitbucket
 
       # TODO: looks like prompting for a password can be replaced with newer options
       # @see (https://developer.atlassian.com/bitbucket/api/2/reference/meta/authentication)
-      def get_password
-        begin
-          puts "What is your Bitbucket password?".cyan
-          password = STDIN.noecho(&:gets).chomp
-          raise ArgumentError if password.blank?
-        rescue
-          puts 'password cannot be empty'.red
-          retry
-        end
+      def fetch_password
+        puts "What is your Bitbucket password?".cyan
+        password = STDIN.noecho(&:gets).chomp
+        raise ArgumentError if password.blank?
         password
+      rescue StandardError
+        puts 'password cannot be empty'.red
+        retry
       end
 
       # Read Bitbucket owner and repo_slug from git remote origin.
@@ -61,7 +59,7 @@ class Bitbucket
       # origin	https://georgeburdell@bitbucket.org/tiu/foo-bar.git (fetch)
       # origin	ssh://git@bitbucket.org/tiu/foo-bar.git (fetch)
       # origin	git@bitbucket.org:tiu/foo-bar.git (push)
-      def set_remote_info
+      def fetch_remote_info
         remotes = `git remote -v`
         match = %r{origin\s+(\w+://)?\w+@bitbucket.org[/:](\w+)/([\w-]+).git}.match remotes
         @owner = match && match[2]

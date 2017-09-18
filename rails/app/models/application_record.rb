@@ -42,7 +42,7 @@ class ApplicationRecord < ActiveRecord::Base
 
     # Returns all foreign_keys for this model
     def foreign_keys
-      self.reflect_on_all_associations(:belongs_to).map(&:foreign_key)
+      reflect_on_all_associations(:belongs_to).map(&:foreign_key)
     end
 
   end

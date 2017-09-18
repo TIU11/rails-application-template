@@ -1,3 +1,5 @@
+require 'logging_utility'
+
 class CustomPublicExceptions < ActionDispatch::PublicExceptions
 
   def call(env)
@@ -9,13 +11,7 @@ class CustomPublicExceptions < ActionDispatch::PublicExceptions
     Rails.logger.debug { "No route for #{@status_code}. Falling back to default exception handling." }
     super env
   rescue RuntimeError => e
-    # TODO: invoke ExceptionNotifier
-    Rails.logger.fatal <<~MESSAGE
-      Exception during custom error handling, '#{e}'. Falling back to defaults.
-      #{e.class}: "#{e.message}"
-        #{e.backtrace.join("\n  ")}
-    MESSAGE
-
+    LoggingUtility.notify(e, 'Exception during custom error handling. Falling back to defaults.')
     super env
   end
 

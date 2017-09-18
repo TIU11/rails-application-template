@@ -14,15 +14,15 @@ module All # :nodoc:
 
       protected
 
-      def available_views
-        %w[index index.xls edit show new _form _action_menu]
-      end
+        def available_views
+          %w[index index.xls edit show new _form _action_menu]
+        end
 
-      # Overrides https://github.com/rails/rails/blob/master/railties/lib/rails/generators/erb.rb
-      def filename_with_extensions(name, format = self.format)
-        file_format = name[/\.xls/] ? nil : format # format on view name overrides default
-        [name, file_format, handler].compact.join(".")
-      end
+        # Overrides https://github.com/rails/rails/blob/master/railties/lib/rails/generators/erb.rb
+        def filename_with_extensions(name, format = self.format)
+          file_format = name[/\.xls/] ? nil : format # format on view name overrides default
+          [name, file_format, handler].compact.join(".")
+        end
     end
   end
 end

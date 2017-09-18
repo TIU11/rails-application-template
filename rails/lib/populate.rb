@@ -214,7 +214,7 @@ class Populate
     # return Hash of attribute values found in errors.keys, including nested attributes.
     def attributes_with_errors(model)
       attributes = {}
-      model.errors.keys.each do |key|
+      model.errors.each_key do |key|
         # use `reduce` to drill down to the (potentially nested) attribute values
         value = key.to_s.split('.').reduce(model) { |o, attribute| o.send(attribute) }
         attributes[key] = value

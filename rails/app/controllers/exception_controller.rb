@@ -35,34 +35,35 @@ class ExceptionController < ApplicationController
 
   protected
 
-  def details
-    @rescue_response = ActionDispatch::ExceptionWrapper.rescue_responses[@exception.class.name]
-    @details ||= I18n.with_options(scope: [:exception, @rescue_response]) do |i18n|
-      {
-        name: @rescue_response,
-        code: @status_code,
-        title: i18n.t(:title),
-        header: i18n.t(:header),
-        message: i18n.t(:message)
-      }
+    def details
+      @rescue_response = ActionDispatch::ExceptionWrapper.rescue_responses[@exception.class.name]
+      @details ||= I18n.with_options(scope: [:exception, @rescue_response]) do |i18n|
+        {
+          name: @rescue_response,
+          code: @status_code,
+          title: i18n.t(:title),
+          header: i18n.t(:header),
+          message: i18n.t(:message)
+        }
+      end
     end
-  end
-  helper_method :details
+    helper_method :details
 
-  def text_details
-    details.slice(:title, :header, :message).values.join("\n")
-  end
+    def text_details
+      details.slice(:title, :header, :message).values.join("\n")
+    end
 
-    private
+  private
 
     # Use callbacks to share common setup or constraints between actions.
     def set_exception
       @exception = request.env['action_dispatch.exception']
-      if @exception.present?
-        @status_code = ActionDispatch::ExceptionWrapper.new(Rails.backtrace_cleaner, @exception).status_code
-      else
-        @status_code = 500
-      end
+      @status_code = if @exception.present?
+                       ActionDispatch::ExceptionWrapper.new(Rails.backtrace_cleaner,
+                                                            @exception).status_code
+                     else
+                       500
+                     end
     end
 
 end

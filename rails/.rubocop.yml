@@ -42,6 +42,11 @@ Style/SymbolArray:
 
 #################### Layout ###########################
 
+# Indent `protected` and `private` modifiers the same as public methods.
+# Indent their members one step more than the modifiers.
+Layout/IndentationConsistency:
+  EnforcedStyle: rails
+
 # Allow empty lines around classes
 Layout/EmptyLinesAroundClassBody:
   Enabled: false

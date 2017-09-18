@@ -34,9 +34,9 @@ module Authlogic
 
     private
 
-    def open_template(template_path)
-      File.open File.join(File.dirname(__FILE__), 'templates', template_path)
-    end
+      def open_template(template_path)
+        File.open File.join(File.dirname(__FILE__), 'templates', template_path)
+      end
 
   end
 end

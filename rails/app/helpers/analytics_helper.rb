@@ -27,7 +27,7 @@ module AnalyticsHelper
                              utmp:       '/default-analytics-page')
     @options[:utmr] = request&.url || '-'
     @options[:utmp] = options[:utm_campaign] if options[:utm_campaign]
-    @options[:utmcc] = generate_cookie(@options)
+    @options[:utmcc] = generate_cookie(@options.slice(:utm_campaign, :utm_medium))
 
     # Override defaults with provided options
     @options.merge!(options)
@@ -43,24 +43,41 @@ module AnalyticsHelper
 
   private
 
-  # Generate Google Analytics utmcc cookie
-  # For structure, see http://blog.vkistudios.com/index.cfm/2010/8/31/GA-Basics-The-Structure-of-Cookie-Values
-  def generate_cookie(options = {})
-    cookie_num = Random.rand(10_000_000..99_999_999) # random cookie number
-    random_num = Random.rand(1_000_000_000..2_147_483_647) # number under 2147483647
-    today = Time.now.strftime('%s')
-    session_num = 2
-    campaign_num = 2
-    utmccn = options[:utm_campaign] || '(direct)' # campaign
-    utmcmd = options[:utm_medium] || '(none)' # medium
+    # Generate Google Analytics utmcc cookie
+    # For structure, see http://blog.vkistudios.com/index.cfm/2010/8/31/GA-Basics-The-Structure-of-Cookie-Values
+    def generate_cookie(utm_campaign: '(direct)', utm_medium: '(none)')
+      session_num = 2
+      campaign_num = 2
 
-    subcookies = [
-      "__utma=#{cookie_num}.#{random_num}.#{today}.#{today}.#{today}.2",
-      "__utmb=#{cookie_num}",
-      "__utmc=#{cookie_num}",
-      "__utmz=#{cookie_num}.#{today}.#{session_num}.#{campaign_num}.utmccn=#{utmccn}|utmcsr=(direct)|utmcmd=#{utmcmd}"
-    ]
-    subcookies.join ";+"
-  end
+      subcookies = [
+        "__utma=#{domain_id}.#{visitor_id}.#{initial_visit}.#{previous_session}.#{current_session}.2",
+        "__utmb=#{domain_id}",
+        "__utmc=#{domain_id}",
+        "__utmz=#{domain_id}.#{timestamp}.#{session_num}.#{campaign_num}."\
+          "utmccn=#{utm_campaign}|utmcsr=(direct)|utmcmd=#{utm_medium}"
+      ]
+      subcookies.join ";+"
+    end
+
+    # "Domain Hash" used by all cookies from this domain.
+    # TODO: so, should it *not* be random, but site-specific?
+    def domain_id
+      Random.rand(10_000_000..99_999_999) # random cookie number
+    end
+
+    # A random unique ID
+    # TODO: should this only be unique per session? or perhaps it already is?
+    def visitor_id
+      Random.rand(1_000_000_000..2_147_483_647) # number under 2147483647
+    end
+
+    # Timestamp for the initial visit
+    def timestamp
+      Time.now.strftime('%s')
+    end
+
+    alias initial_visit timestamp
+    alias previous_session timestamp
+    alias current_session timestamp
 
 end

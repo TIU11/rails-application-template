@@ -11,10 +11,12 @@ class GetEnvironmentInfo
   end
 
   def call
-    @@info ||= Info.new # return Info singleton, memoized in a class variable
+    Info.instance # return Info singleton
   end
 
   class Info
+    include Singleton
+
     # Rails environment name
     def name
       @name ||= Rails.env
