@@ -10,3 +10,7 @@
     # Where the I18n library should search for translation files
     # Loads locales in nested subfolders, not just in the default directory
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+    # FIX: https://github.com/airblade/paper_trail/issues/877
+    require 'paper_trail/config'
+    PaperTrail::Config.instance.track_associations = false

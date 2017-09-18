@@ -26,7 +26,7 @@ class Populate
     #   => Created User    1: John Doe
     #   => Unable to update User 'John Doe' because:
     #      {:email=>["is not an email"]}
-    def self.update_or_create(klass, attributes, by: :name, verbose: false, cache_adds: false, cache: true)
+    def update_or_create(klass, attributes, by: :name, verbose: false, cache_adds: false, cache: true)
       Cache.enable(cache)
 
       # make sure we have a class
