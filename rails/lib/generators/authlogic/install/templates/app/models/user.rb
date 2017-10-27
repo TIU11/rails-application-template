@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   alias_attribute :roles, :direct_roles
 
-  acts_as_authentic  do |config|
+  acts_as_authentic do |config|
     config.perishable_token_valid_for 1.day # for password reset email
     config.logged_in_timeout 1.hours
     config.validate_email_field true
@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   has_paper_trail(
     ignore: [
-      :updated_at,
+      :updated_at
     ],
     skip: [
       :perishable_token,
@@ -28,7 +28,7 @@ class User < ApplicationRecord
   # Scopes
   #
 
-  scope :sorted, ->{ order(:first_name, :last_name) }
+  scope :sorted, -> { order(:first_name, :last_name) }
   scope :has_role, ->(role) { # returns users with direct roles (doesn't include team-assignment-derived roles)
     where('? = any(users.direct_roles)', Role.canonical_name(role))
   }
@@ -69,11 +69,11 @@ class User < ApplicationRecord
   end
 
   def first_initial
-    first_name && first_name.first
+    first_name&.first
   end
 
   def full_email
-    %Q{"#{name}" <#{email}>} if email.present?
+    %("#{name}" <#{email}>) if email.present?
   end
 
   def to_s

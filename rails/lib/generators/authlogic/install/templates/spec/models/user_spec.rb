@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  user = FactoryGirl.build(:user)
+  user = FactoryBot.build(:user)
 
   it "should have a name and email" do
     expect(user.name).to eq('George Burdell')

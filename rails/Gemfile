@@ -22,7 +22,7 @@ gem 'active_model_serializers', '~> 0.10.0' # building JSON responses
 gem 'addressable'               # more conformant replacement for (obsolete) Ruby URI
 gem 'colorize'                  # Colored console output
 gem 'friendly_id', '~> 5.2.0'   # Nice URLs
-gem 'paper_trail', '~> 7.0.0'   # Track model revisions
+gem 'paper_trail', '~> 8.0.0'   # Track model revisions
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
 gem 'will_paginate', '~> 3.1.0' # Pagination
 
@@ -51,7 +51,6 @@ gem 'font-awesome-sass', '~> 4.7.0'
 
 gem 'mini_racer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
 
-gem 'coffee-rails', '~> 4.2'    # Use CoffeeScript for .coffee assets and views
 gem 'jquery-rails'              # Use jquery as the JavaScript library
 gem 'uglifier', '>= 1.3.0'      # Use Uglifier as compressor for JavaScript assets
 gem 'underscore-rails'          # utility-belt library for JavaScript
@@ -63,7 +62,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
 
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails', '~> 3.0'
 end
@@ -96,7 +95,7 @@ group :development do
   gem 'stackprof'               # Ruby call-stack profiler
 
   gem 'rails_best_practices'    # Code metric tool for quality checks
-  gem 'rubocop', '~> 0.49.1', require: false # Static code analyzer. Enforces the Ruby Style Guide
+  gem 'rubocop', '~> 0.50', require: false # Static code analyzer. Enforces the Ruby Style Guide
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

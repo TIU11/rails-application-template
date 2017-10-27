@@ -12,7 +12,7 @@ Rails.application.config.generators do |g|
   # Tests
   #
 
-  g.fixture_replacement :factory_girl # Test data
+  g.fixture_replacement :factory_bot # Test data
 
   # We always start with unit tests and feature (end-to-end) tests. Other tests are added as needed.
 
