@@ -20,18 +20,19 @@ module DateTimeHelper
   end
 
   # Cases:
-  # * 1-59 seconds
-  # * 1-59 minutes
+  # * 1 - 59 seconds
+  # * 1 - 59 minutes
   # * 1 hour
-  # * 1.1-9.9 hours
-  # * 10-23 hours
+  # * 1.1 - 9.9 hours
+  # * 10 - 23 hours
   # * 1 day
-  # * 1.1-6.9 days
+  # * 1.1 - 6.9 days
   # * 1 week
-  # * 1.1-∞ weeks
+  # * 1.1 - infinity weeks
   #
   # TODO: consider using or drying this up along these lines:
   # https://github.com/hpoydar/chronic_duration/blob/master/lib/chronic_duration.rb
+  # http://api.rubyonrails.org/classes/ActionView/Helpers/DateHelper.html#method-i-distance_of_time_in_words
   def duration_text(duration_in_seconds)
     return if duration_in_seconds.nil?
     seconds = duration_in_seconds

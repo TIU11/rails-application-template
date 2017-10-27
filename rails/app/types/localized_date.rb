@@ -9,17 +9,23 @@ class LocalizedDate < ActiveRecord::Type::Date
   # TODO: configurable format instead of just :default
   FORMAT = :default
 
+  def format
+    I18n.translate("date.formats.#{FORMAT}")
+  end
+
   private
 
     def cast_value(value)
       if value.is_a?(::String)
         return if value.empty?
-        format = I18n.translate("date.formats.#{FORMAT}")
-        Date.strptime(value, format) rescue nil
+        Date.strptime(value, format)
       elsif value.respond_to?(:to_date)
         value.to_date
       else
         value
       end
+    rescue ArgumentError
+      nil
     end
+
 end

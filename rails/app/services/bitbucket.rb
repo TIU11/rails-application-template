@@ -11,7 +11,7 @@ class Bitbucket
     def username
       @username ||= begin
         if `ssh -T git@bitbucket.org` =~ /logged in as (\w+)./
-          $1
+          Regexp.last_match(1)
         else
           puts <<~MSG.red
             Looks like you're not setup for Bitbucket yet

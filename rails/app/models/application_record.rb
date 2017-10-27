@@ -29,15 +29,13 @@ class ApplicationRecord < ActiveRecord::Base
     #
     #   User.order(created_at: :asc).duplicates  # newest objects are considered duplicates
     #   User.order(created_at: :desc).duplicates # oldest objects are considered duplicates
+    #
+    # TODO: when no matched_attributes are provided, returns all but first object.
+    # That might not be what you're thinking of as "duplicates".
     def duplicates(matched_attributes: foreign_keys)
       all # start with the current ActiveRecord::Relation
-        .group_by { |o|
-          o.attributes.slice(*matched_attributes.map(&:to_s)).values
-        }
-        .flat_map { |_key, matches|
-          matches.shift # drop first object
-          matches # return all remaining objects. these are the duplicates
-        }
+        .group_by { |o| o.attributes.slice(*matched_attributes.map(&:to_s)).values }
+        .flat_map { |_, matches| matches.drop(1) } # drops first. the rest are duplicates
     end
 
     # Returns all foreign_keys for this model
@@ -63,7 +61,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   # Run all validators defined on the attribute. Raises ActiveRecord::RecordInvalid if there are any errors.
   def validate_attribute!(attribute_name)
-    raise ActiveRecord::RecordInvalid.new(self) unless attribute_valid?(attribute_name)
+    raise ActiveRecord::RecordInvalid, self unless attribute_valid?(attribute_name)
   end
 
 end
