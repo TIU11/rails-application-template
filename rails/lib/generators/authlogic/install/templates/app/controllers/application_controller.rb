@@ -8,7 +8,9 @@ class ApplicationController < ActionController::Base
   # Ensure authorization is everywhere (https://github.com/ryanb/cancan/wiki/Ensure-Authorization)
   check_authorization
 
-  # Allow HTML in flash messages when flash[:html_safe] is set. Simply setting html_safe on the message won't work since JSON serialized cookies only store simple strings, not `ActiveSupport::SafeBuffer` instances. See (http://stackoverflow.com/questions/26538891/flash-message-with-html-safe-from-the-controller-in-rails-4-safe-version)
+  # Allow HTML in flash messages when flash[:html_safe] is set. Simply setting html_safe on the message won't work
+  # since JSON serialized cookies only store simple strings, not `ActiveSupport::SafeBuffer` instances.
+  # See (http://stackoverflow.com/questions/26538891/flash-message-with-html-safe-from-the-controller-in-rails-4-safe-version)
   before_action -> {
     if flash[:html_safe] # don't escape HTML when rendering flash messages
       [:success, :notice, :warning, :error].each do |f|
@@ -18,26 +20,26 @@ class ApplicationController < ActionController::Base
   }
 
   # Handles authorization errors. Notifies user why it occurred and redirects to root_url.
-  rescue_from CanCan::AccessDenied do |exception|
-    Rails.logger.warn {"Access denied to '#{exception.action}' a '#{exception.subject}' was denied to #{current_user}."}
+  rescue_from CanCan::AccessDenied do |e|
+    Rails.logger.warn { "Access denied to '#{e.action}' a '#{e.subject}' was denied to #{current_user}." }
 
     # Notify users with detailed explanation
     if current_user
-      action = I18n.translate "errors.actions.#{exception.action}", default: exception.action.to_s
+      action = I18n.translate "errors.actions.#{e.action}", default: e.action.to_s
 
       # Explain to users why they were denied access.
       roles = current_user.roles.try(:to_sentence) || 'regular user'
-      if exception.subject.is_a? Class
-        flash[:error] = "As a #{roles}, you are not authorized to #{action.titleize.downcase} #{exception.subject.name.pluralize.titleize}."
+      if e.subject.is_a? Class
+        flash[:error] = "As a #{roles}, you are not authorized to #{action.titleize.downcase} #{e.subject.name.pluralize.titleize}."
       else
-        flash[:error] = "As a #{roles}, you are not authorized to #{action.titleize.downcase} this #{exception.subject.class.name.titleize}."
+        flash[:error] = "As a #{roles}, you are not authorized to #{action.titleize.downcase} this #{e.subject.class.name.titleize}."
       end
 
       redirect_back_or_default_to root_url
 
     # Notify non-users without explanation
     else
-      flash[:error] = "#{exception}"
+      flash[:error] = e.to_s
 
       redirect_to root_url
     end
@@ -77,7 +79,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return @current_user if defined?(@current_user)
-    @current_user = current_user_session && current_user_session.user
+    @current_user = current_user_session&.user
   end
   helper_method :current_user
 
@@ -95,24 +97,23 @@ class ApplicationController < ActionController::Base
   # Restricts action to authenticated sessions. Helpfully remembers target url
   # while a user logs in.
   def require_user
-    unless current_user
-      flash[:warning] = t('app.messages.require_user')
-      redirect_to login_url(redirect_uri: request.path)
-      return false
-    end
+    return if current_user
+    flash[:warning] = t('app.messages.require_user')
+    redirect_to login_url(redirect_uri: request.path)
+    false
   end
 
   def require_no_user
-    if current_user
-      flash[:warning] = t('app.messages.require_no_user')
-      redirect_back_or_default_to root_url
-      return false
-    end
+    return unless current_user
+    flash[:warning] = t('app.messages.require_no_user')
+    redirect_back_or_default_to root_url
+    false
   end
 
   # Sets the filename header using the name from action_filename.
   #
-  # Provide a name or individual parts for custom behavior. For example, override the :index action with a more helpful :action_part.
+  # Provide a name or individual parts for custom behavior. For example,
+  # override the :index action with a more helpful :action_part.
   def set_filename(name = nil, action_part: nil, with_namespace: true)
     action_filename(name, action_part: action_part, with_namespace: with_namespace)
     headers["Content-Disposition"] = "attachment; filename=\"#{@action_filename}\""
@@ -122,7 +123,8 @@ class ApplicationController < ActionController::Base
   #   `controller_path` + `action_name` + Time.now + request.format
   #   => "Reports Outreach Events Index 2015-10-20-1117am.xls"
   #
-  # Provide a name or individual parts for custom behavior. For example, override the :index action with a more helpful :action_part.
+  # Provide a name or individual parts for custom behavior. For example,
+  # override the :index action with a more helpful :action_part.
   def action_filename(name = nil, action_part: nil, with_namespace: true, format: request.format.symbol)
     # return and save for use in the view. memoized.
     @action_filename ||= begin
