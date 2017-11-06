@@ -15,6 +15,8 @@ class ApplicationRecord < ActiveRecord::Base
         limit(sample_size).order('RANDOM()')
       when 'MySQL'
         limit(sample_size).order('RAND()')
+      when 'SQLServer'
+        limit(sample_size).order('NEWID()')
       else
         # Here are more http://stackoverflow.com/questions/19412/how-to-request-a-random-row-in-sql
         raise 'Current database adapter is not supported.'

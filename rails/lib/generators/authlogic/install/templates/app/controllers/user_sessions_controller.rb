@@ -38,7 +38,7 @@ class UserSessionsController < ApplicationController
     authorize! :su, UserSession
     @user = User.friendly.find params[:id]
     session[:su_user] = current_user.id # remember who we were
-    store_location request.referer # remember where we were
+    store_referrer # remember where we were
 
     current_user_session.destroy
     UserSession.create!(@user)
@@ -49,11 +49,11 @@ class UserSessionsController < ApplicationController
 
   # Un-switch User
   def unsu
-    if session.has_key?(:su_user)
+    if session.key?(:su_user)
       previous_user = User.find session[:su_user]
       UserSession.create! previous_user
       session.delete :su_user
-      store_location request.referer # remember where we were
+      store_referrer # remember where we were
       flash[:notice] = "You have exited your switch user session, and resumed as #{previous_user}"
     else
       flash[:error] = "Sorry, we couldn't find your original user."
@@ -79,7 +79,7 @@ class UserSessionsController < ApplicationController
 
   # Tell Authlogic not to update last_request_at for :seconds_remaining requests
   def last_request_update_allowed?
-    not action_name.in? ['seconds_remaining', 'timeout']
+    not action_name.in? %w[seconds_remaining timeout]
   end
 
   private
