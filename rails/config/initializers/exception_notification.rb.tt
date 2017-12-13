@@ -15,14 +15,16 @@ ExceptionNotification.configure do |config|
   # Notifiers =================================================================
 
   # Email notifier sends notifications by email.
-  config.add_notifier :email, {
+  config.add_notifier(
+    :email,
     email_prefix:         "[ERROR] [<%= I18n.t('app.short_title') %>] ",
     sender_address:       %("TIU Exception Notifier" <notifier@tiu11.org>),
     exception_recipients: %w[exceptions@tiu11.org]
-  }
+  )
 
   # Slack notifier sends notifications to your Slack channel. Requires 'slack-notifier' gem.
-  config.add_notifier :slack, {
+  config.add_notifier(
+    :slack,
     webhook_url: ENV['SLACK_WEBHOOK'],
     channel: "#alerts",
     additional_parameters: {
@@ -30,12 +32,13 @@ ExceptionNotification.configure do |config|
       mrkdwn: true,
       username: 'Rails Exception Notifier'
     }
-  }
+  )
 
   # HipChat notifier sends notifications to your HipChat room. Requires 'hipchat' gem.
-  # config.add_notifier :hipchat, {
-  #   :api_token => ENV['HIPCHAT_TOKEN'],
-  #   :room_name => 'Alerts'
-  # }
+  # config.add_notifier(
+  #   :hipchat,
+  #   api_token: ENV['HIPCHAT_TOKEN'],
+  #   room_name: 'Alerts'
+  # )
 
 end

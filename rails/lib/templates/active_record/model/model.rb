@@ -24,7 +24,7 @@ class <%= class_name %> < <%= parent_class_name.classify %>
   # Scopes
   #
 
-  # scope :sorted, ->{ order(:name) }
+  # scope :sorted, -> { order(:name) }
 
   #
   # Callbacks

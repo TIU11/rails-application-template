@@ -9,6 +9,7 @@ AllCops:
     - '**/templates/**/*'
     - '**/vendor/**/*'
     - 'db/schema.rb'
+    - 'db/migrate/*_create_versions.rb'
     - 'bin/**/*'
     - 'spec/spec_helper.rb'
 
@@ -33,6 +34,9 @@ Metrics/BlockLength:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/FormatStringToken:
+  Enabled: false
+
 Style/StringLiterals:
   Enabled: false # TODO: consider re-enabling. Address 200+ offenses.
 
@@ -46,6 +50,10 @@ Style/SymbolArray:
 # Indent their members one step more than the modifiers.
 Layout/IndentationConsistency:
   EnforcedStyle: rails
+
+# TODO: See what we prefer and enable something
+Layout/AccessModifierIndentation:
+  Enabled: false
 
 # Allow empty lines around classes
 Layout/EmptyLinesAroundClassBody:

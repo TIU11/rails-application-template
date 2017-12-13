@@ -49,9 +49,9 @@ namespace :db do
       ).gsub(/\s+/, " ")
 
     else
-      $stderr.puts "No snapshot name provided. Nothing to do.\n"
-      $stderr.puts "Available snapshots:"
-      $stderr.puts `ls #{dir}`
+      warn "No snapshot name provided. Nothing to do.\n"
+      warn "Available snapshots:"
+      warn `ls #{dir}`
     end
   end
 
