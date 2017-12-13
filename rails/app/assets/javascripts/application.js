@@ -14,6 +14,6 @@
 //= require jquery
 //= require underscore
 //= require bootstrap-sprockets
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
 //= require sprintf
 //= require_tree .
