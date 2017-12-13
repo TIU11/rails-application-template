@@ -17,7 +17,7 @@ class PaperTrail::Version < ApplicationRecord
   def who
     @who ||= begin
       user_id = whodunnit.to_i
-      if user_id > 0
+      if user_id.positive?
         User.find_by(id: user_id) || user_id
       else
         whodunnit || 'Anonymous'
@@ -53,14 +53,15 @@ class PaperTrail::Version < ApplicationRecord
         result_changeset[a.name.to_s] = [before_object, after_object]
       end
     end
-    return result_changeset
+
+    result_changeset
   end
 
   # Consistent place to get the object attributes, since #object is nil on create.
   def object_attributes
     object || begin
       h = {}
-      object_changes.each{|key, change| h[key] = change.last}
+      object_changes.each { |key, change| h[key] = change.last }
       return h
     end
   end
@@ -83,9 +84,9 @@ class PaperTrail::Version < ApplicationRecord
 
   def object_path
     route = routes.first # TODO: ignoring that we might have multiple routes to pick from
-    params =  { only_path: true }
-              .merge(route.defaults) # ex. {:controller=>"users", :action=>"show"}
-              .merge(object_instance.slice(*route.required_parts).symbolize_keys)
+    params = { only_path: true }
+             .merge(route.defaults) # ex. {:controller=>"users", :action=>"show"}
+             .merge(object_instance.slice(*route.required_parts).symbolize_keys)
     Rails.application.routes.url_for(params)
   end
 
@@ -93,9 +94,10 @@ class PaperTrail::Version < ApplicationRecord
   def routes
     all_routes = Rails.application.routes.routes
     controller_name = object_instance.class.name.underscore.pluralize
-    all_routes.select{ |route|
-      route.defaults == {controller: controller_name, action: 'show'}
-    }
+
+    all_routes.select do |route|
+      route.defaults == { controller: controller_name, action: 'show' }
+    end
   end
 
   private
@@ -105,14 +107,16 @@ class PaperTrail::Version < ApplicationRecord
     end
 
     def determine_model_from_polymorphic
-      polymorphic_association = belongs_to_associations.find { |a|
+      polymorphic_association = belongs_to_associations.find do |a|
         a.polymorphic? && a.active_record.name.eql?(item_type)
-      }
-      if polymorphic_association.present?
-        model_class = object_attributes[polymorphic_association.name.to_s + "_type"].safe_constantize
-        model_foreign_id_name = polymorphic_association.name.to_s + "_id"
       end
-      return [model_class, model_foreign_id_name]
+
+      if polymorphic_association.present?
+        model_class = object_attributes["#{polymorphic_association.name}_type"].safe_constantize
+        model_foreign_id_name = "#{polymorphic_association.name}_id"
+      end
+
+      [model_class, model_foreign_id_name]
     end
 
 end

@@ -90,6 +90,10 @@ That's it, take her for a spin:
 * `cap dev deploy` until it completes successfully
 * `cap production rake[db:seed]`
 
+# Updating an existing Application
+
+* `rails app:template LOCATION=https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb`
+
 # Todo
 
 * define TLD and FQDN centrally, then use it everywhere

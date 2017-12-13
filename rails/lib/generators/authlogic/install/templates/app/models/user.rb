@@ -48,7 +48,7 @@ class User < ApplicationRecord
   validates :first_name, :last_name,
             presence: true
   validates :email,
-            uniqueness: {case_sensitive: false}
+            uniqueness: { case_sensitive: false }
   validate :role_must_be_in_list
 
   #
@@ -82,33 +82,32 @@ class User < ApplicationRecord
 
   private
 
-  # Assign user a default password
-  def ensure_new_account_has_password
-    if self.password.nil? and self.new_record?
-      Rails.logger.debug {"Generating random password for #{self.email}"}
+    # Assign user a default password
+    def ensure_new_account_has_password
+      return unless password.nil? && new_record?
+      Rails.logger.debug { "Generating random password for #{email}" }
       random_password = SecureRandom.urlsafe_base64(12)
       self.password = random_password
       self.password_confirmation = random_password
     end
-  end
 
-  def username_candidates
-    [
-      [first_initial, last_name].join,
-      [first_name, last_name].join,
-      :email
-    ]
-  end
-
-  def clean_roles
-    roles.reject!(&:blank?)
-  end
-
-  def role_must_be_in_list
-    invalid_roles = roles - Role.all.map(&:name)
-    invalid_roles.each do |role|
-      errors.add(:roles, "'#{role}' is not a recognized role")
+    def username_candidates
+      [
+        [first_initial, last_name].join,
+        [first_name, last_name].join,
+        :email
+      ]
     end
-  end
+
+    def clean_roles
+      roles.reject!(&:blank?)
+    end
+
+    def role_must_be_in_list
+      invalid_roles = roles - Role.all.map(&:name)
+      invalid_roles.each do |role|
+        errors.add(:roles, "'#{role}' is not a recognized role")
+      end
+    end
 
 end

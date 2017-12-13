@@ -22,6 +22,10 @@ namespace :ubuntu do
       tiny_tds: [
         'build-essential',
         'libc6-dev'
+      ],
+      rgeo: [
+        'libgeos-dev', # GEOS 3.3.3+ recommended
+        'libproj-dev' # Proj 4.7+ recommended
       ]
     }
 

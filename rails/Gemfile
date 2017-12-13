@@ -22,7 +22,7 @@ gem 'active_model_serializers', '~> 0.10.0' # building JSON responses
 gem 'addressable'               # more conformant replacement for (obsolete) Ruby URI
 gem 'colorize'                  # Colored console output
 gem 'friendly_id', '~> 5.2.0'   # Nice URLs
-gem 'paper_trail', '~> 8.0.0'   # Track model revisions
+gem 'paper_trail', '~> 8.1.0'   # Track model revisions
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
 gem 'will_paginate', '~> 3.1.0' # Pagination
 
@@ -58,6 +58,7 @@ gem 'underscore-rails'          # utility-belt library for JavaScript
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.15'
   gem 'selenium-webdriver'
@@ -80,11 +81,11 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  gem 'capistrano',         '~> 3.7', require: false
+  gem 'capistrano',             '~> 3.7', require: false
   gem 'capistrano-maintenance', '~> 1.0', require: false
   gem 'capistrano-passenger'
-  gem 'capistrano-rails',   '~> 1.2', require: false
-  gem 'capistrano-rvm',     '~> 0.1', require: false
+  gem 'capistrano-rails',       '~> 1.2', require: false
+  gem 'capistrano-rvm',         '~> 0.1', require: false
 
   # Use 'thin' to avoid "Could not determine content-length of response body." warnings.
   # @see (http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h)

@@ -24,5 +24,8 @@ db/snapshots
 # Ignore environment file
 .env
 
+# SimpleCov reports
+coverage
+
 /public/packs
 /node_modules

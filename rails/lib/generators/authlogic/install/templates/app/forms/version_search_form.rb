@@ -43,7 +43,7 @@ class VersionSearchForm
     versions = versions.where('created_at >= ?', from.beginning_of_day) if from.present?
     versions = versions.where('created_at <= ?', to.end_of_day) if to.present?
 
-    return versions
+    versions
   end
 
   def min_date
@@ -53,9 +53,8 @@ class VersionSearchForm
   private
 
     def valid_dates
-      if from.present? && to.present? && from > to
-        errors.add(:from, "cannot be after To")
-      end
+      return unless from.present? && to.present? && from > to
+      errors.add(:from, "cannot be after To")
     end
 
     def coerce_date(value)
