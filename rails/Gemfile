@@ -28,7 +28,7 @@ gem 'will_paginate', '~> 3.1.0' # Pagination
 
 # Application Management
 
-gem 'bootsnap'                  # Optimize application boot time
+gem 'bootsnap', require: false  # Optimize application boot time
 gem 'exception_notification', '~> 4.2.0'
 gem 'rack-timeout'              # Abort requests that are taking too long
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb

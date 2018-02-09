@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # TODO: Specify proxy if needed
 # set :default_env, http_proxy: 'http://172.16.x.x:xxxx'
 

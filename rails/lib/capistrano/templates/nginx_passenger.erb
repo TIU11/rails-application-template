@@ -35,8 +35,8 @@ server {
     }
 
     # SSL
-    ssl_certificate      /etc/ssl/certs/<%= fetch(:top_level_domain) %>.godaddy.crt;
-    ssl_certificate_key  /etc/ssl/private/<%= fetch(:top_level_domain) %>.godaddy.key;
+    ssl_certificate      /etc/ssl/certs/<%= fetch(:top_level_domain) %>.pem;
+    ssl_certificate_key  /etc/ssl/private/<%= fetch(:top_level_domain) %>.key;
 }
 
 passenger_pre_start http://<%= fqdn %>;
