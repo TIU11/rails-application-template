@@ -14,7 +14,7 @@ gem 'rails', '~> 5.1.2'
 gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
 gem 'pg', '~> 0.19'             # Use postgresql as the database for Active Record
 
-gem 'authlogic', '~> 3.6.0'     # Authentication
+gem 'authlogic', '~> 3.8'       # Authentication
 gem 'cancancan', '~> 2.0'       # Authorization
 gem 'scrypt'                    # required by authlogic when using scrypt
 
@@ -114,4 +114,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'sdoc', '~> 0.4.0', group: :doc # bundle exec rake doc:rails generates the API under doc/api.
+gem 'sdoc', '~> 1.0', group: :doc # bundle exec rake doc:rails generates the API under doc/api.
