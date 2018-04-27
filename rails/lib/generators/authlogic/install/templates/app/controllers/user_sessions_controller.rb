@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user_session = UserSession.new(user_session_params)
+    @user_session = UserSession.new(user_session_params.to_h)
     session.delete :su_user
 
     if @user_session.save
@@ -21,12 +21,12 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    current_user_session.destroy if current_user_session
-    if (_timeout < Time.now) # logout due to timeout
-      flash[:notice] = I18n.t('app.messages.timeout')
-    else # manual logout
-      flash[:notice] = I18n.t('app.messages.logout')
-    end
+    current_user_session&.destroy
+    flash[:notice] = if _timeout < Time.now
+                       I18n.t('app.messages.timeout') # logout due to timeout
+                     else
+                       I18n.t('app.messages.logout') # manual logout
+                     end
 
     clear_location # avoid trouble if user logs back in after downloading Excel, etc
     session.delete :su_user # clear saved user
@@ -79,7 +79,7 @@ class UserSessionsController < ApplicationController
 
   # Tell Authlogic not to update last_request_at for :seconds_remaining requests
   def last_request_update_allowed?
-    not action_name.in? %w[seconds_remaining timeout]
+    !action_name.in? %w[seconds_remaining timeout]
   end
 
   private

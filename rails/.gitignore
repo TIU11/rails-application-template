@@ -13,9 +13,12 @@
 !/log/.keep
 !/tmp/.keep
 
+# Ignore Webpacker files
 /node_modules
 /yarn-error.log
+/public/packs
 
+# Ignore Byebug command history file.
 .byebug_history
 
 # Ignore database snapshots
@@ -26,6 +29,3 @@ db/snapshots
 
 # SimpleCov reports
 coverage
-
-/public/packs
-/node_modules
