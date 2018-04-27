@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :rvm do
 
   # Bypass rvm:check when user directly invokes any rvm namespace tasks, except rvm:check itself.

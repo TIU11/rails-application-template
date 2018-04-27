@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 puts 'Verifying prerequisite gems used within this template'
 %w[byebug colorize].each do |gemname|
   next if Gem::Specification.find_all_by_name(gemname).present?

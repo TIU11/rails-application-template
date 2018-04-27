@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :deploy do
   desc "Change group to www-data"
   task :update_group do

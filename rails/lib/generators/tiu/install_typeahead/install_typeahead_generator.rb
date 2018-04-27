@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 require 'byebug'
+
 module Tiu
   class InstallTypeaheadGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :deploy do
   # TODO: the following:
   # * Requires sudo access. Use daemons that can handle this without root-level permissions

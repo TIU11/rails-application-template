@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'colorize'
 
 # Warning! When db:drop or db:create fail, they swallow the exception so execution does not stop.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # http://stackoverflow.com/questions/312214/how-do-i-run-a-rake-task-from-capistrano
 desc "Run a rake task on a remote server, 'cap production rake[db:migrate,VERSION=1234567890]'"
 task :rake, [:arg1, :arg2] => ['deploy:set_rails_env'] do |_task, args|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # TODO: Consider improving with:
 # * http://my.rails-royce.org/2010/07/21/email-validation-in-ruby-on-rails-without-regexp/
 # * https://hackernoon.com/the-100-correct-way-to-validate-email-addresses-7c4818f24643#.cst8tslbp

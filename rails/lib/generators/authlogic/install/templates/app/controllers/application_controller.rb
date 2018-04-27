@@ -129,17 +129,15 @@ class ApplicationController < ActionController::Base
     # return and save for use in the view. memoized.
     @action_filename ||= begin
       # Calculate name unless one is provided
-      if name.nil?
+      name ||= begin
         controller_part = with_namespace ? controller_path : controller_name
         controller_part = controller_part.parameterize.titleize # reports/outreach_events => 'Reports Outreach Events'
         action_part ||= action_name.titleize                    # index => 'Index'
         timestamp_part = Time.now.strftime('%F-%I%M%P')         # '2015-10-20-1117am'
-        name = [controller_part, action_part, timestamp_part].reject(&:blank?).join(' ')
+        [controller_part, action_part, timestamp_part].reject(&:blank?).join(' ')
       end
 
-      format_part = format
-
-      "#{name}.#{format_part}"
+      "#{name}.#{format}"
     end
   end
   helper_method :action_filename

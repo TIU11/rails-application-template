@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'colorize'
 
 # See https://github.com/railscasts/373-zero-downtime-deployment/blob/master/blog-after/config/recipes/nginx.rb

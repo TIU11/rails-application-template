@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Convert localized date string to Date object. This takes I18n formatted date strings
 # (e.g. in form text inputs) and casts them back to Date objects when writing the attribute.
 #

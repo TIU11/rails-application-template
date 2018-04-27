@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :ubuntu do
 
   desc 'Install Ubuntu package dependencies for this application'

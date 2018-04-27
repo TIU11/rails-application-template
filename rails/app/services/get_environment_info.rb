@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Gather basic Environment Information, useful for determining state of multi-environment applications.
 # Returns Info class, a singleton for performance.
 class GetEnvironmentInfo
