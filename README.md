@@ -21,7 +21,7 @@ This template assumes some things:
 
 * Rails 5.1.x is installed
 
-        rvm use 2.4.1
+        rvm use 2.4.3
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work.
 
@@ -30,6 +30,8 @@ This template assumes some things:
         rvm @global do gem install bundler  # Rails 5.x depends on bundler (< 2.0, >= 1.3.0)
                                             # We've noticed bundler 1.7+ is much faster than 1.3
         gem update --system                 # Per https://rubygems.org/pages/download
+
+* Expects `pg` 1.x which requires PostgreSQL 9.2+. To use another database, you'll need to make a few config changes.
 
 * XCode and command line tools (GCC needed to compile some gems)
 
@@ -48,7 +50,7 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 2.4.1
+    rvm use 2.4.3
     rails new my-app --database=postgresql --skip-turbolinks --no-scaffold-stylesheet
     cd my-app
     git init

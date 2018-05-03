@@ -12,7 +12,7 @@ end
 gem 'rails', '~> 5.1.2'
 
 gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
-gem 'pg', '~> 0.19'             # Use postgresql as the database for Active Record
+gem 'pg', '~> 1.0'              # Use postgresql 9.2+ as the database for Active Record
 
 gem 'authlogic', '~> 4.0'       # Authentication
 gem 'cancancan', '~> 2.0'       # Authorization
@@ -60,7 +60,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.15'
+  gem 'capybara', '~> 3.0'
   gem 'selenium-webdriver'
 
   gem 'factory_bot_rails'
