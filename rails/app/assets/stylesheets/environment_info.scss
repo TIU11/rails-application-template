@@ -1,0 +1,21 @@
+$red: #ae0005;
+$white: #fff;
+
+.environment-info {
+  background-color: $red;
+  color: $white;
+
+  .container {
+    padding-bottom: 0;
+  }
+
+  .name {
+    font-weight: bold;
+  }
+
+  .revision,
+  .released-at {
+    font-size: 75%;
+    padding-left: 15px;
+  }
+}
