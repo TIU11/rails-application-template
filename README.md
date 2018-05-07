@@ -21,7 +21,7 @@ This template assumes some things:
 
 * Rails 5.1.x is installed
 
-        rvm use 2.4.3
+        rvm use 2.4.4
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work.
 
@@ -50,8 +50,8 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 2.4.3
-    rails new my-app --database=postgresql --skip-turbolinks --no-scaffold-stylesheet
+    rvm use 2.4.4
+    rails new my-app --database=postgresql --skip-turbolinks  --skip-action-cable --skip-yarn --no-scaffold-stylesheet
     cd my-app
     git init
     git add .
@@ -60,7 +60,7 @@ To see what the template does, we like to first generate a default rails app and
 Finally, apply this template:
 
     cd ~/code                    # Wherever you put your projects
-    rails new my-app -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks --no-scaffold-stylesheet --force
+    rails new my-app -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks  --skip-action-cable --skip-yarn --no-scaffold-stylesheet --force
 
 Look over what the template added to the default app. You might spot something that could be improved in the template.
 
