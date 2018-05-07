@@ -18,7 +18,6 @@ module Authlogic
       directory 'app'
       directory 'spec'
       directory 'config'
-      directory 'vendor'
     end
 
     def update_files
