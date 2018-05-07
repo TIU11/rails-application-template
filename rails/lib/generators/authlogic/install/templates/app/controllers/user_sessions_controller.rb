@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserSessionsController < ApplicationController
   skip_authorization_check only: [:new, :create, :destroy, :unsu, :seconds_remaining, :timeout, :continue]
   before_action :require_no_user, only: [:new, :create]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PaginationHelper
 
   # Renders will_pagination information on the records within `span.pagination-record-count`

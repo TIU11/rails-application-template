@@ -4,7 +4,7 @@
 # Returns Info class, a singleton for performance.
 class GetEnvironmentInfo
 
-  DEPLOY_REVISION_PATH = 'REVISION'.freeze
+  DEPLOY_REVISION_PATH = 'REVISION'
 
   def initialize; end
 

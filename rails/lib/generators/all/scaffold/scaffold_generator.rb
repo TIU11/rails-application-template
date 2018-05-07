@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Overrides https://github.com/rails/rails/blob/master/railties/lib/rails/generators/erb/scaffold/scaffold_generator.rb
 #
 # See

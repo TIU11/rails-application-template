@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Allow pagination of static arrays (but still just try to use ActiveRecord::Relation)
 # See https://github.com/mislav/will_paginate/blob/master/lib/will_paginate/array.rb
 

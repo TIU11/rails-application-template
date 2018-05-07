@@ -53,9 +53,9 @@ class Bitbucket
 
       # Read Bitbucket owner and repo_slug from git remote origin.
       # Look for remote origin that look like:
-      # origin	https://georgeburdell@bitbucket.org/tiu/foo-bar.git (fetch)
-      # origin	ssh://git@bitbucket.org/tiu/foo-bar.git (fetch)
-      # origin	git@bitbucket.org:tiu/foo-bar.git (push)
+      # origin https://georgeburdell@bitbucket.org/tiu/foo-bar.git (fetch)
+      # origin ssh://git@bitbucket.org/tiu/foo-bar.git (fetch)
+      # origin git@bitbucket.org:tiu/foo-bar.git (push)
       def fetch_remote_info
         remotes = `git remote -v`
         match = %r{origin\s+(?:\w+://)?\w+@bitbucket.org[/:](\w+)/([\w-]+).git}.match remotes

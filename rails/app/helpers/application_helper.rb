@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
 
   # Render link to previous page, especially for cancelling on a form.

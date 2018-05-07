@@ -30,10 +30,6 @@ Metrics/BlockLength:
 
 #################### Style ###########################
 
-# TODO: Re-enable and address these before Ruby 3.0
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 Style/FormatStringToken:
   Enabled: false
 

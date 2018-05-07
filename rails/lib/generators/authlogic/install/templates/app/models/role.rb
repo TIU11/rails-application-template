@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Role
   include ActiveModel::Model
   include Virtus.model

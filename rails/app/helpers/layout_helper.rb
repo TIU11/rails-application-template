@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LayoutHelper
   # Shorthand for a full-width container:
   # <div class="container">

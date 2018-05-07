@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Paper Trail versions
 class VersionsController < ApplicationController
   before_action :require_user

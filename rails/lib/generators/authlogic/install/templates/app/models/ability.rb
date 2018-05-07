@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # BUG:
 # Abilities based on associations can't handle `nil` associations.
 # @see: https://github.com/ryanb/cancan/issues/213, https://github.com/rails/rails/issues/939

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 <% module_namespacing do -%>
 class <%= class_name %> < <%= parent_class_name.classify %>
 <% if defined?(FriendlyId) -%>
@@ -46,7 +48,7 @@ class <%= class_name %> < <%= parent_class_name.classify %>
   #
 
   # def to_s
-  #   "#{name}"
+  #   name.to_s
   # end
 end
 <% end -%>

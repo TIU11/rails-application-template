@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SeoHelper
   # Each page should have a unique title.
   #

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Generators defaults
 # @see (http://guides.rubyonrails.org/generators.html#customizing-your-workflow)
 Rails.application.config.generators do |g|

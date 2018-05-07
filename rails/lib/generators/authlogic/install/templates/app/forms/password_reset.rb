@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PasswordReset
   include ActiveModel::Model
   include Virtus.model

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Helpers for populating the database with lots of data, without writing lots of code
 #
 # TODO

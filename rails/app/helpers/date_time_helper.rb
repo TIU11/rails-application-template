@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DateTimeHelper
 
   # Display brief date with full date available as a tooltip.

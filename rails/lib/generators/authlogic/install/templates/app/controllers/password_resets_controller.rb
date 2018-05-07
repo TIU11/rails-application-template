@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PasswordResetsController < ApplicationController
   before_action :set_user, only: [:edit, :update]
   skip_authorization_check

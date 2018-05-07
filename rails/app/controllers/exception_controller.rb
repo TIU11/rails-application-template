@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Provides dynamic exception pages
 #
 # TODO:

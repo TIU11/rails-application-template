@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Date and time formats
 
 # Time

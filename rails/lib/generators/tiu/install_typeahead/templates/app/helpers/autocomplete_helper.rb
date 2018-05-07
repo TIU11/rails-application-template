@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Pair of helpers for rendering a Twitter Typeahead. You must provide the container with `tt-options`.
 # As long as they're within this container, you're free to add any structural and display markup.
 #

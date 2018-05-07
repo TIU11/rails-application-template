@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PaperTrail::Version < ApplicationRecord
   include PaperTrail::VersionConcern # what is this for?
 
