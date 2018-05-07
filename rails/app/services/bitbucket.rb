@@ -42,11 +42,11 @@ class Bitbucket
     end
 
     def owner
-      @owner || fetch_remote_info&[0]
+      @owner || (fetch_remote_info && fetch_remote_info[0])
     end
 
     def repo_slug
-      @repo_slug || fetch_remote_info&[1]
+      @repo_slug || (fetch_remote_info && fetch_remote_info[1])
     end
 
     private
