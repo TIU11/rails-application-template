@@ -161,6 +161,10 @@ after_bundle do
   # Install rspec
   run "#{@rvm_do} rails generate rspec:install"
 
+  # Create the environments and database before papertrail which check db.
+  run "#{@rvm_do} rake app:create_dotenv"
+  run "#{@rvm_do} rake db:create"
+
   if yes?('Create Users? [yN]'.cyan)
     run "#{@rvm_do} rails generate paper_trail:install --with-changes"
     run "#{@rvm_do} rails generate authlogic:install --force"
@@ -175,8 +179,6 @@ after_bundle do
     git commit: "-m 'Applied Rails Application Template'"
   end
 
-  run "#{@rvm_do} rake app:create_dotenv"
-  run "#{@rvm_do} rake db:create"
   run "#{@rvm_do} rake db:migrate"
   run "#{@rvm_do} rake bitbucket:setup"
   run "#{@rvm_do} rake bitbucket:launch_sourcetree"
