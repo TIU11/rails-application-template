@@ -5,6 +5,7 @@
 # TODO: consider prior art
 # * https://github.com/danielsdeleo/teeth
 # * https://github.com/wvanbergen/request-log-analyzer
+# * https://www.schneems.com/2018/04/30/how-to-implement-a-ruby-hash-like-grammar-in-parslet/
 
 class LogAnalyzer
 
