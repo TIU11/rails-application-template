@@ -15,7 +15,7 @@
       <%= content_tag :tr, id: dom_id(version), class: dom_class(version) do %>
         <td><%= version.event %></td>
         <td><%= version.item_type %></td>
-        <td><%= link_to version.reify.to_s, polymorphic_path(version.reify) if version.reify %></td>
+        <td><%= link_to version.reify.to_s, polymorphic_url(version.reify) if version.reify %></td>
         <td><%= version.who %></td>
         <td><%= version.created_at %></td>
         <td><%= version.changeset %></td>

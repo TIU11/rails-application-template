@@ -49,7 +49,7 @@ class VersionSearchForm
   end
 
   def min_date
-    PaperTrail::Version.minimum(:created_at).to_date
+    PaperTrail::Version.minimum(:created_at)&.to_date
   end
 
   private

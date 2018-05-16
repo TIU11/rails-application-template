@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+require 'helpers/generator_helper'
+
 module Authlogic
   class InstallGenerator < Rails::Generators::Base
-    source_root File.expand_path('../templates', __FILE__)
+    include ::Helpers::GeneratorHelper
+    source_root File.expand_path('templates', __dir__)
     argument :attributes, type: :array,
                           default: ['email:string', 'first_name:string', 'last_name:string'],
                           banner: "field:type field:type"
@@ -21,7 +24,7 @@ module Authlogic
     end
 
     def update_files
-      route open_template('routes.rb.delta').read
+      route read_template('routes.rb.delta')
       insert_into_file "#{destination_root}/app/assets/javascripts/application.js",
                        "//= require sprintf\n",
                        after: "//= require bootstrap-datepicker\n"
@@ -31,12 +34,6 @@ module Authlogic
       insert_into_file 'app/views/application/_nav.html.erb',
                        "        <%= render 'login_menu' %>\n",
                        before: '      </div><!--/.nav-collapse -->'
-    end
-
-    private
-
-      def open_template(template_path)
-        File.open File.join(File.dirname(__FILE__), 'templates', template_path)
       end
 
   end

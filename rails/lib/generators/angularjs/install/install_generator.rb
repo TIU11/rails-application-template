@@ -2,7 +2,7 @@
 
 module Angularjs
   class InstallGenerator < Rails::Generators::Base
-    source_root File.expand_path('../templates', __FILE__)
+    source_root File.expand_path('templates', __dir__)
 
     # Every method that is declared below will be automatically executed when the generator is run
 
@@ -20,12 +20,6 @@ module Angularjs
       # Check out http://coderberry.me/blog/2013/04/23/angularjs-on-rails-4-part-2/
       directory 'app'
     end
-
-    private
-
-      def open_template(template_path)
-        File.open File.join(File.dirname(__FILE__), 'templates', template_path)
-      end
 
   end
 end

@@ -15,13 +15,13 @@
 
 # Ignore uploaded files in development
 /storage/*
+/public/assets
 
 # Ignore Webpacker files
 /node_modules
 /yarn-error.log
 /public/packs
 
-/public/assets
 # Ignore Byebug command history file.
 .byebug_history
 

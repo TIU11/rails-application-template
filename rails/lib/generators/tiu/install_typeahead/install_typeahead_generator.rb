@@ -4,7 +4,7 @@ require 'byebug'
 
 module Tiu
   class InstallTypeaheadGenerator < Rails::Generators::Base
-    source_root File.expand_path('../templates', __FILE__)
+    source_root File.expand_path('templates', __dir__)
 
     def add_gem
       gem 'twitter-typeahead-rails', '~> 0.11.0'

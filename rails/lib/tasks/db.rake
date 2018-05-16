@@ -15,8 +15,8 @@ namespace :db do
   desc 'Store a snapshot of the database in db/snapshots (options: NAME=x.sql)'
   task snapshot: %w[db:load_configuration environment] do
     stamp = Time.now.strftime('%F-%H%M%S')
-    dir = ENV["DIR"] || "db/snapshots"
-    file = ENV["NAME"] || "#{stamp}-#{Rails.env}-snapshot.sql"
+    dir = ENV.fetch('DIR') { "db/snapshots" }
+    file = ENV.fetch('NAME') { "#{stamp}-#{Rails.env}-snapshot.sql" }
     path = File.expand_path(file, dir)
 
     Dir.mkdir(dir) unless Dir.exist? dir
@@ -35,7 +35,7 @@ namespace :db do
 
   desc "Load database from a previously stored snapshot, 'rake db:restore[filename.sql]'"
   task :restore, [:filename] => %w[db:load_configuration db:snapshot db:drop db:create environment] do |_task, args|
-    dir = ENV["DIR"] || "db/snapshots"
+    dir = ENV.fetch('DIR') { "db/snapshots" }
     filename = args[:filename]
 
     Dir.mkdir(dir) unless Dir.exist? dir

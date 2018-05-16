@@ -68,7 +68,7 @@ demo:
 ), before: /(#.*\n)+\s*production:\n/ # before production config and comments
 insert_into_file 'config/database.yml', %(
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+  host: <%= ENV.fetch('DATABASE_HOST') { 'localhost' } %>
 ), after: /^default: &default\n(  \w+:.*\n)+/ # at end of 'default' block
 insert_into_file 'config/database.yml', %(
 dev:
@@ -127,7 +127,7 @@ run "rvm #{default_ruby} do rvm --ruby-version --create use #{@desired_ruby}@#{g
 def run_bundle
   puts 'Updating to the latest Rubygems'.cyan
   puts "Currently using Rubygems #{`#{@rvm_do} gem -v`}"
-  run "#{@rvm_do} rvm rubygems latest"
+  run "#{@rvm_do} rvm rubygems latest" # TODO: installs older version than `gem update --system`
 
   puts 'Updating to the latest Bundler'.cyan
   run "rvm #{@desired_ruby}@global do gem install bundler"
