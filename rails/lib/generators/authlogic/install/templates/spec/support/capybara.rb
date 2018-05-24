@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # We focus on two types of tests:
 # 1. System Tests
 #   * tests user interaction with the whole system, so a few tests covers a lot

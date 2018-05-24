@@ -1,3 +1,4 @@
+      t.integer :status, default: 0
 
       # Requires PostgreSQL which provides arrays
       t.string :direct_roles, array: true, default: []

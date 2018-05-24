@@ -10,6 +10,7 @@ RSpec.describe User, type: :model do
   end
 
   it "should get a username and password before validation" do
+    user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
     expect(user.password).to be_nil
     expect(user.username).to be_nil
     user.validate
@@ -17,7 +18,7 @@ RSpec.describe User, type: :model do
     expect(user.username).to eq('gburdell')
   end
 
-  it "emails look like emails" do
+  it "should validate that emails look like emails" do
     invalid_emails = ['foo', 'foo@example', 'example.com', ' foo@example.com ']
     invalid_emails.each do |email|
       user.email = email

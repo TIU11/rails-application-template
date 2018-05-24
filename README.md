@@ -19,7 +19,7 @@ This template assumes some things:
         rvm install 2.4
         rvm install 2.4 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X
 
-* Rails 5.1.x is installed
+* Rails 5.2.x is installed
 
         rvm use 2.4.4
         gem install rails               # install latest version of rails
@@ -72,9 +72,8 @@ That's it, take her for a spin:
 
 # Post-setup
 
-* review the Gemfile (replace gems you may have added)
-* run `rails app:create_dotenv`
 * add ~dev, demo~, production deployment keys to Bitbucket
+* review `Gemfile` (replace gems you may have added)
 * review the environment configs: `development`, `dev`, `demo`, `production` (`dev` and `demo` are copies of production)
     * `config/environments/<environment>.rb`
     * `config/secrets.yml`
@@ -98,6 +97,7 @@ That's it, take her for a spin:
 
 # Todo
 
+* useful default `README.md`
 * define TLD and FQDN centrally, then use it everywhere
 * automate initial deploy
     * refactor `rvm:create_gemset` so it doesn't need to be invoked separately

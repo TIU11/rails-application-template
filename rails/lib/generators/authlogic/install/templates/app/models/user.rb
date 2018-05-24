@@ -4,6 +4,7 @@ class User < ApplicationRecord
   include FriendlyId
   friendly_id :username_candidates, use: :slugged, slug_column: :username
 
+  enum status: [:active, :inactive]
   alias_attribute :roles, :direct_roles
 
   acts_as_authentic do |config|

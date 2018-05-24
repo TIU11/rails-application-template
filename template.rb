@@ -162,10 +162,11 @@ after_bundle do
   run "#{@rvm_do} rails generate rspec:install"
 
   # Create the environments and database before papertrail which check db.
-  run "#{@rvm_do} rake app:create_dotenv"
-  run "#{@rvm_do} rake db:create"
+  run "#{@rvm_do} rails app:create_dotenv"
+  run "#{@rvm_do} rails db:create"
 
   if yes?('Create Users? [yN]'.cyan)
+    # TODO: update migrations to use :jsonb type for :object and :object_changes
     run "#{@rvm_do} rails generate paper_trail:install --with-changes"
     run "#{@rvm_do} rails generate authlogic:install --force"
   end
@@ -179,9 +180,9 @@ after_bundle do
     git commit: "-m 'Applied Rails Application Template'"
   end
 
-  run "#{@rvm_do} rake db:migrate"
-  run "#{@rvm_do} rake bitbucket:setup"
-  run "#{@rvm_do} rake bitbucket:launch_sourcetree"
+  run "#{@rvm_do} rails db:migrate"
+  run "#{@rvm_do} rails bitbucket:setup"
+  run "#{@rvm_do} rails bitbucket:launch_sourcetree"
 
   puts "\nNow is a good time to run the generated application, and fix anything wonky before deploying".yellow
   if yes?('Deploy? [yN]'.cyan)
