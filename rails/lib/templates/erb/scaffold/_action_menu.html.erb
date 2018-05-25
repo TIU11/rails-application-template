@@ -19,17 +19,17 @@
         <!-- dropdown menu links -->
         <%% if action_name != 'show' && can?(:show, <%= singular_table_name %>) %>
           <li>
-            <%%= link_to icon('file', 'View'), <%= singular_table_name %>_path(<%= singular_table_name %>) %>
+            <%%= link_to icon('file', 'View', class: 'fa-fw'), <%= singular_table_name %>_path(<%= singular_table_name %>) %>
           </li>
         <%% end %>
         <%% if can? :edit, <%= singular_table_name %> %>
           <li>
-            <%%= link_to icon('pencil', 'Edit'), edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %>
+            <%%= link_to icon('pencil', 'Edit', class: 'fa-fw'), edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %>
           </li>
         <%% end %>
         <%% if can? :delete, <%= singular_table_name %> %>
           <li>
-            <%%= link_to icon('trash', 'Delete'), <%= singular_table_name %>, {data: { confirm: 'Are you sure?' }, method: :delete} %>
+            <%%= link_to icon('trash', 'Delete', class: 'fa-fw'), <%= singular_table_name %>, {data: { confirm: 'Are you sure?' }, method: :delete} %>
           </li>
         <%% end %>
       </ul>
