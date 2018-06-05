@@ -18,7 +18,7 @@ gem 'active_model_serializers', '~> 0.10.0' # building JSON responses
 gem 'addressable'               # more conformant replacement for (obsolete) Ruby URI
 gem 'colorize'                  # Colored console output
 gem 'friendly_id', '~> 5.2.0'   # Nice URLs
-gem 'paper_trail', '~> 9.0.0'   # Track model revisions
+gem 'paper_trail', '~> 9.0'     # Track model revisions
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
 gem 'will_paginate', '~> 3.1.0' # Pagination
 
