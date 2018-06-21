@@ -36,4 +36,11 @@ module SeoHelper
       content_for :meta_description
     end
   end
+
+  # Direct search engines not to index or follow links for non-production pages.
+  # https://moz.com/learn/seo/robots-meta-directives
+  def meta_robots
+    return if Rails.env.production?
+    tag :meta, name: 'robots', content: 'none'
+  end
 end
