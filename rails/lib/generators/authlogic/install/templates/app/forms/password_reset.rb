@@ -2,25 +2,15 @@
 
 class PasswordReset
   include ActiveModel::Model
-  include Virtus.model
+  include ActiveModel::Attributes
 
-  attribute :username, String
-  attribute :email, String
+  attribute :username, :string
+  attribute :email, :string
 
   #
   # Validations
   #
 
-  validates :email,
-            presence: true
-  validates :email,
-            email: true, allow_blank: true
-
-  #
-  # Methods
-  #
-
-  def persisted?
-    false
-  end
+  validates :email, presence: true
+  validates :email, email: true, allow_blank: true
 end

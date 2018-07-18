@@ -2,11 +2,11 @@
 
 class VersionSearchForm
   include ActiveModel::Model
-  include Virtus.model
+  include ActiveModel::Attributes
 
-  attribute :author_id, Integer
-  attribute :from, Date
-  attribute :to, Date
+  attribute :author_id, :integer
+  attribute :from, :localized_date
+  attribute :to, :localized_date
 
   #
   # Validations
@@ -22,14 +22,6 @@ class VersionSearchForm
   def author_id=(author_id)
     @author = nil
     super
-  end
-
-  def from=(value)
-    super coerce_date(value)
-  end
-
-  def to=(value)
-    super coerce_date(value)
   end
 
   def author
@@ -52,16 +44,19 @@ class VersionSearchForm
     PaperTrail::Version.minimum(:created_at)&.to_date
   end
 
+  # Returns the value of the attribute identified by +attr_name+.
+  #
+  # NOTE: Expected this in +ActiveModel::AttributeMethods+, but it is only provided by
+  # +ActiveRecord::AttributeMethods+ as of Rails 5.2.
+  def [](attr_name)
+    read_attribute_for_validation(attr_name)
+  end
+
   private
 
     def valid_dates
       return unless from.present? && to.present? && from > to
       errors.add(:from, "cannot be after To")
-    end
-
-    def coerce_date(value)
-      return if value.empty?
-      Date.strptime(value, I18n.translate("date.formats.default")) rescue nil
     end
 
 end

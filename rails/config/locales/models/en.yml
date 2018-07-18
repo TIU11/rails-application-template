@@ -23,6 +23,8 @@ en:
       new: create
       show: view
 
+  # helpers:
+
   date:
     formats:
       default: "%m/%d/%Y"

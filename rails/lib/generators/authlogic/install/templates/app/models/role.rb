@@ -2,21 +2,21 @@
 
 class Role
   include ActiveModel::Model
-  include Virtus.model
+  include ActiveModel::Attributes
 
-  attribute :name, String
+  attribute :name, :string
 
   ROLES = [
     { name: 'Administrator' },
     { name: 'System Administrator' }
-  ]
+  ].freeze
 
   #
   # Class Methods
   #
 
   def self.all
-    @roles ||= ROLES.map {|role_attributes| Role.new role_attributes}
+    @roles ||= ROLES.map { |role_attributes| Role.new role_attributes }
   end
 
 

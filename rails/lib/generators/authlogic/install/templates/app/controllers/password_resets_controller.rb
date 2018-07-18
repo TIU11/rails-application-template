@@ -5,9 +5,7 @@ class PasswordResetsController < ApplicationController
   skip_authorization_check
 
   def new
-    @password_reset = PasswordReset.new(
-      email: (current_user && current_user.email)
-    )
+    @password_reset = PasswordReset.new(email: current_user&.email)
   end
 
   def create
