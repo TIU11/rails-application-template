@@ -97,6 +97,7 @@ That's it, take her for a spin:
 
 # Todo
 
+* still needs font-awesome-migrator to be applied to the template. Might be good to notify folks to run on their projects if they were depending on FA 4.x
 * useful default `README.md`
 * define TLD and FQDN centrally, then use it everywhere
 * automate initial deploy
