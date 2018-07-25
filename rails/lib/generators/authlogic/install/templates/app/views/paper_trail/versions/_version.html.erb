@@ -19,7 +19,7 @@
     <% if version.object_instance.present? %>
      &mdash;
     <% end %>
-    <% if version.has_route? %>
+    <% if version.route? %>
       <%= link_to(version.object_instance, version.object_path) %>
     <% else %>
       <%= version.object_instance %>

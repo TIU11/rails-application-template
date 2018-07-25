@@ -23,6 +23,14 @@ Documentation:
 Metrics/LineLength:
   Max: 120
 
+Metrics/MethodLength:
+  Exclude:
+    - 'db/migrate/*.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'db/migrate/*.rb'
+
 # Allow long blocks. This includes rake tasks, rake namespaces.
 # TODO: can we allow large namespaces, but not the others?
 Metrics/BlockLength:
@@ -36,9 +44,25 @@ Style/FormatStringToken:
 Style/StringLiterals:
   Enabled: false # TODO: consider re-enabling. Address 200+ offenses.
 
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'config/**/*.rb'
+    - 'db/**/*.rb'
+    - 'spec/**/*.rb'
+    - 'test/**/*.rb'
+
 # Prefer array literals of symbols over %i(), which requires memorizing "%i"
 Style/SymbolArray:
   EnforcedStyle: brackets
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'spec/models/**/*.rb'
+    - 'test/models/**/*.rb'
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'app/controllers/*_controller.rb'
 
 #################### Layout ###########################
 
@@ -62,3 +86,7 @@ Layout/EmptyLinesAroundModuleBody:
 # Allow empty lines around blocks
 Layout/EmptyLinesAroundBlockBody:
   Enabled: false
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude:
+    - config/environments/*.rb

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
   add_template_helper(AnalyticsHelper)
   default from: I18n.t('app.sending_email'),
