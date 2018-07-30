@@ -5,6 +5,7 @@ class User < ApplicationRecord
   friendly_id :username_candidates, use: :slugged, slug_column: :username
 
   enum status: [:active, :inactive]
+  attribute :direct_roles, :role, array: true
   alias_attribute :roles, :direct_roles
 
   acts_as_authentic do |config|
@@ -105,7 +106,7 @@ class User < ApplicationRecord
     end
 
     def role_must_be_in_list
-      invalid_roles = roles - Role.all.map(&:name)
+      invalid_roles = roles - Role.direct
       invalid_roles.each do |role|
         errors.add(:roles, "'#{role}' is not a recognized role")
       end

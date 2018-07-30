@@ -9,12 +9,22 @@ module Type
       super(precision: precision, limit: limit, scale: scale)
     end
 
+    def serialize(value)
+      super(value)
+      apply_options(value)
+    end
+
     private
 
       def cast_value(value)
-        if @squish
-          value.strip
-        elsif @strip
+        value = super(value)
+        apply_options(value)
+      end
+
+      def apply_options(value)
+        if value && @squish
+          value.squish
+        elsif value && @strip
           value.strip
         else
           value
