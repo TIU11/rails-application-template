@@ -33,4 +33,24 @@ module ApplicationHelper
 
     link_to(name, '#0', class: css_class, data: { id: id, fields: fields_html.delete("\n") })
   end
+
+  CSS_CLASS_FOR_STATUS = {
+    'active' => 'badge-primary',
+    'inactive' => 'badge-secondary'
+  }.freeze
+
+  # Display model's status badge
+  def status_tag(status)
+    # Read status when given an ApplicationRecord object
+    status = status.status if status.is_a? ApplicationRecord
+
+    span_class = CSS_CLASS_FOR_STATUS[status.to_s]
+    content_tag :span, status.titleize, class: "badge #{span_class}"
+  end
+
+  def no_records_message(records)
+    return unless records.blank?
+    records = records.is_a?(ActiveRecord::Relation) ? records.klass.model_name.human.pluralize.downcase : 'records'
+    content_tag :p, "No matching #{records} found", class: 'lead'
+  end
 end

@@ -63,7 +63,7 @@ class User < ApplicationRecord
   # - is? :program_administrator, "Building Coach", :admin
   # => true if user has any of these roles
   def is?(*role)
-    role.any? { |r| Role.canonical_name(r).in? roles }
+    role.any? { |r| Role[r].in? roles }
   end
 
   def name

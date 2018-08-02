@@ -28,13 +28,16 @@ module PaperTrail
       end
     end
 
+    # Returns model's class object when available, +nil+ if a class was renamed or removed.
     def item_class
       @item_class ||= item_type.safe_constantize
     end
 
     # TODO: reject empty values? (or do we not save the empties in the first place)
     def enhanced_changeset
-      if changeset.present?
+      if item_class.nil? # TODO: seems a lot like +else+ case. Combinable?
+        result_changeset = object_changes
+      elsif changeset.present?
         result_changeset = changeset.deep_dup
       else # changeset is empty on 'delete' event, so we'll create one
         result_changeset = {}
@@ -75,7 +78,7 @@ module PaperTrail
         if model_class && foreign_key
           model_class.find_by(id: object_attributes[foreign_key])
         else
-          item_class.find_by(id: item_id)
+          item_class&.find_by(id: item_id)
         end
       end
     end
@@ -90,12 +93,12 @@ module PaperTrail
       params = { only_path: true }
                .merge(route.defaults) # ex. { controller: 'users', action: 'show' }
                .merge(object_instance.slice(*route.required_parts).symbolize_keys)
-      Rails.application.routes.url_for(params)
+      ::Rails.application.routes.url_for(params)
     end
 
     # All :show routes on the object's controller
     def routes
-      all_routes = Rails.application.routes.routes
+      all_routes = ::Rails.application.routes.routes
       controller_name = object_instance.class.name.underscore.pluralize
 
       all_routes.select do |route|
@@ -106,7 +109,7 @@ module PaperTrail
     private
 
       def belongs_to_associations
-        @belongs_to_associations ||= item_class.reflect_on_all_associations(:belongs_to)
+        @belongs_to_associations ||= item_class&.reflect_on_all_associations(:belongs_to) || []
       end
 
       def determine_model_from_polymorphic
