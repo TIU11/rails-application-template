@@ -37,7 +37,7 @@ class GetEnvironmentInfo
 
     # True if application is in a git repository. False otherwise.
     def git_repository?
-      @git ||= `git rev-parse --is-inside-work-tree 2> /dev/null`.strip == 'true'
+      @git_repository ||= `git rev-parse --is-inside-work-tree 2> /dev/null`.strip == 'true'
     end
 
     # Get Time of current Capistrano release from application path, nil if not a timestamp.

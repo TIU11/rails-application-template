@@ -35,6 +35,7 @@ module DateTimeHelper
   # TODO: consider using or drying this up along these lines:
   # https://github.com/hpoydar/chronic_duration/blob/master/lib/chronic_duration.rb
   # http://api.rubyonrails.org/classes/ActionView/Helpers/DateHelper.html#method-i-distance_of_time_in_words
+  # rubocop:disable all
   def duration_text(duration_in_seconds)
     return if duration_in_seconds.nil?
     seconds = duration_in_seconds
@@ -68,6 +69,7 @@ module DateTimeHelper
       "#{seconds} seconds"
     end
   end
+  # rubocop:enable all
 
   def duration_span(duration_in_seconds, title_units = :seconds)
     title_duration = convert_seconds(duration_in_seconds, title_units)

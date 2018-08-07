@@ -17,6 +17,7 @@ module DatepickerHelper
   #     attribute :start_date, :localized_date
   #
   # TODO: datepicker doesn't activate when clicking the input-group-addon. Their docs out-of-date on this.
+  # rubocop:disable MethodLength
   def datepicker_tag(form, name, options = {})
     value = form.object[name]&.to_date # cast value to a Date
     value = I18n.localize(value, format: FORMAT_NAME) if value.present?
@@ -38,6 +39,7 @@ module DatepickerHelper
       concat content_tag(:span, icon('calendar'), class: 'input-group-addon')
     end
   end
+  # rubocop:enable MethodLength
 
   # Maps each Ruby format to its corresponding Datepicker format
   # Structure: 'ruby' => 'datepicker'

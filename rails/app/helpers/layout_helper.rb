@@ -9,6 +9,7 @@ module LayoutHelper
   #     </div>
   #   </div>
   # </div>
+  # rubocop:disable MethodLength
   def container_tag(class: nil, with_column: true, &block)
     klass = "container #{binding.local_variable_get(:class)}"
     content_tag :div, class: klass do
@@ -23,6 +24,7 @@ module LayoutHelper
       end
     end
   end
+  # rubocop:enable MethodLength
 
   # Wraps container tag. Useful for applying a full-bleed background.
   # keyword arguments pass through
