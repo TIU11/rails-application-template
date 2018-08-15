@@ -17,7 +17,8 @@ class PasswordResetsController < ApplicationController
         flash[:notice] = t('app.messages.password_reset.sent_email')
       else
         support_email = User.administrators.first.full_email rescue I18n.t('app.support_email')
-        @password_reset.errors[:base] << t('app.messages.password_reset.account_not_found_html', email: support_email).html_safe
+        @password_reset.errors[:base] << t('app.messages.password_reset.account_not_found_html',
+                                           email: support_email).html_safe
       end
     end
 
@@ -34,8 +35,7 @@ class PasswordResetsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @user.password = user_params[:password]
@@ -44,7 +44,7 @@ class PasswordResetsController < ApplicationController
     @user.valid?
 
     # if it changed and password empty add error to user model
-    @user.errors[:password] = "was not provided" if !@user.changed?
+    @user.errors[:password] = "was not provided" unless @user.changed?
 
     # filter errors
     relevant_errors = @user.errors.to_hash.slice(:password, :password_confirmation)
@@ -66,22 +66,22 @@ class PasswordResetsController < ApplicationController
 
   private
 
-  # Only allow a trusted parameter "white list" through.
-  def password_reset_params
-    params.require(:password_reset).permit(:username, :email)
-  end
+    # Only allow a trusted parameter "white list" through.
+    def password_reset_params
+      params.require(:password_reset).permit(:username, :email)
+    end
 
-  def user_params
-    params.require(:user).permit(:password, :password_confirmation)
-  end
+    def user_params
+      params.require(:user).permit(:password, :password_confirmation)
+    end
 
-  def set_user
-    @user = User.find_using_perishable_token(params[:id])
-    unless @user
+    def set_user
+      @user = User.find_using_perishable_token(params[:id])
+      return if @user
+
       flash[:error] = t('app.messages.password_reset.inactive_link_html',
                         new_password_reset_path: new_password_reset_path.html_safe)
       flash[:html_safe] = true # don't escape HTML when rendering flash messages
       redirect_to login_path
     end
-  end
 end

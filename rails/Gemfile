@@ -26,10 +26,11 @@ gem 'will_paginate', '~> 3.1.0' # Pagination
 
 gem 'bootsnap', require: false  # Speed up boot time by caching expensive operations.
 gem 'exception_notification', '~> 4.2.0'
-gem 'rack-timeout'              # Abort requests that are taking too long
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
 gem 'slack-notifier'            # Send exception notifications to Slack
 gem 'whenever', require: false  # Schedule cron jobs
+
+gem 'rack-timeout', require: 'rack/timeout/base' # Abort requests that are taking too long
 
 # Styling
 
