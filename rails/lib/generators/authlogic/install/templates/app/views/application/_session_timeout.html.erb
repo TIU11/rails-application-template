@@ -1,0 +1,20 @@
+<% if current_user %>
+
+  <div class="modal fade" id="session-timeout-modal" data-seconds-remaining="<%= User.logged_in_timeout %>">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Would you like to continue?</h4>
+        </div>
+        <div class="modal-body">
+          <p>Your secure connection to the <%= t('app.title') %> will time-out in</p>
+          <p class="text-center lead"><mark id="session_timeout_countdown"></mark></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Continue</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+<% end %>
