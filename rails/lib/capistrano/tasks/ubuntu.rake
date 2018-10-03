@@ -28,7 +28,8 @@ namespace :ubuntu do
       rgeo: [
         'libgeos-dev', # GEOS 3.3.3+ recommended
         'libproj-dev' # Proj 4.7+ recommended
-      ]
+      ],
+      webpacker: 'yarn'
     }
 
     # build list of package dependencies
