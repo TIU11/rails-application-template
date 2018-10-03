@@ -7,12 +7,18 @@ Bootstraps a Rails project, with customizations beyond a default `rails new my-a
 This template assumes some things:
 
 * RVM is installed and up-to-date (1.29.x)
+  on your mac
 
         # See http://rvm.io/rvm/install
-        \curl -sSL https://get.rvm.io | bash -s stable --rails
+        gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+        \curl -sSL https://get.rvm.io | bash -s stable
 
         # Upgrade with
         rvm get stable && rvm reload
+
+  and on the server, just execute with `sudo` to install system-wide
+
+        \curl -sSL https://get.rvm.io | sudo bash -s stable
 
 * Ruby 2.4.x is installed
 
