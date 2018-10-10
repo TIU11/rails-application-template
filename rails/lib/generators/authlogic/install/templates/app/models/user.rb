@@ -56,6 +56,14 @@ class User < ApplicationRecord
   validate :role_must_be_in_list
 
   #
+  # Class Methods
+  #
+
+  def self.find_by_username_or_email(value = nil)
+    where(username: value).or(where(email: value)).first
+  end
+
+  #
   # Methods
   #
 
