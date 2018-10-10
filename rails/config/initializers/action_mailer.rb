@@ -5,6 +5,7 @@
 # Resources:
 # * [Rails Guide](http://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration-for-gmail)
 # * [G Suite SMTP settings to send mail from a printer, scanner, or app](https://support.google.com/a/answer/176600?hl=en)
+# * [Gitlab SMTP settings](https://docs.gitlab.com/omnibus/settings/smtp.html)
 #
 # TODO:
 # * Requires setting "Allow less secure apps: ON" at (https://myaccount.google.com/u/1/security)
