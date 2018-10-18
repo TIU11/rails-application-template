@@ -23,7 +23,7 @@ module All # :nodoc:
         # Overrides https://github.com/rails/rails/blob/master/railties/lib/rails/generators/erb.rb
         def filename_with_extensions(name, format = self.format)
           file_format = name[/\.xls/] ? nil : format # format on view name overrides default
-          [name, file_format, handler].compact.join(".")
+          [name, file_format, handler].reject(&:blank?).join(".")
         end
     end
   end

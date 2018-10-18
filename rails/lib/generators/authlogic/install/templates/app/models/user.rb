@@ -75,7 +75,7 @@ class User < ApplicationRecord
   end
 
   def name
-    [first_name, last_name].compact.join(' ')
+    [first_name, last_name].reject(&:blank?).join(' ')
   end
 
   def first_initial
