@@ -59,6 +59,15 @@ class GetEnvironmentInfo
       nil # return nil when directory name fails to parse to a time
     end
 
+    def uptime
+      ActionController::Base.helpers.time_ago_in_words(booted_at) if booted_at
+    end
+
+    # Set via uptime initializer
+    def booted_at
+      BOOTED_AT if defined? BOOTED_AT
+    end
+
     def to_s
       "name: #{name}, git: #{git_repository?}, revision: #{revision}, released_at: #{released_at}"
     end

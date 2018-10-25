@@ -5,14 +5,23 @@
       <%= icon 'cogs' %>
       <%= t('shared.environment_info.name', name: environment_info.name.titleize) %>
     </span>
+
     <span class="revision">
       <%= icon 'code-fork' %>
       <%= t('shared.environment_info.revision', revision: environment_info.revision) %>
     </span>
+
     <% if environment_info.released_at.present? %>
       <span class="released-at">
         <%= icon 'calendar-o' %>
         <%= t('shared.environment_info.released_at', released_at: environment_info.released_at) %>
+      </span>
+    <% end %>
+
+    <% if environment_info.uptime.present? %>
+      <span class="uptime">
+        <%= icon 'clock-o' %>
+        <%= t('shared.environment_info.uptime', uptime: environment_info.uptime) %>
       </span>
     <% end %>
   <% end %>
