@@ -3,6 +3,9 @@
 # * [rubocop defaults](https://github.com/bbatsov/rubocop/blob/master/config/default.yml)
 # * [rails defaults](https://github.com/rails/rails/blob/master/.rubocop.yml)
 
+require:
+  - rubocop-rspec
+
 AllCops:
   Exclude:
     - 'node_modules/**/*'

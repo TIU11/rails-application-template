@@ -94,6 +94,7 @@ group :development do
 
   gem 'rails_best_practices'    # Code metric tool for quality checks
   gem 'rubocop', '~> 0.50', require: false # Static code analyzer. Enforces the Ruby Style Guide
+  gem 'rubocop-rspec'
 end
 
 group :test do
