@@ -11,7 +11,7 @@ RSpec.describe Type::Role, type: :model do
     attribute :role, :role
   end
 
-  it "should cast user input for role to a Role" do
+  it "casts user input for role to a Role" do
     valid_roles = [:contact, 'Contact', 'CONTACT']
     valid_roles.each do |role|
       model = self.class::ModelForType.new(role: role)
@@ -19,7 +19,7 @@ RSpec.describe Type::Role, type: :model do
     end
   end
 
-  it "should cast input in where statements" do
+  it "casts input in where statements" do
     sql = User.where(roles: [:contact]).to_sql
     expected_sql = %(SELECT "users".* FROM "users" WHERE "users"."direct_roles" = '{Contact}')
     expect(sql).to eql(expected_sql)

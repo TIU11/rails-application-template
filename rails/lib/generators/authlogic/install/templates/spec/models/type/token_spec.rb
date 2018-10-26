@@ -11,13 +11,13 @@ RSpec.describe Type::Token, type: :model do
     attribute :token, :token, default: :random
   end
 
-  it "should allow a :random default value" do
+  it "allows a :random default value" do
     model = self.class::ModelForType.new
     expect(model.token).to be_a(::String)
     expect(model.token.length).to eq(::Type::Token::LENGTH)
   end
 
-  it "should allow valid tokens" do
+  it "allows valid tokens" do
     valid_tokens = %w[A A3]
     valid_tokens.each do |token|
       model = self.class::ModelForType.new(token: token)
