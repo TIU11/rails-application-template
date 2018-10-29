@@ -14,6 +14,9 @@ $gray-light:                #727272; // darkened from #777 for WCAG AA
 
 //== Typography
 
+// Google Fonts guide: https://developers.google.com/fonts/docs/getting_started
+@import url(https://fonts.googleapis.com/css?family=Arvo:i,400,700|Open+Sans:i,300,400,600,700,800);
+
 $font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-size-base:          16px;
 
