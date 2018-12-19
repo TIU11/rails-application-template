@@ -36,11 +36,4 @@ ExceptionNotification.configure do |config|
     }
   )
 
-  # HipChat notifier sends notifications to your HipChat room. Requires 'hipchat' gem.
-  # config.add_notifier(
-  #   :hipchat,
-  #   api_token: ENV['HIPCHAT_TOKEN'],
-  #   room_name: 'Alerts'
-  # )
-
 end
