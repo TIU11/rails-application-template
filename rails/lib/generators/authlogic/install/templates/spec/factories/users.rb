@@ -10,9 +10,9 @@ FactoryBot.define do
     password password
     password_confirmation password
 
-    # administrator user
+    # Administrator user
     factory :admin do
-      roles 'Administrator'
+      roles { [:administrator] }
     end
   end
 
