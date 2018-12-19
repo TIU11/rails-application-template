@@ -102,14 +102,12 @@ class ApplicationController < ActionController::Base
     return if current_user
     flash[:warning] = t('app.messages.require_user')
     redirect_to login_url(redirect_uri: request.path)
-    false
   end
 
   def require_no_user
     return unless current_user
     flash[:warning] = t('app.messages.require_no_user')
     redirect_back_or_default_to root_url
-    false
   end
 
   # Sets the filename header using the name from action_filename.
