@@ -5,11 +5,13 @@ class UserSessionsController < ApplicationController
   before_action :require_no_user, only: [:new, :create]
   before_action :require_user, except: [:new, :create, :seconds_remaining, :timeout, :continue, :destroy]
 
+  # GET /login
   def new
     @user_session = UserSession.new
     session.delete :su_user
   end
 
+  # POST /user_session
   def create
     @user_session = UserSession.new(user_session_params.to_h)
     session.delete :su_user
@@ -22,9 +24,10 @@ class UserSessionsController < ApplicationController
     end
   end
 
+  # GET /logout
   def destroy
     current_user_session&.destroy
-    flash[:notice] = if _timeout < Time.now
+    flash[:notice] = if _session_expired
                        I18n.t('app.messages.timeout') # logout due to timeout
                      else
                        I18n.t('app.messages.logout') # manual logout
@@ -36,6 +39,7 @@ class UserSessionsController < ApplicationController
   end
 
   # Switch User
+  # GET /su/:id
   def su
     authorize! :su, UserSession
     @user = User.friendly.find params[:id]
@@ -50,6 +54,7 @@ class UserSessionsController < ApplicationController
   end
 
   # Un-switch User
+  # GET /unsu
   def unsu
     if session.key?(:su_user)
       previous_user = User.find session[:su_user]
@@ -100,5 +105,9 @@ class UserSessionsController < ApplicationController
       else
         15.minutes.ago # an arbitrary, clearly-past time, as the session has expired
       end
+    end
+
+    def _session_expired
+      _timeout < Time.now
     end
 end

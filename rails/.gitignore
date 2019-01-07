@@ -36,3 +36,6 @@ db/snapshots
 
 # SimpleCov reports
 coverage
+
+# RSpec
+spec/examples.txt

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SessionHelper
   # Login as the given user. Asserts successful login message.
   def login_as(user)

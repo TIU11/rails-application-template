@@ -23,18 +23,18 @@ class ApplicationController < ActionController::Base
 
   # Handles authorization errors. Notifies user why it occurred and redirects to root_url.
   rescue_from CanCan::AccessDenied do |e|
-    Rails.logger.warn { "Access denied to '#{e.action}' a '#{e.subject}' was denied to #{current_user}." }
+    Rails.logger.warn { "Access denied for #{current_user.to_param} to '#{e.action}' a '#{e.subject}'." }
 
     # Notify users with detailed explanation
     if current_user
-      action = I18n.translate "errors.actions.#{e.action}", default: e.action.to_s
+      action = I18n.t("errors.actions.#{e.action}", default: e.action).titleize.downcase
 
       # Explain to users why they were denied access.
-      roles = current_user.roles.try(:to_sentence) || 'regular user'
+      roles = current_user.roles.present? ? current_user.roles.to_sentence : 'regular user'
       if e.subject.is_a? Class
-        flash[:error] = "As a #{roles}, you are not authorized to #{action.titleize.downcase} #{e.subject.name.pluralize.titleize}."
+        flash[:error] = "As a #{roles}, you are not authorized to #{action} #{e.subject.name.pluralize.titleize}."
       else
-        flash[:error] = "As a #{roles}, you are not authorized to #{action.titleize.downcase} this #{e.subject.class.name.titleize}."
+        flash[:error] = "As a #{roles}, you are not authorized to #{action} this #{e.subject.class.name.titleize}."
       end
 
       redirect_back_or_default_to root_url
@@ -62,6 +62,7 @@ class ApplicationController < ActionController::Base
   # Typically called to store location before showing a form to support 'Cancel' button:
   #   `before_action :store_referrer, only: [:index, :new, :edit]`
   def store_referrer
+    return if request.referrer == login_url # Avoid returning to /login after the next action.
     store_location request.referer # remember where we were
   end
 
@@ -146,5 +147,15 @@ class ApplicationController < ActionController::Base
     @environment_info ||= GetEnvironmentInfo.call
   end
   helper_method :environment_info
+
+  # A default implementation for the destroy action.
+  def destroy_record(record)
+    if record.destroy
+      flash[:notice] = "#{record.model_name.human} was successfully destroyed."
+    else
+      flash[:error] = record.errors.full_messages.to_sentence
+    end
+    redirect_back fallback_location: url_for(record)
+  end
 
 end
