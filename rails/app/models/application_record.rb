@@ -14,11 +14,11 @@ class ApplicationRecord < ActiveRecord::Base
     def sample(sample_size = 1)
       case ActiveRecord::Base.connection.adapter_name
       when 'PostgreSQL', 'SQLite'
-        limit(sample_size).order('RANDOM()')
+        limit(sample_size).order(Arel.sql('RANDOM()'))
       when 'MySQL'
-        limit(sample_size).order('RAND()')
+        limit(sample_size).order(Arel.sql('RAND()'))
       when 'SQLServer'
-        limit(sample_size).order('NEWID()')
+        limit(sample_size).order(Arel.sql('NEWID()'))
       else
         # Here are more http://stackoverflow.com/questions/19412/how-to-request-a-random-row-in-sql
         raise 'Current database adapter is not supported.'
