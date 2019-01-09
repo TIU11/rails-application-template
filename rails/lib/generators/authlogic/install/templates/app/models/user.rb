@@ -49,10 +49,12 @@ class User < ApplicationRecord
   # Validations
   #
 
-  validates :first_name, :last_name,
-            presence: true
+  validates :first_name, :last_name, presence: true
+  validates :password,
+            confirmation: { if: :require_password? }, length: { minimum: 8, if: :require_password? }
   validates :email,
-            uniqueness: { case_sensitive: false }
+            length: { maximum: 100 }, format: { with: /.@./ },
+            uniqueness: { case_sensitive: false, if: :will_save_change_to_email? }
   validate :role_must_be_in_list
 
   #
