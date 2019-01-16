@@ -102,7 +102,7 @@ class ApplicationController < ActionController::Base
   def require_user
     return if current_user
     flash[:warning] = t('app.messages.require_user')
-    redirect_to login_url(redirect_uri: request.path)
+    redirect_to login_url(redirect_uri: request.fullpath)
   end
 
   def require_no_user
