@@ -72,11 +72,11 @@ module PaperTrail
       end
     end
 
+    # TODO: Determine if there should be a parent object instance when polymorphic. What is this returning?
     def object_instance
       @object_instance ||= begin
-        model_class, foreign_key = determine_model_from_polymorphic
-        if model_class && foreign_key
-          model_class.find_by(id: object_attributes[foreign_key])
+        if parent_association.present?
+          parent_model
         else
           item_class&.find_by(id: item_id)
         end
@@ -99,6 +99,7 @@ module PaperTrail
     # All :show routes on the object's controller
     def routes
       all_routes = ::Rails.application.routes.routes
+      # TODO: consider object_instance.model_name.route_key
       controller_name = object_instance.class.name.underscore.pluralize
 
       all_routes.select do |route|
@@ -112,17 +113,20 @@ module PaperTrail
         @belongs_to_associations ||= item_class&.reflect_on_all_associations(:belongs_to) || []
       end
 
-      def determine_model_from_polymorphic
-        polymorphic_association = belongs_to_associations.find do |a|
-          a.polymorphic? && a.active_record.name.eql?(item_type)
+      # Assumes the polymorphic is a parent record and there is only one
+      def parent_association
+        @parent_association ||= begin
+          belongs_to_associations.find do |a|
+            a.polymorphic? && a.active_record.name.eql?(item_type) # TODO: why the name check?
+          end
         end
+      end
 
-        if polymorphic_association.present?
-          model_class = object_attributes["#{polymorphic_association.name}_type"].safe_constantize
-          model_foreign_id_name = "#{polymorphic_association.name}_id"
-        end
-
-        [model_class, model_foreign_id_name]
+      def parent_model
+        return unless parent_association.present?
+        model_class = object_attributes["#{parent_association.name}_type"]&.safe_constantize
+        foreign_key = "#{parent_association.name}_id"
+        model_class.find_by(id: object_attributes[foreign_key]) if model_class && foreign_key
       end
 
   end
