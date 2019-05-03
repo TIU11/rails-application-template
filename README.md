@@ -33,7 +33,7 @@ This template assumes some things:
 
 * Bundler and RubyGems are up-to-date (optional)
 
-        rvm @global do gem install bundler  # Rails 5.x depends on bundler (< 2.0, >= 1.3.0)
+        rvm @global do gem install bundler -v 1.17.3  # Rails 5.x depends on bundler (< 2.0, >= 1.3.0)
                                             # We've noticed bundler 1.7+ is much faster than 1.3
         gem update --system                 # Per https://rubygems.org/pages/download
 
@@ -57,16 +57,16 @@ To see what the template does, we like to first generate a default rails app and
 
     cd ~/code                    # Wherever you put your projects
     rvm use 2.4.5
-    rails new my-app --database=postgresql --skip-turbolinks  --skip-action-cable --skip-yarn --no-scaffold-stylesheet
+    rails new my-app --database=postgresql --skip-turbolinks  --skip-action-cable --no-scaffold-stylesheet
     cd my-app
     git init
     git add .
-    git commit -m "Initialized with `rails new`"
+    git commit -m "Initialized with 'rails new'"
 
 Finally, apply this template:
 
     cd ~/code                    # Wherever you put your projects
-    rails new my-app -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks  --skip-action-cable --skip-yarn --no-scaffold-stylesheet --force
+    rails new my-app -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database=postgresql --skip-turbolinks  --skip-action-cable --no-scaffold-stylesheet --force
 
 Look over what the template added to the default app. You might spot something that could be improved in the template.
 

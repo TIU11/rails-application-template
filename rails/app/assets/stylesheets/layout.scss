@@ -1,2 +1,17 @@
 // Suppress focus indication. See (http://getbootstrap.com/getting-started/#accessibility)
 #content:focus { outline: none; }
+
+// Pagination links
+.pagination { justify-content: center; margin: 1rem 0; }
+.pagination-record-count { display: block; margin-bottom: $spacer * .5; text-align: right; }
+
+// Toolbar Header
+.toolbar-header {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+
+  > .btn-toolbar > .btn-group {
+    margin-left: .5rem;
+  }
+}

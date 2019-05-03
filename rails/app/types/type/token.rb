@@ -27,6 +27,7 @@ module Type
         if value == :random
           random_number
         elsif value.is_a? ::String
+          value = value.upcase
           value if value.chars.all? { |c| c.in? CHARACTERS }
         end
       end

@@ -8,18 +8,23 @@
 #
 class LocalizedDate < ActiveRecord::Type::Date
 
-  # TODO: configurable format instead of just :default
-  FORMAT = :default
+  FORMAT_STRING_EXPR = /(?<=%)(?<flag>[-_0^#])?(?<width>\d)?/ # Full specifier is: %<flag><width><modifier><conversion>
 
-  def format
-    I18n.translate("date.formats.#{FORMAT}")
+  def initialize(format: default_format)
+    @format_string = safe_format_string(format)
+  end
+
+  # Deserialize db value using Date::DATE_FORMATS[:db]
+  def deserialize(value)
+    cast_value(value, format: Date::DATE_FORMATS[:db]) unless value.nil?
   end
 
   private
 
-    def cast_value(value)
+    def cast_value(value, format: @format_string)
       if value.is_a?(::String)
         return if value.empty?
+
         Date.strptime(value, format)
       elsif value.respond_to?(:to_date)
         value.to_date
@@ -30,4 +35,13 @@ class LocalizedDate < ActiveRecord::Type::Date
       nil
     end
 
+    def default_format
+      I18n.translate("date.formats.default")
+    end
+
+    # Date.strptime doesn't support flags and width, so remove them.
+    # See https://ruby-doc.org/stdlib/libdoc/date/rdoc/Date.html#method-c-strptime
+    def safe_format_string(value)
+      value.gsub FORMAT_STRING_EXPR, ''
+    end
 end

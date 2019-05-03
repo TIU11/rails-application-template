@@ -15,10 +15,13 @@ gem 'cancancan', '~> 2.0'       # Authorization
 gem 'scrypt'                    # required by authlogic when using scrypt
 
 gem 'addressable'               # more conformant replacement for (obsolete) Ruby URI
+gem 'browser'                   # browser detection
 gem 'colorize'                  # Colored console output
 gem 'fast_jsonapi'              # JSON:API serializer
 gem 'friendly_id', '~> 5.2.0'   # Nice URLs
 gem 'paper_trail', '~> 9.0'     # Track model revisions
+gem 'populate', git: 'git@bitbucket.org:tiu/populate.git'
+gem 'tiu-generators', git: 'git@bitbucket.org:tiu/tiu-generators.git'
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
 gem 'will_paginate', '~> 3.1.0' # Pagination
 
