@@ -25,6 +25,7 @@ namespace 'db:fixtures' do
 
     models.each do |model|
       next unless model.table_exists?
+
       # PaperTrail::Version => test/fixtures/paper_trail/version.yml
       path = Rails.root.join('test/fixtures', "#{model.table_name}.yml")
 

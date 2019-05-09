@@ -23,6 +23,7 @@ module Helpers
 
       def split_lines(text)
         return [] if text.blank?
+
         text.to_str.gsub(/\r\n?/, "\n").split(/\n+/)
       end
 

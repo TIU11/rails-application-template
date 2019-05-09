@@ -1,0 +1,37 @@
+# Override rubocop defaults.
+#
+# * [rubocop defaults](https://github.com/bbatsov/rubocop/blob/master/config/default.yml)
+# * [rails defaults](https://github.com/rails/rails/blob/master/.rubocop.yml)
+
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'node_modules/**/*'
+    - '**/templates/**/*'
+    - '**/vendor/**/*'
+    - 'rails/lib'
+
+# Allow lines up to 120 characters
+Metrics/LineLength:
+  Max: 120
+
+# Allow long blocks. This includes rake tasks, rake namespaces.
+# TODO: can we allow large namespaces, but not the others?
+Metrics/BlockLength:
+  Enabled: false
+
+# Prefer array literals of symbols over %i(), which requires memorizing "%i"
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+# Allow empty lines around classes
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+# Allow empty lines around modules
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# Allow empty lines around blocks
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false

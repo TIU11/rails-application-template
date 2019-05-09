@@ -30,6 +30,7 @@ class Bitbucket
         puts "What is your Bitbucket password?".cyan
         password = STDIN.noecho(&:gets).chomp
         raise ArgumentError if password.blank?
+
         password
       rescue StandardError
         puts 'password cannot be empty'.red

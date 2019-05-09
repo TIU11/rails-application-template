@@ -13,20 +13,23 @@
 !/log/.keep
 !/tmp/.keep
 
-# Ignore uploaded files in development
+# Ignore uploaded files in development.
 /storage/*
 /public/assets
-
-# Ignore Webpacker files
-/node_modules
-/yarn-error.log
-/public/packs
 
 # Ignore Byebug command history file.
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore Webpacker files
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
 
 # Ignore database snapshots
 db/snapshots

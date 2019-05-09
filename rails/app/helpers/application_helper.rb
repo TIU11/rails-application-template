@@ -50,6 +50,7 @@ module ApplicationHelper
 
   def no_records_message(records)
     return unless records.blank?
+
     records = records.is_a?(ActiveRecord::Relation) ? records.klass.model_name.human.pluralize.downcase : 'records'
     content_tag :p, "No matching #{records} found", class: 'lead'
   end

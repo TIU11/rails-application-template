@@ -93,3 +93,9 @@ Layout/EmptyLinesAroundBlockBody:
 Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
     - config/environments/*.rb
+
+RSpec/MultipleExpectations:
+  Max: 3
+
+RSpec/ExampleLength:
+  Max: 10

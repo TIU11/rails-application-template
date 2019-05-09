@@ -4,7 +4,3 @@
     #
     # Cannot be set in an initializer because it is used when loading the framework (i.e. Railtie).
     config.time_zone = 'Eastern Time (US & Canada)'
-
-    # FIX: https://github.com/airblade/paper_trail/issues/877
-    require 'paper_trail/config'
-    PaperTrail::Config.instance.track_associations = false

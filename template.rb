@@ -3,6 +3,7 @@
 puts 'Verifying prerequisite gems used within this template'
 %w[byebug colorize].each do |gemname|
   next if Gem::Specification.find_all_by_name(gemname).present?
+
   run "gem install #{gemname}"
   Gem.refresh
   Gem.try_activate(gemname)
@@ -50,6 +51,9 @@ insert_into_file 'config/environments/production.rb', <<-CONFIG, before: /^end/
   # Action Mailer
   config.action_mailer.default_url_options = { host: '#{app_name.titleize.parameterize}.tiu11.org' }
   config.action_mailer.asset_host = "http://#{app_name.titleize.parameterize}.tiu11.org" # for image URLs in HTML email
+
+  # Allow generating absolute urls with routing url helpers.
+  Rails.application.routes.default_url_options = { host: '#{app_name.titleize.parameterize}.tiu11.org' }
 CONFIG
 
 # Initialize "dev" and "demo" environments
@@ -133,6 +137,7 @@ def run_bundle
   run "rvm #{@desired_ruby}@global do gem install bundler"
 
   return unless bundle_install? # respect `--skip-bundle` flag
+
   puts 'Installing bundled gems (may take several minutes)'.cyan
   say_status :run, "#{@rvm_do} bundle install"
 
@@ -144,6 +149,7 @@ end
 # See http://apidock.com/rails/Rails/Generators/AppBase/generate_spring_binstubs
 def generate_spring_binstubs
   return unless bundle_install? && spring_install? # respect `--skip-bundle`, `--skip-spring` flags
+
   say_status :run, "#{@rvm_do} bundle exec spring binstub --all"
   run "#{@rvm_do} bundle exec spring binstub --all"
 end
@@ -173,7 +179,7 @@ after_bundle do
 
   # Add code to the repository
   puts "\nNow is a good time to review the generated application,"\
-       "and make manual changes described in the README before continuing".yellow
+       'and make manual changes described in the README before continuing'.yellow
   if yes?('Are you ready to commit? [yN]'.cyan)
     git :init
     git add: '--all .'

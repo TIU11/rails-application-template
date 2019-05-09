@@ -10,7 +10,7 @@
 class LogAnalyzer
 
   # See Rack::Utils::HTTP_STATUS_CODES
-  RESPONSE_MESSAGE = /(?<response_message>[A-Za-z ()-]{2,57})/
+  RESPONSE_MESSAGE = /(?<response_message>[A-Za-z ()-]{2,57})/.freeze
 
   FORMATS = {
     # Rails.logger format. Defaults to Ruby's ::Logger::Formatter

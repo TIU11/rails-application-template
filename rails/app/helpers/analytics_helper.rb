@@ -22,6 +22,7 @@ module AnalyticsHelper
   #   https://developers.google.com/analytics/resources/articles/gaTrackingTroubleshooting#gifParameters
   def analytics_url(options = {})
     return unless options[:utmac]
+
     # Setup default options
     @options = options.merge(utmn:       Random.rand(1_000_000_000..9_999_999_999),
                              utmwv:      '5.3.0d',

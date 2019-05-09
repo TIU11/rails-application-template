@@ -39,6 +39,7 @@ CSV.open OUTFILE, 'w', headers: HEADERS do |csv|
     # Capture API
     message_captures = LogAnalyzer.capture(:api_request, captures['message'])
     next if message_captures.nil?
+
     captures.merge! message_captures
 
     # Capture Moodle API params

@@ -20,14 +20,14 @@ This template assumes some things:
 
         \curl -sSL https://get.rvm.io | sudo bash -s stable
 
-* Ruby 2.4.x is installed
+* Ruby 2.5.x is installed
 
-        rvm install 2.4
-        rvm install 2.4 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X
+        rvm install 2.5
+        rvm install 2.5 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X
 
 * Rails 5.2.x is installed
 
-        rvm use 2.4.5
+        rvm use 2.5.5
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work. Some things require rails 5.2+
 
@@ -56,7 +56,7 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 2.4.5
+    rvm use 2.5.5
     rails new my-app --database=postgresql --skip-turbolinks  --skip-action-cable --no-scaffold-stylesheet
     cd my-app
     git init
@@ -103,6 +103,7 @@ That's it, take her for a spin:
 
 # Todo
 
+* Consider ideas from [Suspenders](https://github.com/thoughtbot/suspenders).
 * still needs font-awesome-migrator to be applied to the template. Might be good to notify folks to run on their projects if they were depending on FA 4.x
 * useful default `README.md`
 * define TLD and FQDN centrally, then use it everywhere

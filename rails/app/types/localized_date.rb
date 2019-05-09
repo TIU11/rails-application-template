@@ -8,7 +8,8 @@
 #
 class LocalizedDate < ActiveRecord::Type::Date
 
-  FORMAT_STRING_EXPR = /(?<=%)(?<flag>[-_0^#])?(?<width>\d)?/ # Full specifier is: %<flag><width><modifier><conversion>
+  # Full specifier is: %<flag><width><modifier><conversion>
+  FORMAT_STRING_EXPR = /(?<=%)(?<flag>[-_0^#])?(?<width>\d)?/.freeze
 
   def initialize(format: default_format)
     @format_string = safe_format_string(format)

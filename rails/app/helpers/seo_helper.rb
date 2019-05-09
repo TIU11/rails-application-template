@@ -41,6 +41,7 @@ module SeoHelper
   # https://moz.com/learn/seo/robots-meta-directives
   def meta_robots
     return if Rails.env.production?
+
     tag :meta, name: 'robots', content: 'none'
   end
 end
