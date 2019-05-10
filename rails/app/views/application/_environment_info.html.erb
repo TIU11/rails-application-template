@@ -2,25 +2,25 @@
   <!-- Environment Information -->
   <%= wrapped_container_tag with_column: true, class: "environment-info" do %>
     <span class="name">
-      <%= icon 'cogs' %>
+      <%= icon 'fas', 'cogs' %>
       <%= t('shared.environment_info.name', name: environment_info.name.titleize) %>
     </span>
 
     <span class="revision">
-      <%= icon 'code-fork' %>
+      <%= icon 'fas', 'code-branch' %>
       <%= t('shared.environment_info.revision', revision: environment_info.revision) %>
     </span>
 
     <% if environment_info.released_at.present? %>
       <span class="released-at">
-        <%= icon 'calendar-o' %>
+        <%= icon 'far', 'calendar' %>
         <%= t('shared.environment_info.released_at', released_at: environment_info.released_at) %>
       </span>
     <% end %>
 
     <% if environment_info.uptime.present? %>
       <span class="uptime">
-        <%= icon 'clock-o' %>
+        <%= icon 'far', 'clock' %>
         <%= t('shared.environment_info.uptime', uptime: environment_info.uptime) %>
       </span>
     <% end %>

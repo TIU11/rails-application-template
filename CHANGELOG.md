@@ -9,7 +9,7 @@ and this project somewhat adheres to [Semantic Versioning](http://semver.org/spe
 
 ### Changed
 
-- Font Awesome 5.0 __(pending)__
+- Assume Font Awesome 5.0, updating markup from 4.0 to 5.0 syntax.
 
 ### Removed
 
