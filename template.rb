@@ -124,7 +124,7 @@ else
   run "rvm install #{@desired_ruby}"
 end
 gemset_name = app_name.titleize.parameterize
-run "rvm #{default_ruby} do rvm --ruby-version --create use #{@desired_ruby}@#{gemset_name}"
+run "rvm #{@desired_ruby} do rvm --ruby-version --create use #{@desired_ruby}@#{gemset_name}"
 @rvm_do = "rvm #{@desired_ruby}@#{gemset_name} do" # run a command within this gemset via `run "#{@rvm_do} command"`
 
 # Override since Rails won't install into our project's RVM gemset
@@ -176,7 +176,7 @@ after_bundle do
   if yes?('Create Users? [yN]'.cyan)
     # TODO: update migrations to use :jsonb type for :object and :object_changes
     run "#{@rvm_do} rails generate paper_trail:install --with-changes"
-    run "#{@rvm_do} rails generate authlogic:install --force"
+    run "#{@rvm_do} rails generate tiu:authlogic:install --force"
   end
 
   # Add code to the repository
