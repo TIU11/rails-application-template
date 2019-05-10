@@ -62,14 +62,16 @@ copy_file "#{destination_root}/config/environments/production.rb",
           "#{destination_root}/config/environments/dev.rb"
 copy_file "#{destination_root}/config/environments/production.rb",
           "#{destination_root}/config/environments/demo.rb"
-insert_into_file 'config/secrets.yml', %(
-dev:
-  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+if File.exist? 'config/secrets.yml'
+  insert_into_file 'config/secrets.yml', %(
+  dev:
+    secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
 
-demo:
-  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+  demo:
+    secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
 
-), before: /(#.*\n)+\s*production:\n/ # before production config and comments
+  ), before: /(#.*\n)+\s*production:\n/ # before production config and comments
+end
 insert_into_file 'config/database.yml', %(
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV.fetch('DATABASE_HOST') { 'localhost' } %>
