@@ -7,11 +7,21 @@ and this project somewhat adheres to [Semantic Versioning](http://semver.org/spe
 
 ## [Unreleased]
 
+### Changed
+
+- Font Awesome 5.0 __(pending)__
+
+### Removed
+
+- Remove generator_helper, which is now in the tiu-generators gem, https://bitbucket.org/tiu/tiu-generators.
+  Clean it out of your app with: `rm ./lib/helpers/generator_helper.rb`
+
+## 4.0 - 2019-05-03
+
 ### Highlights
 
 - Using rails 5.2 with:
     - Twitter Bootstrap 3.3
-    - Font Awesome 5.0 __(pending)__
 - Lots of fixes, tweaks and improvements
 - Minimize configuration in `application.rb`. Takes less work to keep project configs after applying the template.
 - Use `application.scss` setup for theming
