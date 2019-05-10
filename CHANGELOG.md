@@ -13,8 +13,10 @@ and this project somewhat adheres to [Semantic Versioning](http://semver.org/spe
 
 ### Removed
 
-- Remove generator_helper, which is now in the tiu-generators gem, https://bitbucket.org/tiu/tiu-generators.
+- Remove `generator_helper.rb`, which is now in the [tiu-generators](https://bitbucket.org/tiu/tiu-generators) gem.
   Clean it out of your app with: `rm ./lib/helpers/generator_helper.rb`
+- Extracted the [populate](https://bitbucket.org/tiu/populate) gem.
+  Clean it out of your app with: `rm ./lib/populate.rb ./test/models/populate_test.rb`
 
 ## 4.0 - 2019-05-03
 
