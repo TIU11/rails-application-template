@@ -29,7 +29,7 @@ gem 'will_paginate', '~> 3.1.0' # Pagination
 # Application Management
 
 gem 'bootsnap', require: false  # Speed up boot time by caching expensive operations.
-gem 'exception_notification', '~> 4.2.0'
+gem 'exception_notification', '~> 4.2'
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
 gem 'slack-notifier'            # Send exception notifications to Slack
 gem 'whenever', require: false  # Schedule cron jobs
