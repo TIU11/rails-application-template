@@ -23,7 +23,7 @@ gem 'paper_trail', '~> 10.0'    # Track model revisions
 gem 'populate', git: 'git@bitbucket.org:tiu/populate.git'
 gem 'tiu-generators', bitbucket: 'tiu/tiu-generators'
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
-gem 'webpacker', '~> 4.0.0'     # Transpile app-like JavaScript
+gem 'webpacker', '~> 4.0'       # Transpile app-like JavaScript
 gem 'will_paginate', '~> 3.1.0' # Pagination
 
 # Application Management
