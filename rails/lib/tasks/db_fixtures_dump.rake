@@ -28,9 +28,11 @@ namespace 'db:fixtures' do
 
       # PaperTrail::Version => test/fixtures/paper_trail/version.yml
       path = Rails.root.join('test/fixtures', "#{model.table_name}.yml")
-
-      puts "#{model.to_s.ljust(max_width)} => #{path}"
       FileUtils.mkdir_p path.dirname
+
+      puts model.to_s.ljust(max_width)
+      puts "\t=> #{path}"
+
       path.open('w') do |file|
         hash = {}
         model.find_each do |r|
@@ -39,6 +41,12 @@ namespace 'db:fixtures' do
         end
         file.write hash.to_yaml
       end
+
+      spec_path = Rails.root.join('spec/fixtures', "#{model.table_name}.yml")
+      FileUtils.mkdir_p spec_path.dirname
+      FileUtils.cp path, spec_path
+
+      puts "\t=> #{spec_path}"
     end
   end
 end
