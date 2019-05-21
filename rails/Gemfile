@@ -84,6 +84,9 @@ group :development do
   # @see (http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h)
   gem 'thin'
 
+  # https://github.com/voormedia/rails-erd, https://news.ycombinator.com/item?id=18324132
+  gem 'rails-erd'
+
   gem 'better_errors', '~> 2.3' # Improved version of the Rails error page
   gem 'binding_of_caller'       # ^ Enables better_errors' advanced features
   gem 'pry-rails'
