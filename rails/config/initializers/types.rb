@@ -11,12 +11,10 @@
 
 ActiveRecord::Type.register(:localized_date, LocalizedDate)
 ActiveRecord::Type.register(:phone_number, Type::PhoneNumber)
-# ActiveRecord::Type.register(:role, Type::Role)
 ActiveRecord::Type.register(:string, Type::String, override: true)
 ActiveRecord::Type.register(:token, Type::Token)
 
 ActiveModel::Type.register(:localized_date, LocalizedDate)
 ActiveModel::Type.register(:phone_number, Type::PhoneNumber)
-# ActiveModel::Type.register(:role, Type::Role)
 ActiveModel::Type.register(:string, Type::String, override: true)
 ActiveModel::Type.register(:token, Type::Token)
