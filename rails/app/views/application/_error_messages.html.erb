@@ -5,8 +5,8 @@
       <%= pluralize(target.errors.count, "error") %> prohibited this <%= target.class.name.titleize.downcase %> from being saved:
     </p>
     <ul>
-      <% target.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% target.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
     </ul>
   </div>
