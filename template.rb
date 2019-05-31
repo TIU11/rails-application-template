@@ -181,8 +181,6 @@ after_bundle do
   run "#{@rvm_do} rails db:create"
 
   if yes?('Create Users? [yN]'.cyan)
-    # TODO: update migrations to use :jsonb type for :object and :object_changes
-    run "#{@rvm_do} rails generate paper_trail:install --with-changes"
     run "#{@rvm_do} rails generate tiu:authlogic:install --force"
   end
 
