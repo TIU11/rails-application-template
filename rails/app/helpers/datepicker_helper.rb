@@ -9,14 +9,14 @@ module DatepickerHelper
   #
   # Usage:
   #   datepicker_tag f, :start_date
-  #   datepicker_tag f, :start_date, data: { date_start_date: Date.tomorrow.strftime("%Y-%m-%d") }
+  #   datepicker_tag f, :start_date, data: { date_start_date: Date.tomorrow }
   #
   # Ensures date format consistent in text field and javascript configuration.
   # However, you are responsible for converting the submitted date string to a Date object.
   # You can let the LocalizedDate type handle this for you:
   #     attribute :start_date, :localized_date
   #
-  # TODO: datepicker doesn't activate when clicking the input-group-addon. Their docs out-of-date on this.
+  # TODO: datepicker doesn't activate when clicking the input-group-append. Their docs out-of-date on this.
   # rubocop:disable MethodLength
   def datepicker_tag(form, name, options = {})
     value = form.object[name]&.to_date # cast value to a Date
@@ -34,12 +34,18 @@ module DatepickerHelper
       class: 'form-control'
     }.deep_merge(options)
 
-    content_tag :div, class: 'input-group date' do
+    format_date_values(options)
+
+    content_tag :div, class: 'input-group mr-sm-2 date' do
       concat form.text_field(name, options)
-      concat content_tag(:span, icon('calendar'), class: 'input-group-addon')
+      concat content_tag(:span,
+                         content_tag(:span,
+                                     icon('fas', 'calendar-alt'),
+                                     class: 'input-group-text'),
+                         class: 'input-group-append')
     end
+    # rubocop:enable MethodLength
   end
-  # rubocop:enable MethodLength
 
   # Maps each Ruby format to its corresponding Datepicker format
   # Structure: 'ruby' => 'datepicker'
@@ -71,6 +77,14 @@ module DatepickerHelper
                                  default: Date::DATE_FORMATS[format.to_sym]) # fallback to Date constants
 
     ruby_format.gsub(/%-?[mdyYaAbB]/, RUBY_TO_CHART_FORMAT_MAP)
+  end
+
+  # Format any date-like values using the given format,
+  # making them match the formatted expected by datepicker JavaScript.
+  def format_date_values(options)
+    options[:data]&.each do |key, value|
+      options[:data][key] = I18n.localize(value.to_date, format: FORMAT_NAME) if value.respond_to? :strftime
+    end
   end
 
 end

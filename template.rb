@@ -40,8 +40,15 @@ insert_into_file 'config/environments/development.rb', <<-CONFIG, before: /^end/
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.asset_host = "http://localhost:3000" # for image URLs in HTML email
 
+  # Allow generating absolute urls with routing url helpers.
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+
   # Limit log size, rotating at 5 MB
   config.logger = Logger.new(config.paths['log'].first, 1, 5.megabytes)
+
+  # Enable Bullet which reports N+1 queries to the browser.
+  # TODO: prevent by running in tests: https://github.com/flyerhzm/bullet#run-in-tests
+  config.enable_bullet = false
 CONFIG
 gsub_file 'config/environments/development.rb', 'config.assets.debug = true', 'config.assets.debug = false'
 
