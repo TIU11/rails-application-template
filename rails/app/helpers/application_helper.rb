@@ -25,7 +25,17 @@ module ApplicationHelper
     css_class = "add-nested-fields #{binding.local_variable_get(:class)}"
 
     # Assumes your association has a '_fields' partial (e.g. 'user_fields.html.erb')
-    partial = association.to_s.singularize + '_fields'
+    partial_name = association.to_s.singularize + '_fields'
+
+    # If partial exists in current folder, use that else, try with the folder prefix assuming association matches folder
+    # For shared partials, Partial Render method find_template looks for forward slash to lookup by path
+    # @see (https://github.com/rails/rails/blob/master/actionview/lib/action_view/renderer/partial_renderer.rb) : 421
+    if lookup_context.exists?(partial_name)
+      partial = partial_name
+    else
+      prefix = association.to_s
+      partial = prefix + '/' + partial_name
+    end
 
     fields_html = f.fields_for(association, new_object, child_index: id) do |builder|
       render(partial, f: builder)
@@ -40,18 +50,21 @@ module ApplicationHelper
   }.freeze
 
   # Display model's status badge
-  def status_tag(status)
+  def status_tag(status, class: nil)
     # Read status when given an ApplicationRecord object
     status = status.status if status.is_a? ApplicationRecord
 
     span_class = CSS_CLASS_FOR_STATUS[status.to_s]
-    content_tag :span, status.titleize, class: "badge #{span_class}"
+    content_tag :span, status.titleize, class: "badge #{span_class} #{binding.local_variable_get(:class)}"
   end
 
-  def no_records_message(records)
+  # +message+ optional message to override the default
+  def no_records_message(records, message: nil)
     return unless records.blank?
 
     records = records.is_a?(ActiveRecord::Relation) ? records.klass.model_name.human.pluralize.downcase : 'records'
-    content_tag :p, "No matching #{records} found", class: 'lead'
+    message ||= "No matching #{records} found"
+    content_tag :p, message, class: 'lead'
   end
+
 end
