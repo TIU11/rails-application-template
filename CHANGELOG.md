@@ -10,6 +10,7 @@ and this project somewhat adheres to [Semantic Versioning](http://semver.org/spe
 ### Changed
 
 - Assume Font Awesome 5.0, updating markup from 4.0 to 5.0 syntax.
+- Moved app/types to lib/types so `config/initializers/types.rb` doesn't load from an autoloaded path. Make sure you `mv app/types lib/types` to cover any existing types in your app.
 
 ### Removed
 

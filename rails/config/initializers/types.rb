@@ -9,6 +9,8 @@
 #
 # Next, confirm the type with `MyModel.type_for_attribute(:links)`
 
+Dir[Rails.root.join('lib', 'types', '**', '*.rb')].each { |f| require f }
+
 ActiveRecord::Type.register(:localized_date, LocalizedDate)
 ActiveRecord::Type.register(:string, Type::String, override: true)
 ActiveRecord::Type.register(:token, Type::Token)
