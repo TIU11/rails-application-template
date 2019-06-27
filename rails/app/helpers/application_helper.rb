@@ -60,10 +60,10 @@ module ApplicationHelper
 
   # +message+ optional message to override the default
   def no_records_message(records, message: nil)
-    return unless records.blank?
+    return if records.present?
 
     records = records.is_a?(ActiveRecord::Relation) ? records.klass.model_name.human.pluralize.downcase : 'records'
-    message ||= "No matching #{records} found"
+    message ||= "No #{records} found"
     content_tag :p, message, class: 'lead'
   end
 
