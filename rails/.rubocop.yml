@@ -74,7 +74,7 @@ Style/BlockDelimiters:
 # Indent `protected` and `private` modifiers the same as public methods.
 # Indent their members one step more than the modifiers.
 Layout/IndentationConsistency:
-  EnforcedStyle: rails
+  EnforcedStyle: indented_internal_methods
 
 # TODO: See what we prefer and enable something
 Layout/AccessModifierIndentation:
