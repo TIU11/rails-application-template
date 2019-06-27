@@ -32,6 +32,7 @@ gsub_file 'config/initializers/filter_parameter_logging.rb',
 
 # config/environments/*
 
+# TODO: insert portions into config/environments/test.rb
 insert_into_file 'config/environments/development.rb', <<-CONFIG, before: /^end/
 
   config.action_controller.action_on_unpermitted_parameters = :raise
