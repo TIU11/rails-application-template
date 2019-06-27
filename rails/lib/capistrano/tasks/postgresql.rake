@@ -57,7 +57,8 @@ namespace :postgresql do
       remote_env = Dotenv::Parser.call(capture("cat #{shared_path}/.env"))
       ENV['DATABASE_PASSWORD'] = remote_env['DATABASE_PASSWORD']
 
-      config = YAML.safe_load(ERB.new(File.read('config/database.yml')).result)[fetch(:rails_env).to_s]
+      yaml = ERB.new(File.read('config/database.yml')).result
+      config = YAML.safe_load(yaml, [], [], true)[fetch(:rails_env).to_s]
 
       set :pg_host, config['host'] || 'localhost'
       set :pg_user, config['username']
