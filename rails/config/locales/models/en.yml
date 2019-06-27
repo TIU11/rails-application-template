@@ -13,7 +13,7 @@ en:
       user:
         one: User
         other: Users
-      version:
+      paper_trail/version:
         one: Version
         other: Versions
 
