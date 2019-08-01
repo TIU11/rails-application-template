@@ -7,18 +7,18 @@ module DateTimeHelper
   # - this year: "25 Jan"
   # - older: "Dec 2011"
   # Usage: <%= readable_updated_at(updated_at, zone: true) %>
-  def readable_date(date, zone: false)
+  def readable_date(date, zone: false, tag: :span)
     return if date.nil?
 
-    format = if date > Date.today
+    format = if date.today?
                zone ? :time_with_zone : :time
-             elsif date > Date.today.at_beginning_of_year
+             elsif date.year == Date.today.year
                :day_and_month
              else
                :month_and_year
              end
 
-    content_tag :span, date.to_s(format), title: date.to_s(:long), data: { toggle: 'tooltip' }
+    content_tag tag, date.to_s(format), title: date.to_s(:long), data: { toggle: 'tooltip' }
   end
 
   # Cases:
