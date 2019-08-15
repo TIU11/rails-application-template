@@ -60,3 +60,4 @@ en:
       name: "%{name} Environment"
       revision: "Revision %{revision}"
       released_at: "Released at %{released_at}"
+      uptime: "Up for %{uptime}"
