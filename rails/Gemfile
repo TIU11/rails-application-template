@@ -57,7 +57,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
   gem 'factory_bot_rails'
-  gem 'faker'
+  gem 'faker', '~> 2.2'
   gem 'rspec-rails', '~> 3.0'
 
   # https://www.phusionpassenger.com/library/walkthroughs/start/ruby.html
