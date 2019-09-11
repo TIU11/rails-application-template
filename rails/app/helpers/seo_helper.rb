@@ -15,8 +15,8 @@ module SeoHelper
       content_for :title, title
     elsif content_for?(:title)  # render view-provided page title
       "#{content_for(:title)} - #{I18n.t('app.title')}"
-    else                        # render default page title
-      "#{controller_name.titleize} - #{I18n.t('app.title')}"
+    else
+      default_title
     end
   end
 
@@ -44,4 +44,17 @@ module SeoHelper
 
     tag :meta, name: 'robots', content: 'none'
   end
+
+  private
+
+    def default_title
+      model = instance_variable_get "@#{controller_name.singularize}"
+      if action_name.eql?('show') && model
+        "#{model} - #{controller_name.titleize.singularize} - #{I18n.t('app.title')}"
+      elsif action_name.eql?('edit') && model
+        "Editing #{model} - #{controller_name.titleize.singularize} - #{I18n.t('app.title')}"
+      else
+        "#{controller_name.titleize} - #{I18n.t('app.title')}"
+      end
+    end
 end
