@@ -20,24 +20,33 @@ This template assumes some things:
 
         \curl -sSL https://get.rvm.io | sudo bash -s stable
 
-* Ruby 2.5.x is installed
+* Ruby 2.6.x is installed
 
-        rvm install 2.5
-        rvm install 2.5 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X
+        rvm install 2.6
+        rvm install 2.6 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X. This may be irrelevant since Ruby 2.3, but we're not sure ;-)
 
-* Rails 5.2.x is installed
+* Rails 6.0.x is installed
 
-        rvm use 2.5.5
+        rvm use 2.6.5
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work. Some things require rails 5.2+
 
 * Bundler and RubyGems are up-to-date (optional)
 
-        rvm @global do gem install bundler -v 1.17.3  # Rails 5.x depends on bundler (< 2.0, >= 1.3.0)
-                                            # We've noticed bundler 1.7+ is much faster than 1.3
+  For ruby 2.5 and below
+
+        rvm @global do gem install bundler
         gem update --system                 # Per https://rubygems.org/pages/download
 
+  For ruby 2.6 and above (which includes bundler)
+
+        gem update bundler
+        gem update --system                 # Per https://rubygems.org/pages/download
+
+
 * Expects `pg` 1.x which requires PostgreSQL 9.2+. To use another database, you'll need to make a few config changes.
+
+        brew install postgresql
 
 * XCode and command line tools (GCC needed to compile some gems)
 
@@ -56,7 +65,7 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 2.5.5
+    rvm use 2.6.5
     rails new my-app --database=postgresql --skip-turbolinks  --skip-action-cable --no-scaffold-stylesheet
     cd my-app
     git init
