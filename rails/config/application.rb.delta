@@ -4,3 +4,5 @@
     #
     # Cannot be set in an initializer because it is used when loading the framework (i.e. Railtie).
     config.time_zone = 'Eastern Time (US & Canada)'
+
+    config.beginning_of_week = :sunday
