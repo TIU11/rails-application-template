@@ -7,7 +7,8 @@ Rails.application.config.i18n.load_path += Dir[Rails.root.join('config', 'locale
 # Make missing translations fail loudly in development and test.
 # See https://robots.thoughtbot.com/better-tests-through-internationalization
 if Rails.env.development? || Rails.env.test?
-  I18n.exception_handler = lambda do |_exception, _locale, key, _options|
-    raise "missing translation: #{key}"
+  I18n.exception_handler = lambda do |_exception, _locale, key, options|
+    scoped_key = [*options&.dig(:scope), key].join '.'
+    raise "missing translation: #{scoped_key}"
   end
 end
