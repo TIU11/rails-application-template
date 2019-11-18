@@ -10,15 +10,15 @@ module DateTimeHelper
   def readable_date(date, zone: false, tag: :span)
     return if date.nil?
 
-    format = if date.today?
+    format = if date.today? && date.acts_like?(:time)
                zone ? :time_with_zone : :time
-             elsif date.year == Date.today.year
+             elsif date.year == Time.zone.today.year
                :day_and_month
              else
                :month_and_year
              end
 
-    content_tag tag, date.to_s(format), title: date.to_s(:long), data: { toggle: 'tooltip' }
+    content_tag tag, I18n.localize(date, format: format), title: date.to_s(:long), data: { toggle: 'tooltip' }
   end
 
   # Cases:
