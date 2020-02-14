@@ -1,15 +1,14 @@
 # Model Translations
-# See (http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models)
-# See (https://github.com/svenfuchs/rails-i18n/tree/master/rails/locale)
+#
+# == Resources
+# * [Models](http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models)
+# * (https://github.com/svenfuchs/rails-i18n/tree/master/rails/locale)
 en:
   activerecord:
 
     # attributes:
-
-    # errors:
-    #   models:
-    #     user:
-    #       custom_error_example: 'example'
+    #   user:
+    #     first_name: Given Name
 
     models:
       user:
@@ -18,18 +17,6 @@ en:
       paper_trail/version:
         one: Version
         other: Versions
-
-  errors:
-    actions:
-      index: list
-      new: create
-      show: view
-    attributes:
-      email:
-        invalid: should look like an email address.
-      password:
-        invalid: must not repeat characters (e.g. "111")
-        uniform: must be complex. Use a combination of uppercase (A-Z), lowercase (a-z), number (0-9) and special characters.
 
   # helpers:
 

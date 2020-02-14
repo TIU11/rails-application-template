@@ -1,0 +1,44 @@
+# Error Message Translations
+#
+# == Resources
+# * [Error Message Scopes](https://guides.rubyonrails.org/i18n.html#error-message-scopes)
+# * (https://github.com/svenfuchs/rails-i18n/tree/master/rails/locale)
+en:
+  activerecord:
+
+    errors:
+
+      # Error Message Scopes:
+      # activerecord.errors.models.[model_name]
+      # activerecord.errors.models.[model_name].attributes.[attribute_name]
+      # activerecord.errors.messages
+
+      # models:
+      #   user:
+      #     key: message
+      #     attributes:
+      #       first_name:
+      #         key: message
+
+      # messages:
+      #   key: message text
+
+  errors:
+    actions:
+      index: list
+      new: create
+      show: view
+
+    # Error Message Scopes:
+    # errors.attributes.[attribute_name]
+    # errors.messages
+
+    attributes:
+      email:
+        invalid: should look like an email address.
+      password:
+        invalid: must not repeat characters (e.g. "111")
+        uniform: must be complex. Use a combination of uppercase (A-Z), lowercase (a-z), number (0-9) and special characters.
+
+    # messages:
+    #   key: message text
