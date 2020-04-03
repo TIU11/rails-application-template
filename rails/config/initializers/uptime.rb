@@ -1,2 +1,2 @@
 # Remember application boot time to allow calculating uptime.
-BOOTED_AT = Time.now
+BOOTED_AT = Time.current
