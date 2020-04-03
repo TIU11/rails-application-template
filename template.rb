@@ -78,7 +78,7 @@ if File.exist? 'config/secrets.yml'
   demo:
     secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
 
-  ), before: /(#.*\n)+\s*production:\n/ # before production config and comments
+  ), before: /(\s+#.*\n)+\s*production:\n/ # before production config and comments
 end
 insert_into_file 'config/database.yml', %(
   password: <%= ENV['DATABASE_PASSWORD'] %>
