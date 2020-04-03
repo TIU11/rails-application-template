@@ -17,7 +17,7 @@ module DatepickerHelper
   #     attribute :start_date, :localized_date
   #
   # TODO: datepicker doesn't activate when clicking the input-group-append. Their docs out-of-date on this.
-  # rubocop:disable MethodLength
+  # rubocop:disable Metrics/MethodLength
   def datepicker_tag(form, name, options = {})
     value = form.object[name]&.to_date # cast value to a Date
     value = I18n.localize(value, format: FORMAT_NAME) if value.present?
@@ -44,7 +44,7 @@ module DatepickerHelper
                                      class: 'input-group-text'),
                          class: 'input-group-append')
     end
-    # rubocop:enable MethodLength
+    # rubocop:enable Metrics/MethodLength
   end
 
   # Maps each Ruby format to its corresponding Datepicker format
