@@ -18,18 +18,18 @@ gem 'addressable'               # more conformant replacement for (obsolete) Rub
 gem 'browser'                   # browser detection
 gem 'colorize'                  # Colored console output
 gem 'fast_jsonapi'              # JSON:API serializer
-gem 'friendly_id', '~> 5.2.0'   # Nice URLs
+gem 'friendly_id', '~> 5.2'     # Nice URLs
 gem 'paper_trail', '~> 10.0'    # Track model revisions
 gem 'populate', git: 'git@bitbucket.org:tiu/populate.git'
 gem 'tiu-generators', bitbucket: 'tiu/tiu-generators'
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
 gem 'webpacker', '~> 4.0'       # Transpile app-like JavaScript
-gem 'will_paginate', '~> 3.1.0' # Pagination
+gem 'will_paginate', '~> 3.1'   # Pagination
 
 # Application Management
 
 gem 'bootsnap', require: false  # Speed up boot time by caching expensive operations.
-gem 'exception_notification', '~> 4.2'
+gem 'exception_notification', '~> 4.4'
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
 gem 'slack-notifier'            # Send exception notifications to Slack
 gem 'whenever', require: false  # Schedule cron jobs
@@ -42,7 +42,7 @@ gem 'autoprefixer-rails'        # CSS vendor prefixer
 gem 'bootstrap', '~> 4.2'
 gem 'bootstrap-datepicker-rails'
 gem 'font-awesome-sass', '~> 5.2'
-gem 'sassc-rails', '~> 2.0'     # Use SCSS for stylesheets. Compiles with libsass for speed.
+gem 'sass-rails', '~> 6.0'      # Use SCSS for stylesheets. Compiles with libsass for speed.
 
 # Javascript
 
