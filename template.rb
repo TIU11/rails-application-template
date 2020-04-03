@@ -123,7 +123,7 @@ remove_file 'public/index.html'
 # @see https://rvm.io/workflow/scripting for explanation of `rvm do`
 #
 puts 'Setting up RVM gemset'.cyan
-default_ruby = `rvm strings 2`.strip # default to latest 2.x ruby version (e.g. '2.2.2', '2.3.0')
+default_ruby = `rvm list default string`.strip # default to `rvm default` ruby version
 @desired_ruby = ask("Which Ruby would you like to use? [#{default_ruby}]".cyan)
 @desired_ruby = default_ruby if @desired_ruby.blank?
 if `rvm list strings`.include? @desired_ruby
