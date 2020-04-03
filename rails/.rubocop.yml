@@ -17,16 +17,13 @@ AllCops:
     - 'db/migrate/*_create_versions.rb'
     - 'bin/**/*'
     - 'spec/spec_helper.rb'
-
-# Don't require documenting classes, modules, methods
-Documentation:
-  Enabled: false
-
-#################### Metrics ###########################
+    - '**/*.erb' # Workaround for https://github.com/AtomLinter/linter-rubocop/issues/48
 
 # Allow lines up to 120 characters
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
+
+#################### Metrics ###########################
 
 Metrics/MethodLength:
   Exclude:
@@ -42,6 +39,10 @@ Metrics/BlockLength:
   Enabled: false
 
 #################### Style ###########################
+
+# Don't require documenting classes, modules, methods
+Style/Documentation:
+  Enabled: false
 
 Style/FormatStringToken:
   Enabled: false
@@ -96,8 +97,26 @@ Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
     - config/environments/*.rb
 
+#################### Rails ###########################
+
+Rails/EnumHash:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - demo
+
+#################### RSpec ###########################
+
 RSpec/MultipleExpectations:
   Max: 3
 
 RSpec/ExampleLength:
   Max: 10
+
+# Use class explicitly, rather than `described_class`.
+RSpec/DescribedClass:
+  EnforcedStyle: explicit
