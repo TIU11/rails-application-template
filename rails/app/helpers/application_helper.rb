@@ -17,33 +17,6 @@ module ApplicationHelper
     link_to name, url, html_options
   end
 
-  # See Railscasts Pro #196
-  # Works with `addNestedFields` Javascript function.
-  def link_to_add_fields(name, f, association, class: nil)
-    new_object = f.object.send(association).klass.new
-    id = SecureRandom.hex # any unique id
-    css_class = "add-nested-fields #{binding.local_variable_get(:class)}"
-
-    # Assumes your association has a '_fields' partial (e.g. 'user_fields.html.erb')
-    partial_name = association.to_s.singularize + '_fields'
-
-    # If partial exists in current folder, use that else, try with the folder prefix assuming association matches folder
-    # For shared partials, Partial Render method find_template looks for forward slash to lookup by path
-    # @see (https://github.com/rails/rails/blob/master/actionview/lib/action_view/renderer/partial_renderer.rb) : 421
-    if lookup_context.exists?(partial_name)
-      partial = partial_name
-    else
-      prefix = association.to_s
-      partial = prefix + '/' + partial_name
-    end
-
-    fields_html = f.fields_for(association, new_object, child_index: id) do |builder|
-      render(partial, f: builder)
-    end
-
-    link_to(name, '#0', class: css_class, data: { id: id, fields: fields_html.delete("\n") })
-  end
-
   CSS_CLASS_FOR_STATUS = {
     'active' => 'badge-primary',
     'inactive' => 'badge-secondary'
