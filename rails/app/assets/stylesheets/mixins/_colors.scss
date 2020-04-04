@@ -12,7 +12,9 @@
 // * large-scale text has a contrast ratio of at least 3:1
 
 $tiu-brand: rgb(126, 19, 0);
+$primary: $tiu-brand;
+$brand-primary: $tiu-brand;
 
 $white: rgb(255, 255, 255); // White
-
-$primary: $tiu-brand;
+$navbar-default-link-color: #727272; // darkened from #777 for WCAG AA
+$gray-light:                #727272; // darkened from #777 for WCAG AA
