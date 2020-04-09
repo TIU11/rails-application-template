@@ -9,7 +9,7 @@
 #
 #   form_for @organization do |f|
 #     form.fields_for :users do |user|
-#       render 'user_fields', f: user
+#       render 'user_fields', form: user
 #     end
 #   link_to_add_fields icon('fas', :plus, 'Add'), f, :users, class: 'pull-right'
 #   end
@@ -20,7 +20,7 @@ module NestedFieldsHelper
     id = SecureRandom.hex # any unique id
 
     fields_html = form.fields_for(association, new_object, child_index: id) do |builder|
-      render(partial_for(association), f: builder)
+      render(partial_for(association), form: builder)
     end
 
     # link options
