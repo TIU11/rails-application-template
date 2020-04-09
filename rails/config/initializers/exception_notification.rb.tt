@@ -19,8 +19,8 @@ ExceptionNotification.configure do |config|
   # Email notifier sends notifications by email.
   config.add_notifier(
     :email,
-    email_prefix:         "[ERROR] [<%= I18n.t('app.short_title') %>] ",
-    sender_address:       %("TIU Exception Notifier" <notifier@tiu11.org>),
+    email_prefix: "[ERROR] [<%= I18n.t('app.short_title') %>] ",
+    sender_address: %("TIU Exception Notifier" <notifier@tiu11.org>),
     exception_recipients: %w[exceptions@tiu11.org]
   )
 

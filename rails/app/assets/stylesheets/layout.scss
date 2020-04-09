@@ -15,3 +15,11 @@
     margin-left: .5rem;
   }
 }
+
+// Sticky Table Headers
+.table-sticky-headers thead th {
+  background-color: rgba($body-bg, .7);
+  position: sticky;
+  top: 0;
+  // TODO: borders are collapsed on scroll
+}

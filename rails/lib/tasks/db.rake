@@ -14,7 +14,7 @@ namespace :db do
 
   desc 'Store a snapshot of the database in db/snapshots (options: NAME=x.sql)'
   task snapshot: %w[db:load_configuration environment] do
-    stamp = Time.now.strftime('%F-%H%M%S')
+    stamp = Time.current.strftime('%F-%H%M%S')
     dir = ENV.fetch('DIR') { "db/snapshots" }
     file = ENV.fetch('NAME') { "#{stamp}-#{Rails.env}-snapshot.sql" }
     path = File.expand_path(file, dir)

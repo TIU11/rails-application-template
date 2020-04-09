@@ -27,7 +27,7 @@ namespace 'db:fixtures' do
       next unless model.table_exists?
 
       # PaperTrail::Version => test/fixtures/paper_trail/version.yml
-      path = Rails.root.join('test/fixtures', "#{model.table_name}.yml")
+      path = Rails.root.join("test/fixtures/#{model.table_name}.yml")
       FileUtils.mkdir_p path.dirname
 
       puts model.to_s.ljust(max_width)
@@ -42,7 +42,7 @@ namespace 'db:fixtures' do
         file.write hash.to_yaml
       end
 
-      spec_path = Rails.root.join('spec/fixtures', "#{model.table_name}.yml")
+      spec_path = Rails.root.join("spec/fixtures/#{model.table_name}.yml")
       FileUtils.mkdir_p spec_path.dirname
       FileUtils.cp path, spec_path
 

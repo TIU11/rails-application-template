@@ -26,6 +26,16 @@ module Helpers
         puts "\t#{memory_usage} KB of real memory are in use"
       end
 
+      def log_benchmark(with_transaction: true)
+        times = Benchmark.measure do
+          with_transaction ? ActiveRecord::Base.transaction { yield } : yield
+        end
+
+        Rails.logger.debug "\n\t      user     system      total         real\t\t(in seconds)"
+        Rails.logger.debug "\t#{times}".cyan
+        Rails.logger.debug "\t#{memory_usage} KB of real memory are in use"
+      end
+
       # TODO: look into this to fix memory usage stats (https://dalibornasevic.com/posts/68-processing-large-csv-files-with-ruby)
       # real memory in 1024 byte increments (aka KB)
       def memory_usage

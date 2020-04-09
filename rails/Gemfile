@@ -5,16 +5,16 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0'
 
 gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
 gem 'pg', '~> 1.0'              # Use postgresql 9.2+ as the database for Active Record
 
-gem 'authlogic', '~> 5.0'       # Authentication
+gem 'authlogic', '~> 6.0'       # Authentication
 gem 'cancancan', '~> 3.0'       # Authorization
 gem 'scrypt'                    # required by authlogic when using scrypt
 
-gem 'addressable'               # more conformant replacement for (obsolete) Ruby URI
+gem 'addressable', '~> 2.6'     # more conformant replacement for (obsolete) Ruby URI
 gem 'browser'                   # browser detection
 gem 'colorize'                  # Colored console output
 gem 'fast_jsonapi'              # JSON:API serializer
@@ -23,18 +23,17 @@ gem 'paper_trail', '~> 10.0'    # Track model revisions
 gem 'populate', git: 'git@bitbucket.org:tiu/populate.git'
 gem 'tiu-generators', bitbucket: 'tiu/tiu-generators'
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
-gem 'webpacker', '~> 4.0'       # Transpile app-like JavaScript
 gem 'will_paginate', '~> 3.1'   # Pagination
 
 # Application Management
 
 gem 'bootsnap', require: false  # Speed up boot time by caching expensive operations.
 gem 'exception_notification', '~> 4.4'
+# gem 'rack-attack'               # block & throttle abusive requests
+gem 'rack-timeout', require: 'rack/timeout/base' # Abort requests that are taking too long
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
 gem 'slack-notifier'            # Send exception notifications to Slack
 gem 'whenever', require: false  # Schedule cron jobs
-
-gem 'rack-timeout', require: 'rack/timeout/base' # Abort requests that are taking too long
 
 # Styling
 
@@ -51,6 +50,7 @@ gem 'mini_racer', platforms: :ruby # See https://github.com/rails/execjs#readme 
 gem 'jquery-rails'              # Use jquery as the JavaScript library
 gem 'uglifier', '>= 1.3.0'      # Use Uglifier as compressor for JavaScript assets
 gem 'underscore-rails'          # utility-belt library for JavaScript
+gem 'webpacker', '~> 4.0'       # Transpile app-like JavaScript
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
