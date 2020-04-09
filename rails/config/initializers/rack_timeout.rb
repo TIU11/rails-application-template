@@ -2,4 +2,6 @@
 
 # insert middleware wherever you want in the stack, optionally pass
 # initialization arguments, or use environment variables
-Rails.application.config.middleware.insert_before Rack::Runtime, Rack::Timeout, service_timeout: 10.seconds.to_i
+unless Rails.env.in? %w[development test]
+  Rails.application.config.middleware.insert_before Rack::Runtime, Rack::Timeout, service_timeout: 120.seconds.to_i
+end
