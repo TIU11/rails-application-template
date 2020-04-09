@@ -6,9 +6,9 @@
 en:
   activerecord:
 
-    # attributes:
-    #   user:
-    #     first_name: Given Name
+    attributes:
+      user:
+        password_confirmation: Confirm new password
 
     models:
       user:
