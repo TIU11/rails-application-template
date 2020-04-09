@@ -20,28 +20,30 @@ module AnalyticsHelper
   #
   # Option Documentation:
   #   https://developers.google.com/analytics/resources/articles/gaTrackingTroubleshooting#gifParameters
+  #
+  # TODO: default utmac: ENV['GOOGLE_ANALYTICS']
   def analytics_url(options = {})
-    return unless options[:utmac]
+    logger.warn "Missing ENV['GOOGLE_ANALYTICS']" if ENV['GOOGLE_ANALYTICS'].blank?
 
-    # Setup default options
-    @options = options.merge(utmn:       Random.rand(1_000_000_000..9_999_999_999),
-                             utmwv:      '5.3.0d',
-                             utm_medium: 'email',
-                             utmp:       '/default-analytics-page')
-    @options[:utmr] = request&.url || '-'
-    @options[:utmp] = options[:utm_campaign] if options[:utm_campaign]
-    @options[:utmcc] = generate_cookie(@options.slice(:utm_campaign, :utm_medium))
-
-    # Override defaults with provided options
-    @options.merge!(options)
+    # Apply default options
+    options.reverse_merge!(
+      utmac: ENV['GOOGLE_ANALYTICS'],
+      utmn: Random.rand(1_000_000_000..9_999_999_999),
+      utmr: request&.url || '-',
+      utmwv: '5.3.0d',
+      utm_medium: 'email',
+      utmp: '/default-analytics-page'
+    )
+    options[:utmp] = options[:utm_campaign] if options[:utm_campaign]
+    options[:utmcc] = generate_cookie(options.slice(:utm_campaign, :utm_medium))
 
     # Build URL
-    'http://www.google-analytics.com/__utm.gif?' + @options.to_query
+    'https://www.google-analytics.com/__utm.gif?' + options.to_query
   end
 
   # Generate Google Analytics tracking image.
   def analytics_image_tag(options = {})
-    "<img src=\"#{analytics_url(options)}\" width=\"1\" height=\"1\" />".html_safe
+    image_tag analytics_url(options), width: 1, height: 1
   end
 
   private
@@ -76,7 +78,7 @@ module AnalyticsHelper
 
     # Timestamp for the initial visit
     def timestamp
-      Time.now.strftime('%s')
+      Time.current.strftime('%s')
     end
 
     alias initial_visit timestamp
