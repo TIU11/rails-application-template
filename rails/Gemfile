@@ -97,9 +97,10 @@ group :development do
   gem 'bullet'                  # Tool to eliminate N+1 queries and unused loading
   gem 'rails_best_practices'    # Code metric tool for quality checks
   gem 'rubocop', '~> 0.70', require: false # Static code analyzer. Enforces the Ruby Style Guide
-  gem 'rubocop-performance'
-  gem 'rubocop-rails'
-  gem 'rubocop-rspec'
+  gem 'rubocop-minitest', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :test do

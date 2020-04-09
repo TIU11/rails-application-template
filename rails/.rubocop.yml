@@ -4,6 +4,7 @@
 # * [rails defaults](https://github.com/rails/rails/blob/master/.rubocop.yml)
 
 require:
+  - rubocop-minitest
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
