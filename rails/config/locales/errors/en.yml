@@ -4,6 +4,15 @@
 # * [Error Message Scopes](https://guides.rubyonrails.org/i18n.html#error-message-scopes)
 # * (https://github.com/svenfuchs/rails-i18n/tree/master/rails/locale)
 en:
+  activemodel:
+    errors:
+      models:
+        password_change_request:
+          attributes:
+            base:
+              account_not_found_html: Unable to find an account matching the email or username you provided. Try checking your spelling, or <a class="alert-link" href="mailto:%{email}?subject=Request Help Resetting Password&body=I'm having trouble updating my password because I don't know the registered email or username. (add details)">contact us</a> to look up your account.
+              account_problem_html: There is a problem with your account. Please <a class="alert-link" href="mailto:%{email}?subject=Request Help Resetting Password&body=I'm having trouble updating my password because there is a problem with my account. (add details)">contact us</a> to update your account.
+
   activerecord:
 
     errors:

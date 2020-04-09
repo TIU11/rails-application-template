@@ -9,3 +9,22 @@ en:
     page_gap: "&hellip;"
     page_entries_info:
       multi_page_html: "%{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b> in total"
+      single_page_html:
+        zero:  "No %{model} found"
+        one:   "Displaying <b>1</b> %{model}"
+        other: "Displaying <b>%{count}</b> %{model}"
+
+  # https://www.rubydoc.info/github/binarylogic/authlogic/Authlogic/I18n
+  authlogic:
+    errors:
+      models:
+        user_session:
+          attributes:
+            base:
+              first_time_user: You need to <a class="alert-link" href="%{url}">set your password</a> before logging in for the first time.
+              forgetful_user: You can <a class="alert-link" href="%{url}">change your password</a> if you can't remember it.
+
+  # CanCanCan
+  # See (https://www.rubydoc.info/github/CanCanCommunity/cancancan/CanCan/ControllerAdditions#authorize!-instance_method)
+  # unauthorized:
+  #   default: You are not authorized to access this page.

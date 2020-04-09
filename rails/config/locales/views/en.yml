@@ -10,3 +10,25 @@ en:
       title: Page Not Found
       header: The page you were looking for isn't found here.
       message: You may have mistyped the address or the page may have moved.
+
+  passwords:
+    edit:
+      inactive_link_html: We're sorry, but this is not an active password reset link. You can <a href="%{new_password_path}" class="alert-link">generate a new one</a>.
+    create:
+      # inactive_link_html:
+      sent_email: Instructions to change your password have been emailed to the registered email. Please check your email.
+    update:
+      updated: Password successfully updated
+
+  user_sessions:
+    create:
+      welcome: Welcome to the PD Tracker!
+    destroy:
+      logout: You are now logged out
+      timeout: Your secure connection timed out. Please login to continue.
+    su:
+      inactive: Can not switch to an inactive user
+      success: You've been logged in as %{user}
+    unsu:
+      error: Sorry, we couldn't find your original user.
+      success: You have exited your switch user session, and resumed as %{user}

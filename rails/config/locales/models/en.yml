@@ -19,6 +19,15 @@ en:
         other: Versions
 
   # helpers:
+  #   label: # Form labels
+  #     user:
+  #       name: Name # Falls back to User.human_attribute_name(:name)
+  #   select: # Form select inputs
+  #     prompt: Please select
+  #   submit: # Form submit buttons
+  #     user:
+  #       create: Create
+  #       update: Update
 
   date:
     formats:
