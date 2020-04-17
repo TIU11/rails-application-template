@@ -27,7 +27,7 @@ gem 'will_paginate', '~> 3.1'   # Pagination
 
 # Application Management
 
-gem 'bootsnap', require: false  # Speed up boot time by caching expensive operations.
+gem 'bootsnap', require: false  # Reduces boot times through caching; required in config/boot.rb
 gem 'exception_notification', '~> 4.4'
 # gem 'rack-attack'               # block & throttle abusive requests
 gem 'rack-timeout', require: 'rack/timeout/base' # Abort requests that are taking too long
@@ -107,6 +107,7 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 
   gem 'simplecov', require: false # Track code coverage of test suite
 
