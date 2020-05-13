@@ -66,7 +66,7 @@ To see what the template does, we like to first generate a default rails app and
 
     cd ~/code                    # Wherever you put your projects
     rvm use 2.6.5
-    rails new my-app --database=postgresql --skip-turbolinks  --skip-action-cable --no-scaffold-stylesheet
+    rails new my-app --database postgresql --skip-turbolinks --skip-action-cable --no-scaffold-stylesheet
     cd my-app
     git init
     git add .
@@ -112,6 +112,7 @@ That's it, take her for a spin:
 
 # Todo
 
+* Reconsider Turbolinks 6 (ETA fall 2020) as perhaps more drop-in WRT form handling and more approachable.
 * Consider ideas from [Suspenders](https://github.com/thoughtbot/suspenders).
 * still needs font-awesome-migrator to be applied to the template. Might be good to notify folks to run on their projects if they were depending on FA 4.x
 * useful default `README.md`
@@ -135,5 +136,5 @@ Developed by Anson Hoyt at [Tuscarora Intermediate Unit 11](http://www.tiu11.org
 
 # License
 
-Copyright (c) 2013-2017 [Tuscarora Intermediate Unit 11](http://www.tiu11.org).
-See LICENSE for details.
+Copyright (c) 2013-2020 [Tuscarora Intermediate Unit 11](http://www.tiu11.org).
+See [LICENSE](LICENSE.md) for details.
