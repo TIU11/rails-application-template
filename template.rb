@@ -100,6 +100,7 @@ demo:
 # Routes
 route "root to: 'exception#not_found'"
 route "get '/404' => 'exception#not_found'"
+route "get '/500' => 'exception#internal_server_error'"
 
 puts 'Process Templates'.cyan
 template    "#{destination_root}/config/locales/en.yml.tt"
