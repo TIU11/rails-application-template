@@ -8,6 +8,12 @@ namespace :ubuntu do
 
     # define gem dependencies on ubuntu packages
     known_gem_dependencies = {
+      activestorage: [
+        'ffmpeg', # If you are dealing with video
+        'poppler-utils', # If you are dealing with PDFs (GNU licensed option. Free for commercial use.)
+        'imagemagick',
+        'vips'
+      ],
       pg: [
         'libpq-dev',
         'postgresql-client' # db:snapshot task uses `pg_dump`
