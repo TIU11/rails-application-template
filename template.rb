@@ -52,6 +52,8 @@ insert_into_file 'config/environments/development.rb', <<-CONFIG, before: /^end/
   config.enable_bullet = false
 CONFIG
 gsub_file 'config/environments/development.rb', 'config.assets.debug = true', 'config.assets.debug = false'
+uncomment_lines 'config/environments/development.rb', 'config.action_view.raise_on_missing_translations = true'
+uncomment_lines 'config/environments/test.rb', 'config.action_view.raise_on_missing_translations = true'
 
 uncomment_lines 'config/environments/production.rb', 'config.force_ssl = true'
 insert_into_file 'config/environments/production.rb', <<-CONFIG, before: /^end/
