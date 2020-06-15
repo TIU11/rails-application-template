@@ -180,6 +180,9 @@ after_bundle do
   # Install rspec
   run "#{@rvm_do} rails generate rspec:install"
 
+  # Setup the app how we like it
+  run "#{@rvm_do} rails generate app:setup"
+
   # Create the environments and database before papertrail which check db.
   run "#{@rvm_do} rails app:create_dotenv"
   run "#{@rvm_do} rails db:create"

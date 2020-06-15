@@ -112,6 +112,7 @@ That's it, take her for a spin:
 
 # Todo
 
+* Extract Bootstrap 3/4 stuff to v1/v2 of `app:setup` generator.
 * Reconsider Turbolinks 6 (ETA fall 2020) as perhaps more drop-in WRT form handling and more approachable.
 * Consider ideas from [Suspenders](https://github.com/thoughtbot/suspenders).
 * still needs font-awesome-migrator to be applied to the template. Might be good to notify folks to run on their projects if they were depending on FA 4.x
