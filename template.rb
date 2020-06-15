@@ -142,12 +142,15 @@ run "rvm #{@desired_ruby} do rvm --ruby-version --create use #{@desired_ruby}@#{
 # See http://apidock.com/rails/v4.2.1/Rails/Generators/AppBase/run_bundle
 # See http://stackoverflow.com/questions/11302742/how-to-make-a-rails-template-forcefully-not-run-bundle-install-after-rails-new-i
 def run_bundle
-  puts 'Updating to the latest Rubygems'.cyan
-  puts "Currently using Rubygems #{`#{@rvm_do} gem -v`}"
-  run "#{@rvm_do} rvm rubygems latest" # TODO: installs older version than `gem update --system`
+  say set_color('Updating to the latest Rubygems', :cyan)
+  run "gem update --system"
 
-  puts 'Updating to the latest Bundler'.cyan
-  run "rvm #{@desired_ruby}@global do gem install bundler"
+  say set_color('Updating to the latest Bundler', :cyan)
+  if Gem.ruby_version < Gem::Version.new('2.6')
+    run "rvm #{@desired_ruby}@global do gem install bundler"
+  else
+    run "gem update bundler"
+  end
 
   return unless bundle_install? # respect `--skip-bundle` flag
 
