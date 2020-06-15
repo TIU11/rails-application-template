@@ -155,7 +155,7 @@ def run_bundle
   say_status :run, "#{@rvm_do} bundle install"
 
   require 'bundler'
-  Bundler.with_clean_env { run "#{@rvm_do} bundle install" }
+  Bundler.with_unbundled_env { run "#{@rvm_do} bundle install" }
 end
 
 # Override since Rails won't run this within the project's RVM gemset
