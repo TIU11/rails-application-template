@@ -36,13 +36,12 @@ module DatepickerHelper
 
     format_date_values(options)
 
-    content_tag :div, class: 'input-group mr-sm-2 date' do
+    tag.div class: 'input-group mr-sm-2 date' do
       concat form.text_field(name, options)
-      concat content_tag(:span,
-                         content_tag(:span,
-                                     icon('fas', 'calendar-alt'),
-                                     class: 'input-group-text'),
-                         class: 'input-group-append')
+      concat tag.span(
+        tag.span(icon('fas', 'calendar-alt'), class: 'input-group-text'),
+        class: 'input-group-append'
+      )
     end
     # rubocop:enable Metrics/MethodLength
   end

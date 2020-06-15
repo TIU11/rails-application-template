@@ -42,7 +42,7 @@ module SeoHelper
   def meta_robots
     return if Rails.env.production?
 
-    tag :meta, name: 'robots', content: 'none'
+    tag.meta name: 'robots', content: 'none'
   end
 
   private
