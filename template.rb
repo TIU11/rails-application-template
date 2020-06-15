@@ -15,7 +15,7 @@ require 'rails'
 
 say_status :rails_version, Rails.version
 
-puts 'Download template files from Bitbucket'.cyan
+say set_color('Download template files from Bitbucket', :cyan)
 git archive: '--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar -v master:rails | (tar xf -)'
 
 #
@@ -104,7 +104,7 @@ route "root to: 'exception#not_found'"
 route "get '/404' => 'exception#not_found'"
 route "get '/500' => 'exception#internal_server_error'"
 
-puts 'Process Templates'.cyan
+say set_color('Process Templates', :cyan)
 template    "#{destination_root}/config/locales/en.yml.tt"
 remove_file "#{destination_root}/config/locales/en.yml.tt"
 template    "#{destination_root}/config/initializers/exception_notification.rb.tt"
@@ -114,7 +114,7 @@ remove_file "#{destination_root}/config/deploy.rb.tt"
 template    "#{destination_root}/config/sitemap.rb.tt"
 remove_file "#{destination_root}/config/sitemap.rb.tt"
 
-puts 'Remove Junk/Unwanted Files'.cyan
+say set_color('Remove Junk/Unwanted Files', :cyan)
 # Replaced by secrets.yml (http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#config-secrets-yml)
 remove_file 'config/initializers/secret_token.rb' #
 # Unused files from Rails default template
