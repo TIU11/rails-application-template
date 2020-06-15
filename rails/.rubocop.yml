@@ -20,9 +20,25 @@ AllCops:
     - 'spec/spec_helper.rb'
     - '**/*.erb' # Workaround for https://github.com/AtomLinter/linter-rubocop/issues/48
 
+#################### Layout ###########################
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
 # Allow lines up to 120 characters
 Layout/LineLength:
   Max: 120
+
+#################### Lint ###########################
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
 
 #################### Metrics ###########################
 
@@ -48,10 +64,20 @@ Style/Documentation:
 Style/FormatStringToken:
   Enabled: false
 
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+
 Style/StringLiterals:
   Enabled: false # TODO: consider re-enabling. Address 200+ offenses.
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
   Exclude:
     - 'config/**/*.rb'
     - 'db/**/*.rb'
@@ -113,10 +139,10 @@ Rails/UnknownEnv:
 #################### RSpec ###########################
 
 RSpec/MultipleExpectations:
-  Max: 3
+  Max: 5
 
 RSpec/ExampleLength:
-  Max: 10
+  Max: 15
 
 # Use class explicitly, rather than `described_class`.
 RSpec/DescribedClass:
