@@ -51,7 +51,7 @@ module SeoHelper
       model = instance_variable_get "@#{controller_name.singularize}"
       if action_name.eql?('show') && model
         "#{model} - #{controller_name.titleize.singularize} - #{I18n.t('app.title')}"
-      elsif action_name.eql?('edit') && model
+      elsif action_name.in?(%w[edit update]) && model
         "Editing #{model} - #{controller_name.titleize.singularize} - #{I18n.t('app.title')}"
       else
         "#{controller_name.titleize} - #{I18n.t('app.title')}"
