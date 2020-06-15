@@ -125,7 +125,7 @@ remove_file 'public/index.html'
 # Create and initialize RVM gemset
 # @see https://rvm.io/workflow/scripting for explanation of `rvm do`
 #
-puts 'Setting up RVM gemset'.cyan
+say set_color('Setting up RVM gemset', :cyan)
 default_ruby = `rvm list default string`.strip # default to `rvm default` ruby version
 @desired_ruby = ask("Which Ruby would you like to use? [#{default_ruby}]".cyan)
 @desired_ruby = default_ruby if @desired_ruby.blank?
@@ -134,13 +134,22 @@ if `rvm list strings`.include? @desired_ruby
 else
   run "rvm install #{@desired_ruby}"
 end
-gemset_name = app_name.titleize.parameterize
-run "rvm #{@desired_ruby} do rvm --ruby-version --create use #{@desired_ruby}@#{gemset_name}"
-@rvm_do = "rvm #{@desired_ruby}@#{gemset_name} do" # run a command within this gemset via `run "#{@rvm_do} command"`
+@gemset = "#{@desired_ruby}@#{app_name.titleize.parameterize}"
+run "rvm #{@desired_ruby} do rvm --ruby-version --create use #{@gemset}"
+@rvm_do = "rvm #{@gemset} do" # run a command within this gemset via `run "#{@rvm_do} command"`
 
-# Override since Rails won't install into our project's RVM gemset
-# See http://apidock.com/rails/v4.2.1/Rails/Generators/AppBase/run_bundle
-# See http://stackoverflow.com/questions/11302742/how-to-make-a-rails-template-forcefully-not-run-bundle-install-after-rails-new-i
+# Run commands within our app's RVM gemset
+# Hacks Rails::Generators::Actions.execute_command via extify
+# - https://github.com/rails/rails/blob/6-0-stable/railties/lib/rails/generators/actions.rb#L285
+# - https://github.com/rails/rails/blob/6-0-stable/railties/lib/rails/generators/actions.rb#L299
+# - http://stackoverflow.com/questions/11302742/how-to-make-a-rails-template-forcefully-not-run-bundle-install-after-rails-new-i
+def extify(action)
+  say_status :rvm, "Executing #{action.inspect} in RVM gemset #{@gemset}"
+  "#{@rvm_do} #{super}"
+end
+
+# Before bundle, update Rubygems and Bundler.
+# - https://github.com/rails/rails/blob/6-0-stable/railties/lib/rails/generators/app_base.rb#L406
 def run_bundle
   say set_color('Updating to the latest Rubygems', :cyan)
   run "gem update --system"
@@ -152,22 +161,18 @@ def run_bundle
     run "gem update bundler"
   end
 
-  return unless bundle_install? # respect `--skip-bundle` flag
-
-  puts 'Installing bundled gems (may take several minutes)'.cyan
-  say_status :run, "#{@rvm_do} bundle install"
-
-  require 'bundler'
-  Bundler.with_unbundled_env { run "#{@rvm_do} bundle install" }
+  super
 end
 
-# Override since Rails won't run this within the project's RVM gemset
-# See http://apidock.com/rails/Rails/Generators/AppBase/generate_spring_binstubs
-def generate_spring_binstubs
-  return unless bundle_install? && spring_install? # respect `--skip-bundle`, `--skip-spring` flags
-
-  say_status :run, "#{@rvm_do} bundle exec spring binstub --all"
-  run "#{@rvm_do} bundle exec spring binstub --all"
+# Override bundle command to run in context of current RVM gemset
+# https://github.com/rails/rails/blob/6-0-stable/railties/lib/rails/generators/app_base.rb#L352
+def exec_bundle_command(bundle_command, command, env)
+  full_command = %Q[#{@rvm_do} "#{bundle_command}" #{command}]
+  if options[:quiet]
+    system(env, full_command, out: File::NULL)
+  else
+    system(env, full_command)
+  end
 end
 
 #
@@ -175,7 +180,7 @@ end
 #
 
 after_bundle do
-  puts 'Run generators'.cyan
+  say set_color('Run generators', :cyan)
 
   # Keep the rspec generator from hanging.
   # @see (http://www.sitepoint.com/rails-application-templates-real-world/)
@@ -215,4 +220,4 @@ after_bundle do
   end
 end
 
-say_status :end, "#{@app_name} Complete!"
+say_status :end, "#{@app_name} Complete! Now bundler will install to the #{@gemset} gemset."
