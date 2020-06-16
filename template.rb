@@ -193,7 +193,7 @@ after_bundle do
   generate "rspec:install"
 
   # Setup the app how we like it
-  generate "app:setup"
+  generate "tiu:app:setup"
 
   # Create the environments and database before papertrail which check db.
   rails_command "app:create_dotenv"
