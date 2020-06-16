@@ -184,19 +184,19 @@ after_bundle do
 
   # Keep the rspec generator from hanging.
   # @see (http://www.sitepoint.com/rails-application-templates-real-world/)
-  run "#{@rvm_do} spring stop"
+  bundle_command "exec spring stop"
   # Install rspec
-  run "#{@rvm_do} rails generate rspec:install"
+  generate "rspec:install"
 
   # Setup the app how we like it
-  run "#{@rvm_do} rails generate app:setup"
+  generate "app:setup"
 
   # Create the environments and database before papertrail which check db.
-  run "#{@rvm_do} rails app:create_dotenv"
-  run "#{@rvm_do} rails db:create"
+  rails_command "app:create_dotenv"
+  rails_command "db:create"
 
   if yes?('Create Users? [yN]'.cyan)
-    run "#{@rvm_do} rails generate tiu:authlogic:install --force"
+    generate "tiu:authlogic:install", "--force"
   end
 
   # Add code to the repository
@@ -208,16 +208,18 @@ after_bundle do
     git commit: "-m 'Applied Rails Application Template'"
   end
 
-  run "#{@rvm_do} rails db:migrate"
-  run "#{@rvm_do} rails bitbucket:setup"
-  run "#{@rvm_do} rails bitbucket:launch_sourcetree"
+  rails_command "db:migrate"
+  rails_command "bitbucket:setup"
+  rails_command "bitbucket:launch_sourcetree"
 
   puts "\nNow is a good time to run the generated application, and fix anything wonky before deploying".yellow
   if yes?('Deploy? [yN]'.cyan)
-    run "#{@rvm_do} cap dev rvm:create_gemset"
-    run "#{@rvm_do} cap dev deploy:setup"
-    run "#{@rvm_do} cap dev deploy"
+    bundle_command "exec cap dev rvm:create_gemset"
+    bundle_command "exec cap dev deploy:setup"
+    bundle_command "exec cap dev deploy"
   end
+
+  say_status :end, "#{@app_name} Complete! 🎉"
 end
 
-say_status :end, "#{@app_name} Complete! Now bundler will install to the #{@gemset} gemset."
+say_status :end, "#{@app_name} template applied! Now bundler will install to the #{@gemset} gemset."
