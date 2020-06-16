@@ -28,7 +28,7 @@ module ApplicationHelper
     status = status.status if status.is_a? ApplicationRecord
 
     span_class = CSS_CLASS_FOR_STATUS[status.to_s]
-    tag.span status.titleize, class: "badge #{span_class} #{binding.local_variable_get(:class)}"
+    tag.span status&.titleize, class: "badge #{span_class} #{binding.local_variable_get(:class)}"
   end
 
   # +message+ optional message to override the default
