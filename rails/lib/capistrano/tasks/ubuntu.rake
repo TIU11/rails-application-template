@@ -12,7 +12,7 @@ namespace :ubuntu do
         'ffmpeg', # If you are dealing with video
         'poppler-utils', # If you are dealing with PDFs (GNU licensed option. Free for commercial use.)
         'imagemagick',
-        'vips'
+        'libvips-tools' # vips
       ],
       pg: [
         'libpq-dev',
