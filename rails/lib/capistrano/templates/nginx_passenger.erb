@@ -34,8 +34,11 @@ server {
       break;
     }
 
+    # Uploads
+    #client_max_body_size 10m;
+
     # SSL
-    ssl_certificate      /etc/ssl/certs/<%= fetch(:top_level_domain) %>.pem;
+    ssl_certificate      /etc/ssl/certs/<%= fetch(:top_level_domain) %>.crt;
     ssl_certificate_key  /etc/ssl/private/<%= fetch(:top_level_domain) %>.key;
 }
 
