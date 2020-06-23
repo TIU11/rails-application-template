@@ -7,11 +7,19 @@
 #
 # ==Example
 #
-#   form_for @organization do |f|
+#   # organizations/_form.html.erb
+#   form_for @organization do |form|
 #     form.fields_for :users do |user|
 #       render 'user_fields', form: user
 #     end
-#   link_to_add_fields icon('fas', :plus, 'Add'), f, :users, class: 'pull-right'
+#   link_to_add_fields icon('fas', :plus, 'Add'), form, :users, class: 'float-right'
+#   end
+#
+#   # users/_user_fields.html.erb
+#   tag.tag class: 'nested-fields user-fields' do
+#     form.text_field :name, class: 'form-control'
+#     form.hidden_field :_destroy
+#     link_to_remove_fields
 #   end
 module NestedFieldsHelper
   # Works with `addNestedFields` JavaScript function.
@@ -32,7 +40,7 @@ module NestedFieldsHelper
   end
 
   # Works with `removeNestedFields` JavaScript function.
-  def link_to_remove_fields(name = icon('fas', 'trash', 'Delete'), options = {})
+  def link_to_remove_fields(name = icon('fas', :times), options = {})
     options[:class] = Array(options[:class]) << 'remove-nested-fields'
 
     link_to(name, '#', options)
