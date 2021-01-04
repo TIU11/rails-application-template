@@ -28,7 +28,7 @@ class Bitbucket
     def password
       @password ||= begin
         puts "What is your Bitbucket password?".cyan
-        password = STDIN.noecho(&:gets).chomp
+        password = $stdin.noecho(&:gets).chomp
         raise ArgumentError if password.blank?
 
         password
