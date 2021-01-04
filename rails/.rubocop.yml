@@ -45,10 +45,13 @@ Lint/RaiseException:
 
 Metrics/MethodLength:
   Exclude:
+    - 'app/controllers/*_controller.rb'
+    - 'app/models/ability.rb'
     - 'db/migrate/*.rb'
 
 Metrics/AbcSize:
   Exclude:
+    - 'app/models/ability.rb'
     - 'db/migrate/*.rb'
 
 # Allow long blocks. This includes rake tasks, rake namespaces.
