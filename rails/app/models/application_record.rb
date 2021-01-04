@@ -9,16 +9,25 @@ class ApplicationRecord < ActiveRecord::Base
 
   class << self
 
-    # Select one or more random records from the database
-    # Ex. "The winners are #{User.sample(3).to_sentence}!"
-    def sample(sample_size = 1)
+    # Returns a random record, or +n+ random records, from the collection.
+    # If the collection is empty, the first form returns +nil+, and the second
+    # form returns an empty array.
+    #
+    #   User.sample # => #<User id: 4, name: "George P. Burdell">
+    #
+    #   User.sample(2)
+    #   # => [
+    #   #      <#User id:7, name: "Anson Hoyt">,
+    #   #      <#User id:3, name: "Colby Guyer">
+    #   #    ]
+    def sample(sample_size = nil)
       case ActiveRecord::Base.connection.adapter_name
       when 'PostgreSQL', 'SQLite'
-        limit(sample_size).order(Arel.sql('RANDOM()'))
+        order(Arel.sql('RANDOM()')).first(sample_size)
       when 'MySQL'
-        limit(sample_size).order(Arel.sql('RAND()'))
+        order(Arel.sql('RAND()')).first(sample_size)
       when 'SQLServer'
-        limit(sample_size).order(Arel.sql('NEWID()'))
+        order(Arel.sql('NEWID()')).first(sample_size)
       else
         # Here are more http://stackoverflow.com/questions/19412/how-to-request-a-random-row-in-sql
         raise 'Current database adapter is not supported.'
