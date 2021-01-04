@@ -171,7 +171,7 @@ end
 # Override bundle command to run in context of current RVM gemset
 # https://github.com/rails/rails/blob/6-0-stable/railties/lib/rails/generators/app_base.rb#L352
 def exec_bundle_command(bundle_command, command, env)
-  full_command = %Q[#{@rvm_do} "#{bundle_command}" #{command}]
+  full_command = %(#{@rvm_do} "#{bundle_command}" #{command})
   if options[:quiet]
     system(env, full_command, out: File::NULL)
   else

@@ -21,6 +21,9 @@ Layout/LineLength:
 Metrics/BlockLength:
   Enabled: false
 
+Style/StringLiterals:
+  Enabled: false # TODO: consider re-enabling. Address 200+ offenses.
+
 # Prefer array literals of symbols over %i(), which requires memorizing "%i"
 Style/SymbolArray:
   EnforcedStyle: brackets

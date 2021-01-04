@@ -6,7 +6,7 @@
 # * https://github.com/weppos/rubyist/blob/master/content/rails/extensions.md
 # * https://www.justinweiss.com/articles/3-ways-to-monkey-patch-without-making-a-mess/
 
-Dir[Rails.root.join('lib', 'extensions', '**', '*.rb')].each { |f| require f }
+Dir[Rails.root.join('lib/extensions/**/*.rb')].sort.each { |f| require f }
 
 ActionView::Helpers::FormBuilder.include Extensions::ActionView::FormBuilderExtensions
 
