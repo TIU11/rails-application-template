@@ -84,7 +84,7 @@ if File.exist? 'config/secrets.yml'
 end
 insert_into_file 'config/database.yml', %(
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  host: <%= ENV.fetch('DATABASE_HOST') { 'localhost' } %>
+  host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
 ), after: /^default: &default\n(  \w+:.*\n)+/ # at end of 'default' block
 insert_into_file 'config/database.yml', %(
 dev:

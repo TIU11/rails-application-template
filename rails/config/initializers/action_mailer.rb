@@ -18,7 +18,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587, # TLS supercedes SSL across GSuite
-    domain: ENV.fetch('SMTP_DOMAIN') { 'tiu11.org' },
+    domain: ENV.fetch('SMTP_DOMAIN', 'tiu11.org'),
     authentication: :plain,
     enable_starttls_auto: true,
     user_name: ENV['SMTP_USER'], # ex. 'user@gmail.com'
