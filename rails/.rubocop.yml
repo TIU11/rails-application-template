@@ -10,6 +10,7 @@ require:
   - rubocop-rspec
 
 AllCops:
+  NewCops: enable
   Exclude:
     - 'node_modules/**/*'
     - '**/templates/**/*'
@@ -60,18 +61,6 @@ Metrics/BlockLength:
 # Don't require documenting classes, modules, methods
 Style/Documentation:
   Enabled: false
-
-Style/FormatStringToken:
-  Enabled: false
-
-Style/RedundantRegexpCharacterClass:
-  Enabled: true
-
-Style/RedundantRegexpEscape:
-  Enabled: true
-
-Style/SlicingWithRange:
-  Enabled: true
 
 Style/StringLiterals:
   Enabled: false # TODO: consider re-enabling. Address 200+ offenses.

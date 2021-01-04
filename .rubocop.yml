@@ -4,7 +4,8 @@
 # * [rails defaults](https://github.com/rails/rails/blob/master/.rubocop.yml)
 
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.6
+  NewCops: enable
   Exclude:
     - 'node_modules/**/*'
     - '**/templates/**/*'
@@ -12,7 +13,7 @@ AllCops:
     - 'rails/lib'
 
 # Allow lines up to 120 characters
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 # Allow long blocks. This includes rake tasks, rake namespaces.
