@@ -91,6 +91,9 @@ Style/BlockDelimiters:
 
 #################### Layout ###########################
 
+Layout/HashAlignment:
+  Enabled: false
+
 # Indent `protected` and `private` modifiers the same as public methods.
 # Indent their members one step more than the modifiers.
 Layout/IndentationConsistency:
@@ -120,6 +123,10 @@ Layout/SpaceInsideArrayLiteralBrackets:
 
 Rails/EnumHash:
   Enabled: false
+
+Rails/Output:
+  Exclude:
+    - db/seeds.rb
 
 Rails/UnknownEnv:
   Environments:
