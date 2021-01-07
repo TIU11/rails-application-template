@@ -18,8 +18,8 @@ gem 'addressable', '~> 2.6'     # more conformant replacement for (obsolete) Rub
 gem 'browser'                   # browser detection
 gem 'colorize'                  # Colored console output
 gem 'fast_jsonapi'              # JSON:API serializer
-gem 'friendly_id', '~> 5.2'     # Nice URLs
-gem 'paper_trail', '~> 10.0'    # Track model revisions
+gem 'friendly_id', '~> 5.4.2'   # Nice URLs
+gem 'paper_trail', '~> 11.0'    # Track model revisions
 gem 'populate', git: 'git@bitbucket.org:tiu/populate.git'
 gem 'tiu-generators', bitbucket: 'tiu/tiu-generators'
 gem 'virtus'                    # Define typed attributes (e.g. for Value Objects, Form Objects)
@@ -37,7 +37,7 @@ gem 'whenever', require: false  # Schedule cron jobs
 
 # Styling
 
-gem 'autoprefixer-rails'        # CSS vendor prefixer
+gem 'autoprefixer-rails', '~> 9.8'  # CSS vendor prefixer
 gem 'bootstrap', '~> 4.2'
 gem 'bootstrap-datepicker-rails'
 gem 'font-awesome-sass', '~> 5.2'
@@ -49,7 +49,6 @@ gem 'mini_racer', platforms: :ruby # See https://github.com/rails/execjs#readme 
 
 gem 'jquery-rails'              # Use jquery as the JavaScript library
 gem 'uglifier', '>= 1.3.0'      # Use Uglifier as compressor for JavaScript assets
-gem 'underscore-rails'          # utility-belt library for JavaScript
 gem 'webpacker', '~> 4.0'       # Transpile app-like JavaScript
 
 group :development, :test do
