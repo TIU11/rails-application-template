@@ -20,6 +20,10 @@ class ApplicationRecord < ActiveRecord::Base
     #   #      <#User id:7, name: "Anson Hoyt">,
     #   #      <#User id:3, name: "Colby Guyer">
     #   #    ]
+    #
+    # TODO: slows down for large tables (takes ~1 second for ~500k records)
+    # - For Postgres 9.5+, consider TABLESAMPLE.
+    # - https://www.2ndquadrant.com/en/blog/tablesample-and-other-methods-for-getting-random-tuples/
     def sample(sample_size = nil)
       case ActiveRecord::Base.connection.adapter_name
       when 'PostgreSQL', 'SQLite'
