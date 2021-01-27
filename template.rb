@@ -107,6 +107,7 @@ route "get '/500' => 'exception#internal_server_error'"
 say set_color('Process Templates', :cyan)
 template    "#{destination_root}/config/locales/en.yml.tt"
 remove_file "#{destination_root}/config/locales/en.yml.tt"
+template    "#{destination_root}/config/locales/views/en.yml"
 template    "#{destination_root}/config/initializers/exception_notification.rb.tt"
 remove_file "#{destination_root}/config/initializers/exception_notification.rb.tt"
 template    "#{destination_root}/config/deploy.rb.tt"

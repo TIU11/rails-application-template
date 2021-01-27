@@ -22,7 +22,7 @@ en:
 
   user_sessions:
     create:
-      welcome: Welcome to the PD Tracker!
+      welcome: Welcome to the <%= app_name.titleize %>
     destroy:
       logout: You are now logged out
       timeout: Your secure connection timed out. Please login to continue.
