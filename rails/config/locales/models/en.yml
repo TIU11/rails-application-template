@@ -43,9 +43,9 @@ en:
 
   time:
     formats:
-      default: "%a, %-d %b %Y %I:%M:%S %p %Z"
-      long: "%B %-d, %Y %-I:%M%P"
-      short: "%b %d %-I:%M%P"
-      time: "%-I:%M%P"        # 1:30p
+      default: "%a, %-d %b %Y %I:%M:%S %p %Z" # Wed, 27 Jan 2021 12:54:20 PM EST
+      long: "%B %-d, %Y %-I:%M%P" # January 5, 2021 1:30pm
+      short: "%b %d %-I:%M%P" # Jan 5 1:30pm
+      time: "%-I:%M%P"        # 1:30pm
       day_and_month: "%b %-e" # Jan 5
       month_and_year: "%b %Y" # Jan 2012
