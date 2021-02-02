@@ -4,7 +4,7 @@
 module Type
   class EditorText < ActiveModel::Type::String
 
-    EMPTY_P_TAG_REGEX = %r{\A(<p[^>]*>(\s|&nbsp;|<\/?\s?br\s?\/?>)*<\/?p>)\1*\z}.freeze
+    EMPTY_P_TAG_REGEX = %r{\A(<p[^>]*>(\s|&nbsp;|</?\s?br\s?/?>)*</?p>)\1*\z}.freeze
 
     def serialize(value)
       super(value)
