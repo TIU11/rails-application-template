@@ -20,7 +20,7 @@ namespace :nginx do
                                  "| grep -o 'passenger_ruby.*'").strip
 
         template_path = 'lib/capistrano/templates/nginx_passenger.erb'
-        content = StringIO.new(ERB.new(File.read(template_path), nil, '>').result(binding)) # process ERB template
+        content = StringIO.new(ERB.new(File.read(template_path), trim_mode: '>').result(binding)) # process ERB template
         upload! content, "#{shared_path}/#{fqdn}"
 
         execute :sudo, :mv, "#{shared_path}/#{fqdn} #{config_path}"
