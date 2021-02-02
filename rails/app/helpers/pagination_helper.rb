@@ -3,6 +3,7 @@
 module PaginationHelper
 
   # Renders will_pagination information on the records within `span.pagination-record-count`
+  # https://www.rubydoc.info/github/mislav/will_paginate/WillPaginate/ViewHelpers#page_entries_info-instance_method
   def pagination_entries_info(model = nil)
     return unless model.respond_to? :total_pages
 
