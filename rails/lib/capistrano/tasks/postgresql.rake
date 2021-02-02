@@ -2,6 +2,7 @@
 
 require 'yaml'
 require 'dotenv'
+require 'active_support/time' # for 10.seconds in database.yml
 
 # TODO: how to we hook this just during initial deploy so it doesn't have to be done manually?
 #
