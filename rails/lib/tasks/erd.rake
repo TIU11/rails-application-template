@@ -4,17 +4,18 @@
 
 namespace :erd do
   desc "Generate a standard ERD"
-  task :standard do |_task|
+  task standard: :environment do |_task|
     ENV['title'] = I18n.t 'app.title'
     ENV['exclude'] = 'PaperTrail::Version,PgSearch::Document,Delayed::Backend::ActiveRecord::Job'
     Rake::Task[:erd].invoke
   end
 
   desc "Generate a full ERD"
-  task :full do |_task|
+  task full: :environment do |_task|
     ENV['title'] = I18n.t 'app.title'
     ENV['notation'] = 'bachman'
     ENV['polymorphism'] = 'true'
+    ENV['exclude'] = 'ApplicationRecord'
     Rake::Task[:erd].invoke
   end
 end
