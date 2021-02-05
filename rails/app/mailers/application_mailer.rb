@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class ApplicationMailer < ActionMailer::Base
   default from: I18n.t('app.sending_email'),
           reply_to: I18n.t('app.support_email')
+
+  layout 'mailer' # All mailers will share a layout
 
   # Include view helpers
   #
