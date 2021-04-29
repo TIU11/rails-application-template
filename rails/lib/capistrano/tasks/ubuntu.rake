@@ -20,6 +20,7 @@ namespace :ubuntu do
       ],
       json: 'libgmp-dev',
       charlock_holmes: 'libicu-dev',
+      mimemagic: 'shared-mime-info',
       paperclip: [
         'imagemagick',
         # If you are dealing with pdf uploads:

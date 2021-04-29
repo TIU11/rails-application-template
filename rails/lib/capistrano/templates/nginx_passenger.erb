@@ -22,10 +22,10 @@ server {
     # @see (https://www.phusionpassenger.com/library/config/nginx/)
     passenger_enabled on;
     # passenger_min_instances 1;
-    <%= passenger_ruby %>; # from project root, run `passenger-config --ruby-command`
+    passenger_ruby <%= passenger_ruby %>; # from project root, run `passenger-config --ruby-command`
     rails_env "<%= fetch(:rails_env) %>";
 
-    location ~ ^/assets/ {
+    location ~ ^/(assets|packs)/ {
       gzip_static on; # to serve pre-gzipped version for better compression
       expires max;    # Far-future Expiration for static resources
       add_header Cache-Control public;
@@ -35,7 +35,7 @@ server {
     }
 
     # Uploads
-    #client_max_body_size 10m;
+    # client_max_body_size 10m;
 
     # SSL
     ssl_certificate      /etc/ssl/certs/<%= fetch(:top_level_domain) %>.crt;
