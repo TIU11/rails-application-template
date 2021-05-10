@@ -30,6 +30,14 @@ Layout/EmptyLinesAroundAttributeAccessor:
 Layout/LineLength:
   Max: 120
 
+Layout/SpaceBeforeBlockBraces:
+  Exclude:
+    - 'spec/**/*' # to allow `expect{raise 'foo'}.to raise_error RuntimeError`
+
+Layout/SpaceInsideBlockBraces:
+  Exclude:
+    - 'spec/**/*' # to allow `expect{raise 'foo'}.to raise_error RuntimeError`
+
 #################### Lint ###########################
 
 Lint/DeprecatedOpenSSLConstant:
