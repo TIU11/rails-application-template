@@ -1,20 +1,17 @@
-<%
-  # https://www.phusionpassenger.com/library/config/apache/
-  # https://www.phusionpassenger.com/docs/advanced_guides/install_and_upgrade/apache/working_with_the_apache_config_file.html
-  # https://cwiki.apache.org/confluence/display/HTTPD/RedirectSSL
-  # https://guides.rubyonrails.org/asset_pipeline.html#far-future-expires-header
-%>
-
+# Redirect HTTP to HTTPS
+# - https://cwiki.apache.org/confluence/display/HTTPD/RedirectSSL
 <VirtualHost *:80>
-   ServerName <%= fqdn %>
-   Redirect / https://<%= fqdn %>
+    ServerName <%= fqdn %>
+    Redirect / https://<%= fqdn %>
 </VirtualHost>
+
 <VirtualHost *:443>
     ServerName <%= fqdn %>
     DocumentRoot <%= release_path %>/public
 
     # Phusion Passenger
-    # @see (https://www.phusionpassenger.com/library/config/apache/)
+    # - https://www.phusionpassenger.com/library/config/apache/
+    # - https://www.phusionpassenger.com/docs/advanced_guides/install_and_upgrade/apache/working_with_the_apache_config_file.html
     PassengerEnabled on
     # PassengerMinInstances 1
     PassengerRuby <%= passenger_ruby %> # from project root, run `passenger-config --ruby-command`
@@ -26,14 +23,17 @@
         Require all granted
     </Directory>
 
-    <Location /assets/>
-      # Use of ETag is discouraged when Last-Modified is present
-      Header unset ETag
-      FileETag None
-      # RFC says only cache for 1 year
-      ExpiresActive On
-      ExpiresDefault "access plus 1 year"
-    </Location>
+    # Rails Asset Pipeline and Webpacker
+    # - https://guides.rubyonrails.org/asset_pipeline.html#far-future-expires-header
+    # - https://github.com/rails/webpacker/blob/master/docs/deployment.md#nginx
+    <LocationMatch ^/(assets|packs)/>
+        # Use of ETag is discouraged when Last-Modified is present
+        Header unset ETag
+        FileETag None
+        # RFC says only cache for 1 year
+        ExpiresActive On
+        ExpiresDefault "access plus 1 year"
+    </LocationMatch>
 
     # Uploads
     # LimitRequestBody 10485760 # 10 MB
