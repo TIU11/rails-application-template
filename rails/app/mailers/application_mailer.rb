@@ -14,8 +14,9 @@ class ApplicationMailer < ActionMailer::Base
   include AnalyticsHelper
   helper AnalyticsHelper
 
-  include DateRangeHelper # for :date_range method
-  helper DateRangeHelper
+  # TODO: upstream from PA STEM
+  # include DateRangeHelper # for :date_range method
+  # helper DateRangeHelper
 
   include DateTimeHelper # for :readable_date method
   helper DateTimeHelper
