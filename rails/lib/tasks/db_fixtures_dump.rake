@@ -8,7 +8,7 @@
 # * https://gist.github.com/existentialmutt/a36d024b0ca7bbf5d3e81fa8b2cd692d
 
 namespace 'db:fixtures' do
-  EXCLUDED_ATTRIBUTES = %w[created_at updated_at].freeze
+  excluded_attributes = %w[created_at updated_at].freeze
 
   desc 'Dumps database into fixtures. Specify a model for just one.'
   task :dump, [:model] => :environment do |_task, args|
@@ -35,9 +35,9 @@ namespace 'db:fixtures' do
 
       path.open('w') do |file|
         hash = {}
-        model.find_each do |r|
-          key = r.try(:name) || "#{path.basename('.*')}_#{r.id}"
-          hash[key] = r.attributes.except(*EXCLUDED_ATTRIBUTES)
+        model.find_each do |record|
+          key = record.try(:name) || "#{path.basename('.*')}_#{record.id}"
+          hash[key] = record.attributes.except(*excluded_attributes)
         end
         file.write hash.to_yaml
       end
