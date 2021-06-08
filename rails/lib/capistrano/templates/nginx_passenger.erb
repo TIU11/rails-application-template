@@ -40,6 +40,26 @@ server {
     # SSL
     ssl_certificate      /etc/ssl/certs/<%= fetch(:top_level_domain) %>.crt;
     ssl_certificate_key  /etc/ssl/private/<%= fetch(:top_level_domain) %>.key;
+
+    # System Maintenance Page
+    # - https://github.com/capistrano/maintenance#usage
+    error_page 503 @503;
+
+    # Return a 503 error if the maintenance page exists.
+    if (-f <%= release_path %>/public/system/maintenance.html) {
+      return 503;
+    }
+
+    location @503 {
+      # Serve static assets if found.
+      if (-f $request_filename) {
+        break;
+      }
+
+      # Set root to the shared directory.
+      root <%= release_path %>/public;
+      rewrite ^(.*)$ /system/maintenance.html break;
+    }
 }
 
 passenger_pre_start http://<%= fqdn %>;
