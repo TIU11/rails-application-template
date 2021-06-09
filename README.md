@@ -27,7 +27,7 @@ This template assumes some things:
 
 * Rails 6.0.x is installed
 
-        rvm use 2.6.6
+        rvm use 2.6.7
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work. Some things require rails 5.2+
 
@@ -65,7 +65,7 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 2.6.6
+    rvm use 2.6.7
     rails new my-app --database postgresql --skip-action-cable --skip-active-storage --skip-turbolinks --no-scaffold-stylesheet
     cd my-app
     git init
