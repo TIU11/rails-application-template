@@ -48,6 +48,8 @@ en:
       password:
         invalid: must not repeat characters (e.g. "111")
         uniform: must be complex. Use a combination of uppercase (A-Z), lowercase (a-z), number (0-9) and special characters.
+      zip:
+        invalid: should be in the form 12345 or 12345-1234
 
     # messages:
     #   key: message text
