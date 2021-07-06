@@ -20,14 +20,14 @@ This template assumes some things:
 
         \curl -sSL https://get.rvm.io | sudo bash -s stable
 
-* Ruby 2.6.x is installed
+* Ruby 2.7.x is installed
 
-        rvm install 2.6
-        rvm install 2.6 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X. This may be irrelevant since Ruby 2.3, but we're not sure ;-)
+        rvm install 2.7
+        rvm install 2.7 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X. This may be irrelevant since Ruby 2.3, but we're not sure ;-)
 
 * Rails 6.0.x is installed
 
-        rvm use 2.6.7
+        rvm use 2.7.3
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work. Some things require rails 5.2+
 
@@ -38,7 +38,7 @@ This template assumes some things:
         rvm @global do gem install bundler
         gem update --system                 # Per https://rubygems.org/pages/download
 
-  For ruby 2.6 and above (which includes bundler)
+  For ruby 2.6 and above (which now includes bundler)
 
         gem update bundler
         gem update --system                 # Per https://rubygems.org/pages/download
@@ -65,7 +65,7 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 2.6.7
+    rvm use 2.7.3
     rails new my-app --database postgresql --skip-action-cable --skip-active-storage --skip-turbolinks --no-scaffold-stylesheet
     cd my-app
     git init
