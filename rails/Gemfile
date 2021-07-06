@@ -5,7 +5,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0.3'
+gem 'rails', '~> 6.1.4'
 
 gem 'dotenv-rails'              # Loads environment variables from .env into ENV, automagically.
 gem 'pg', '~> 1.0'              # Use postgresql 9.2+ as the database for Active Record
@@ -22,7 +22,7 @@ gem 'friendly_id', '~> 5.4.2'   # Nice URLs
 gem 'paper_trail', '~> 12.0'    # Track model revisions
 gem 'populate', git: 'git@bitbucket.org:tiu/populate.git'
 gem 'tiu-generators', bitbucket: 'tiu/tiu-generators'
-gem 'will_paginate', '~> 3.1'   # Pagination
+gem 'will_paginate', '~> 3.3'   # Pagination
 
 # Application Management
 

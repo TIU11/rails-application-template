@@ -17,19 +17,13 @@ class ValidatesAssociatedValidator < ActiveModel::EachValidator
 
     # Mimics ActiveModel::Errors.merge! but nests key within attribute name.
     invalid_values.each do |v|
-      messages = nest_keys(v.errors.messages, attribute)
-      record.errors.messages.merge!(messages) { |_, ary1, ary2| ary1 + ary2 }
-
-      details = nest_keys(v.errors.details, attribute)
-      record.errors.details.merge!(details) { |_, ary1, ary2| ary1 + ary2 }
+      v.errors.each do |associated_error|
+        record.errors.import(associated_error, attribute: [attribute, associated_error.attribute].join('.'))
+      end
     end
   end
 
   private
-
-    def nest_keys(hash, attribute)
-      hash.transform_keys { |k| [attribute, k].join('.').to_sym }
-    end
 
     def valid_object?(record)
       (record.respond_to?(:marked_for_destruction?) && record.marked_for_destruction?) || record.valid?
