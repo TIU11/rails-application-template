@@ -2,6 +2,10 @@
   background-color: $tiu-brand;
   color: $white;
 
+  // Keep up against navbar
+  @media not print { margin-top: -1rem; }
+  margin-bottom: 1rem;
+
   .container {
     padding-bottom: 0;
   }
