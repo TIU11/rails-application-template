@@ -38,11 +38,11 @@ insert_into_file 'config/environments/development.rb', <<-CONFIG, before: /^end/
   config.action_controller.action_on_unpermitted_parameters = :raise
 
   # Action Mailer
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.asset_host = "http://localhost:3000" # for image URLs in HTML email
 
   # Allow generating absolute urls with routing url helpers.
-  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+  Rails.application.default_url_options = { host: 'localhost', port: 3000 }
 
   # Limit log size, rotating at 5 MB
   config.logger = Logger.new(config.paths['log'].first, 1, 5.megabytes)
@@ -63,7 +63,7 @@ insert_into_file 'config/environments/production.rb', <<-CONFIG, before: /^end/
   config.action_mailer.asset_host = "http://#{app_name.titleize.parameterize}.tiu11.org" # for image URLs in HTML email
 
   # Allow generating absolute urls with routing url helpers.
-  Rails.application.routes.default_url_options = { host: '#{app_name.titleize.parameterize}.tiu11.org' }
+  Rails.application.default_url_options = { host: '#{app_name.titleize.parameterize}.tiu11.org' }
 CONFIG
 
 # Initialize "dev" and "demo" environments
