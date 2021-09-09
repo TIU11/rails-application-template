@@ -9,6 +9,7 @@ ExceptionNotification.configure do |config|
   config.ignored_exceptions += %w[
     ActionController::InvalidAuthenticityToken
     ActionDispatch::Http::MimeNegotiation::InvalidType
+    ActionController::BadRequest
   ]
 
   # Adds a condition to decide when an exception must be ignored or not.
