@@ -22,6 +22,7 @@ gem 'friendly_id', '~> 5.4.2'   # Nice URLs
 gem 'paper_trail', '~> 12.0'    # Track model revisions
 gem 'populate', git: 'git@bitbucket.org:tiu/populate.git'
 gem 'tiu-generators', bitbucket: 'tiu/tiu-generators'
+gem 'tiutils', git: 'git@bitbucket.org:tiu/tiutils.git'
 gem 'will_paginate', '~> 3.3'   # Pagination
 
 # Application Management
