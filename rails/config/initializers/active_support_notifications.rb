@@ -5,9 +5,15 @@
 # https://github.com/kickstarter/rack-attack#logging--instrumentation
 ActiveSupport::Notifications.subscribe('throttle.rack_attack') do |event|
   request = event.payload[:request]
-  Rails.logger.info <<~MSG
-    [Rack::Attack][Throttle] #{request.request_method} #{request.path} from #{request.ip}
-      Parameters: #{request.params}
+  match_type = request.env['rack.attack.match_type']
+  matched_key = request.env['rack.attack.matched']
+  match_data = request.env['rack.attack.match_data']
+  filtered_params = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
+                                                  .filter(request.params)
+  Rails.logger.warn <<~MSG
+    [Rack::Attack][#{match_type.capitalize}] "#{matched_key}" #{match_type} on #{request.request_method} "#{request.path}" from #{request.ip}
+      Parameters: #{filtered_params}
+      Match Data: #{match_data}
   MSG
 end
 
