@@ -29,7 +29,7 @@ module ApplicationHelper
     return if status.blank?
 
     span_class = CSS_CLASS_FOR_STATUS[status.to_s]
-    tag.span status.titleize, class: "badge #{span_class} #{binding.local_variable_get(:class)}"
+    tag.span status.to_s.titleize, class: "badge #{span_class} #{binding.local_variable_get(:class)}"
   end
 
   # +message+ optional message to override the default
