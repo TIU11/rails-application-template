@@ -27,7 +27,7 @@ module Extensions
       # For available options, @see (https://flatpickr.js.org/options/)
       #
       # Usage:
-      #   form.flatpickr_field :starts_on
+      #   form.flatpickr_field :starts_on, placeholder: 'Start date'
       #   form.flatpickr_field :starts_on, data: { min_date: Date.tomorrow }
       #
       # Ensures date format consistent in text field and javascript configuration.
@@ -60,6 +60,7 @@ module Extensions
 
         input_options = { value: value,
                           autocomplete: 'off',
+                          placeholder: options.delete(:placeholder),
                           data: { input: true },
                           class: 'form-control' }
 
