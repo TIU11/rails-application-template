@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationMailer < ActionMailer::Base
-  default from: I18n.t('app.sending_email'),
-          reply_to: I18n.t('app.support_email')
+  default from:     -> { default_from },
+          reply_to: -> { default_reply_to }
 
   layout 'mailer' # All mailers will share a layout
 
@@ -14,11 +14,47 @@ class ApplicationMailer < ActionMailer::Base
   include AnalyticsHelper
   helper AnalyticsHelper
 
-  # TODO: upstream from PA STEM
-  # include DateRangeHelper # for :date_range method
-  # helper DateRangeHelper
+  include DateRangeHelper # for :date_range method
+  helper DateRangeHelper
 
   include DateTimeHelper # for :readable_date method
   helper DateTimeHelper
+
+  private
+
+    def default_from
+      email_address_with_name(
+        I18n.t('app.sending_email'),
+        "#{I18n.t('app.title')} #{Rails.env.upcase unless Rails.env.production?}".squish
+      )
+    end
+
+    def default_reply_to
+      email_address_with_name(I18n.t('app.sending_email'), I18n.t('app.title'))
+    end
+
+    def prevent_delivery_when_no_recipients
+      raise(LoadError, 'requires ActionMailbox for :recipients method') unless defined?(ActionMailbox)
+      return if mail.recipients.present?
+
+      Rails.logger.warn "Dropping email because it has no recipients: '#{mail.subject}'"
+      mail.perform_deliveries = false
+    end
+
+    # Adds analytics parameters to default url options included in all generated urls.
+    # Within the mailer action you call this, will make all link or image hrefs include the source, medium, etc.
+    #
+    # Defaults:
+    # - utm_medium: 'email'
+    # - utm_source: action name of the current Mailer
+    # Reference:
+    # - https://support.google.com/analytics/answer/1033863?hl=en#zippy=%2Cin-this-article
+    # - https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference
+    def analytics_url_params(options = {})
+      raise ArgumentError, "must be a Hash" unless options.is_a? Hash
+
+      options.with_defaults! utm_medium: :email, utm_source: action_name
+      self.default_url_options = default_url_options.merge(**options)
+    end
 
 end
