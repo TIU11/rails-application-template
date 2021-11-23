@@ -20,18 +20,21 @@ class ApplicationRecord < ActiveRecord::Base
     #   #      <#User id:7, name: "Anson Hoyt">,
     #   #      <#User id:3, name: "Colby Guyer">
     #   #    ]
-    #
+    def sample(sample_size = nil)
+      random.first(sample_size)
+    end
+
     # TODO: slows down for large tables (takes ~1 second for ~500k records)
     # - For Postgres 9.5+, consider TABLESAMPLE.
     # - https://www.2ndquadrant.com/en/blog/tablesample-and-other-methods-for-getting-random-tuples/
-    def sample(sample_size = nil)
+    def random
       case ActiveRecord::Base.connection.adapter_name
       when 'PostgreSQL', 'SQLite'
-        order(Arel.sql('RANDOM()')).first(sample_size)
+        order(Arel.sql('RANDOM()'))
       when 'MySQL'
-        order(Arel.sql('RAND()')).first(sample_size)
+        order(Arel.sql('RAND()'))
       when 'SQLServer'
-        order(Arel.sql('NEWID()')).first(sample_size)
+        order(Arel.sql('NEWID()'))
       else
         # Here are more http://stackoverflow.com/questions/19412/how-to-request-a-random-row-in-sql
         raise 'Current database adapter is not supported.'
