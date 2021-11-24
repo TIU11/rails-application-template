@@ -77,7 +77,7 @@ module Extensions
         @template.tag.div(**container_options) do
           @template.concat text_field(method, input_options)
           @template.concat @template.tag.span(
-            @template.tag.span(@template.icon('fas', 'calendar-alt'), class: 'input-group-text'),
+            @template.tag.span(@template.icon(:fas, 'calendar-alt'), class: 'input-group-text'),
             class: 'input-group-append add-on', data: { open: true }
           )
         end
