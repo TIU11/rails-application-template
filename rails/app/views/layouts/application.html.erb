@@ -41,12 +41,12 @@
       <div class="row">
         <div class="col-sm-4 hidden-xs">
           <p>
-            <%= image_tag 'tiulogo_titled.png', id: 'footer-logo' %>
+            <%= link_to image_tag("tiu-logo.svg", size: "220x53", alt: "TIU Logo"), "https://www.tiu11.org" %>
           </p>
         </div>
         <div class="col-sm-8">
           <p class="text-muted">
-            Copyright &copy; <%= Date.today.year %> <a href="http://www.tiu11.org">Tuscarora Intermediate Unit 11</a><br>
+            &copy; <%= Date.today.year %> <a href="http://www.tiu11.org">Tuscarora Intermediate Unit 11</a><br>
           </p>
         </div>
       </div>
