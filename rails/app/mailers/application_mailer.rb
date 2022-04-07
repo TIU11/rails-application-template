@@ -20,18 +20,27 @@ class ApplicationMailer < ActionMailer::Base
   include DateTimeHelper # for :readable_date method
   helper DateTimeHelper
 
-  private
+  delegate :default_from, :default_reply_to, to: :class
 
+  class << self
+    # NOTE: Gmail always sends from the authenticated user, unless the other address is added and verified with Google:
+    # - https://support.google.com/mail/answer/22370?hl=en
     def default_from
       email_address_with_name(
-        I18n.t('app.sending_email'),
+        smtp_settings[:user_name],
         "#{I18n.t('app.title')} #{Rails.env.upcase unless Rails.env.production?}".squish
       )
     end
 
     def default_reply_to
-      email_address_with_name(I18n.t('app.sending_email'), I18n.t('app.title'))
+      email_address_with_name(
+        I18n.t('app.support_email'),
+        "#{I18n.t('app.title')} #{Rails.env.upcase unless Rails.env.production?}".squish
+      )
     end
+  end
+
+  private
 
     def prevent_delivery_when_no_recipients
       raise(LoadError, 'requires ActionMailbox for :recipients method') unless defined?(ActionMailbox)
