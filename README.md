@@ -31,7 +31,9 @@ This template assumes some things:
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work. Some things require rails 5.2+
 
-* Bundler and RubyGems are up-to-date (optional)
+* Bundler and RubyGems are up-to-date
+
+  ([mini_racer](https://github.com/rubyjs/mini_racer#troubleshooting) requires Rubygems >= 3.2.13 and bundler >= 2.2.13)
 
   For ruby 2.5 and below
 
@@ -42,7 +44,13 @@ This template assumes some things:
 
         gem update bundler
         gem update --system                 # Per https://rubygems.org/pages/download
+        bundle update --bundler             # Update "bundled with" in Gemfile.lock
 
+  Gems with native extensions may need the compatible platforms set in `Gemfile.lock`.
+  See [bundle platform](https://bundler.io/v2.3/man/bundle-platform.1.html).
+
+        bundle lock --add-platform ruby
+        bundle lock --add-platform x86_64-linux # our servers
 
 * Expects `pg` 1.x which requires PostgreSQL 9.2+. To use another database, you'll need to make a few config changes.
 
