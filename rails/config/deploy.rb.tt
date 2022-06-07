@@ -8,11 +8,11 @@ set :top_level_domain, 'tiu11.org'
 set :repo_url, "git@bitbucket.org:tiu/#{fetch(:application)}.git"
 set :user, `whoami`.strip.to_s
 
-# for Whenever gem, cron tabs, see schedule.rb
-set :whenever_roles, -> { "#{fetch(:stage)}_cron" }
+# Whenever cron jobs defined in config/schedule.rb
+set :whenever_roles, [:app]
 set :whenever_environment, -> { fetch(:stage) }
 set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
-# @see (https://github.com/javan/whenever/wiki/Adding-jobs-to-another-users-crontab/a60324a02b91e3bc2da5387c9c80720b0b37360e)
+# https://github.com/javan/whenever/wiki/Adding-jobs-to-another-users-crontab
 set :whenever_command, -> { [:bundle, :exec, :whenever, "--crontab-command 'sudo crontab'", '--user www-data'] }
 
 # Default branch is :master

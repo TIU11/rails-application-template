@@ -25,20 +25,19 @@ every :monday, at: '5:00 am' do
   rake "-s sitemap:refresh"
 end
 
-# environment specific crons
-# @see (https://www.everclimb.co/snippets/how-to-run-whenever-cron-jobs-for-a-specific-environment)
-
-## Production ##
+# Environment-specific crons
+# - https://www.everclimb.co/snippets/how-to-run-whenever-cron-jobs-for-a-specific-environment
+#
+# ## Production ##
 # every 1.month, at: 'start of the month at 8am', roles: [:production_cron] do
 #   runner "ExampleJob.perform_later"
 # end
-
-
-## Demo ##
-# use one time runs for use on demo so it does not bug developers
-# exact run once raw cron syntax, use this site for ease:
-# @see (https://crontab.guru/#15_11_14_12_*)
-# edit on demo server with sudo crontab -e -u www-data
+#
+# ## Demo ##
+# # use one time runs for use on demo so it does not bug developers
+# # exact run once raw cron syntax, use this site for ease:
+# # - https://crontab.guru/#15_11_14_12_*
+# # edit on demo server with sudo crontab -e -u www-data
 # every '45 10 16 12 *', roles: [:demo_cron] do
 #   runner "ExampleJob.perform_later"
 # end
