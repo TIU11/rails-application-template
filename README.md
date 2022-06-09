@@ -145,5 +145,5 @@ Developed by Anson Hoyt at [Tuscarora Intermediate Unit 11](http://www.tiu11.org
 
 # License
 
-Copyright (c) 2013-2021 [Tuscarora Intermediate Unit 11](http://www.tiu11.org).
+Copyright (c) 2013-2022 [Tuscarora Intermediate Unit 11](http://www.tiu11.org).
 See [LICENSE](LICENSE.md) for details.
