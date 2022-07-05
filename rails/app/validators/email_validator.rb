@@ -30,7 +30,7 @@ class EmailValidator < ActiveModel::EachValidator
   /ix.freeze
 
   def validate_each(record, attribute, value)
-    return if value.match?(EMAIL)
+    return if value.present? && value.match?(EMAIL)
 
     record.errors.add attribute, (options[:message] || :invalid)
   end
