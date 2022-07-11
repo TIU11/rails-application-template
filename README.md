@@ -49,8 +49,9 @@ This template assumes some things:
   Gems with native extensions may need the compatible platforms set in `Gemfile.lock`.
   See [bundle platform](https://bundler.io/v2.3/man/bundle-platform.1.html).
 
-        bundle lock --add-platform ruby
+        bundle lock --add-platform ruby         # optional fallback. likely unnecessary with Bundler 2.3+
         bundle lock --add-platform x86_64-linux # our servers
+        bundle lock --add-platform arm64-darwin # our development machines
 
 * Expects `pg` 1.x which requires PostgreSQL 9.2+. To use another database, you'll need to make a few config changes.
 
