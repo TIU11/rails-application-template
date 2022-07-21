@@ -189,7 +189,8 @@ after_bundle do
 
   # Keep the rspec generator from hanging.
   # @see (http://www.sitepoint.com/rails-application-templates-real-world/)
-  bundle_command "exec spring stop"
+  bundle_command "exec spring stop" if Gem::Specification.find_all_by_name('spring').present?
+
   # Install rspec
   generate "rspec:install"
 
