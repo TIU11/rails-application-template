@@ -53,6 +53,8 @@ module SeoHelper
         "#{model} - #{controller_name.titleize.singularize} - #{I18n.t('app.title')}"
       elsif action_name.in?(%w[edit update]) && model
         "Editing #{model} - #{controller_name.titleize.singularize} - #{I18n.t('app.title')}"
+      elsif controller_path == 'high_voltage/pages'
+        "#{request.path.tr('/', ' ').squish.titleize} - #{I18n.t('app.title')}"
       else
         "#{controller_name.titleize} - #{I18n.t('app.title')}"
       end
