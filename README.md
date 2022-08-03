@@ -20,14 +20,14 @@ This template assumes some things:
 
         \curl -sSL https://get.rvm.io | sudo bash -s stable
 
-* Ruby 2.7.x is installed
+* Ruby 2.7+ is installed (3.0 recommended)
 
         rvm install 2.7
         rvm install 2.7 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X. This may be irrelevant since Ruby 2.3, but we're not sure ;-)
 
-* Rails 6.0.x is installed
+* Rails 6.0+ is installed (7.0 recommended)
 
-        rvm use 2.7.4
+        rvm use 3.0.4
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work. Some things require rails 5.2+
 
@@ -53,7 +53,7 @@ This template assumes some things:
         bundle lock --add-platform x86_64-linux # our servers
         bundle lock --add-platform arm64-darwin # our development machines
 
-* Expects `pg` 1.x which requires PostgreSQL 9.2+. To use another database, you'll need to make a few config changes.
+* Expects `pg` 1.x which requires PostgreSQL 9.3+. To use another database, you'll need to make a few config changes.
 
         brew install postgresql
 
@@ -74,8 +74,9 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 2.7.4
-    rails new my-app --database postgresql --skip-action-cable --skip-active-storage --skip-turbolinks --no-scaffold-stylesheet
+    rvm use 3.0.4
+    rails new                    # learn what the various options do
+    rails new my-app --database postgresql --skip-action-cable --skip-active-storage --skip-hotwire --javascript esbuild --no-scaffold-stylesheet
     cd my-app
     git init
     git add .
@@ -91,8 +92,9 @@ Look over what the template added to the default app. You might spot something t
 That's it, take her for a spin:
 
     cd my-app
-    rails server                 # Start the server
-    open http://lvh.me:3000      # Launch in your browser
+    rails server                # Start the server (older projects not using jsbundling-rails)
+    rails bin/dev               # Start the Procfile
+    open http://localhost:3000  # Launch in your browser
 
 # Post-setup
 
