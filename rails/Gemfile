@@ -42,6 +42,7 @@ gem 'autoprefixer-rails'        # CSS vendor prefixer
 gem 'bootstrap', '~> 4.2'
 gem 'font-awesome-sass', '~> 6.0'
 gem 'sass-rails', '~> 6.0'      # Use SCSS for stylesheets. Compiles with libsass for speed.
+gem 'sprockets-rails'
 
 # Javascript
 
