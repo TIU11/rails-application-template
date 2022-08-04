@@ -16,7 +16,7 @@ This template assumes some things:
         # Upgrade with
         rvm get stable && rvm reload
 
-  and on the server, just execute with `sudo` to install system-wide
+    and on the server, just execute with `sudo` to install system-wide
 
         \curl -sSL https://get.rvm.io | sudo bash -s stable
 
@@ -33,21 +33,21 @@ This template assumes some things:
 
 * Bundler and RubyGems are up-to-date
 
-  ([mini_racer](https://github.com/rubyjs/mini_racer#troubleshooting) requires Rubygems >= 3.2.13 and bundler >= 2.2.13)
+    ([mini_racer](https://github.com/rubyjs/mini_racer#troubleshooting) requires Rubygems >= 3.2.13 and bundler >= 2.2.13)
 
-  For ruby 2.5 and below
+    For ruby 2.5 and below
 
         rvm @global do gem install bundler
         gem update --system                 # Per https://rubygems.org/pages/download
 
-  For ruby 2.6 and above (which now includes bundler)
+    For ruby 2.6 and above (which now includes bundler)
 
         gem update bundler
         gem update --system                 # Per https://rubygems.org/pages/download
         bundle update --bundler             # Update "bundled with" in Gemfile.lock
 
-  Gems with native extensions may need the compatible platforms set in `Gemfile.lock`.
-  See [bundle platform](https://bundler.io/v2.3/man/bundle-platform.1.html).
+    Gems with native extensions may need the compatible platforms set in `Gemfile.lock`.
+    See [bundle platform](https://bundler.io/v2.3/man/bundle-platform.1.html).
 
         bundle lock --add-platform ruby         # optional fallback. likely unnecessary with Bundler 2.3+
         bundle lock --add-platform x86_64-linux # our servers
