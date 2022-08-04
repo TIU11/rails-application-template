@@ -53,6 +53,16 @@ This template assumes some things:
         bundle lock --add-platform x86_64-linux # our servers
         bundle lock --add-platform arm64-darwin # our development machines
 
+* Node.js with nvm
+
+    For apps using jsbundling-rails with esbuild.
+
+        echo "lts/*" > .nvmrc # to default to the latest LTS version
+        nvm install --latest-npm
+        npm install --global yarn
+
+    NOTE: On Apple Silicon, use node 16.0+, or stick with `x86_64` as per [nvm](https://github.com/nvm-sh/nvm#macos-troubleshooting). Check your arch with `file $(which node)`.
+
 * Expects `pg` 1.x which requires PostgreSQL 9.3+. To use another database, you'll need to make a few config changes.
 
         brew install postgresql
