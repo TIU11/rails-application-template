@@ -55,11 +55,11 @@ This template assumes some things:
 
 * Node.js with nvm
 
-    For apps using jsbundling-rails with esbuild.
+    For apps using jsbundling-rails with esbuild (or still using webpacker).
 
-        echo "lts/*" > .nvmrc # to default to the latest LTS version
+        echo "lts/*" > .nvmrc # to default to the latest LTS version. See `nvm ls-remote --lts`.
         nvm install --latest-npm
-        npm install --global yarn
+        npm install --global yarn@latest
 
     NOTE: On Apple Silicon, use node 16.0+, or stick with `x86_64` as per [nvm](https://github.com/nvm-sh/nvm#macos-troubleshooting). Check your arch with `file $(which node)`.
 
