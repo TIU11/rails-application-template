@@ -1,7 +1,7 @@
 # Override rubocop defaults.
 #
 # * [rubocop defaults](https://github.com/bbatsov/rubocop/blob/master/config/default.yml)
-# * [rails defaults](https://github.com/rails/rails/blob/master/.rubocop.yml)
+# * [rails defaults](https://github.com/rails/rails/blob/main/.rubocop.yml)
 
 require:
   - rubocop-minitest
@@ -154,3 +154,9 @@ RSpec/ExampleLength:
 # Use class explicitly, rather than `described_class`.
 RSpec/DescribedClass:
   EnforcedStyle: explicit
+
+#### FactoryBot ####
+# - https://docs.rubocop.org/rubocop-rspec/cops_rspec_factorybot.html
+
+RSpec/FactoryBot/SyntaxMethods:
+  Enabled: false
