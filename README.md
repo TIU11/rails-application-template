@@ -103,7 +103,7 @@ That's it, take her for a spin:
 
     cd my-app
     rails server                # Start the server (older projects not using jsbundling-rails)
-    rails bin/dev               # Start the Procfile
+    bin/dev                     # Start the Procfile
     open http://localhost:3000  # Launch in your browser
 
 # Post-setup
@@ -148,6 +148,7 @@ That's it, take her for a spin:
 * Scaffold the controller a bit more fully (e.g. define formats with [responders](https://github.com/plataformatec/responders), especially for .xls with set_filename)
 * Consider Custom Form Builder to "Bootstrappify" error state, required fields, labelled fields, etc.
 * Consider adding some of these:
+    * (https://github.com/mattbrictson/rails-template)
     * (https://intercityup.com/blog/useful-capistrano-plugins.html?utm_source=rubyweekly&utm_medium=email)
     * (http://blog.rubyroidlabs.com/2016/02/capistrano-tools/)
 * consider mentioning .railsrc, like (http://pixelatedworks.com/articles/configuring_new_rails_projects_with_railsrc_and_templates/?utm_source=rubyweekly&utm_medium=email)
