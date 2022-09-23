@@ -19,11 +19,22 @@ gem 'browser'                   # browser detection
 gem 'colorize'                  # Colored console output
 gem 'fast_jsonapi'              # JSON:API serializer
 gem 'friendly_id', '~> 5.4.2'   # Nice URLs
-gem 'paper_trail', '~> 12.0'    # Track model revisions
+gem 'paper_trail', '~> 13.0'    # Track model revisions
 gem 'populate', git: 'git@bitbucket.org:tiu/populate.git'
-gem 'tiu-generators', bitbucket: 'tiu/tiu-generators'
+gem 'tiu-generators', bitbucket: 'tiu/tiu-generators', branch: 'bootstrap-5'
 gem 'tiutils', git: 'git@bitbucket.org:tiu/tiutils.git'
 gem 'will_paginate', '~> 3.3'   # Pagination
+
+# Static Pages
+
+gem 'commonmarker'              # Markdown parser (CommonMark + GitHub extensions)
+gem 'github-markup'             # Markup processor
+gem 'high_voltage', '~> 3.1'    # Static pages
+
+# Excel
+
+gem 'caxlsx_rails'              # Excel generation
+gem 'roo', '~> 2.8.2'           # TODO: pinning to hold things as they are since rubyzip 2.0 released. What to do?
 
 # Application Management
 
@@ -49,6 +60,7 @@ gem 'sprockets-rails'
 gem 'mini_racer' # See https://github.com/rails/execjs#readme for more supported runtimes
 
 gem 'jsbundling-rails', '~> 1.0'
+gem 'stimulus-rails', '~> 1.1'
 gem 'jquery-rails'              # Use jquery as the JavaScript library
 
 group :development, :test do
