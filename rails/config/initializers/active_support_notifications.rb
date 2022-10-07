@@ -16,10 +16,3 @@ ActiveSupport::Notifications.subscribe('throttle.rack_attack') do |event|
       Match Data: #{match_data}
   MSG
 end
-
-# Log Active Job failures
-# https://guides.rubyonrails.org/active_support_instrumentation.html#discard-active-job
-ActiveSupport::Notifications.subscribe('discard.active_job') do |event|
-  _adapter, job, error = event.payload.fetch_values :adapter, :job, :error
-  Rails.logger.error "[ActiveJob][Discard] #{job.class} [#{job.job_id}] #{error.class} - #{error.message}"
-end
