@@ -30,7 +30,8 @@ ExceptionNotification.configure do |config|
     :email,
     email_prefix: "[ERROR] [<%= I18n.t('app.short_title') %>] ",
     sender_address: %("TIU Exception Notifier" <notifier@tiu11.org>),
-    exception_recipients: %w[exceptions@tiu11.org]
+    exception_recipients: %w[exceptions@tiu11.org],
+    background_sections: %w[backtrace]
   )
 
   # Slack notifier sends notifications to your Slack channel. Requires 'slack-notifier' gem.
