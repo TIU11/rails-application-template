@@ -17,6 +17,8 @@ en:
     create:
       # inactive_link_html:
       sent_email: Instructions to change your password have been emailed to the registered email. Please check your email.
+    new:
+      submit: Email my password update link
     update:
       updated: Password successfully updated
 
