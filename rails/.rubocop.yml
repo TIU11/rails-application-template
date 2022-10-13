@@ -67,6 +67,11 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   Enabled: false
 
+#################### Naming ##########################
+
+Naming/InclusiveLanguage:
+  Enabled: false
+
 #################### Style ###########################
 
 # Don't require documenting classes, modules, methods
