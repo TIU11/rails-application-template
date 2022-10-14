@@ -18,7 +18,7 @@ module DateTimeHelper
                :month_and_year
              end
 
-    content_tag tag, I18n.localize(date, format: format), title: date.to_s(:long), data: { toggle: 'tooltip' }
+    content_tag tag, I18n.localize(date, format: format), title: date.to_fs(:long), data: { toggle: 'tooltip' }
   end
 
   # Cases:

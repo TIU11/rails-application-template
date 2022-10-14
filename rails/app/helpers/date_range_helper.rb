@@ -45,7 +45,7 @@ module DateRangeHelper
     return if range.nil?
 
     tag.span DateRange.new(range.first, range.last).to_s,
-             title: "#{range.first.to_s(:long)} - #{range.last.to_s(:long)}"
+             title: "#{range.first.to_fs(:long)} - #{range.last.to_fs(:long)}"
   end
 
   private
