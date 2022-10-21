@@ -44,9 +44,6 @@ insert_into_file 'config/environments/development.rb', <<-CONFIG, before: /^end/
   # Allow generating absolute urls with routing url helpers.
   Rails.application.default_url_options = { host: 'localhost', port: 3000 }
 
-  # Limit log size, rotating at 5 MB
-  config.logger = Logger.new(config.paths['log'].first, 1, 5.megabytes)
-
   # Enable Bullet which reports N+1 queries to the browser.
   # TODO: prevent by running in tests: https://github.com/flyerhzm/bullet#run-in-tests
   config.enable_bullet = false
