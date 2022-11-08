@@ -32,6 +32,17 @@ class DateRange < Range
     end
   end
 
+  # An ActiveSupport::Duration for this range, calculated in years, months and days.
+  #
+  # NOTE: Avoids a simple difference because months and years have variable length (e.g. leap year).
+  # So, not this: ActiveSupport::Duration.build(last.end_of_day - first.beginning_of_day, only: [:weeks, :days])
+  def duration
+    ends = last + 1 # inclusive (tomorrow - today = 2 days)
+    (ends.year - first.year).years +
+      (ends.month - first.month).months +
+      (ends.day - first.day).days
+  end
+
   private
 
     # Calulate the date format(s) that represents this range.
