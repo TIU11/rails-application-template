@@ -27,9 +27,15 @@ Rails.logger.info "❓ what's the point?"
 Rails.logger.info "✔️🚀✨ successful example!"
 ```
 
-After testing in development, run it in production.
+After testing in development:
 
 ```bash
 tail -f log/development.log
 bundle exec rails runner -e development script/migrate/move_a_to_b_example.rb
+```
+
+Then run it in production:
+```bash
+cap production rails:log
+cap production rails:runner["script/migrate/move_a_to_b_example.rb --help"]
 ```
