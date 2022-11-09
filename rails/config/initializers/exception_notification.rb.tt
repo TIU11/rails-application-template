@@ -34,17 +34,17 @@ ExceptionNotification.configure do |config|
     background_sections: %w[backtrace]
   )
 
-  # Slack notifier sends notifications to your Slack channel. Requires 'slack-notifier' gem.
-  config.add_notifier(
-    :slack,
-    webhook_url: ENV['SLACK_WEBHOOK'],
-    channel: "#alerts",
-    additional_parameters: {
-      icon_emoji: ":interrobang:",
-      mrkdwn: true,
-      username: 'Rails Exception Notifier'
-    }
-  )
+  # # Slack notifier sends notifications to your Slack channel. Requires 'slack-notifier' gem.
+  # config.add_notifier(
+  #   :slack,
+  #   webhook_url: ENV['SLACK_WEBHOOK'],
+  #   channel: "#alerts",
+  #   additional_parameters: {
+  #     icon_emoji: ":interrobang:",
+  #     mrkdwn: true,
+  #     username: 'Rails Exception Notifier'
+  #   }
+  # )
 
   # https://github.com/smartinez87/exception_notification/blob/master/docs/notifiers/google_chat.md
   config.add_notifier(
