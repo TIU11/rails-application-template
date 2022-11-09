@@ -18,6 +18,11 @@ ExceptionNotification.configure do |config|
     Rails.env.development?
   end
 
+  # Adds a notifier-specific condition to ignore exceptions.
+  config.ignore_notifier_if(:google_chat) do |_exception, _options|
+    Rails.env.in? %w[development test]
+  end
+
   # Only notify every log2(errors_count) each hour. Sends on error 1, 2, 4, 8, 16, 32, ..., (2**n)
   # Avoids flooding inboxes with emails.
   config.error_grouping = true
@@ -46,6 +51,7 @@ ExceptionNotification.configure do |config|
   #   }
   # )
 
+  # Google Chat notifier
   # https://github.com/smartinez87/exception_notification/blob/master/docs/notifiers/google_chat.md
   config.add_notifier(
     :google_chat,
