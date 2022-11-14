@@ -22,7 +22,7 @@ module AnalyticsHelper
   #   https://developers.google.com/analytics/resources/articles/gaTrackingTroubleshooting#gifParameters
   #
   # TODO: default utmac: ENV['GOOGLE_ANALYTICS']
-  def analytics_url(options = {})
+  def analytics_url(**options)
     logger.warn "Missing ENV['GOOGLE_ANALYTICS']" if ENV['GOOGLE_ANALYTICS'].blank?
 
     # Apply default options
@@ -42,7 +42,7 @@ module AnalyticsHelper
   end
 
   # Generate Google Analytics tracking image.
-  def analytics_image_tag(options = {})
+  def analytics_image_tag(**options)
     image_tag analytics_url(options), width: 1, height: 1
   end
 

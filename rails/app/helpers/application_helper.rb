@@ -11,7 +11,7 @@ module ApplicationHelper
   #   `before_action :store_referrer, only: [:new, :edit]`
   #
   # or add `store_location request.referer` to the edit and new actions.
-  def link_back(name, html_options = {})
+  def link_back(name, **html_options)
     (get_new_page = request.get?) && (request.url != request.referer)
     url = get_new_page ? :back : session[:return_to]
     link_to name, url, html_options

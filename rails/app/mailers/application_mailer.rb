@@ -59,7 +59,7 @@ class ApplicationMailer < ActionMailer::Base
     # Reference:
     # - https://support.google.com/analytics/answer/1033863?hl=en#zippy=%2Cin-this-article
     # - https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference
-    def analytics_url_params(options = {})
+    def analytics_url_params(**options)
       raise ArgumentError, "must be a Hash" unless options.is_a? Hash
 
       options.with_defaults! utm_medium: :email, utm_source: action_name
