@@ -35,7 +35,7 @@ module AnalyticsHelper
       utmp: '/default-analytics-page'
     )
     options[:utmp] = options[:utm_campaign] if options[:utm_campaign]
-    options[:utmcc] = generate_cookie(options.slice(:utm_campaign, :utm_medium))
+    options[:utmcc] = generate_cookie(**options.slice(:utm_campaign, :utm_medium))
 
     # Build URL
     'https://www.google-analytics.com/__utm.gif?' + options.to_query
@@ -43,7 +43,7 @@ module AnalyticsHelper
 
   # Generate Google Analytics tracking image.
   def analytics_image_tag(**options)
-    image_tag analytics_url(options), width: 1, height: 1
+    image_tag analytics_url(**options), width: 1, height: 1
   end
 
   private
