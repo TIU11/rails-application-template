@@ -87,7 +87,7 @@ To see what the template does, we like to first generate a default rails app and
     cd ~/code                    # Wherever you put your projects
     rvm use 3.0.4
     rails new                    # learn what the various options do
-    rails new my-app --database postgresql --skip-action-cable --skip-active-storage --skip-hotwire --javascript esbuild --no-scaffold-stylesheet
+    rails new my-app --database postgresql --skip-active-storage --javascript esbuild --css bootstrap --no-scaffold-stylesheet
     cd my-app
     git init
     git add .
@@ -96,7 +96,7 @@ To see what the template does, we like to first generate a default rails app and
 Finally, apply this template:
 
     cd ~/code                    # Wherever you put your projects
-    rails new my-app -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database postgresql --skip-action-cable --skip-active-storage --skip-turbolinks --no-scaffold-stylesheet --force
+    rails new my-app -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database postgresql --skip-active-storage --no-scaffold-stylesheet --force
 
 Look over what the template added to the default app. You might spot something that could be improved in the template.
 
