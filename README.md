@@ -51,6 +51,7 @@ This template assumes some things:
 
         bundle lock --add-platform ruby         # optional fallback. likely unnecessary with Bundler 2.3+
         bundle lock --add-platform x86_64-linux # our servers
+        bundle lock --add-platform aarch64-linux # our VMs
         bundle lock --add-platform arm64-darwin # our development machines
 
 * Node.js with nvm
