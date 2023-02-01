@@ -17,7 +17,7 @@ gem 'scrypt'                    # required by authlogic when using scrypt
 gem 'addressable', '~> 2.6'     # more conformant replacement for (obsolete) Ruby URI
 gem 'browser'                   # browser detection
 gem 'colorize'                  # Colored console output
-gem 'fast_jsonapi'              # JSON:API serializer
+gem 'jsonapi-serializer'        # JSON:API serializer
 gem 'friendly_id', '~> 5.5'     # Nice URLs
 gem 'paper_trail', '~> 14.0'    # Track model revisions
 gem 'will_paginate', '~> 3.3'   # Pagination
