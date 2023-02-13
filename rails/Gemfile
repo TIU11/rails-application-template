@@ -53,9 +53,10 @@ gem 'whenever', require: false  # Schedule cron jobs
 
 gem 'autoprefixer-rails'        # CSS vendor prefixer
 gem 'bootstrap', '~> 5.2'
+gem 'cssbundling-rails'         # Bundle and process CSS
 gem 'font-awesome-sass', '~> 6.0'
 gem 'sass-rails', '~> 6.0'      # Use SCSS for stylesheets. Compiles with libsass for speed.
-gem 'sprockets-rails'
+gem 'sprockets-rails'           # The original asset pipeline for Rails
 
 # Javascript
 
