@@ -89,9 +89,17 @@ To see what the template does, we like to first generate a default rails app and
     rails new                    # learn what the various options do
     rails new my-app --database postgresql --skip-active-storage --javascript esbuild --css bootstrap --no-scaffold-stylesheet
     cd my-app
-    git init
+    git init # rails does this for you
     git add .
     git commit -m "Initialized with 'rails new'"
+
+Some options are pretty standard, so make them defaults:
+
+    # ~/.railsrc
+    --database postgresql
+    --javascript esbuild
+    --css bootstrap
+    --no-scaffold-stylesheet
 
 Finally, apply this template:
 
