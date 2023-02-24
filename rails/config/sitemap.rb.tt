@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://<%%= fetch(:application) %>.<%%= fetch(:top_level_domain) %>"
+SitemapGenerator::Sitemap.default_host = "https://<%= fetch(:fqdn) %>"
 
 SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
@@ -26,4 +26,14 @@ SitemapGenerator::Sitemap.create do
   #   Article.find_each do |article|
   #     add article_path(article), :lastmod => article.updated_at
   #   end
+<% if defined? HighVoltage -%>
+  HighVoltage.page_ids.each do |page|
+    add page, changefreq: 'monthly', priority: 0.8
+  end
+
+<% end -%>
+<% if defined? Authlogic -%>
+  add login_path, changefreq: 'monthly'
+
+<% end -%>
 end
