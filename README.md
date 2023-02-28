@@ -104,7 +104,7 @@ Some options are pretty standard, so make them defaults:
 Finally, apply this template:
 
     cd ~/code                    # Wherever you put your projects
-    rails new my-app -m https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database postgresql --skip-active-storage --no-scaffold-stylesheet --force
+    rails new my-app --template https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database postgresql --skip-active-storage --no-scaffold-stylesheet --force
 
 Look over what the template added to the default app. You might spot something that could be improved in the template.
 
