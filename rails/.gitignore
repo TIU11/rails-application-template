@@ -21,6 +21,9 @@
 # Ignore uploaded files in development.
 /storage/*
 !/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
 
 /public/assets
 
@@ -29,6 +32,10 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore bundled output files (jsbundling-rails, cssbundling-rails)
+/app/assets/builds/*
+!/app/assets/builds/.keep
 
 # Ignore Webpacker files
 /public/packs
