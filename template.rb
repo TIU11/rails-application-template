@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails'
-
-say_status :rails_version, Rails.version
+say_status :rails_version, Gem::Specification.find_by_name('rails').version
 
 say set_color('Download template files from Bitbucket', :cyan)
 git archive: '--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar -v master:rails | (tar xf -)'
