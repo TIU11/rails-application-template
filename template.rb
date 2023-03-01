@@ -147,10 +147,6 @@ def run_bundle
   end
 
   super
-
-  # Workaround `yarn check --integrity` failing due to template edits to package.json
-  # - https://github.com/key-sn/webpacker/blob/master/lib/webpacker/railtie.rb#L33
-  `yarn` if File.exist?("yarn.lock")
 end
 
 # Override bundle command to run in context of current RVM gemset
