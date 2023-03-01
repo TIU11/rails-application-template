@@ -1,15 +1,5 @@
 # frozen_string_literal: true
 
-puts 'Verifying prerequisite gems used within this template'
-%w[colorize].each do |gemname|
-  next if Gem::Specification.find_all_by_name(gemname).present?
-
-  run "gem install #{gemname}"
-  Gem.refresh
-  Gem.try_activate(gemname)
-end
-
-require 'colorize'
 require 'rails'
 
 say_status :rails_version, Rails.version
@@ -124,7 +114,7 @@ remove_file 'public/index.html'
 #
 say set_color('Setting up RVM gemset', :cyan)
 default_ruby = `rvm list default string`.strip # default to `rvm default` ruby version
-@desired_ruby = ask("Which Ruby would you like to use? [#{default_ruby}]".cyan)
+@desired_ruby = ask(set_color("Which Ruby would you like to use? [#{default_ruby}]", :cyan))
 @desired_ruby = default_ruby if @desired_ruby.blank?
 if `rvm list strings`.include? @desired_ruby
   puts "#{@desired_ruby} already installed"
@@ -197,14 +187,14 @@ after_bundle do
   rails_command "app:create_dotenv"
   rails_command "db:create"
 
-  if yes?('Create Users? [yN]'.cyan)
+  if yes?(set_color('Create Users? [yN]', :cyan))
     generate "tiu:authlogic:install", "--force"
   end
 
   # Add code to the repository
   puts "\nNow is a good time to review the generated application,"\
        'and make manual changes described in the README before continuing'.yellow
-  if yes?('Are you ready to commit? [yN]'.cyan)
+  if yes?(set_color('Are you ready to commit? [yN]', :cyan))
     git :init
     git add: '--all .'
     git commit: "-m 'Applied Rails Application Template'"
@@ -215,7 +205,7 @@ after_bundle do
   rails_command "bitbucket:launch_sourcetree"
 
   puts "\nNow is a good time to run the generated application, and fix anything wonky before deploying".yellow
-  if yes?('Deploy? [yN]'.cyan)
+  if yes?(set_color('Deploy? [yN]', :cyan))
     bundle_command "exec cap dev rvm:create_gemset"
     bundle_command "exec cap dev deploy:setup"
     bundle_command "exec cap dev deploy"
