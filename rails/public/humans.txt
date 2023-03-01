@@ -1,12 +1,26 @@
-/* The humans responsible & colophon */
-/* humanstxt.org */
 
-/* TEAM */
+████████ ██ ██    ██      ██  ██
+   ██    ██ ██    ██     ███ ███
+   ██    ██ ██    ██      ██  ██
+   ██    ██ ██    ██      ██  ██
+   ██    ██  ██████       ██  ██
+
+# TEAM
+
   Developer: Anson Hoyt
   Twitter: @ansonhoyt
   Location: Huntingdon, PA, USA
 
-/* SITE */
+# SITE
+
   Standards: HTML5, CSS3
   Components: Twitter Bootstrap, Ruby, Ruby on Rails
-  IDE: atom.io, pry
+  IDE: VS Code
+
+# CONTACTS
+
+http://help.tiu11.org/ — Help and general support
+security@tiu11.org     — Responsible disclosures
+
+----------------------------
+What is this?: humanstxt.org
