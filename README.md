@@ -35,12 +35,7 @@ This template assumes some things:
 
     ([mini_racer](https://github.com/rubyjs/mini_racer#troubleshooting) requires Rubygems >= 3.2.13 and bundler >= 2.2.13)
 
-    For ruby 2.5 and below
-
-        rvm @global do gem install bundler
-        gem update --system                 # Per https://rubygems.org/pages/download
-
-    For ruby 2.6 and above (which now includes bundler)
+    For ruby 2.6 and above (which [now includes bundler](https://stdgems.org/new-in/2.6/))
 
         gem update bundler
         gem update --system                 # Per https://rubygems.org/pages/download
