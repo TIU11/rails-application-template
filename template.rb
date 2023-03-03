@@ -57,7 +57,7 @@ copy_file "#{destination_root}/config/environments/production.rb",
 copy_file "#{destination_root}/config/environments/production.rb",
           "#{destination_root}/config/environments/demo.rb"
 
-pattern = /^default: &default\n(  \w+:.*\n)+/) # at end of 'default' block
+pattern = /^default: &default\n(  \w+:.*\n)+/ # at end of 'default' block
 insert_into_file('config/database.yml', <<-MSG, after: pattern)
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
