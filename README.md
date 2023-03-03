@@ -116,7 +116,6 @@ That's it, take her for a spin:
 * review `Gemfile` (replace gems you may have added)
 * review the environment configs: `development`, `dev`, `demo`, `production` (`dev` and `demo` are copies of production)
     * `config/environments/<environment>.rb`
-    * `config/secrets.yml`
     * `config/database.yml`
     * `config/deploy/<environment>.rb` (update hostnames)
 * update `.env` (but don't check it in!) and `.env.sample` (and *do* check it in)

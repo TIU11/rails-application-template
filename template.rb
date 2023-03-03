@@ -56,16 +56,7 @@ copy_file "#{destination_root}/config/environments/production.rb",
           "#{destination_root}/config/environments/dev.rb"
 copy_file "#{destination_root}/config/environments/production.rb",
           "#{destination_root}/config/environments/demo.rb"
-if File.exist? 'config/secrets.yml'
-  insert_into_file 'config/secrets.yml', %(
-  dev:
-    secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
 
-  demo:
-    secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
-
-  ), before: /(\s+#.*\n)+\s*production:\n/ # before production config and comments
-end
 insert_into_file 'config/database.yml', %(
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
@@ -101,7 +92,9 @@ remove_file "#{destination_root}/config/sitemap.rb.tt"
 
 say set_color('Remove Junk/Unwanted Files', :cyan)
 # Replaced by secrets.yml (http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#config-secrets-yml)
-remove_file 'config/initializers/secret_token.rb' #
+remove_file 'config/initializers/secret_token.rb' # Rails 3
+# Replaced by encrypted credentials
+remove_file 'config/secrets.yml' # Rails 4 - 5.2
 # Unused files from Rails default template
 remove_file 'app/assets/images/rails.png'
 remove_file 'public/index.html'
