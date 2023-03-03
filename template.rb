@@ -185,8 +185,8 @@ after_bundle do
   end
 
   # Add code to the repository
-  puts "\nNow is a good time to review the generated application,"\
-       'and make manual changes described in the README before continuing'.yellow
+  say set_color("\n💡 Review the generated application. "\
+                "Make manual changes described in the README.", :yellow)
   if yes?(set_color('Are you ready to commit? [yN]', :cyan))
     git :init
     git add: '--all .'
@@ -197,7 +197,7 @@ after_bundle do
   rails_command "bitbucket:setup"
   rails_command "bitbucket:launch_sourcetree"
 
-  puts "\nNow is a good time to run the generated application, and fix anything wonky before deploying".yellow
+  say set_color("\n💡 Run the generated application. Fix anything wonky before deploying.", :yellow)
   if yes?(set_color('Deploy? [yN]', :cyan))
     bundle_command "exec cap dev rvm:create_gemset"
     bundle_command "exec cap dev deploy:setup"
@@ -207,4 +207,4 @@ after_bundle do
   say_status :end, "#{@app_name} Complete! 🎉🚀"
 end
 
-say_status :end, "#{@app_name} template applied! Now bundler will install to the #{@gemset} gemset."
+say_status :end, "Template applied to #{@app_name}! Now bundler will install to the #{@gemset} gemset."
