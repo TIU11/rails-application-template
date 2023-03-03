@@ -57,11 +57,14 @@ copy_file "#{destination_root}/config/environments/production.rb",
 copy_file "#{destination_root}/config/environments/production.rb",
           "#{destination_root}/config/environments/demo.rb"
 
-insert_into_file 'config/database.yml', %(
+pattern = /^default: &default\n(  \w+:.*\n)+/) # at end of 'default' block
+insert_into_file('config/database.yml', <<-MSG, after: pattern)
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
-), after: /^default: &default\n(  \w+:.*\n)+/ # at end of 'default' block
-insert_into_file 'config/database.yml', %(
+MSG
+
+pattern = /(#.*\n)+\s*production:\n/ # before production config and comments
+insert_into_file 'config/database.yml', <<-MSG, before: pattern
 dev:
   <<: *default
   database: #{@app_name}_development
@@ -72,7 +75,7 @@ demo:
   database: #{@app_name}_demo
   username: #{@app_name}
 
-), before: /(#.*\n)+\s*production:\n/ # before production config and comments
+MSG
 
 # Routes
 route "root to: 'exception#not_found'"
