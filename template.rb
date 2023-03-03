@@ -119,6 +119,7 @@ else
 end
 @gemset = "#{@desired_ruby}@#{app_name.titleize.parameterize}"
 run "rvm #{@desired_ruby} do rvm --ruby-version --create use #{@gemset}"
+Dir.glob(['.ruby-gemset.*', '.ruby-version.*']).each { |file| File.delete(file) } # cleanup RVM backups
 @rvm_do = "rvm #{@gemset} do" # run a command within this gemset via `run "#{@rvm_do} command"`
 
 # Run commands within our app's RVM gemset
