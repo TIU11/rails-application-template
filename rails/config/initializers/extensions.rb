@@ -8,6 +8,5 @@
 
 Dir[Rails.root.join('lib/extensions/**/*.rb')].sort.each { |f| require f }
 
-ActionView::Helpers::FormBuilder.include Extensions::ActionView::FormBuilderExtensions
-
+# ActionView::Helpers::FormBuilder.include Extensions::ActionView::FormBuilderExtensions
 # PgSearch::Document.include PgSearchExtensions
