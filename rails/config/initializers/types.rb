@@ -16,5 +16,5 @@ ActiveRecord::Type.register(:string, Type::String, override: true)
 ActiveRecord::Type.register(:token, Type::Token)
 
 ActiveModel::Type.register(:localized_date, LocalizedDate)
-ActiveModel::Type.register(:string, Type::String, override: true)
+ActiveModel::Type.register(:string, Type::String)
 ActiveModel::Type.register(:token, Type::Token)
