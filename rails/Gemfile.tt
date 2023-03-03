@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: REVIEW THIS GENERATED GEMFILE, THEN DELETE THIS COMMENT.
-# When applying to an existing project, you must restore any project gems we blew away!
-
 source 'https://rubygems.org'
 
 gem 'rails', '~> 7.0.4'
@@ -23,7 +20,13 @@ gem 'paper_trail', '~> 14.0'    # Track model revisions
 gem 'will_paginate', '~> 3.3'   # Pagination
 
 gem 'populate', git: 'git@bitbucket.org:tiu/populate.git'
+<% if Gem::Specification.find_all_by_name('bootstrap-sass', '~> 3.0').any? -%>
+gem 'tiu-generators', bitbucket: 'tiu/tiu-generators', branch: '1-stable' # Bootstrap 3
+<% elsif Gem::Specification.find_all_by_name('bootstrap', '~> 4.0').any? -%>
+gem 'tiu-generators', bitbucket: 'tiu/tiu-generators' # Bootstrap 4
+<% else -%>
 gem 'tiu-generators', bitbucket: 'tiu/tiu-generators', branch: 'bootstrap-5'
+<% end -%>
 gem 'tiutils', git: 'git@bitbucket.org:tiu/tiutils.git'
 
 # Static Pages
