@@ -27,13 +27,13 @@ SitemapGenerator::Sitemap.create do
   #     add article_path(article), :lastmod => article.updated_at
   #   end
 <% if defined? HighVoltage -%>
+
   HighVoltage.page_ids.each do |page|
     add page, changefreq: 'monthly', priority: 0.8
   end
-
 <% end -%>
 <% if defined? Authlogic -%>
-  add login_path, changefreq: 'monthly'
 
+  add login_path, changefreq: 'monthly'
 <% end -%>
 end
