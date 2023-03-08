@@ -56,6 +56,7 @@ gem 'whenever', require: false  # Schedule cron jobs
 
 <% if Gem::Specification.find_all_by_name('cssbundling-rails').any? -%>
 gem 'cssbundling-rails'         # Bundle and process CSS
+gem 'font-awesome-sass', '~> 6.0'
 gem 'sprockets-rails'           # The original asset pipeline for Rails
 <% else -%>
 gem 'autoprefixer-rails'        # CSS vendor prefixer
