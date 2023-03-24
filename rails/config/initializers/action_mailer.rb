@@ -21,7 +21,7 @@ Rails.application.configure do
     domain: ENV.fetch('SMTP_DOMAIN', 'tiu11.org'),
     authentication: :plain,
     enable_starttls_auto: true,
-    user_name: ENV['SMTP_USER'], # ex. 'user@gmail.com'
-    password: ENV['SMTP_PASSWORD']
+    user_name: ENV.fetch('SMTP_USER'), # ex. 'user@gmail.com'
+    password: ENV.fetch('SMTP_PASSWORD')
   }
 end
