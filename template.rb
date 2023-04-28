@@ -104,6 +104,10 @@ remove_file 'config/secrets.yml' # Rails 4 - 5.2
 remove_file 'app/assets/images/rails.png'
 remove_file 'public/index.html'
 
+if !File.exist?('.nvmrc')
+  say 'Initialize .nvmrc'
+  File.write('.nvmrc', 'lts/*')
+end
 #
 # Create and initialize RVM gemset
 # @see https://rvm.io/workflow/scripting for explanation of `rvm do`
