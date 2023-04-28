@@ -138,6 +138,6 @@ end
 
 gem 'sdoc', '~> 2.0', group: :doc # `rails doc:rails` generates the API under doc/api.
 
-# NOTE: align with current Ruby's default gems: https://stdgems.org/3.1.3/
+# NOTE: align with current Ruby's default gems: https://stdgems.org/<%= RUBY_VERSION %>/
 # gem 'stringio', '= 3.0.1'
 # gem 'psych', '= 4.0.4'
