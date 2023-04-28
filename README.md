@@ -20,14 +20,14 @@ This template assumes some things:
 
         \curl -sSL https://get.rvm.io | sudo bash -s stable
 
-* Ruby 2.7+ is installed (3.0 recommended)
+* Ruby 2.7+ is installed (3.2 recommended)
 
         rvm install 2.7
         rvm install 2.7 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X. This may be irrelevant since Ruby 2.3, but we're not sure ;-)
 
 * Rails 6.0+ is installed (7.0 recommended)
 
-        rvm use 3.0.4
+        rvm use 3.2.2
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work. Some things require rails 5.2+
 
@@ -53,7 +53,8 @@ This template assumes some things:
 
     For apps using jsbundling-rails with esbuild (or still using webpacker).
 
-        echo "lts/*" > .nvmrc # to default to the latest LTS version. See `nvm ls-remote --lts`.
+        echo "lts/*" > .nvmrc # Use the latest LTS version. See `nvm ls-remote --lts`.
+        nvm alias default lts/* # Consider making this the default for new shells
         nvm install --latest-npm
         npm install --global yarn@latest
 
@@ -80,9 +81,9 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 3.0.4
+    rvm use 3.2.2
     rails new                    # learn what the various options do
-    rails new my-app --database postgresql --skip-active-storage --javascript esbuild --css bootstrap --no-scaffold-stylesheet
+    rails new my-app --database postgresql --skip-active-storage --javascript esbuild --no-scaffold-stylesheet
     cd my-app
     git init # rails does this for you
     git add .
@@ -93,7 +94,6 @@ Some options are pretty standard, so make them defaults:
     # ~/.railsrc
     --database postgresql
     --javascript esbuild
-    --css bootstrap
     --no-scaffold-stylesheet
 
 Finally, apply this template:
