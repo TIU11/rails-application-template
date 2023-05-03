@@ -47,7 +47,7 @@ gem 'exception_notification', '~> 4.4'
 gem 'httparty'                  # used for Google Chat Notifier (Exception Notification)
 # gem 'rack-attack'               # block & throttle abusive requests
 gem 'rack-timeout', require: 'rack/timeout/base' # Abort requests that are taking too long
-gem 'redis', '~> 4.0'           # Use Redis adapter to run Action Cable in production
+gem 'redis', '~> 5.0'           # Use Redis adapter to run Action Cable in production
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
 # gem 'slack-notifier'            # Send exception notifications to Slack
 gem 'whenever', require: false  # Schedule cron jobs
