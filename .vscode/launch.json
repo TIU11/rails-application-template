@@ -1,0 +1,59 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "rdbg",
+      "name": "Debug current file with rdbg",
+      "request": "launch",
+      "script": "${file}",
+      "args": [],
+      "askParameters": true
+    },
+    // Attach the debugger to an active process (for example, Rails server)
+    // NOTE: First `RUBY_DEBUG_OPEN=true bin/dev`
+    {
+      "type": "rdbg",
+      "name": "Attach with rdbg",
+      "request": "attach"
+    },
+    // Minitest - current file
+    {
+      "type": "rdbg",
+      "name": "Minitest - current file",
+      "request": "launch",
+      "script": "-Itest ${relativeFile}",
+      // "askParameters": true
+    },
+    // Minitest - current line
+    {
+      "type": "rdbg",
+      "name": "Minitest - current line",
+      "request": "launch",
+      "command": "bin/rails",
+      "script": "test",
+      "args": ["${relativeFile}:${lineNumber}"],
+      // "askParameters": true
+    },
+    // Rspec - current file
+    {
+      "type": "rdbg",
+      "name": "RSpec - current file",
+      "request": "launch",
+      "command": "bundle exec rspec",
+      "script": "${relativeFile}",
+      // "askParameters": true
+    },
+    // Rspec - current line
+    {
+      "type": "rdbg",
+      "name": "RSpec - current line",
+      "request": "launch",
+      "command": "bundle exec rspec",
+      "script": "${relativeFile}:${lineNumber}",
+      // "askParameters": true
+    }
+  ]
+}
