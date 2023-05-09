@@ -93,10 +93,10 @@ Style/FrozenStringLiteralComment:
 Style/SymbolArray:
   EnforcedStyle: brackets
 
+# Either way ok since Ruby 2.5.
+# https://www.bigbinary.com/blog/ruby-2.5-has-removed-top-level-constant-lookup
 Style/ClassAndModuleChildren:
-  Exclude:
-    - 'spec/models/**/*.rb'
-    - 'test/models/**/*.rb'
+  Enabled: false
 
 Style/BlockDelimiters:
   Exclude:
