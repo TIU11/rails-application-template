@@ -16,8 +16,8 @@ gem 'browser'                   # browser detection
 gem 'colorize'                  # Colored console output
 gem 'jsonapi-serializer'        # JSON:API serializer
 gem 'friendly_id', '~> 5.5'     # Nice URLs
-gem 'paper_trail', '~> 14.0'    # Track model revisions
-gem 'will_paginate', '~> 3.3'   # Pagination
+gem 'paper_trail', '~> 15.0'    # Track model revisions
+gem 'will_paginate', '~> 4.0'   # Pagination
 
 gem 'populate', git: 'git@bitbucket.org:tiu/populate.git'
 <% if Gem::Specification.find_all_by_name('bootstrap-sass', '~> 3.0').any? -%>
@@ -126,7 +126,6 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  gem "webdrivers"
 
   gem 'simplecov', require: false # Track code coverage of test suite
 
