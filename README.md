@@ -22,8 +22,15 @@ This template assumes some things:
 
 * Ruby 2.7+ is installed (3.2 recommended)
 
-        rvm install 2.7
-        rvm install 2.7 --disable-binary # if you encounter OpenSSL `certificate verify failed` errors on OS X. This may be irrelevant since Ruby 2.3, but we're not sure ;-)
+    for Ruby 3.1+:
+
+        rvm install 3.2
+
+    for Ruby > 2.4, < 3.1.0: ([needs OpenSSL 1.1](https://stackoverflow.com/a/76680088/1178927))
+
+        brew install openssl@1.1
+        export PKG_CONFIG_PATH="$(brew --prefix openssl@1.1)/lib/pkgconfig" # if needed
+        rvm install 2.7.8 --with-openssl-dir=$(brew --prefix openssl@1.1)
 
 * Rails 6.0+ is installed (7.0 recommended)
 
