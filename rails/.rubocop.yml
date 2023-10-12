@@ -4,6 +4,7 @@
 # * [rails defaults](https://github.com/rails/rails/blob/main/.rubocop.yml)
 
 require:
+  - rubocop-capybara
   - rubocop-minitest
   - rubocop-performance
   - rubocop-rails
@@ -67,6 +68,11 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   Enabled: false
 
+Performance/MethodObjectAsBlock:
+  Exclude:
+  - '**/*_search.rb'
+  - '**/*_search_form.rb'
+
 #################### Naming ##########################
 
 Naming/InclusiveLanguage:
@@ -101,6 +107,7 @@ Style/ClassAndModuleChildren:
 Style/BlockDelimiters:
   Exclude:
     - 'app/controllers/*_controller.rb'
+    - 'spec/**/*'
 
 #################### Layout ###########################
 
@@ -163,5 +170,5 @@ RSpec/DescribedClass:
 #### FactoryBot ####
 # - https://docs.rubocop.org/rubocop-rspec/cops_rspec_factorybot.html
 
-RSpec/FactoryBot/SyntaxMethods:
+FactoryBot/SyntaxMethods:
   Enabled: false
