@@ -26,8 +26,8 @@ en:
   #     prompt: Please select
   #   submit: # Form submit buttons
   #     user:
-  #       create: Create
-  #       update: Update
+  #       create: Create %{model}
+  #       update: Update %{model}
 
   date:
     formats:
