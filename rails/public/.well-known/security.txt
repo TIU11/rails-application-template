@@ -1,0 +1,7 @@
+Contact: mailto:security@tiu11.org
+Expires: 2025-01-01T05:00:00.000Z
+Preferred-Languages: en
+Canonical: https://tiu11.org/.well-known/security.txt
+
+#-------------------------------
+# What is this?: securitytxt.org
