@@ -124,17 +124,9 @@ end
 @gemset = "#{@desired_ruby}@#{app_name.titleize.parameterize}"
 run "rvm #{@desired_ruby} do rvm --ruby-version --create use #{@gemset}"
 Dir.glob(['.ruby-gemset.*', '.ruby-version.*']).each { |file| File.delete(file) } # cleanup RVM backups
-@rvm_do = "rvm #{@gemset} do" # run a command within this gemset via `run "#{@rvm_do} command"`
 
-# Run commands within our app's RVM gemset
-# Hacks Rails::Generators::Actions.execute_command via extify
-# - https://github.com/rails/rails/blob/6-0-stable/railties/lib/rails/generators/actions.rb#L285
-# - https://github.com/rails/rails/blob/6-0-stable/railties/lib/rails/generators/actions.rb#L299
-# - http://stackoverflow.com/questions/11302742/how-to-make-a-rails-template-forcefully-not-run-bundle-install-after-rails-new-i
-def extify(action)
-  say_status :rvm, "Executing #{action.inspect} in RVM gemset #{@gemset}"
-  "#{@rvm_do} #{super}"
-end
+require 'rvm' # https://github.com/rvm/rvm-gem
+RVM.gemset_use! @gemset
 
 # Before bundle, update Rubygems and Bundler.
 # - https://github.com/rails/rails/blob/6-0-stable/railties/lib/rails/generators/app_base.rb#L406
@@ -150,17 +142,6 @@ def run_bundle
   end
 
   super
-end
-
-# Override bundle command to run in context of current RVM gemset
-# https://github.com/rails/rails/blob/6-0-stable/railties/lib/rails/generators/app_base.rb#L352
-def exec_bundle_command(bundle_command, command, env)
-  full_command = %(#{@rvm_do} "#{bundle_command}" #{command})
-  if options[:quiet]
-    system(env, full_command, out: File::NULL)
-  else
-    system(env, full_command)
-  end
 end
 
 #
