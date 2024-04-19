@@ -20,11 +20,12 @@ This template assumes some things:
 
         \curl -sSL https://get.rvm.io | sudo bash -s stable
 
-* Ruby 2.7+ is installed (3.2 recommended)
+* Ruby 2.7+ is installed (3.3 recommended)
 
     for Ruby 3.1+:
 
         rvm install 3.2
+        rvm install 3.3 --enable-yjit
 
     for Ruby > 2.4, < 3.1.0: ([needs OpenSSL 1.1](https://stackoverflow.com/a/76680088/1178927))
 
@@ -32,7 +33,7 @@ This template assumes some things:
         export PKG_CONFIG_PATH="$(brew --prefix openssl@1.1)/lib/pkgconfig" # if needed
         rvm install 2.7.8 --with-openssl-dir=$(brew --prefix openssl@1.1)
 
-* Rails 6.0+ is installed (7.0 recommended)
+* Rails 6.0+ is installed (7.1 recommended)
 
         rvm use 3.2.2
         gem install rails               # install latest version of rails
