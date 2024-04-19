@@ -31,7 +31,8 @@ gem 'tiutils', git: 'git@bitbucket.org:tiu/tiutils.git'
 
 # Static Pages
 
-gem 'commonmarker'              # Markdown parser (CommonMark + GitHub extensions)
+# TODO: pin commonmarker until https://github.com/github/markup/issues/1758
+gem 'commonmarker', '~> 0.23'   # Markdown parser (CommonMark + GitHub extensions)
 gem 'github-markup'             # Markup processor
 gem 'high_voltage', '~> 3.1'    # Static pages
 
