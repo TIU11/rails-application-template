@@ -72,7 +72,7 @@ gem 'mini_racer' # See https://github.com/rails/execjs#readme for more supported
 
 gem 'jsbundling-rails', '~> 1.0'  # Bundle and transpile JavaScript
 gem 'stimulus-rails', '~> 1.1'    # Hotwire's modest JavaScript framework
-gem 'turbo-rails', '~> 1.3'       # Hotwire's SPA-like page accelerator
+gem 'turbo-rails', '~> 2.0'       # Hotwire's SPA-like page accelerator
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
