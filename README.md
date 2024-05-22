@@ -20,12 +20,15 @@ This template assumes some things:
 
         \curl -sSL https://get.rvm.io | sudo bash -s stable
 
-* Ruby 2.7+ is installed (3.3 recommended)
+* Ruby 2.7+ is installed (latest recommended)
 
     for Ruby 3.1+:
 
-        rvm install 3.2
-        rvm install 3.3 --enable-yjit
+        brew install openssl
+        rvm install 3.2.4
+
+        brew install rust # for compiling yjit
+        rvm install 3.3.1 --enable-yjit --with-openssl-dir=$(brew --prefix openssl@3)
 
     for Ruby > 2.4, < 3.1.0: ([needs OpenSSL 1.1](https://stackoverflow.com/a/76680088/1178927))
 
@@ -35,7 +38,7 @@ This template assumes some things:
 
 * Rails 6.0+ is installed (7.1 recommended)
 
-        rvm use 3.2.2
+        rvm use 3.3.1
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work. Some things require rails 5.2+
 
@@ -89,7 +92,7 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 3.2.2
+    rvm use 3.3.1
     rails new                    # learn what the various options do
     rails new my-app --database postgresql --skip-active-storage --javascript esbuild --no-scaffold-stylesheet
     cd my-app
