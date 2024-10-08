@@ -111,7 +111,6 @@ group :development do
   gem 'derailed_benchmarks'     # Tools for benchmarking ruby apps
   gem 'stackprof'               # Ruby call-stack profiler
 
-  gem 'bullet'                  # Tool to eliminate N+1 queries and unused loading
   gem 'rails_best_practices'    # Code metric tool for quality checks
   gem 'rubocop', '~> 1.0', require: false # Static code analyzer. Enforces the Ruby Style Guide
   gem 'rubocop-minitest', require: false

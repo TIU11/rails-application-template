@@ -31,9 +31,7 @@ insert_into_file 'config/environments/development.rb', <<-CONFIG, before: /^end/
   # Allow generating absolute urls with routing url helpers.
   Rails.application.default_url_options = { host: 'localhost', port: 3000 }
 
-  # Enable Bullet which reports N+1 queries to the browser.
-  # TODO: prevent by running in tests: https://github.com/flyerhzm/bullet#run-in-tests
-  config.enable_bullet = false
+  config.active_record.strict_loading_by_default = true
 CONFIG
 gsub_file 'config/environments/development.rb', 'config.assets.debug = true', 'config.assets.debug = false'
 uncomment_lines 'config/environments/development.rb', 'config.i18n.raise_on_missing_translations = true'
