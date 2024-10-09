@@ -155,7 +155,7 @@ after_bundle do
 
   # Install rspec
   generate "rspec:install"
-  gsub_file "spec/rails_helper.rb", 'config.fixture_paths = Rails.root.join("spec/fixtures")', 'config.fixture_paths = Rails.root.join("test/fixtures")'
+  gsub_file "spec/rails_helper.rb", /config.fixture_path.*/, 'config.fixture_paths = [Rails.root.join("test/fixtures")]'
   insert_into_file "spec/rails_helper.rb", "require 'simplecov' # Load SimpleCov", after: /^# Add additional requires below this line.*\n/
 
   # Setup the app how we like it
