@@ -14,14 +14,14 @@ require:
 AllCops:
   NewCops: enable
   Exclude:
-    - 'node_modules/**/*'
-    - '**/templates/**/*'
-    - '**/vendor/**/*'
-    - 'db/schema.rb'
-    - 'db/migrate/*_create_versions.rb'
-    - 'bin/**/*'
-    - 'spec/spec_helper.rb'
-    - '**/*.erb' # Workaround for https://github.com/AtomLinter/linter-rubocop/issues/48
+    - "node_modules/**/*"
+    - "**/templates/**/*"
+    - "**/vendor/**/*"
+    - "db/schema.rb"
+    - "db/migrate/*_create_versions.rb"
+    - "bin/**/*"
+    - "spec/spec_helper.rb"
+    - "**/*.erb" # Workaround for https://github.com/AtomLinter/linter-rubocop/issues/48
 
 #################### Layout ###########################
 
@@ -34,11 +34,11 @@ Layout/LineLength:
 
 Layout/SpaceBeforeBlockBraces:
   Exclude:
-    - 'spec/**/*' # to allow `expect{raise 'foo'}.to raise_error RuntimeError`
+    - "spec/**/*" # to allow `expect{raise 'foo'}.to raise_error RuntimeError`
 
 Layout/SpaceInsideBlockBraces:
   Exclude:
-    - 'spec/**/*' # to allow `expect{raise 'foo'}.to raise_error RuntimeError`
+    - "spec/**/*" # to allow `expect{raise 'foo'}.to raise_error RuntimeError`
 
 #################### Lint ###########################
 
@@ -55,14 +55,14 @@ Lint/RaiseException:
 
 Metrics/MethodLength:
   Exclude:
-    - 'app/controllers/*_controller.rb'
-    - 'app/models/ability.rb'
-    - 'db/migrate/*.rb'
+    - "app/controllers/*_controller.rb"
+    - "app/models/ability.rb"
+    - "db/migrate/*.rb"
 
 Metrics/AbcSize:
   Exclude:
-    - 'app/models/ability.rb'
-    - 'db/migrate/*.rb'
+    - "app/models/ability.rb"
+    - "db/migrate/*.rb"
 
 # Allow long blocks. This includes rake tasks, rake namespaces.
 # TODO: can we allow large namespaces, but not the others?
@@ -71,8 +71,8 @@ Metrics/BlockLength:
 
 Performance/MethodObjectAsBlock:
   Exclude:
-  - '**/*_search.rb'
-  - '**/*_search_form.rb'
+    - "**/*_search.rb"
+    - "**/*_search_form.rb"
 
 #################### Naming ##########################
 
@@ -91,10 +91,10 @@ Style/StringLiterals:
 Style/FrozenStringLiteralComment:
   Enabled: false
   Exclude:
-    - 'config/**/*.rb'
-    - 'db/**/*.rb'
-    - 'spec/**/*.rb'
-    - 'test/**/*.rb'
+    - "config/**/*.rb"
+    - "db/**/*.rb"
+    - "spec/**/*.rb"
+    - "test/**/*.rb"
 
 # Prefer array literals of symbols over %i(), which requires memorizing "%i"
 Style/SymbolArray:
@@ -107,8 +107,8 @@ Style/ClassAndModuleChildren:
 
 Style/BlockDelimiters:
   Exclude:
-    - 'app/controllers/*_controller.rb'
-    - 'spec/**/*'
+    - "app/controllers/*_controller.rb"
+    - "spec/**/*"
 
 #################### Layout ###########################
 
