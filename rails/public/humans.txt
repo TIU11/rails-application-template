@@ -19,8 +19,8 @@
 
 # CONTACTS
 
-http://help.tiu11.org/ — Help and general support
-security@tiu11.org     — Responsible disclosures
+https://help.tiu11.org/ — Help and general support
+security@tiu11.org      — Responsible disclosures
 
 ----------------------------
 What is this?: humanstxt.org
