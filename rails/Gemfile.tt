@@ -14,8 +14,8 @@ gem 'scrypt'                    # required by authlogic when using scrypt
 gem 'addressable', '~> 2.6'     # more conformant replacement for (obsolete) Ruby URI
 gem 'browser'                   # browser detection
 gem 'colorize'                  # Colored console output
-gem 'jsonapi-serializer'        # JSON:API serializer
 gem 'friendly_id', '~> 5.5'     # Nice URLs
+gem 'jsonapi-serializer'        # JSON:API serializer
 gem 'paper_trail', '~> 15.0'    # Track model revisions
 gem 'will_paginate', '~> 4.0'   # Pagination
 
@@ -48,13 +48,11 @@ gem 'httparty'                  # used for Google Chat Notifier (Exception Notif
 # gem 'rack-attack'               # block & throttle abusive requests
 gem 'rack-timeout', require: 'rack/timeout/base' # Abort requests that are taking too long
 gem 'sitemap_generator'         # Generation setup in config/sitemap.rb
-gem 'whenever', require: false  # Schedule cron jobs
 
 # Styling
 
 <% if Gem::Specification.find_all_by_name('cssbundling-rails').any? -%>
 gem 'cssbundling-rails'         # Bundle and process CSS
-gem 'font-awesome-sass', '~> 6.0'
 gem 'sprockets-rails'           # The original asset pipeline for Rails
 <% else -%>
 gem 'autoprefixer-rails'        # CSS vendor prefixer
@@ -78,7 +76,7 @@ group :development, :test do
 
   gem 'factory_bot_rails'
   gem 'faker', '~> 3.0'
-  gem 'rspec-rails', '~> 6.0'
+  gem 'rspec-rails', '~> 7.0'
 
   # https://www.phusionpassenger.com/library/walkthroughs/start/ruby.html
   # gem 'passenger', '~> 5.1', require: 'phusion_passenger/rack_handler'
@@ -113,6 +111,8 @@ group :development do
 
   gem 'rails_best_practices'    # Code metric tool for quality checks
   gem 'rubocop', '~> 1.0', require: false # Static code analyzer. Enforces the Ruby Style Guide
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-capybara', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
@@ -133,7 +133,3 @@ group :test do
 end
 
 gem 'sdoc', '~> 2.0', group: :doc # `rails doc:rails` generates the API under doc/api.
-
-# NOTE: align with current Ruby's default gems: https://stdgems.org/<%= RUBY_VERSION %>/
-# gem 'stringio', '= 3.0.1'
-# gem 'psych', '= 4.0.4'
