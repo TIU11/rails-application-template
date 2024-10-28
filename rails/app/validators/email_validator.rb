@@ -27,7 +27,7 @@ class EmailValidator < ActiveModel::EachValidator
     (?:[\p{L}0-9\-]+\.)+ # subdomains (can be IDN)
     [A-Z0-9\-]{2,63}     # TLD
     \z
-  /ix.freeze
+  /ix
 
   def validate_each(record, attribute, value)
     return if value.present? && value.match?(EMAIL)

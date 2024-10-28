@@ -3,17 +3,32 @@ require 'rails_helper'
 RSpec.describe EmailValidator, type: :validator do
   subject(:validator) { EmailValidator.new(attributes: { any: true }) }
 
+  let(:dummy_class) {
+    Class.new do
+      include ActiveModel::Validations
+
+      # NOTE: avoids ArgumentError "Class name cannot be blank."
+      def self.name
+        "Anonymous"
+      end
+
+      attr_accessor :email
+
+      validates :email, email: true
+    end
+  }
+
   describe '#validate_each' do
-    let(:errors) { ActiveModel::Errors.new(OpenStruct.new) }
-    let(:record) { instance_double(ActiveModel::Validations, errors: errors) }
+    let(:record) { dummy_class.new }
 
     context 'with invalid emails' do
       let(:emails) { %w[mail @example.com example.com mail@example mail@example.c mail@example,com] << nil }
 
       it "rejects them" do
         emails.each_with_index do |email, index|
-          validator.validate_each(record, :email, email)
-          expect(record.errors.count).to eq index + 1
+          record.email = email
+          expect(record).not_to be_valid
+          expect(record.errors.details).to eq({ email: [{ error: :invalid }] })
         end
       end
     end
@@ -23,8 +38,8 @@ RSpec.describe EmailValidator, type: :validator do
 
       it "accepts them" do
         emails.each do |email|
-          validator.validate_each(record, :email, email)
-          expect(record.errors.any?).to be false
+          record.email = email
+          expect(record).to be_valid
         end
       end
     end
