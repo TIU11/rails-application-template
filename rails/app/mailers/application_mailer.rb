@@ -2,7 +2,11 @@
 
 class ApplicationMailer < ActionMailer::Base
   default from:     -> { default_from },
-          reply_to: -> { default_reply_to }
+          reply_to: -> { default_reply_to },
+          # Request recipient not to send out-of-office replies
+          # * [2.1.3.2.20 Auto Response Suppress]
+          #   (https://learn.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcmail/ced68690-498a-4567-9d14-5c01f974d8b1)
+          'X-Auto-Response-Suppress': 'OOF'
 
   layout 'mailer' # All mailers will share a layout
 
