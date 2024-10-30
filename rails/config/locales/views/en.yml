@@ -19,7 +19,7 @@ en:
   passwords:
     edit:
       inactive_link_html: We're sorry, but this is not an active password reset link. You can <a href="%{new_password_path}" class="alert-link">generate a new one</a>.
-    create:
+    sent:
       # inactive_link_html:
       sent_email: Instructions to change your password have been emailed to the registered email. Please check your email.
     new:
