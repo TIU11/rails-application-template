@@ -102,6 +102,9 @@ group :development do
   # https://github.com/voormedia/rails-erd, https://news.ycombinator.com/item?id=18324132
   gem 'rails-erd'
 
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem 'brakeman', require: false
+
   gem 'better_errors', '~> 2.3' # Improved version of the Rails error page
   gem 'binding_of_caller'       # ^ Enables better_errors' advanced features
   gem 'pry-doc'                 # Extends pry with MRI documentation
