@@ -43,6 +43,7 @@ gem 'roo', '~> 2.8'
 # Application Management
 
 gem 'bootsnap', require: false  # Reduces boot times through caching; required in config/boot.rb
+gem 'bundler-audit'             # Gem security audit
 gem 'exception_notification', '~> 4.4'
 gem 'httparty'                  # used for Google Chat Notifier (Exception Notification)
 # gem 'rack-attack'               # block & throttle abusive requests
