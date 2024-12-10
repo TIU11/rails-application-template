@@ -43,7 +43,7 @@ ExceptionNotification.configure do |config|
   # https://github.com/smartinez87/exception_notification/blob/master/docs/notifiers/google_chat.md
   config.add_notifier(
     :google_chat,
-    webhook_url: Rails.application.credentials.google_chat_webhook_url
+    webhook_url: Rails.application.credentials.google_chat_webhook_url!
   )
 
 end
