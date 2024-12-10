@@ -8,6 +8,8 @@ set :top_level_domain, 'tiu11.org'
 set :repo_url, "git@bitbucket.org:tiu/#{fetch(:application)}.git"
 set :user, `whoami`.strip.to_s
 
+# set :letsencrypt, true # Manage certs with LetsEncrypt
+
 # Whenever cron jobs defined in config/schedule.rb
 set :whenever_roles, [:app]
 set :whenever_environment, -> { fetch(:stage) }
