@@ -95,10 +95,6 @@ group :development do
   gem 'capistrano-rails',       '~> 1.2', require: false
   gem 'capistrano-rvm',         '~> 0.1', require: false
 
-  # Use 'thin' to avoid "Could not determine content-length of response body." warnings.
-  # @see (http://stackoverflow.com/questions/7082364/what-does-warn-could-not-determine-content-length-of-response-body-mean-and-h)
-  gem 'thin'
-
   # https://github.com/voormedia/rails-erd, https://news.ycombinator.com/item?id=18324132
   gem 'rails-erd'
 
