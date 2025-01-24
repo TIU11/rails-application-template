@@ -5,7 +5,6 @@
 # * (https://github.com/svenfuchs/rails-i18n/tree/master/rails/locale)
 en:
   activerecord:
-
     attributes:
       user:
         password_confirmation: Confirm new password
@@ -31,21 +30,21 @@ en:
 
   date:
     formats:
-      default: "%-m/%-d/%Y"   # 1/5/2019
-      long: "%B %-d, %Y"      # January 5, 2019
-      short: "%b %-d"         # Jan 5
+      default: "%-m/%-d/%Y" # 1/5/2019
+      long: "%B %-d, %Y" # January 5, 2019
+      short: "%b %-d" # Jan 5
       day_and_month: "%b %-d" # Jan 5
       month_and_year: "%b %Y" # Jan 2012
     order:
-    - :month
-    - :day
-    - :year
+      - :month
+      - :day
+      - :year
 
   time:
     formats:
       default: "%a, %-d %b %Y %I:%M:%S %p %Z" # Wed, 5 Jan 2021 1:30:20 PM EST
       long: "%B %-d, %Y %-I:%M%P" # January 5, 2021 1:30pm
       short: "%b %-d %-I:%M%P" # Jan 5 1:30pm
-      time: "%-I:%M%P"        # 1:30pm
+      time: "%-I:%M%P" # 1:30pm
       day_and_month: "%b %-e" # Jan 5
       month_and_year: "%b %Y" # Jan 2012
