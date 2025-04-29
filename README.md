@@ -30,6 +30,10 @@ This template assumes some things:
         brew install rust # for compiling yjit
         rvm install 3.3.1 --enable-yjit --with-openssl-dir=$(brew --prefix openssl@3)
 
+    and docs ([off by default](https://rvm.io/rubies/docs), but useful to Ruby LSP)
+
+        rvm docs generate # generate ri + rdoc
+
     for Ruby > 2.4, < 3.1.0: ([needs OpenSSL 1.1](https://stackoverflow.com/a/76680088/1178927))
 
         brew install openssl@1.1
