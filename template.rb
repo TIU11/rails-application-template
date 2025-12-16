@@ -2,8 +2,8 @@
 
 say_status :rails_version, Gem::Specification.find_by_name('rails').version
 
-say set_color('Download template files from Bitbucket', :cyan)
-git archive: '--remote=git@bitbucket.org:tiu/rails-application-template.git --format=tar -v master:rails | (tar xf -)'
+say set_color('Download template files from GitHub', :cyan)
+git archive: '--remote=git@github.com:TIU11/rails-application-template.git --format=tar -v master:rails | (tar xf -)'
 
 #
 # Configurations

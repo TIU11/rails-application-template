@@ -28,7 +28,7 @@ This template assumes some things:
         rvm install 3.2.4
 
         brew install rust # for compiling yjit
-        rvm install 3.3.1 --enable-yjit --with-openssl-dir=$(brew --prefix openssl@3)
+        rvm install 3.4.7 --enable-yjit --with-openssl-dir=$(brew --prefix openssl@3)
 
     and docs ([off by default](https://rvm.io/rubies/docs), but useful to Ruby LSP)
 
@@ -40,9 +40,9 @@ This template assumes some things:
         export PKG_CONFIG_PATH="$(brew --prefix openssl@1.1)/lib/pkgconfig" # if needed
         rvm install 2.7.8 --with-openssl-dir=$(brew --prefix openssl@1.1)
 
-* Rails 6.0+ is installed (7.1 recommended)
+* Rails 6.0+ is installed (8.0 recommended)
 
-        rvm use 3.3.1
+        rvm use 3.4.7
         gem install rails               # install latest version of rails
         gem install rails -v "~> 4.2.7" # you may install an older version, but the template is very likely to not work. Some things require rails 5.2+
 
@@ -86,7 +86,7 @@ This template assumes some things:
         Requirements installation successful.
 
 * SSH keys are configured so access to dev.tiu11.org doesn't prompt for a password
-* dev.tiu11.org has an SSH public key, and this is the desired Bitbucket deployment key
+* dev.tiu11.org has an SSH public key, and this is the desired GitHub deployment key
 * dev.tiu11.org also has RVM (~> 1.29) installed
 
 # Getting Started
@@ -96,7 +96,7 @@ Choose your application name carefully, since a lot of work will be done using t
 To see what the template does, we like to first generate a default rails app and commit it to git as a baseline for comparison. (optional)
 
     cd ~/code                    # Wherever you put your projects
-    rvm use 3.3.1
+    rvm use 3.4.7
     rails new                    # learn what the various options do
     rails new my-app --database postgresql --skip-active-storage --javascript esbuild --no-scaffold-stylesheet
     cd my-app
@@ -114,7 +114,7 @@ Some options are pretty standard, so make them defaults:
 Finally, apply this template:
 
     cd ~/code                    # Wherever you put your projects
-    rails new my-app --template https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb --database postgresql --skip-active-storage --no-scaffold-stylesheet --force
+    rails new my-app --template https://github.com/TIU11/rails-application-template/raw/master/template.rb --database postgresql --skip-active-storage --no-scaffold-stylesheet --force
 
 Look over what the template added to the default app. You might spot something that could be improved in the template.
 
@@ -127,7 +127,7 @@ That's it, take her for a spin:
 
 # Post-setup
 
-* add ~dev, demo~, production deployment keys to Bitbucket
+* add ~dev, demo~, production deployment keys to GitHub
 * review `Gemfile` (replace gems you may have added)
 * review the environment configs: `development`, `dev`, `demo`, `production` (`dev` and `demo` are copies of production)
     * `config/environments/<environment>.rb`
@@ -147,7 +147,7 @@ That's it, take her for a spin:
 
 # Updating an existing Application
 
-* `rails app:template LOCATION=https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb`
+* `rails app:template LOCATION=https://github.com/TIU11/rails-application-template/raw/master/template.rb`
 
 # Todo
 

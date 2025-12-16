@@ -20,13 +20,13 @@ gem 'paper_trail', '~> 15.0'    # Track model revisions
 gem 'will_paginate', '~> 4.0'   # Pagination
 
 <% if Gem::Specification.find_all_by_name('bootstrap-sass', '~> 3.0').any? -%>
-gem 'tiu-generators', bitbucket: 'tiu/tiu-generators', branch: '1-stable' # Bootstrap 3
+gem 'tiu-generators', github: 'TIU11/tiu-generators', branch: '1-stable' # Bootstrap 3
 <% elsif Gem::Specification.find_all_by_name('bootstrap', '~> 4.0').any? -%>
-gem 'tiu-generators', bitbucket: 'tiu/tiu-generators' # Bootstrap 4
+gem 'tiu-generators', github: 'TIU11/tiu-generators' # Bootstrap 4
 <% else -%>
-gem 'tiu-generators', bitbucket: 'tiu/tiu-generators', branch: 'bootstrap-5'
+gem 'tiu-generators', github: 'TIU11/tiu-generators', branch: 'bootstrap-5'
 <% end -%>
-gem 'tiutils', git: 'git@bitbucket.org:tiu/tiutils.git'
+gem 'tiutils', git: 'git@github.com:TIU11/tiutils.git'
 
 # Static Pages
 
