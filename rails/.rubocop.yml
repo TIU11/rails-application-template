@@ -3,7 +3,7 @@
 # * [rubocop defaults](https://github.com/bbatsov/rubocop/blob/master/config/default.yml)
 # * [rails defaults](https://github.com/rails/rails/blob/main/.rubocop.yml)
 
-require:
+plugins:
   - rubocop-capybara
   - rubocop-factory_bot
   - rubocop-minitest
@@ -25,12 +25,16 @@ AllCops:
 
 #################### Layout ###########################
 
+Layout/EmptyLinesAfterModuleInclusion:
+  Enabled: false
+
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
 
 # Allow lines up to 120 characters
 Layout/LineLength:
   Max: 120
+  Severity: info
 
 Layout/SpaceBeforeBlockBraces:
   Exclude:
@@ -41,6 +45,10 @@ Layout/SpaceInsideBlockBraces:
     - "spec/**/*" # to allow `expect{raise 'foo'}.to raise_error RuntimeError`
 
 #################### Lint ###########################
+
+Lint/UselessAssignment:
+  Exclude:
+    - "**/*.xlsx.axlsx"
 
 Lint/DeprecatedOpenSSLConstant:
   Enabled: true
@@ -55,7 +63,7 @@ Lint/RaiseException:
 
 Metrics/MethodLength:
   Exclude:
-    - "app/controllers/*_controller.rb"
+    - "app/controllers/**/*_controller.rb"
     - "app/models/ability.rb"
     - "db/migrate/*.rb"
 
@@ -81,6 +89,12 @@ Naming/InclusiveLanguage:
 
 #################### Style ###########################
 
+Style/Lambda:
+  Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
 # Don't require documenting classes, modules, methods
 Style/Documentation:
   Enabled: false
@@ -96,9 +110,8 @@ Style/FrozenStringLiteralComment:
     - "spec/**/*.rb"
     - "test/**/*.rb"
 
-# Prefer array literals of symbols over %i(), which requires memorizing "%i"
 Style/SymbolArray:
-  EnforcedStyle: brackets
+  Enabled: false
 
 # Either way ok since Ruby 2.5.
 # https://www.bigbinary.com/blog/ruby-2.5-has-removed-top-level-constant-lookup
@@ -142,6 +155,12 @@ Layout/SpaceInsideArrayLiteralBrackets:
 
 #################### Rails ###########################
 
+Rails/I18nLocaleTexts:
+  Severity: info
+
+Rails/ShortI18n:
+  Enabled: false
+
 Rails/EnumHash:
   Enabled: false
 
@@ -157,6 +176,9 @@ Rails/UnknownEnv:
     - demo
 
 #################### RSpec ###########################
+
+RSpec/MetadataStyle:
+  Enabled: false
 
 RSpec/MultipleExpectations:
   Max: 5
