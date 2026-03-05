@@ -33,7 +33,7 @@ ExceptionNotification.configure do |config|
   # Email notifier sends notifications by email.
   config.add_notifier(
     :email,
-    email_prefix: "[ERROR] [<%= I18n.t('app.short_title') %>] ",
+    email_prefix: "[ERROR] [<%= I18n.t('app.short_title') %> #{Rails.env.upcase}] ",
     sender_address: %("TIU Exception Notifier" <notifier@tiu11.org>),
     exception_recipients: %w[exceptions@tiu11.org],
     background_sections: %w[backtrace]
@@ -41,9 +41,11 @@ ExceptionNotification.configure do |config|
 
   # Google Chat notifier
   # https://github.com/smartinez87/exception_notification/blob/master/docs/notifiers/google_chat.md
-  config.add_notifier(
-    :google_chat,
-    webhook_url: Rails.application.credentials.google_chat_webhook_url!
-  )
+  unless Rails.env.local?
+    config.add_notifier(
+      :google_chat,
+      webhook_url: Rails.application.credentials.google_chat_webhook_url!
+    )
+  end
 
 end
